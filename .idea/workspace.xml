@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="ea1ef532-ab71-4638-882c-3d8d2d78d7cc" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ProjectId" id="1rqFxeisuwSPiMbiPSRU14D7Zua" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+    <option name="showMembers" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="dart.analysis.tool.window.visible" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+    <property name="show.migrate.to.gradle.popup" value="false" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="ea1ef532-ab71-4638-882c-3d8d2d78d7cc" name="Default Changelist" comment="" />
+      <created>1619695962433</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1619695962433</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="-996" y="344" width="585" height="339" key="#Notifications" timestamp="1619696368793">
+      <screen x="-1680" y="0" width="1680" height="1010" />
+    </state>
+    <state x="-996" y="344" width="585" height="339" key="#Notifications/0.0.1680.1010/-1680.0.1680.1010@-1680.0.1680.1010" timestamp="1619696368793" />
+    <state x="-1353" y="159" key="SettingsEditor" timestamp="1619696097497">
+      <screen x="-1680" y="0" width="1680" height="1010" />
+    </state>
+    <state x="-1353" y="159" key="SettingsEditor/0.0.1680.1010/-1680.0.1680.1010@-1680.0.1680.1010" timestamp="1619696097497" />
+  </component>
+</project>
