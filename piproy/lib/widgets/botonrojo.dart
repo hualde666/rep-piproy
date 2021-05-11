@@ -44,8 +44,8 @@ class BotonRojo extends StatelessWidget {
           } else {
             // _hacerCorreo();
             // _hacerLLamada();
-            //_mandarSMS();
-            _geoLocal();
+            _mandarSMS();
+            // _geoLocal();
 
             Navigator.pop(context);
           }
@@ -54,7 +54,7 @@ class BotonRojo extends StatelessWidget {
     );
   }
 
-  Future<void> _geoLocal() async {
+  Future<String> _geoLocal() async {
     Location location = new Location();
 
     bool _serviceEnabled;
@@ -65,7 +65,7 @@ class BotonRojo extends StatelessWidget {
     if (!_serviceEnabled) {
       _serviceEnabled = await location.requestService();
       if (!_serviceEnabled) {
-        return;
+        return "";
       }
     }
 
@@ -73,12 +73,17 @@ class BotonRojo extends StatelessWidget {
     if (_permissionGranted == PermissionStatus.denied) {
       _permissionGranted = await location.requestPermission();
       if (_permissionGranted != PermissionStatus.granted) {
-        return;
+        return "";
       }
     }
 
     _locationData = await location.getLocation();
-    print(_locationData);
+
+    final lat = _locationData.latitude;
+    final lng = _locationData.longitude;
+    final pos = 'https://maps.google.com/?q=$lat,$lng';
+    print('Geolocalizacion:   ************ $_locationData ; $pos ****');
+    return pos;
   }
 
   Future<void> _hacerLLamada() async {
@@ -94,20 +99,20 @@ class BotonRojo extends StatelessWidget {
 
   Future<void> _mandarSMS() async {
     String _phone = '+0414-3811785';
-    String _sms = 'E M E R G E N C I A      MAMÁ Necesita ayuda   ';
+    final pos = await _geoLocal();
+    String _sms = 'E M E R G E N C I A      MAMÁ Necesita ayuda';
+    String _sms2 = pos;
     final resp = await Sendsms.onGetPermission();
     if (resp.hashCode != null) {
       print(resp.hashCode);
     }
 
     if (await Sendsms.hasPermission()) {
-      await Sendsms.onSendSMS(_phone, _sms);
+      // final resp = await Sendsms.onSendSMS(_phone, _sms);
+      final resp2 = await Sendsms.onSendSMS(_phone, _sms2);
+      print(resp2);
+      print(_sms);
     }
-    // if (await canLaunch(url)) {
-    //   await launch(url);
-    // } else {
-    //   throw 'Could not launch $url';
-    // }
   }
 
   //***           ENVIAR CORREO DE EMERGENCIA */
@@ -158,7 +163,7 @@ class BotonRojo extends StatelessWidget {
     //   platformResponse = error.toString();
     // }
 
-//    CORREO CON url_launcher FUNCIONA PEROOOO... DEBO DAR SEND AL CORREO
+    //    CORREO CON url_launcher FUNCIONA PEROOOO... DEBO DAR SEND AL CORREO
     final Uri _emailLaunchUri = Uri(
         scheme: 'mailto',
         path: 'irenehualde@hotmail.com',
@@ -171,3 +176,5 @@ class BotonRojo extends StatelessWidget {
     }
   }
 }
+
+class Position {}

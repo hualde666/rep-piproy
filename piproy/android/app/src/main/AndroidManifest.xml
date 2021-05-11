@@ -43,4 +43,5 @@
      <!--       probando permisos para sms-->
     <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 </manifest>
