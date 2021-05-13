@@ -8,7 +8,6 @@ class NivelPila extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final _nivelBateria = _getNivelBateria();
     return FutureBuilder(
         future: _getNivelBateria(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -38,7 +37,7 @@ class NivelPila extends StatelessWidget {
 
   Future _getNivelBateria() async {
     final int batteryLevel = await battery.batteryLevel;
-
-    return batteryLevel;
+    final int batteryLevel2 = 60;
+    return batteryLevel2;
   }
 }

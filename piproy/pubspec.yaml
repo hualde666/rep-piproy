@@ -37,6 +37,8 @@ dependencies:
   # nivel bateria
   battery: ^2.0.1
   # geo localizacion
+  geocoding: ^2.0.0
+  geolocator: ^7.0.3
   location:
 
 

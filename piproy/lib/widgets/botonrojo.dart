@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:sendsms/sendsms.dart';
-import 'package:location/location.dart';
+//import 'package:location/location.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
+//import 'package:geolocator_platform_interface/src/enums/location_accuracy.dart';
 
 class BotonRojo extends StatelessWidget {
   String pagina;
+
   BotonRojo(String pagina) {
     this.pagina = pagina;
   }
@@ -54,35 +58,72 @@ class BotonRojo extends StatelessWidget {
     );
   }
 
-  Future<String> _geoLocal() async {
-    Location location = new Location();
+  // Future<String> _geoLocal() async {
+  //   Location location = new Location();
+  //   final String _direccion = '';
 
-    bool _serviceEnabled;
-    PermissionStatus _permissionGranted;
-    LocationData _locationData;
+  //   bool _serviceEnabled;
+  //   PermissionStatus _permissionGranted;
+  //   LocationData _locationData;
 
-    _serviceEnabled = await location.serviceEnabled();
-    if (!_serviceEnabled) {
-      _serviceEnabled = await location.requestService();
-      if (!_serviceEnabled) {
-        return "";
+  //   _serviceEnabled = await location.serviceEnabled();
+  //   if (!_serviceEnabled) {
+  //     _serviceEnabled = await location.requestService();
+  //     if (!_serviceEnabled) {
+  //       return "";
+  //     }
+  //   }
+
+  //   _permissionGranted = await location.hasPermission();
+  //   if (_permissionGranted == PermissionStatus.denied) {
+  //     _permissionGranted = await location.requestPermission();
+  //     if (_permissionGranted != PermissionStatus.granted) {
+  //       return "";
+  //     }
+  //   }
+
+  //   _locationData = await location.getLocation();
+
+  //   final lat = _locationData.latitude;
+  //   final lng = _locationData.longitude;
+  //   final pos = 'https://maps.google.com/?q=$lat,$lng';
+  //   print('Geolocalizacion:   ************ $_locationData ; $pos ****');
+  //   return pos;
+  // }
+  Future _geoLocal() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+    // Position pos;
+
+    // Test if location services are enabled.
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      // Location services are not enabled don't continue
+      // accessing the position and request users of the
+      // App to enable the location services.
+      return Future.error('Location services are disabled.');
+    }
+
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        // Permissions are denied, next time you could try
+        // requesting permissions again (this is also where
+        // Android's shouldShowRequestPermissionRationale
+        // returned true. According to Android guidelines
+        // your App should show an explanatory UI now.
+        return Future.error('Location permissions are denied');
       }
     }
 
-    _permissionGranted = await location.hasPermission();
-    if (_permissionGranted == PermissionStatus.denied) {
-      _permissionGranted = await location.requestPermission();
-      if (_permissionGranted != PermissionStatus.granted) {
-        return "";
-      }
+    if (permission == LocationPermission.deniedForever) {
+      // Permissions are denied forever, handle appropriately.
+      return Future.error(
+          'Location permissions are permanently denied, we cannot request permissions.');
     }
+    final pos = await Geolocator.getCurrentPosition();
 
-    _locationData = await location.getLocation();
-
-    final lat = _locationData.latitude;
-    final lng = _locationData.longitude;
-    final pos = 'https://maps.google.com/?q=$lat,$lng';
-    print('Geolocalizacion:   ************ $_locationData ; $pos ****');
     return pos;
   }
 
@@ -97,21 +138,41 @@ class BotonRojo extends StatelessWidget {
     }
   }
 
+  Future<String> _getAddressFromLatLng(dynamic _currentPosition) async {
+    try {
+      List<Placemark> placemarks = await placemarkFromCoordinates(
+          _currentPosition.latitude, _currentPosition.longitude);
+
+      Placemark place = placemarks[0];
+
+      return " ${place.thoroughfare}, ${place.locality},  ${place.postalCode}, ${place.country}";
+    } catch (e) {
+      print(e);
+      return "";
+    }
+  }
+
   Future<void> _mandarSMS() async {
     String _phone = '+0414-3811785';
     final pos = await _geoLocal();
-    String _sms = 'E M E R G E N C I A      MAMÁ Necesita ayuda';
-    String _sms2 = pos;
+    final dir = await _getAddressFromLatLng(pos); // direcion en texto.
+
+    String _sms = 'E M E R G E N C I A      MAMÁ Necesita ayuda. Ubicacion:';
+    // String sms = _sms + dir;
+
+    final lat = pos.latitude;
+    final lng = pos.longitude;
+    final pos2 = 'https://maps.google.com/?q=$lat,$lng';
+    String _sms2 = pos2;
     final resp = await Sendsms.onGetPermission();
     if (resp.hashCode != null) {
       print(resp.hashCode);
     }
 
     if (await Sendsms.hasPermission()) {
-      // final resp = await Sendsms.onSendSMS(_phone, _sms);
-      final resp2 = await Sendsms.onSendSMS(_phone, _sms2);
-      print(resp2);
-      print(_sms);
+      final resp = await Sendsms.onSendSMS(_phone, _sms);
+      final resp1 = await Sendsms.onSendSMS(_phone, dir);
+      final resp2 = await Sendsms.onSendSMS(_phone, pos2);
     }
   }
 
