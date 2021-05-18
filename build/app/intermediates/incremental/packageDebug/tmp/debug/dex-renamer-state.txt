@@ -1,0 +1,4 @@
+#Tue May 18 07:00:35 VET 2021
+base.0=D\:\\documentos\\flutter\\piproy\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
+path.0=classes.dex
+renamed.0=classes.dex

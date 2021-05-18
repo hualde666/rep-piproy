@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:piproy/scr/pages/botonrojo_page.dart';
+import 'package:piproy/scr/pages/home2_page.dart';
 import 'package:piproy/scr/pages/home_page.dart';
 
 void main() {
@@ -13,10 +14,11 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Proyecto',
-      theme: ThemeData(primarySwatch: Colors.teal),
-      initialRoute: 'home',
+      theme: ThemeData.dark().copyWith(accentColor: Colors.red),
+      initialRoute: 'home2',
       routes: {
         'home': (_) => HomePage(),
+        'home2': (_) => Home2Page(),
         'botonRojo': (_) => BotonRojoPage(),
       },
     );

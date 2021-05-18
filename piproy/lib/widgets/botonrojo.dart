@@ -19,42 +19,28 @@ class BotonRojo extends StatelessWidget {
 //       )
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      height: 100.0,
-      margin: EdgeInsets.symmetric(horizontal: 10.0),
-      color: Colors.red[900],
-      //decoration: Colors.red[900],
-      child: ElevatedButton(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Icon(
-              Icons.call,
-              size: 50.0,
-              color: Colors.white,
-            ),
-            //  SizedBox(width: 20.0),
-            Text(
-              'EMERGENCIA',
-              style: TextStyle(color: Colors.white, fontSize: 35.0),
-            ),
-          ],
-        ),
-        // style: ButtonStyle(backgroundColor: Color.),
-        onPressed: () {
-          if (pagina == 'home') {
-            Navigator.pushNamed(context, 'botonRojo');
-          } else {
-            // _hacerCorreo();
-            // _hacerLLamada();
-            _mandarSMS();
-            // _geoLocal();
-
-            Navigator.pop(context);
-          }
-        },
+    return ElevatedButton(
+      style:
+          ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.red)),
+      child: //  SizedBox(width: 20.0),
+          Text(
+        'EMERGENCIA',
+        style: TextStyle(color: Colors.white, fontSize: 35.0),
       ),
+
+      // style: ButtonStyle(backgroundColor: Color.),
+      onPressed: () {
+        if (pagina == 'home') {
+          Navigator.pushNamed(context, 'botonRojo');
+        } else {
+          // _hacerCorreo();
+          // _hacerLLamada();
+          _mandarSMS();
+          // _geoLocal();
+
+          Navigator.pop(context);
+        }
+      },
     );
   }
 

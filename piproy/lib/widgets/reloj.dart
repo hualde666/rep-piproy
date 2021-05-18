@@ -14,7 +14,7 @@ class Reloj extends StatelessWidget {
           width: _screenSize.width,
           child: Card(
             elevation: 10.0,
-            color: Colors.teal[600],
+            // color: Colors.teal[600],
             shadowColor: Colors.teal,
             shape: RoundedRectangleBorder(
               side: BorderSide(color: Colors.white, width: 2.0),

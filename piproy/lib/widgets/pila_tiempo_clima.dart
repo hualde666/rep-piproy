@@ -43,9 +43,9 @@ class _Pila_Timpo_ClimaState extends State<Pila_Timpo_Clima> {
   Widget build(BuildContext context) {
     return Container(
       child: Column(children: [
-        Clima(),
+        // Clima(),
         Reloj(),
-        NivelPila(),
+        //  NivelPila(),
       ]),
     );
   }
