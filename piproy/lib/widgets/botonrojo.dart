@@ -20,10 +20,10 @@ class BotonRojo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      style:
-          ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.red)),
-      child: //  SizedBox(width: 20.0),
-          Text(
+      style: ButtonStyle(
+        backgroundColor: MaterialStateProperty.all(Colors.red),
+      ),
+      child: Text(
         'EMERGENCIA',
         style: TextStyle(color: Colors.white, fontSize: 35.0),
       ),

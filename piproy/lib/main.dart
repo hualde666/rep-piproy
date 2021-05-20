@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Proyecto',
-      theme: ThemeData.dark().copyWith(accentColor: Colors.red),
+      theme: ThemeData.dark().copyWith(accentColor: Colors.green),
       initialRoute: 'home2',
       routes: {
         'home': (_) => HomePage(),
