@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:piproy/scr/pages/botonrojo_page.dart';
+import 'package:piproy/scr/pages/contactos_page.dart';
 import 'package:piproy/scr/pages/home2_page.dart';
 import 'package:piproy/scr/pages/home_page.dart';
 
@@ -20,6 +21,7 @@ class MyApp extends StatelessWidget {
         'home': (_) => HomePage(),
         'home2': (_) => Home2Page(),
         'botonRojo': (_) => BotonRojoPage(),
+        'contactos': (_) => ContactosPage(),
       },
     );
   }

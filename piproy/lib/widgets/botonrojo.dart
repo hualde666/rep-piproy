@@ -35,7 +35,7 @@ class BotonRojo extends StatelessWidget {
         } else {
           // _hacerCorreo();
           // _hacerLLamada();
-          _mandarSMS();
+          mandarSMS();
           // _geoLocal();
 
           Navigator.pop(context);
@@ -138,7 +138,7 @@ class BotonRojo extends StatelessWidget {
     }
   }
 
-  Future<void> _mandarSMS() async {
+  Future<void> mandarSMS() async {
     String _phone = '+0414-3811785';
     final pos = await _geoLocal();
     final dir = await _getAddressFromLatLng(pos); // direcion en texto.
