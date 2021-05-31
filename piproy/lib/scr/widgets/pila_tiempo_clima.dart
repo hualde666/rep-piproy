@@ -1,10 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:piproy/scr/models/reloj_modelo.dart';
-import 'package:piproy/widgets/clima.dart';
-import 'package:piproy/widgets/pila.dart';
-import 'package:piproy/widgets/reloj.dart';
+
+import 'package:piproy/scr/widgets/reloj.dart';
 
 class Pila_Timpo_Clima extends StatefulWidget {
   @override
@@ -41,12 +39,9 @@ class _Pila_Timpo_ClimaState extends State<Pila_Timpo_Clima> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(children: [
+    return
         // Clima(),
-        Reloj(),
-        //  NivelPila(),
-      ]),
-    );
+        Reloj();
+    //  NivelPila(),
   }
 }

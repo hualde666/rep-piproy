@@ -1,74 +1,75 @@
 import 'package:flutter/material.dart';
-import 'package:piproy/widgets/botton_bar.dart';
-import 'package:piproy/widgets/elemntos.dart';
-import 'package:piproy/widgets/encabezado.dart';
-import 'package:piproy/widgets/encabezado_icon.dart';
-
-import 'package:piproy/widgets/pila_tiempo_clima.dart';
+import 'package:piproy/scr/models/linterna_model.dart';
+import 'package:piproy/scr/widgets/botton_bar.dart';
+import 'package:piproy/scr/widgets/elemntos.dart';
+import 'package:piproy/scr/widgets/encabezado.dart';
+import 'package:piproy/scr/widgets/encabezado_icon.dart';
+import 'package:piproy/scr/widgets/pila_tiempo_clima.dart';
 
 class Home2Page extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      // appBar: PreferredSize(
-      //   preferredSize: Size.fromHeight(200.0), // here the desired height
-      //   child: _encabezadoApp(),
-      // ),
-      body: SafeArea(
-        child: CustomScrollView(
+    return SafeArea(
+      child: Scaffold(
+        appBar: PreferredSize(
+          preferredSize: Size.fromHeight(125.0),
+          child: AppBar(
+              title: Text('Proyecto PI'),
+              // automaticallyImplyLeading: false, // hides leading widget
+              flexibleSpace: encabezadoIcon()),
+        ),
+        body: CustomScrollView(
           slivers: _detalle(context),
         ),
+        bottomNavigationBar: bottonBarNavegador(context),
       ),
-      bottomNavigationBar: bottonBarNavegador(context),
     );
   }
 
   List<Widget> _detalle(BuildContext context) {
+    Linterna linterna = new Linterna();
     return <Widget>[
-      encabezadoApp(),
+      //   encabezadoApp(),
       SliverList(
         delegate: SliverChildListDelegate([
-          encabezadoIcon(),
+          // encabezadoIcon(),
           elementos(context, Pila_Timpo_Clima(), Colors.black, ''),
           SizedBox(height: 3.0),
           elementos(
               context,
-              Center(
-                child: Text('EMERGENCIA',
-                    style: TextStyle(color: Colors.white, fontSize: 35.0)),
-              ),
+              Text('EMERGENCIA',
+                  style: TextStyle(color: Colors.white, fontSize: 35.0)),
               Colors.red,
               'botonRojo'),
           SizedBox(height: 3.0),
           elementos(
               context,
-              Center(
-                  child: Text('Contactos',
-                      style: TextStyle(color: Colors.white, fontSize: 35.0))),
+              Text('Contactos',
+                  style: TextStyle(color: Colors.white, fontSize: 35.0)),
               Colors.black,
               'contactos'),
           SizedBox(height: 3.0),
           elementos(
               context,
-              Center(
-                  child: Text('Aplicaciones',
-                      style: TextStyle(color: Colors.white, fontSize: 35.0))),
+              Container(
+                height: 50.0,
+                width: 50.0,
+                color: Colors.amber,
+              ),
               Colors.black,
               ''),
           SizedBox(height: 3.0),
           elementos(
               context,
-              Center(
-                  child: Text('ELEMENTO',
-                      style: TextStyle(color: Colors.white, fontSize: 35.0))),
+              Text('ELEMENTO',
+                  style: TextStyle(color: Colors.white, fontSize: 35.0)),
               Colors.black,
               ''),
           SizedBox(height: 3.0),
           elementos(
               context,
-              Center(
-                  child: Text('ELEMENTO',
-                      style: TextStyle(color: Colors.white, fontSize: 35.0))),
+              Text('ELEMENTO',
+                  style: TextStyle(color: Colors.white, fontSize: 35.0)),
               Colors.black,
               ''),
         ]),

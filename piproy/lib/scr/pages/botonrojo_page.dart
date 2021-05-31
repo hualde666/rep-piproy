@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:piproy/widgets/botoncancelar.dart';
-import 'package:piproy/widgets/botonrojo.dart';
+import 'package:piproy/scr/widgets/botoncancelar.dart';
+import 'package:piproy/scr/widgets/botonrojo.dart';
 
 class BotonRojoPage extends StatelessWidget {
   @override

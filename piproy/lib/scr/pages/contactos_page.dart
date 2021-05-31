@@ -1,98 +1,68 @@
 import 'package:flutter/material.dart';
-import 'package:piproy/widgets/botton_bar.dart';
-import 'package:piproy/widgets/tarjeta_contactos.dart';
-import 'package:piproy/widgets/encabezado.dart';
-import 'package:piproy/widgets/encabezado_icon.dart';
+import 'package:contacts_service/contacts_service.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:flutter/services.dart';
 
-class ContactosPage extends StatelessWidget {
+import 'package:piproy/scr/widgets/botton_bar.dart';
+import 'package:piproy/scr/widgets/encabezado.dart';
+import 'package:piproy/scr/widgets/encabezado_icon.dart';
+import 'package:piproy/scr/widgets/tarjeta_contactos.dart';
+
+class ContactosPage extends StatefulWidget {
+  @override
+  _ContactosPageState createState() => _ContactosPageState();
+}
+
+class _ContactosPageState extends State<ContactosPage> {
+  List<Contact> listaContactos = [];
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getAllContactos();
+  }
+
+  getAllContactos() async {
+    Permission permiso;
+    final resp = await Permission.contacts.request();
+    print('resp: $resp');
+    if (resp == PermissionStatus.granted) {
+      List<Contact> _contactos = (await ContactsService.getContacts()).toList();
+
+      setState(() {
+        listaContactos = _contactos
+            .where((contac) => contac.phones.isEmpty == false)
+            .toList();
+        print(listaContactos.length);
+        print(listaContactos[5].displayName);
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      // appBar: PreferredSize(
-      //   preferredSize: Size.fromHeight(200.0), // here the desired height
-      //   child: _encabezadoApp(),
-      // ),
-      body: SafeArea(
-        child: CustomScrollView(
-          slivers: _detalleContacto(context),
+    return SafeArea(
+      child: Scaffold(
+        appBar: PreferredSize(
+          preferredSize: Size.fromHeight(125.0),
+          child: AppBar(
+              title: Text('Contactos'),
+              automaticallyImplyLeading: true, // hides leading widget
+              flexibleSpace: encabezadoIcon()),
         ),
+        body: _detalleContacto(context),
+        bottomNavigationBar: bottonBarNavegador(context),
       ),
-      bottomNavigationBar: bottonBarNavegador(context),
     );
   }
 
-  List<Widget> _detalleContacto(BuildContext context) {
-    return <Widget>[
-      encabezadoApp(),
-      SliverList(
-        delegate: SliverChildListDelegate([
-          encabezadoIcon(),
-          SizedBox(height: 3.0),
-          tarjetaContacto(
-              context,
-              Center(
-                child: Text('C O N T A C T O',
-                    style: TextStyle(color: Colors.white, fontSize: 35.0)),
-              ),
-              Colors.black,
-              ''),
-          SizedBox(height: 3.0),
-          tarjetaContacto(
-              context,
-              Center(
-                child: Text('C O N T A C T O',
-                    style: TextStyle(color: Colors.white, fontSize: 35.0)),
-              ),
-              Colors.black,
-              ''),
-          SizedBox(height: 3.0),
-          tarjetaContacto(
-              context,
-              Center(
-                child: Text('C O N T A C T O',
-                    style: TextStyle(color: Colors.white, fontSize: 35.0)),
-              ),
-              Colors.black,
-              ''),
-          SizedBox(height: 3.0),
-          tarjetaContacto(
-              context,
-              Center(
-                child: Text('C O N T A C T O',
-                    style: TextStyle(color: Colors.white, fontSize: 35.0)),
-              ),
-              Colors.black,
-              ''),
-          SizedBox(height: 3.0),
-          tarjetaContacto(
-              context,
-              Center(
-                child: Text('C O N T A C T O',
-                    style: TextStyle(color: Colors.white, fontSize: 35.0)),
-              ),
-              Colors.black,
-              ''),
-          SizedBox(height: 3.0),
-          tarjetaContacto(
-              context,
-              Center(
-                child: Text('C O N T A C T O',
-                    style: TextStyle(color: Colors.white, fontSize: 35.0)),
-              ),
-              Colors.black,
-              ''),
-          SizedBox(height: 3.0),
-          tarjetaContacto(
-              context,
-              Center(
-                child: Text('C O N T A C T O',
-                    style: TextStyle(color: Colors.white, fontSize: 35.0)),
-              ),
-              Colors.black,
-              ''),
-          SizedBox(height: 3.0),
-        ]),
-      )
-    ];
+  Widget _detalleContacto(BuildContext context) {
+    return ListView.builder(
+      // shrinkWrap: true,
+      controller: PageController(viewportFraction: 0.1),
+      scrollDirection: Axis.vertical,
+      itemCount: listaContactos.length,
+      itemBuilder: (context, i) => tarjetaContacto(context, listaContactos[i]),
+    );
   }
 }

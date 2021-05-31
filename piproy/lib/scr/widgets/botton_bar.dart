@@ -11,7 +11,8 @@ Widget bottonBarNavegador(BuildContext context) {
         showUnselectedLabels: false,
         items: [
           BottomNavigationBarItem(
-              icon: Icon(Icons.home_outlined, size: 30.0), label: ''),
+              icon: Icon(Icons.home_outlined, color: Colors.green, size: 30.0),
+              label: ''),
           BottomNavigationBarItem(
               icon: Icon(Icons.bubble_chart, size: 30.0), label: ''),
           BottomNavigationBarItem(

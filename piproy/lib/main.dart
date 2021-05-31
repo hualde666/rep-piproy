@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:piproy/scr/pages/botonrojo_page.dart';
 import 'package:piproy/scr/pages/contactos_page.dart';
 import 'package:piproy/scr/pages/home2_page.dart';
-import 'package:piproy/scr/pages/home_page.dart';
 
 void main() {
   runApp(MyApp());
@@ -16,10 +15,9 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Proyecto',
       theme: ThemeData.dark().copyWith(accentColor: Colors.green),
-      initialRoute: 'home2',
+      initialRoute: 'home',
       routes: {
-        'home': (_) => HomePage(),
-        'home2': (_) => Home2Page(),
+        'home': (_) => Home2Page(),
         'botonRojo': (_) => BotonRojoPage(),
         'contactos': (_) => ContactosPage(),
       },
