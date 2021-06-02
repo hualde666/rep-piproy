@@ -11,16 +11,17 @@ Widget bottonBarNavegador(BuildContext context) {
         showUnselectedLabels: false,
         items: [
           BottomNavigationBarItem(
-              icon: Icon(Icons.home_outlined, color: Colors.green, size: 30.0),
-              label: ''),
+            icon: Icon(Icons.home_outlined, color: Colors.green, size: 30.0),
+            label: 'Inicio',
+          ),
           BottomNavigationBarItem(
-              icon: Icon(Icons.bubble_chart, size: 30.0), label: ''),
+              icon: Icon(Icons.bubble_chart, size: 30.0), label: 'Bubble'),
           BottomNavigationBarItem(
               icon: Icon(
                 Icons.supervised_user_circle,
                 size: 30.0,
               ),
-              label: ''),
+              label: 'Super'),
         ],
       ));
 }

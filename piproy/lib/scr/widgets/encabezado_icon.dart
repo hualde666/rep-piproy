@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:piproy/scr/models/linterna_model.dart';
-//import 'package:lamp/lamp.dart';
+import 'package:lamp/lamp.dart';
 
 Widget encabezadoIcon() {
   final bool isOn = false;
@@ -19,7 +19,7 @@ Widget encabezadoIcon() {
   return Container(
     height: 100.0,
     width: double.infinity,
-    margin: EdgeInsets.only(left: 10.0, top: 20.0),
+    margin: EdgeInsets.only(left: 10.0, top: 30.0),
     child: ListView.builder(
         controller: PageController(viewportFraction: 0.2),
         scrollDirection: Axis.horizontal,
@@ -30,15 +30,32 @@ Widget encabezadoIcon() {
 
 Widget _conteinerIcon(Icon icon, String tarea) {
   return GestureDetector(
-    child: Container(
-      width: 70.0,
-      height: 70.0,
+    child: Tooltip(
+      message: tarea,
       decoration: BoxDecoration(
-          color: Colors.black,
-          borderRadius: BorderRadius.circular(40),
-          border: Border.all(color: Colors.green)),
-      margin: EdgeInsets.only(left: 15.0, top: 30.0),
-      child: icon, // Icon(icon, size: 40.0, color: Colors.green),
+        borderRadius: BorderRadius.circular(25),
+        gradient:
+            const LinearGradient(colors: <Color>[Colors.amber, Colors.green]),
+      ),
+      height: 50,
+      padding: const EdgeInsets.all(8.0),
+      preferBelow: false,
+      textStyle: const TextStyle(
+        color: Colors.black,
+        fontSize: 24,
+      ),
+      showDuration: const Duration(seconds: 2),
+      waitDuration: const Duration(seconds: 1),
+      child: Container(
+        width: 70.0,
+        height: 70.0,
+        decoration: BoxDecoration(
+            color: Colors.black,
+            borderRadius: BorderRadius.circular(40),
+            border: Border.all(color: Colors.green)),
+        margin: EdgeInsets.only(left: 15.0, top: 30.0),
+        child: icon, // Icon(icon, size: 40.0, color: Colors.green),
+      ),
     ),
     onTap: () => {funcionIcon(tarea)},
   );
@@ -47,6 +64,6 @@ Widget _conteinerIcon(Icon icon, String tarea) {
 funcionIcon(String tarea) {
   print(tarea);
   if (tarea == 'linterna') {
-    // Lamp.turnOn(intensity: 1.0);
+    Lamp.turnOn(intensity: 1.0);
   }
 }

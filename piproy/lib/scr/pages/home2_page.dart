@@ -11,17 +11,17 @@ class Home2Page extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(125.0),
-          child: AppBar(
-              title: Text('Proyecto PI'),
-              // automaticallyImplyLeading: false, // hides leading widget
-              flexibleSpace: encabezadoIcon()),
-        ),
+        // appBar: PreferredSize(
+        //   preferredSize: Size.fromHeight(125.0),
+        //   child: AppBar(
+        //       title: Text('Proyecto PI'),
+        //       // automaticallyImplyLeading: false, // hides leading widget
+        //       flexibleSpace: encabezadoIcon()),
+        // ),
         body: CustomScrollView(
           slivers: _detalle(context),
         ),
-        bottomNavigationBar: bottonBarNavegador(context),
+        //   bottomNavigationBar: bottonBarNavegador(context),
       ),
     );
   }
@@ -29,7 +29,7 @@ class Home2Page extends StatelessWidget {
   List<Widget> _detalle(BuildContext context) {
     Linterna linterna = new Linterna();
     return <Widget>[
-      //   encabezadoApp(),
+      encabezadoApp('Proyecto PI'),
       SliverList(
         delegate: SliverChildListDelegate([
           // encabezadoIcon(),

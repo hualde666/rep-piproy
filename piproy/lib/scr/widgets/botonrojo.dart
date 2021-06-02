@@ -7,12 +7,6 @@ import 'package:geolocator/geolocator.dart';
 //import 'package:geolocator_platform_interface/src/enums/location_accuracy.dart';
 
 class BotonRojo extends StatelessWidget {
-  String pagina;
-
-  BotonRojo(String pagina) {
-    this.pagina = pagina;
-  }
-
 //  RoundedRectangleBorder(
 //         side: BorderSide(color: Colors.white, width: 2.0),
 //         borderRadius: BorderRadius.circular(20.0),
@@ -30,16 +24,12 @@ class BotonRojo extends StatelessWidget {
 
       // style: ButtonStyle(backgroundColor: Color.),
       onPressed: () {
-        if (pagina == 'home') {
-          Navigator.pushNamed(context, 'botonRojo');
-        } else {
-          // _hacerCorreo();
-          // _hacerLLamada();
-          mandarSMS();
-          // _geoLocal();
+        // _hacerCorreo();
+        // _hacerLLamada();
+        mandarSMS();
+        // _geoLocal();
 
-          Navigator.pop(context);
-        }
+        Navigator.pop(context);
       },
     );
   }

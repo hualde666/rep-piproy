@@ -17,7 +17,6 @@ class _ContactosPageState extends State<ContactosPage> {
   List<Contact> listaContactos = [];
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     getAllContactos();
   }
@@ -41,28 +40,32 @@ class _ContactosPageState extends State<ContactosPage> {
 
   @override
   Widget build(BuildContext context) {
+    final List<Widget> listaTarjetas = List.generate(listaContactos.length,
+        (i) => tarjetaContacto(context, listaContactos[i]));
     return SafeArea(
       child: Scaffold(
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(125.0),
-          child: AppBar(
-              title: Text('Contactos'),
-              automaticallyImplyLeading: true, // hides leading widget
-              flexibleSpace: encabezadoIcon()),
-        ),
-        body: _detalleContacto(context),
-        bottomNavigationBar: bottonBarNavegador(context),
+        body: CustomScrollView(slivers: <Widget>[
+          encabezadoApp('Contactos'),
+          SliverList(delegate: SliverChildListDelegate(listaTarjetas))
+        ]),
+        //  bottomNavigationBar: bottonBarNavegador(context),
       ),
     );
   }
 
-  Widget _detalleContacto(BuildContext context) {
-    return ListView.builder(
-      // shrinkWrap: true,
-      controller: PageController(viewportFraction: 0.1),
-      scrollDirection: Axis.vertical,
-      itemCount: listaContactos.length,
-      itemBuilder: (context, i) => tarjetaContacto(context, listaContactos[i]),
-    );
-  }
+  // Widget _detalleContacto(BuildContext context) {
+  //   final List<Widget> listaTarjetas = List.generate(listaContactos.length, (i) =>tarjetaContacto(context, listaContactos[i]));
+  //   return <Widget> [
+  //     encabezadoApp(),
+  //     SliverList(delegate: SliverChildListDelegate(listaTarjetas))];
+
 }
+
+// ListView.builder(
+//   // shrinkWrap: true,
+//   controller: PageController(viewportFraction: 0.1),
+//   scrollDirection: Axis.vertical,
+//   itemCount: listaContactos.length,
+//   itemBuilder: (context, i) =>
+//       tarjetaContacto(context, listaContactos[i]),
+// ),]

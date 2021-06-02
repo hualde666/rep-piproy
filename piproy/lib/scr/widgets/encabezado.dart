@@ -1,24 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:piproy/scr/widgets/encabezado_icon.dart';
 
-encabezadoApp() {
+encabezadoApp(String titulo) {
   return SliverAppBar(
     elevation: 2.0,
     // backgroundColor: Colors.teal[600],
-    expandedHeight: 50.0,
+    expandedHeight: 150.0,
     floating: false,
     pinned: true,
-    title: Center(child: Text('Proyecto pi')),
-    // actions: [_encabezadoIcon()],
-    // flexibleSpace: FlexibleSpaceBar(
-    //   //title: _encabezadoIcon(),
-    //   //background: Pila_Timpo_Clima(),
-    //   accion: Row(
-    //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-    //     children: [
-
-    //     ],
-    //   ),
-    //   // centerTitle: true,
-    // ),
+    title: Center(child: Text(titulo)),
+    flexibleSpace: encabezadoIcon(),
   );
 }
