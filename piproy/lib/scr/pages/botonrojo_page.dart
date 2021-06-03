@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:piproy/scr/widgets/botoncancelar.dart';
+import 'package:piproy/scr/widgets/botonrojo.dart';
 
 import 'package:piproy/scr/widgets/elemntos.dart';
 import 'package:piproy/scr/widgets/encabezado.dart';
@@ -13,19 +15,9 @@ class BotonRojoPage extends StatelessWidget {
       SliverList(
           delegate: SliverChildListDelegate([
         SizedBox(height: 50.0),
-        elementos(
-            context,
-            Text('EMERGENCIA',
-                style: TextStyle(color: Colors.white, fontSize: 35.0)),
-            Colors.red,
-            ''),
+        elementos(context, BotonRojo(), Colors.red, ''),
         SizedBox(height: 20.0),
-        elementos(
-            context,
-            Text('Cancelar',
-                style: TextStyle(color: Colors.white, fontSize: 35.0)),
-            Colors.green,
-            '')
+        elementos(context, BotonCancelar(), Colors.green, '')
       ]))
     ]
                 //  bottomNavigationBar: bottonBarNavegador(context),

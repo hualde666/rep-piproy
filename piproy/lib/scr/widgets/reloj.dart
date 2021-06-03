@@ -11,9 +11,10 @@ class Reloj extends StatelessWidget {
     final _screenSize = MediaQuery.of(context).size;
     return Container(
       height: 200.0,
+
       //width: 500.0,
       child: Column(
-        // mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text('${reloj.dias[reloj.diaweek - 1]} ',
               style: TextStyle(
