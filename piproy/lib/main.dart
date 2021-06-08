@@ -14,7 +14,18 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Proyecto',
-      theme: ThemeData.dark().copyWith(accentColor: Colors.green),
+      theme: ThemeData(
+        primaryColor: Colors.black,
+        scaffoldBackgroundColor: Colors.black,
+        bottomNavigationBarTheme: BottomNavigationBarThemeData(
+            backgroundColor: Colors.black,
+            selectedIconTheme:
+                IconThemeData(color: Colors.green, opacity: 0.6, size: 20.0),
+            unselectedIconTheme: IconThemeData(
+                color: Colors.green[100], opacity: 0.6, size: 10.0)),
+
+        // style: BorderStyle()
+      ),
       initialRoute: 'home',
       routes: {
         'home': (_) => Home2Page(),

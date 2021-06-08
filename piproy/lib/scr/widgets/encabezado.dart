@@ -6,7 +6,7 @@ encabezadoApp(String titulo) {
     elevation: 2.0,
     // backgroundColor: Colors.teal[600],
     expandedHeight: 150.0,
-    floating: false,
+    floating: true,
     pinned: true,
     title: Center(child: Text(titulo)),
     flexibleSpace: encabezadoIcon(),

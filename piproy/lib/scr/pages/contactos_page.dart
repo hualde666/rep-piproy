@@ -15,6 +15,8 @@ class ContactosPage extends StatefulWidget {
 
 class _ContactosPageState extends State<ContactosPage> {
   List<Contact> listaContactos = [];
+  List<Contact> listaContactosFiltro = [];
+  TextEditingController searchController = TextEditingController();
   @override
   void initState() {
     super.initState();
@@ -22,7 +24,6 @@ class _ContactosPageState extends State<ContactosPage> {
   }
 
   getAllContactos() async {
-    Permission permiso;
     final resp = await Permission.contacts.request();
     print('resp: $resp');
     if (resp == PermissionStatus.granted) {
@@ -32,6 +33,9 @@ class _ContactosPageState extends State<ContactosPage> {
         listaContactos = _contactos
             .where((contac) => contac.phones.isEmpty == false)
             .toList();
+        searchController.addListener(() {
+          filtrarContactos();
+        });
         print(listaContactos.length);
         print(listaContactos[5].displayName);
       });
@@ -40,32 +44,83 @@ class _ContactosPageState extends State<ContactosPage> {
 
   @override
   Widget build(BuildContext context) {
-    final List<Widget> listaTarjetas = List.generate(listaContactos.length,
-        (i) => tarjetaContacto(context, listaContactos[i]));
+    bool hayBusqueda = searchController.text.isNotEmpty;
+    final List<Widget> listaTarjetas = List.generate(
+        hayBusqueda ? listaContactosFiltro.length : listaContactos.length,
+        (i) => tarjetaContacto(context,
+            hayBusqueda ? listaContactosFiltro[i] : listaContactos[i]));
+
     return SafeArea(
       child: Scaffold(
         body: CustomScrollView(slivers: <Widget>[
-          encabezadoApp('Contactos'),
+          encabezadoContactos(),
           SliverList(delegate: SliverChildListDelegate(listaTarjetas))
         ]),
-        //  bottomNavigationBar: bottonBarNavegador(context),
+        bottomNavigationBar: BottomNavigationBar(
+          // backgroundColor: Color.fromRGBO(55, 57, 84, 1.0),
+          // selectedItemColor: Colors.pink,
+          // unselectedItemColor: Color.fromRGBO(166, 117, 152, 1.0),
+          showSelectedLabels: false,
+          showUnselectedLabels: false,
+          items: [
+            BottomNavigationBarItem(
+              icon: Icon(
+                Icons.home_outlined,
+                color: Colors.green,
+              ),
+              label: 'Inicio',
+            ),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.add), label: 'agregar contacto'),
+            BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.search,
+                ),
+                label: 'buscar contacto'),
+          ],
+        ),
       ),
     );
   }
 
-  // Widget _detalleContacto(BuildContext context) {
-  //   final List<Widget> listaTarjetas = List.generate(listaContactos.length, (i) =>tarjetaContacto(context, listaContactos[i]));
-  //   return <Widget> [
-  //     encabezadoApp(),
-  //     SliverList(delegate: SliverChildListDelegate(listaTarjetas))];
+  Widget encabezadoContactos() {
+    return SliverAppBar(
+        elevation: 2.0,
+        // backgroundColor: Colors.teal[600],
+        expandedHeight: 130.0,
+        floating: true,
+        pinned: true,
+        title: Text('C O N T A C T O S'),
+        flexibleSpace: Container(
+            margin: EdgeInsets.only(top: 60.0, left: 10.0, right: 10.0),
+            height: 60.0,
+            width: double.infinity,
+            child: TextField(
+                controller: searchController,
+                decoration: InputDecoration(
+                  // labelStyle: TextStyle(fontSize: 20.0, color: Colors.green),
+                  labelText: 'Buscar contacto:',
+                  //prefixIcon: Icon(Icons.search),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20),
+                    borderSide: BorderSide(color: Color(152364522)),
+                  ),
+                ))));
+  }
 
+  void filtrarContactos() {
+    List<Contact> _contactos = [];
+    _contactos.addAll(listaContactos);
+    if (searchController.text.isNotEmpty) {
+      _contactos.retainWhere((contacto) {
+        String busquedaMinuscula = searchController.text.toLowerCase();
+        String nombreMinuscula = contacto.displayName.toLowerCase();
+        return nombreMinuscula.contains(busquedaMinuscula);
+      });
+
+      setState(() {
+        listaContactosFiltro = _contactos;
+      });
+    }
+  }
 }
-
-// ListView.builder(
-//   // shrinkWrap: true,
-//   controller: PageController(viewportFraction: 0.1),
-//   scrollDirection: Axis.vertical,
-//   itemCount: listaContactos.length,
-//   itemBuilder: (context, i) =>
-//       tarjetaContacto(context, listaContactos[i]),
-// ),]
