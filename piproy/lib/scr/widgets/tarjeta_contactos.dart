@@ -8,7 +8,8 @@ Widget tarjetaContacto(BuildContext context, Contact contacto) {
   // final String _telefono = contacto.phones.elementAt(0).value;
   return GestureDetector(
     child: Container(
-      height: 500.0,
+      height: 400.0,
+      //color: Colors.white38,
       margin: EdgeInsets.symmetric(horizontal: 5.0, vertical: 5.0),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -16,7 +17,7 @@ Widget tarjetaContacto(BuildContext context, Contact contacto) {
           // _avatar(contacto),
           _nombreContacto(_nombre),
           SizedBox(
-            height: 260.0,
+            height: 150.0,
           ),
 
           _botonesContactos(),
@@ -27,9 +28,9 @@ Widget tarjetaContacto(BuildContext context, Contact contacto) {
               ? null
               : DecorationImage(
                   image: MemoryImage(contacto.avatar), fit: BoxFit.cover),
-          color: Colors.black,
+          color: Colors.white38,
           borderRadius: BorderRadius.circular(20.0),
-          border: Border.all(color: Colors.green)),
+          border: Border.all(color: Colors.green, width: 5.0)),
     ),
     onTap: () {
       Navigator.pop(context);
@@ -47,11 +48,11 @@ Widget _botonesContactos() {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         conteinerIcon(
-            Icon(Icons.message, size: 40.0, color: Colors.green), 'mensaje'),
-        conteinerIcon(Icon(Icons.video_call, size: 40.0, color: Colors.green),
+            Icon(Icons.message, size: 40.0, color: Colors.white), 'mensaje'),
+        conteinerIcon(Icon(Icons.video_call, size: 40.0, color: Colors.white),
             'video llamada'),
         conteinerIcon(
-            Icon(Icons.call, size: 40.0, color: Colors.green), 'llamada'),
+            Icon(Icons.call, size: 40.0, color: Colors.white), 'llamada'),
       ],
     ),
   );
@@ -63,9 +64,9 @@ Widget _nombreContacto(String nombre) {
       width: double.infinity,
       margin: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
       decoration: BoxDecoration(
-          color: Colors.black,
+          color: Colors.green,
           borderRadius: BorderRadius.circular(20.0),
-          border: Border.all(color: Colors.green)),
+          border: Border.all(color: Colors.white)),
       child: Center(
           child: Text(nombre,
               textAlign: TextAlign.center,

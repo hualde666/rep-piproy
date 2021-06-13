@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:contacts_service/contacts_service.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:flutter/services.dart';
 
-import 'package:piproy/scr/widgets/botton_bar.dart';
-import 'package:piproy/scr/widgets/encabezado.dart';
-import 'package:piproy/scr/widgets/encabezado_icon.dart';
 import 'package:piproy/scr/widgets/tarjeta_contactos.dart';
 
 class ContactosPage extends StatefulWidget {

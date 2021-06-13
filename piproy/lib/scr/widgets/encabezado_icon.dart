@@ -9,18 +9,18 @@ Widget encabezadoIcon() {
         Icon(
           Icons.filter_alt,
           size: 40.0,
-          color: Colors.green,
+          color: Colors.white,
           semanticLabel: 'linterna',
         ),
         'linterna'), // linterna
     conteinerIcon(
-        Icon(Icons.battery_std, size: 40.0, color: Colors.green), 'bateria'),
-    conteinerIcon(Icon(Icons.wifi, size: 40.0, color: Colors.green), 'wifi'),
+        Icon(Icons.battery_std, size: 40.0, color: Colors.white), 'bateria'),
+    conteinerIcon(Icon(Icons.wifi, size: 40.0, color: Colors.white), 'wifi'),
     conteinerIcon(
-        Icon(Icons.access_alarms, size: 40.0, color: Colors.green), 'alarma'),
-    conteinerIcon(Icon(Icons.chat, size: 40.0, color: Colors.green), 'chat'),
+        Icon(Icons.access_alarms, size: 40.0, color: Colors.white), 'alarma'),
+    conteinerIcon(Icon(Icons.chat, size: 40.0, color: Colors.white), 'chat'),
     conteinerIcon(
-        Icon(Icons.add_call, size: 40.0, color: Colors.green), 'llamada'),
+        Icon(Icons.add_call, size: 40.0, color: Colors.white), 'llamada'),
   ];
   return Container(
     height: 100.0,

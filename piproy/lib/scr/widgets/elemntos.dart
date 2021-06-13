@@ -5,6 +5,7 @@ Widget elementos(
   return GestureDetector(
     child: Container(
       height: 200.0,
+      margin: EdgeInsets.symmetric(vertical: 1.5, horizontal: 3.0),
       alignment: Alignment.center,
       child: widget,
       decoration: BoxDecoration(

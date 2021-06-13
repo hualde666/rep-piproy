@@ -22,10 +22,13 @@ Widget conteinerIcon(Icon icon, String tarea) {
         width: 70.0,
         height: 70.0,
         decoration: BoxDecoration(
-            color: Colors.black,
+            color: Colors.green,
             borderRadius: BorderRadius.circular(40),
-            border: Border.all(color: Colors.green)),
-        margin: EdgeInsets.only(left: 15.0, top: 30.0),
+            border: Border.all(color: Colors.white, width: 3.0)),
+        margin: EdgeInsets.only(
+          left: 15.0,
+          top: 30.0,
+        ),
         child: icon, // Icon(icon, size: 40.0, color: Colors.green),
       ),
     ),
