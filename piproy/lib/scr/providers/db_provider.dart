@@ -7,7 +7,11 @@ import 'package:sqflite/sqflite.dart';
 class DBProvider {
   static Database _database;
   static final DBProvider db = DBProvider._();
+
+  ///  construtor privado
   DBProvider._();
+
+  ///  construtor privado
 
   Future<Database> get database async {
     // la base de datos ya fue abierta
@@ -21,7 +25,7 @@ class DBProvider {
 
   Future<Database> initDB() async {
     Directory documentsDirectory = await getApplicationDocumentsDirectory();
-    final path = join(documentsDirectory.path, 'Scans2.db');
+    final path = join(documentsDirectory.path, 'EmrgiContact.db');
     print(path);
 
     return await openDatabase(

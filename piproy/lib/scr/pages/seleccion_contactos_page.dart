@@ -1,57 +1,65 @@
-import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';
-import 'package:permission_handler/permission_handler.dart';
+
+import 'package:contacts_service/contacts_service.dart';
+
+import 'package:piproy/scr/providers/contactos_provider.dart';
+import 'package:provider/provider.dart';
 
 class SeleccionContacto extends StatefulWidget {
-  List<Contact> listaSelect = [];
-  SeleccionContacto(listaSelect);
   @override
-  _SeleccionContactoState createState() => _SeleccionContactoState(listaSelect);
+  _SeleccionContactoState createState() => _SeleccionContactoState();
 }
 
 class _SeleccionContactoState extends State<SeleccionContacto> {
-  List<Contact> listaSelect = [];
-  List<Contact> listaContactos = [];
-  _SeleccionContactoState(listaSelect);
-
   @override
-  void initState() {
-    super.initState();
-    getAllContactos();
+  Widget build(BuildContext context) {
+    final listaSelectInfo = Provider.of<ContactosProvider>(context);
+    // listaSelectInfo.obtenerlistaContactos();
+    final lista = listaSelectInfo.listaContactos;
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Seleccion de Contacto'),
+      ),
+      body: ListView.builder(
+        itemCount: lista.length,
+        itemBuilder: (context, i) {
+          return contactoWidget(lista[i], i);
+        },
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.check),
+        onPressed: () {
+          Navigator.pop(context);
+        },
+      ),
+    );
   }
 
-  getAllContactos() async {
-    final resp = await Permission.contacts.request();
-    print('resp: $resp');
-    if (resp == PermissionStatus.granted) {
-      List<Contact> _contactos = (await ContactsService.getContacts()).toList();
-
-      setState(() {
-        listaContactos = _contactos
-            .where((contac) => contac.phones.isEmpty == false)
-            .toList();
-      });
+  Widget _avatar(Contact contacto) {
+    if (contacto.avatar.isEmpty) {
+      return Container(
+        height: 50.0,
+        child: CircleAvatar(
+          child: Text(
+            contacto.initials(),
+            style: TextStyle(fontSize: 20.0, color: Colors.green),
+          ),
+          foregroundColor: Colors.green,
+          backgroundColor: Colors.white,
+          maxRadius: 50.0,
+        ),
+      );
+    } else {
+      return CircleAvatar(
+        maxRadius: 50.0,
+        backgroundImage: MemoryImage(contacto.avatar),
+      );
     }
   }
 
-  @override
-  Widget build(BuildContext context) {
-    final List<Widget> _Contactos = List.generate(listaContactos.length,
-        (i) => selectContacWidget(context, listaContactos[i], listaSelect));
+  Widget contactoWidget(Contact contacto, int i) {
+    final listaSelectInfo = Provider.of<ContactosProvider>(context);
 
-    return Scaffold(
-        appBar: AppBar(
-          title: Text('Seleccion de Contacto'),
-        ),
-        body: ListView.builder(
-            itemCount: _Contactos.length,
-            itemBuilder: (context, i) {
-              return _Contactos[i];
-            }));
-  }
-
-  Widget selectContacWidget(
-      BuildContext context, Contact contacto, List lista) {
     return Container(
       height: 60.0,
       margin: EdgeInsets.symmetric(horizontal: 4.0, vertical: 3.0),
@@ -80,76 +88,22 @@ class _SeleccionContactoState extends State<SeleccionContacto> {
               ],
             ),
           ),
-          SeleccionLista(contacto, lista)
+          Checkbox(
+              value: listaSelectInfo.listaCheck[i],
+              activeColor: Colors.white,
+              checkColor: Colors.green,
+              onChanged: (value) {
+                setState(() {
+                  if (value) {
+                    listaSelectInfo.sumarContacto(contacto, i);
+                  } else {
+                    listaSelectInfo.quitarContacto(contacto, i);
+                  }
+                });
+                listaSelectInfo.cambiarCheck(i, value);
+              })
         ],
       ),
-    );
-  }
-
-  Widget _avatar(Contact contacto) {
-    if (contacto.avatar.isEmpty) {
-      return Container(
-        height: 50.0,
-        child: CircleAvatar(
-          child: Text(
-            contacto.initials(),
-            style: TextStyle(fontSize: 20.0, color: Colors.green),
-          ),
-          foregroundColor: Colors.green,
-          backgroundColor: Colors.white,
-          maxRadius: 50.0,
-        ),
-      );
-    } else {
-      return CircleAvatar(
-        maxRadius: 50.0,
-        backgroundImage: MemoryImage(contacto.avatar),
-      );
-    }
-  }
-}
-
-/// This is the stateful widget that the main application instantiates.
-class SeleccionLista extends StatefulWidget {
-  List<Contact> listado = [];
-  Contact contacto;
-  SeleccionLista(contacto, listado);
-  @override
-  State<SeleccionLista> createState() => _SeleccionLista(contacto, listado);
-}
-
-/// This is the private State class that goes with MyStatefulWidget.
-class _SeleccionLista extends State<SeleccionLista> {
-  bool isChecked = false;
-  Contact contacto;
-  List<Contact> listado;
-  _SeleccionLista(contacto, listado);
-  @override
-  Widget build(BuildContext context) {
-    Color getColor(Set<MaterialState> states) {
-      const Set<MaterialState> interactiveStates = <MaterialState>{
-        MaterialState.pressed,
-        MaterialState.hovered,
-        MaterialState.focused,
-      };
-      if (states.any(interactiveStates.contains)) {
-        return Colors.green;
-      }
-      return Colors.white;
-    }
-
-    return Checkbox(
-      checkColor: Colors.green,
-      fillColor: MaterialStateProperty.resolveWith(getColor),
-      value: isChecked,
-      onChanged: (value) {
-        setState(() {
-          isChecked = value;
-          if (value) {
-            listado.add(contacto);
-          } else {}
-        });
-      },
     );
   }
 }

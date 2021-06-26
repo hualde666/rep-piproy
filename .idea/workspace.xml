@@ -1,11 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ea1ef532-ab71-4638-882c-3d8d2d78d7cc" name="Default Changelist" comment="" />
+    <list default="true" id="ea1ef532-ab71-4638-882c-3d8d2d78d7cc" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/piproy.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/piproy.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/piproy/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/piproy/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/piproy/lib/scr/pages/seleccion_contactos_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/piproy/lib/scr/pages/seleccion_contactos_page.dart" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1rqFxeisuwSPiMbiPSRU14D7Zua" />
   <component name="ProjectViewState">

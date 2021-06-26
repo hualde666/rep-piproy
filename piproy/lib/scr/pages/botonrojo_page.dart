@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:piproy/scr/providers/contactos_provider.dart';
+import 'package:provider/provider.dart';
 
 import 'package:sendsms/sendsms.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -10,86 +12,97 @@ class BotonRojoPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-          appBar: AppBar(title: Text('Emergencia')),
-          body: Center(
-            child: Container(
-              height: 480.0,
-              margin: EdgeInsets.symmetric(horizontal: 10.0),
-              alignment: Alignment.center,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Text(
-                    'EMERGENCIA ',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 40.0,
-                    ),
+        appBar: AppBar(title: Text('Emergencia')),
+        body: Center(
+          child: Container(
+            height: 480.0,
+            margin: EdgeInsets.symmetric(horizontal: 10.0),
+            alignment: Alignment.center,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Text(
+                  'EMERGENCIA ',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 40.0,
                   ),
-                  Text(
-                    'Enviar  mensaje de emergencia a familiares',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 30.0,
-                    ),
+                ),
+                Text(
+                  'Enviar  mensaje de emergencia a familiares',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 30.0,
                   ),
-                  SizedBox(
-                    height: 50.0,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      ElevatedButton(
-                        child: Text(
-                          'Enviar',
-                          style: TextStyle(fontSize: 25.0, color: Colors.green),
-                        ),
-                        onPressed: () {
-                          mandarSMS();
+                ),
+                SizedBox(
+                  height: 50.0,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    ElevatedButton(
+                      child: Text(
+                        'Enviar',
+                        style: TextStyle(fontSize: 25.0, color: Colors.green),
+                      ),
+                      onPressed: () {
+                        mandarSMS();
 
-                          Navigator.pop(context);
-                        },
-                      ),
-                      ElevatedButton(
-                        style: ButtonStyle(),
-                        child: Text('Cancelar',
-                            style:
-                                TextStyle(fontSize: 25.0, color: Colors.green)),
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                      ),
-                    ],
-                  )
-                ],
-              ),
-              decoration: BoxDecoration(
-                  color: Colors.green,
-                  borderRadius: BorderRadius.circular(20.0),
-                  border: Border.all(color: Colors.white, width: 4.0)),
+                        Navigator.pop(context);
+                      },
+                    ),
+                    ElevatedButton(
+                      style: ButtonStyle(),
+                      child: Text('Cancelar',
+                          style:
+                              TextStyle(fontSize: 25.0, color: Colors.green)),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                    ),
+                  ],
+                )
+              ],
             ),
+            decoration: BoxDecoration(
+                color: Colors.green,
+                borderRadius: BorderRadius.circular(20.0),
+                border: Border.all(color: Colors.white, width: 4.0)),
           ),
-          // SizedBox(height: 50.0),
-          // elementos(context, BotonRojo(), Colors.red, ''),
-          // SizedBox(height: 20.0),
-          // elementos(context, BotonCancelar(), Colors.green, '')
-          //   ]))
-          // ],
-
-          //  bottomNavigationBar: bottonBarNavegador(context),
-
-          floatingActionButton: FloatingActionButton(
-            child: Icon(
-              Icons.edit,
-              color: Colors.white,
+        ),
+        floatingActionButton: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            FloatingActionButton(
+              child: Icon(
+                Icons.edit,
+                color: Colors.white,
+              ),
+              tooltip: 'agregar',
+              heroTag: 'agregar',
+              onPressed: () {
+                Navigator.pushNamed(context, 'emergiContactos');
+              },
             ),
-            onPressed: () {
-              Navigator.pushNamed(context, 'emergiContactos');
-            },
-          )),
+            SizedBox(
+              width: 20.0,
+            ),
+            FloatingActionButton(
+              child: Icon(Icons.check),
+              tooltip: 'regresar',
+              heroTag: 'regresar',
+              onPressed: () {
+                // *** actualizar BD ***
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
