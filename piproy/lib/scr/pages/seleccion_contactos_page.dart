@@ -93,6 +93,7 @@ class _SeleccionContactoState extends State<SeleccionContacto> {
               activeColor: Colors.white,
               checkColor: Colors.green,
               onChanged: (value) {
+                /// aqui hay problemas
                 setState(() {
                   if (value) {
                     listaSelectInfo.sumarContacto(contacto, i);
