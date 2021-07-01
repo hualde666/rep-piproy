@@ -48,13 +48,16 @@ class _SeleccionContactoState extends State<SeleccionContacto> {
           ),
           foregroundColor: Colors.green,
           backgroundColor: Colors.white,
-          maxRadius: 50.0,
+          maxRadius: 40.0,
         ),
       );
     } else {
-      return CircleAvatar(
-        maxRadius: 50.0,
-        backgroundImage: MemoryImage(contacto.avatar),
+      return Container(
+        height: 50.0,
+        child: CircleAvatar(
+          maxRadius: 40.0,
+          backgroundImage: MemoryImage(contacto.avatar),
+        ),
       );
     }
   }
@@ -63,20 +66,21 @@ class _SeleccionContactoState extends State<SeleccionContacto> {
     final listaSelectInfo = Provider.of<ContactosProvider>(context);
 
     return Container(
-      height: 60.0,
+      height: 70.0,
       margin: EdgeInsets.symmetric(horizontal: 4.0, vertical: 3.0),
       decoration: BoxDecoration(
           color: Colors.green[300],
           borderRadius: BorderRadius.circular(20.0),
           border: Border.all(color: Colors.green)),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           _avatar(contacto),
           Container(
             width: 200.0,
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
                   contacto.displayName,
@@ -106,7 +110,7 @@ class _SeleccionContactoState extends State<SeleccionContacto> {
                         .sumarContacto(contacto, i);
                   } else {
                     Provider.of<ContactosProvider>(context, listen: false)
-                        .quitarContacto(contacto, i);
+                        .quitarContacto(i);
                   }
                 });
               })
