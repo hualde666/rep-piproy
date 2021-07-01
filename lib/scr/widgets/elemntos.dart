@@ -11,7 +11,7 @@ Widget elementos(
       decoration: BoxDecoration(
           color: color,
           borderRadius: BorderRadius.circular(20.0),
-          border: Border.all(color: Colors.green)),
+          border: Border.all(color: Colors.white)),
     ),
     onTap: () {
       Navigator.pushNamed(context, ruta);

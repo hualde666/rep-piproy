@@ -82,11 +82,11 @@ class _EmergenciaContactos extends State<EmergenciaContactos> {
   Widget _avatar(ItemListaEmergencia contacto) {
     if (contacto.avatar.isEmpty) {
       return Container(
-        height: 50.0,
+        height: 90.0,
         child: CircleAvatar(
           child: Text(
             contacto.initials,
-            style: TextStyle(fontSize: 20.0, color: Colors.green),
+            style: TextStyle(fontSize: 30.0, color: Colors.green),
           ),
           foregroundColor: Colors.green,
           backgroundColor: Colors.white,
@@ -94,23 +94,27 @@ class _EmergenciaContactos extends State<EmergenciaContactos> {
         ),
       );
     } else {
-      return CircleAvatar(
-        maxRadius: 50.0,
-        backgroundImage: MemoryImage(contacto.avatar),
+      return Container(
+        height: 90.0,
+        child: CircleAvatar(
+          maxRadius: 50.0,
+          backgroundImage: MemoryImage(contacto.avatar),
+        ),
       );
     }
   }
 
   Widget contactoWidget(ItemListaEmergencia contacto) {
     return Container(
-      height: 60.0,
+      height: 100.0,
       margin: EdgeInsets.symmetric(horizontal: 4.0, vertical: 3.0),
       decoration: BoxDecoration(
-          color: Colors.green[300],
+          color: Color.fromRGBO(55, 57, 84, 1.0), //Colors.green[300],
           borderRadius: BorderRadius.circular(20.0),
           border: Border.all(color: Colors.green)),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           _avatar(contacto),
           Container(
@@ -121,12 +125,12 @@ class _EmergenciaContactos extends State<EmergenciaContactos> {
                 Text(
                   contacto.nombre,
                   style: TextStyle(
-                      fontSize: 15.0,
+                      fontSize: 25.0,
                       color: Colors.white,
                       fontWeight: FontWeight.bold),
                 ),
                 Text(contacto.phone,
-                    style: TextStyle(fontSize: 15.0, color: Colors.white)),
+                    style: TextStyle(fontSize: 20.0, color: Colors.white)),
               ],
             ),
           ),

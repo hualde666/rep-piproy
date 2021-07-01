@@ -22,15 +22,15 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Proyecto',
         theme: ThemeData(
-          primaryColor: Colors.green,
-          accentColor: Colors.green,
+          primaryColor: Color.fromRGBO(55, 57, 84, 1.0), //Colors.green,
+          accentColor: Color.fromRGBO(55, 57, 84, 1.0), //Colors.green,
           scaffoldBackgroundColor: Colors.white,
           elevatedButtonTheme: ElevatedButtonThemeData(
               style: ElevatedButton.styleFrom(
             primary: Colors.white,
           )),
           bottomNavigationBarTheme: BottomNavigationBarThemeData(
-              backgroundColor: Colors.black,
+              backgroundColor: Color.fromRGBO(55, 57, 84, 0.9),
               selectedIconTheme:
                   IconThemeData(color: Colors.green, opacity: 0.6, size: 40.0),
               unselectedIconTheme: IconThemeData(

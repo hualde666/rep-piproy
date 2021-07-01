@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:piproy/scr/widgets/elemntos.dart';
 import 'package:piproy/scr/widgets/encabezado.dart';
+import 'package:piproy/scr/widgets/icon_conteiner.dart';
 
 import 'package:piproy/scr/widgets/pila_tiempo_clima.dart';
 
@@ -17,6 +18,8 @@ class Home2Page extends StatelessWidget {
         //       // automaticallyImplyLeading: false, // hides leading widget
         //       flexibleSpace: encabezadoIcon()),
         // ),
+        drawer: _crearMenu(context),
+        backgroundColor: Colors.white70,
         body: CustomScrollView(
           slivers: _detalle(context),
         ),
@@ -31,18 +34,19 @@ class Home2Page extends StatelessWidget {
       SliverList(
         delegate: SliverChildListDelegate([
           SizedBox(height: 5.0),
-          elementos(context, Pila_Timpo_Clima(), Colors.black, ''),
+          elementos(
+              context, Pila_Timpo_Clima(), Color.fromRGBO(55, 57, 84, 1.0), ''),
           elementos(
               context,
               Text('EMERGENCIA',
                   style: TextStyle(color: Colors.white, fontSize: 35.0)),
-              Colors.red,
+              Color.fromRGBO(150, 0, 0, 1.0),
               'botonRojo'),
           elementos(
               context,
               Text('Contactos',
                   style: TextStyle(color: Colors.white, fontSize: 35.0)),
-              Colors.black,
+              Color.fromRGBO(55, 57, 84, 1.0),
               'contactos'),
           elementos(
               context,
@@ -51,22 +55,58 @@ class Home2Page extends StatelessWidget {
                 width: 50.0,
                 color: Colors.amber,
               ),
-              Colors.black,
+              Color.fromRGBO(55, 57, 84, 1.0),
               ''),
           elementos(
               context,
               Text('ELEMENTO',
                   style: TextStyle(color: Colors.white, fontSize: 35.0)),
-              Colors.black,
+              Color.fromRGBO(55, 57, 84, 1.0),
               ''),
           elementos(
               context,
               Text('ELEMENTO',
                   style: TextStyle(color: Colors.white, fontSize: 35.0)),
-              Colors.black,
+              Color.fromRGBO(55, 57, 84, 1.0),
               ''),
         ]),
       )
     ];
+  }
+
+  Drawer _crearMenu(BuildContext context) {
+    return Drawer(
+      child: ListView(
+        children: [
+          DrawerHeader(
+            child: Container(
+              height: 30.0,
+              child: Text(
+                'Configuración',
+                style: TextStyle(color: Colors.white, fontSize: 20.0),
+              ),
+              color: Color.fromRGBO(55, 57, 84, 1.0),
+            ),
+          ),
+          ListTile(
+              leading: Icon(Icons.contact_phone,
+                  size: 35.0, color: Color.fromRGBO(55, 57, 84, 1.0)),
+              title: Text('Contactos de emergencia'),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.pushNamed(context, 'emergiContactos');
+              }),
+          ListTile(
+            leading: Icon(
+              Icons.message,
+              size: 40.0,
+              color: Color.fromRGBO(55, 57, 84, 1.0),
+            ),
+            title: Text('Mensaje de emergencia'),
+            onTap: () {},
+          ),
+        ],
+      ),
+    );
   }
 }
