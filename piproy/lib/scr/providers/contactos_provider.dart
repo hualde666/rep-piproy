@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 
 import 'package:flutter/cupertino.dart';
@@ -8,18 +10,20 @@ class ContactosProvider with ChangeNotifier {
   List<ItemListaEmergencia> listaSelect = [];
   List<Contact> listaContactos = [];
   List<bool> listaCheck = [];
-  // static final ContactosProvider cp = ContactosProvider._interno();
-  // ContactosProvider._interno();
 
   sumarContacto(Contact contacto, int i) {
-    ItemListaEmergencia nuevo = ItemListaEmergencia(contacto, i);
+    ItemListaEmergencia nuevo = ItemListaEmergencia(
+        contacto.displayName,
+        contacto.avatar,
+        i,
+        contacto.initials(),
+        contacto.phones.elementAt(0).value);
     listaSelect.add(nuevo);
     notifyListeners();
   }
 
-  quitarContacto(Contact contacto, int i) {
-    ItemListaEmergencia elemento = ItemListaEmergencia(contacto, i);
-    listaSelect.remove(elemento);
+  quitarContacto(int i) {
+    listaSelect.removeWhere((item) => item.iListaContacto == i);
     notifyListeners();
   }
 
@@ -37,19 +41,26 @@ class ContactosProvider with ChangeNotifier {
   }
 
   Future<List<Contact>> getcontactos() async {
+    // List<Contact> _lista = [];
     final resp = await Permission.contacts.request();
     print('resp: $resp');
     if (resp == PermissionStatus.granted) {
       List<Contact> _contactos = (await ContactsService.getContacts()).toList();
-      final List<Contact> _lista =
+
+      final _lista =
           _contactos.where((contac) => contac.phones.isEmpty == false).toList();
       return _lista;
     }
+    return [];
   }
 }
 
 class ItemListaEmergencia {
-  Contact contacto;
-  int i;
-  ItemListaEmergencia(contacto, i);
+  String nombre;
+  Uint8List avatar;
+  int iListaContacto;
+  String initials;
+  String phone;
+  ItemListaEmergencia(
+      this.nombre, this.avatar, this.iListaContacto, this.initials, this.phone);
 }

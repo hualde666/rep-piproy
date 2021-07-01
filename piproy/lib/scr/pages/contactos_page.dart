@@ -81,27 +81,13 @@ class _ContactosPageState extends State<ContactosPage> {
 
   Widget encabezadoContactos() {
     return SliverAppBar(
-        elevation: 2.0,
-        // backgroundColor: Colors.teal[600],
-        expandedHeight: 130.0,
-        floating: true,
-        pinned: true,
-        title: Text('C O N T A C T O S'),
-        flexibleSpace: Container(
-            margin: EdgeInsets.only(top: 60.0, left: 10.0, right: 10.0),
-            height: 60.0,
-            width: double.infinity,
-            child: TextField(
-                controller: searchController,
-                decoration: InputDecoration(
-                  // labelStyle: TextStyle(fontSize: 20.0, color: Colors.green),
-                  labelText: 'Buscar contacto:',
-                  //prefixIcon: Icon(Icons.search),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20),
-                    borderSide: BorderSide(color: Color(152364522)),
-                  ),
-                ))));
+      elevation: 2.0,
+      // backgroundColor: Colors.teal[600],
+      expandedHeight: 130.0,
+      floating: true,
+      pinned: true,
+      title: Text('C O N T A C T O S'),
+    );
   }
 
   void filtrarContactos() {

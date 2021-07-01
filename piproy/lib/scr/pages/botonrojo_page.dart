@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:piproy/scr/providers/contactos_provider.dart';
-import 'package:provider/provider.dart';
 
 import 'package:sendsms/sendsms.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class BotonRojoPage extends StatelessWidget {
   @override
@@ -169,7 +166,7 @@ Future<void> mandarSMS() async {
   final lat = pos.latitude;
   final lng = pos.longitude;
   final pos2 = 'https://maps.google.com/?q=$lat,$lng';
-  String _sms2 = pos2;
+
   final resp = await Sendsms.onGetPermission();
   if (resp.hashCode != null) {
     print(resp.hashCode);

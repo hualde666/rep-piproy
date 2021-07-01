@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:piproy/scr/models/linterna_model.dart';
-import 'package:piproy/scr/widgets/botton_bar.dart';
+
 import 'package:piproy/scr/widgets/elemntos.dart';
 import 'package:piproy/scr/widgets/encabezado.dart';
-import 'package:piproy/scr/widgets/encabezado_icon.dart';
+
 import 'package:piproy/scr/widgets/pila_tiempo_clima.dart';
 
 class Home2Page extends StatelessWidget {
@@ -27,7 +26,6 @@ class Home2Page extends StatelessWidget {
   }
 
   List<Widget> _detalle(BuildContext context) {
-    Linterna linterna = new Linterna();
     return <Widget>[
       encabezadoApp('Proyecto PI'),
       SliverList(

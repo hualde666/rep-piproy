@@ -1,4 +1,3 @@
-import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';
 import 'package:piproy/scr/pages/botonrojo_page.dart';
 import 'package:piproy/scr/pages/contactos_page.dart';
@@ -14,7 +13,7 @@ void main() {
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
-  List<Contact> listaSelect;
+  //List<Contact> listaSelect;
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(

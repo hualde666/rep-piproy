@@ -2,20 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:contacts_service/contacts_service.dart';
 import 'package:piproy/scr/providers/contactos_provider.dart';
 import 'package:provider/provider.dart';
-import 'package:permission_handler/permission_handler.dart';
-import 'package:flutter/services.dart';
 
+//class EmergenciaContactos extends StatelessWidget {
 class EmergenciaContactos extends StatefulWidget {
   @override
   _EmergenciaContactos createState() => _EmergenciaContactos();
 }
 
 class _EmergenciaContactos extends State<EmergenciaContactos> {
+  List<ItemListaEmergencia> listaE;
   @override
   Widget build(BuildContext context) {
     final listaSelectInfo = Provider.of<ContactosProvider>(context);
     listaSelectInfo.obtenerlistaContactos();
-    final listaE = listaSelectInfo.listaSelect;
+    listaE = listaSelectInfo.listaSelect;
     return Scaffold(
       appBar: AppBar(
         title: Text('Contactos de Emergencía'),
@@ -25,8 +25,12 @@ class _EmergenciaContactos extends State<EmergenciaContactos> {
           itemBuilder: (context, i) {
             return Dismissible(
               onDismissed: (DismissDirection direction) {
-                listaSelectInfo.cambiarCheck(listaE[i].i, false);
-                listaSelectInfo.quitarContacto(listaE[i].contacto, i);
+                setState(() {
+                  Provider.of<ContactosProvider>(context, listen: false)
+                      .cambiarCheck(listaE[i].iListaContacto, false);
+                  Provider.of<ContactosProvider>(context, listen: false)
+                      .quitarContacto(listaE[i].iListaContacto);
+                });
               },
               key: UniqueKey(),
               background: Container(
@@ -37,7 +41,7 @@ class _EmergenciaContactos extends State<EmergenciaContactos> {
                   style: TextStyle(color: Colors.white),
                 ),
               ),
-              child: contactoWidget(listaE[i].contacto),
+              child: contactoWidget(listaE[i]),
             );
           }),
       floatingActionButton: Row(
@@ -52,6 +56,10 @@ class _EmergenciaContactos extends State<EmergenciaContactos> {
             heroTag: 'agregar',
             onPressed: () {
               Navigator.pushNamed(context, 'selecContactos');
+              // setState(() {
+              //  listaE = Provider.of<ContactosProvider>(context, listen: false)
+              //      .listaSelect;
+              // });
             },
           ),
           SizedBox(
@@ -71,13 +79,13 @@ class _EmergenciaContactos extends State<EmergenciaContactos> {
     );
   }
 
-  Widget _avatar(Contact contacto) {
+  Widget _avatar(ItemListaEmergencia contacto) {
     if (contacto.avatar.isEmpty) {
       return Container(
         height: 50.0,
         child: CircleAvatar(
           child: Text(
-            contacto.initials(),
+            contacto.initials,
             style: TextStyle(fontSize: 20.0, color: Colors.green),
           ),
           foregroundColor: Colors.green,
@@ -93,9 +101,7 @@ class _EmergenciaContactos extends State<EmergenciaContactos> {
     }
   }
 
-  Widget contactoWidget(Contact contacto) {
-    // final listaSelectInfo = Provider.of<ContactosProvider>(context);
-    //bool checked = false;
+  Widget contactoWidget(ItemListaEmergencia contacto) {
     return Container(
       height: 60.0,
       margin: EdgeInsets.symmetric(horizontal: 4.0, vertical: 3.0),
@@ -113,13 +119,13 @@ class _EmergenciaContactos extends State<EmergenciaContactos> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  contacto.displayName,
+                  contacto.nombre,
                   style: TextStyle(
                       fontSize: 15.0,
                       color: Colors.white,
                       fontWeight: FontWeight.bold),
                 ),
-                Text(contacto.phones.elementAt(0).value,
+                Text(contacto.phone,
                     style: TextStyle(fontSize: 15.0, color: Colors.white)),
               ],
             ),
