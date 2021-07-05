@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:contacts_service/contacts_service.dart';
 import 'package:piproy/scr/providers/contactos_provider.dart';
 import 'package:provider/provider.dart';
@@ -56,10 +57,11 @@ class _EmergenciaContactos extends State<EmergenciaContactos> {
             heroTag: 'agregar',
             onPressed: () {
               Navigator.pushNamed(context, 'selecContactos');
-              // setState(() {
-              //  listaE = Provider.of<ContactosProvider>(context, listen: false)
-              //      .listaSelect;
-              // });
+              setState(() async {
+                SharedPreferences prefs = await SharedPreferences.getInstance();
+                // List<String> listaNumeros = forEac
+                // prefs.setStringList('listaE', listaE);
+              });
             },
           ),
           SizedBox(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:piproy/scr/widgets/config_menu.dart';
 
 import 'package:piproy/scr/widgets/elemntos.dart';
 import 'package:piproy/scr/widgets/encabezado.dart';
@@ -6,7 +7,7 @@ import 'package:piproy/scr/widgets/icon_conteiner.dart';
 
 import 'package:piproy/scr/widgets/pila_tiempo_clima.dart';
 
-class Home2Page extends StatelessWidget {
+class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -18,7 +19,7 @@ class Home2Page extends StatelessWidget {
         //       // automaticallyImplyLeading: false, // hides leading widget
         //       flexibleSpace: encabezadoIcon()),
         // ),
-        drawer: _crearMenu(context),
+        drawer: ConfigMenu(),
         backgroundColor: Colors.white70,
         body: CustomScrollView(
           slivers: _detalle(context),
@@ -81,6 +82,7 @@ class Home2Page extends StatelessWidget {
           DrawerHeader(
             child: Container(
               height: 30.0,
+              alignment: Alignment.center,
               child: Text(
                 'Configuración',
                 style: TextStyle(color: Colors.white, fontSize: 20.0),
