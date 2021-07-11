@@ -12,21 +12,31 @@ class SeleccionContacto extends StatefulWidget {
 }
 
 class _SeleccionContactoState extends State<SeleccionContacto> {
+  bool cargando = true;
   @override
   Widget build(BuildContext context) {
     final listaSelectInfo = Provider.of<ContactosProvider>(context);
-    //listaSelectInfo.obtenerlistaContactos();
+
     final lista = listaSelectInfo.listaContactos;
+    cargando = false;
     return Scaffold(
       appBar: AppBar(
         title: Text('Seleccion de Contacto'),
       ),
-      body: ListView.builder(
-        itemCount: lista.length,
-        itemBuilder: (context, i) {
-          return contactoWidget(context, lista[i], i);
-        },
-      ),
+      body: cargando
+          ? Center(
+              child: Container(
+                height: 40,
+                width: 40,
+                child: CircularProgressIndicator(),
+              ),
+            )
+          : ListView.builder(
+              itemCount: lista.length,
+              itemBuilder: (context, i) {
+                return contactoWidget(context, lista[i], i);
+              },
+            ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.check),
         onPressed: () {
@@ -44,7 +54,10 @@ class _SeleccionContactoState extends State<SeleccionContacto> {
         child: CircleAvatar(
           child: Text(
             contacto.initials(),
-            style: TextStyle(fontSize: 20.0, color: Colors.green),
+            style: TextStyle(
+                fontSize: 30.0,
+                fontWeight: FontWeight.w900,
+                color: Colors.green),
           ),
           foregroundColor: Colors.green,
           backgroundColor: Colors.white,

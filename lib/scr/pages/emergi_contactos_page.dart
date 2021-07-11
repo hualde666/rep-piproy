@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:contacts_service/contacts_service.dart';
+
 import 'package:piproy/scr/providers/contactos_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -11,40 +11,56 @@ class EmergenciaContactos extends StatefulWidget {
 }
 
 class _EmergenciaContactos extends State<EmergenciaContactos> {
-  List<ItemListaEmergencia> listaE;
+  List<ItemListaEmergencia> listaE =
+      []; // lista activa de contactos telefonos de emergencia
+  List<String> _listaPhone = []; // lista de telefonos guardados
+
+// CARGA la lista de telefonos de emergemcia guardada
+  cargarPrefs() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    _listaPhone = prefs.getStringList('listaE');
+  }
+
+// GRABA la lista de telefonos de emergemcia
+  guardarLista() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    // genera primero una lista con solo los numeros telefonicos que
+    // es lo que se guarda
+    List<String> _listaPhone =
+        List.generate(listaE.length, (i) => listaE[i].phone);
+    prefs.setStringList('listaE', _listaPhone);
+  }
+
   @override
   Widget build(BuildContext context) {
     final listaSelectInfo = Provider.of<ContactosProvider>(context);
     listaSelectInfo.obtenerlistaContactos();
+    if (listaSelectInfo.listaSelect.length == 0) {
+      cargarPrefs();
+      if (_listaPhone != null) {
+        for (var numero in _listaPhone) {
+          // genera lista de CONTACTOS seleccionados con los telf guardados
+
+          listaSelectInfo.generarListaSelect(numero);
+        }
+      }
+    }
+
     listaE = listaSelectInfo.listaSelect;
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Contactos de Emergencía'),
       ),
-      body: ListView.builder(
-          itemCount: listaE.length,
-          itemBuilder: (context, i) {
-            return Dismissible(
-              onDismissed: (DismissDirection direction) {
-                setState(() {
-                  Provider.of<ContactosProvider>(context, listen: false)
-                      .cambiarCheck(listaE[i].iListaContacto, false);
-                  Provider.of<ContactosProvider>(context, listen: false)
-                      .quitarContacto(listaE[i].iListaContacto);
-                });
-              },
-              key: UniqueKey(),
-              background: Container(
-                padding: EdgeInsets.only(top: 25.0, left: 30.0),
-                color: Colors.red,
-                child: Text(
-                  'ELIMINAR',
-                  style: TextStyle(color: Colors.white),
-                ),
+      body: listaSelectInfo.listaContactos.length == 0
+          ? Center(
+              child: Container(
+                height: 30,
+                width: 30,
+                child: CircularProgressIndicator(),
               ),
-              child: contactoWidget(listaE[i]),
-            );
-          }),
+            )
+          : pantallaInicial(),
       floatingActionButton: Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
@@ -57,11 +73,7 @@ class _EmergenciaContactos extends State<EmergenciaContactos> {
             heroTag: 'agregar',
             onPressed: () {
               Navigator.pushNamed(context, 'selecContactos');
-              setState(() async {
-                SharedPreferences prefs = await SharedPreferences.getInstance();
-                // List<String> listaNumeros = forEac
-                // prefs.setStringList('listaE', listaE);
-              });
+              setState(() {});
             },
           ),
           SizedBox(
@@ -73,12 +85,64 @@ class _EmergenciaContactos extends State<EmergenciaContactos> {
             heroTag: 'guardar',
             onPressed: () {
               // *** actualizar BD ***
+              guardarLista();
               Navigator.pop(context);
             },
           ),
         ],
       ),
     );
+  }
+
+  Widget pantallaInicial() {
+    final listaSelectInfo = Provider.of<ContactosProvider>(context);
+    listaE = listaSelectInfo.listaSelect;
+
+    return listaE.length != 0
+        ? ListView.builder(
+            itemCount: listaE.length,
+            itemBuilder: (context, i) {
+              return Dismissible(
+                onDismissed: (DismissDirection direction) {
+                  setState(() async {
+                    Provider.of<ContactosProvider>(context, listen: false)
+                        .cambiarCheck(listaE[i].iListaContacto, false);
+                    Provider.of<ContactosProvider>(context, listen: false)
+                        .quitarContacto(listaE[i].iListaContacto);
+                    guardarLista();
+                  });
+                },
+                key: UniqueKey(),
+                background: Container(
+                  padding: EdgeInsets.only(top: 25.0, left: 30.0),
+                  color: Colors.red,
+                  child: Text(
+                    'ELIMINAR',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+                child: contactoWidget(listaE[i]),
+              );
+            })
+        : Center(
+            child: Container(
+                child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'Definir contactos de Emergencia. ',
+                  style: TextStyle(fontSize: 20.0),
+                ),
+                SizedBox(
+                  height: 20.0,
+                ),
+                Text(
+                  'Tocar simbolo  +  para añadir.',
+                  style: TextStyle(fontSize: 20.0),
+                ),
+              ],
+            )),
+          );
   }
 
   Widget _avatar(ItemListaEmergencia contacto) {
@@ -88,7 +152,10 @@ class _EmergenciaContactos extends State<EmergenciaContactos> {
         child: CircleAvatar(
           child: Text(
             contacto.initials,
-            style: TextStyle(fontSize: 30.0, color: Colors.green),
+            style: TextStyle(
+                fontSize: 30.0,
+                fontWeight: FontWeight.w900,
+                color: Colors.green),
           ),
           foregroundColor: Colors.green,
           backgroundColor: Colors.white,

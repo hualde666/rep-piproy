@@ -13,6 +13,7 @@ class _ContactosPageState extends State<ContactosPage> {
   List<Contact> listaContactos = [];
   List<Contact> listaContactosFiltro = [];
   TextEditingController searchController = TextEditingController();
+  bool cargando = true;
   @override
   void initState() {
     super.initState();
@@ -26,14 +27,13 @@ class _ContactosPageState extends State<ContactosPage> {
       List<Contact> _contactos = (await ContactsService.getContacts()).toList();
 
       setState(() {
+        cargando = false;
         listaContactos = _contactos
             .where((contac) => contac.phones.isEmpty == false)
             .toList();
         searchController.addListener(() {
           filtrarContactos();
         });
-        print(listaContactos.length);
-        print(listaContactos[5].displayName);
       });
     }
   }
@@ -48,10 +48,18 @@ class _ContactosPageState extends State<ContactosPage> {
 
     return SafeArea(
       child: Scaffold(
-        body: CustomScrollView(slivers: <Widget>[
-          encabezadoContactos(),
-          SliverList(delegate: SliverChildListDelegate(listaTarjetas))
-        ]),
+        body: cargando
+            ? Center(
+                child: Container(
+                  height: 30,
+                  width: 30,
+                  child: CircularProgressIndicator(),
+                ),
+              )
+            : CustomScrollView(slivers: <Widget>[
+                encabezadoContactos(),
+                SliverList(delegate: SliverChildListDelegate(listaTarjetas))
+              ]),
         bottomNavigationBar: BottomNavigationBar(
           // backgroundColor: Color.fromRGBO(55, 57, 84, 1.0),
           // selectedItemColor: Colors.pink,
