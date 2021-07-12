@@ -22,7 +22,7 @@ Widget conteinerIcon(Icon icon, String tarea) {
         width: 70.0,
         height: 70.0,
         decoration: BoxDecoration(
-            color: Colors.green,
+            color: Color.fromRGBO(55, 57, 84, 1.0),
             borderRadius: BorderRadius.circular(40),
             border: Border.all(color: Colors.white, width: 3.0)),
         margin: EdgeInsets.only(

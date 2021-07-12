@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:contacts_service/contacts_service.dart';
+import 'package:url_launcher/link.dart';
 
 class ContactosProvider with ChangeNotifier {
   List<ItemListaEmergencia> listaSelect = [];
@@ -52,6 +53,22 @@ class ContactosProvider with ChangeNotifier {
       return _lista;
     }
     return [];
+  }
+
+  generarListaSelect(String phone) {
+    int i = listaContactos.indexWhere(
+        (listaContactos) => listaContactos.phones.elementAt(0).value == phone);
+    if (i > 0) {
+      ItemListaEmergencia nuevo = ItemListaEmergencia(
+          listaContactos[i].displayName,
+          listaContactos[i].avatar,
+          i,
+          listaContactos[i].initials(),
+          listaContactos[i].phones.elementAt(0).value);
+      listaSelect.add(nuevo);
+      listaCheck[i] = true;
+    }
+    notifyListeners();
   }
 }
 

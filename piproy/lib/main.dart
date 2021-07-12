@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 import 'package:piproy/scr/pages/botonrojo_page.dart';
 import 'package:piproy/scr/pages/contactos_page.dart';
 import 'package:piproy/scr/pages/emergi_contactos_page.dart';
-import 'package:piproy/scr/pages/home2_page.dart';
+import 'package:piproy/scr/pages/home_page.dart';
 import 'package:piproy/scr/pages/seleccion_contactos_page.dart';
 import 'package:piproy/scr/providers/contactos_provider.dart';
-import 'package:provider/provider.dart';
 
 void main() {
   runApp(MyApp());
@@ -22,15 +24,15 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Proyecto',
         theme: ThemeData(
-          primaryColor: Colors.green,
-          accentColor: Colors.green,
+          primaryColor: Color.fromRGBO(55, 57, 84, 1.0), //Colors.green,
+          accentColor: Color.fromRGBO(55, 57, 84, 1.0), //Colors.green,
           scaffoldBackgroundColor: Colors.white,
           elevatedButtonTheme: ElevatedButtonThemeData(
               style: ElevatedButton.styleFrom(
             primary: Colors.white,
           )),
           bottomNavigationBarTheme: BottomNavigationBarThemeData(
-              backgroundColor: Colors.black,
+              backgroundColor: Color.fromRGBO(55, 57, 84, 0.9),
               selectedIconTheme:
                   IconThemeData(color: Colors.green, opacity: 0.6, size: 40.0),
               unselectedIconTheme: IconThemeData(
@@ -40,7 +42,7 @@ class MyApp extends StatelessWidget {
         ),
         initialRoute: 'home',
         routes: {
-          'home': (_) => Home2Page(),
+          'home': (_) => HomePage(),
           'botonRojo': (_) => BotonRojoPage(),
           'contactos': (_) => ContactosPage(),
           'emergiContactos': (_) => EmergenciaContactos(),

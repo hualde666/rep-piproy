@@ -64,7 +64,7 @@ Widget _nombreContacto(String nombre) {
       width: double.infinity,
       margin: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
       decoration: BoxDecoration(
-          color: Colors.green,
+          color: Color.fromRGBO(55, 57, 84, 1.0),
           borderRadius: BorderRadius.circular(20.0),
           border: Border.all(color: Colors.white)),
       child: Center(

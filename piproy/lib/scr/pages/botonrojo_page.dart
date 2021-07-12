@@ -12,7 +12,7 @@ class BotonRojoPage extends StatelessWidget {
         appBar: AppBar(title: Text('Emergencia')),
         body: Center(
           child: Container(
-            height: 480.0,
+            height: 400.0,
             margin: EdgeInsets.symmetric(horizontal: 10.0),
             alignment: Alignment.center,
             child: Column(
@@ -44,7 +44,9 @@ class BotonRojoPage extends StatelessWidget {
                     ElevatedButton(
                       child: Text(
                         'Enviar',
-                        style: TextStyle(fontSize: 25.0, color: Colors.green),
+                        style: TextStyle(
+                            fontSize: 25.0,
+                            color: Color.fromRGBO(55, 57, 84, 1.0)),
                       ),
                       onPressed: () {
                         mandarSMS();
@@ -55,8 +57,9 @@ class BotonRojoPage extends StatelessWidget {
                     ElevatedButton(
                       style: ButtonStyle(),
                       child: Text('Cancelar',
-                          style:
-                              TextStyle(fontSize: 25.0, color: Colors.green)),
+                          style: TextStyle(
+                              fontSize: 25.0,
+                              color: Color.fromRGBO(55, 57, 84, 1.0))),
                       onPressed: () {
                         Navigator.pop(context);
                       },
@@ -66,39 +69,39 @@ class BotonRojoPage extends StatelessWidget {
               ],
             ),
             decoration: BoxDecoration(
-                color: Colors.green,
-                borderRadius: BorderRadius.circular(20.0),
-                border: Border.all(color: Colors.white, width: 4.0)),
+              color: Color.fromRGBO(200, 0, 0, 1.0),
+              borderRadius: BorderRadius.circular(20.0),
+              // border: Border.all(color: Colors.white, width: 4.0)
+            ),
           ),
         ),
-        floatingActionButton: Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            FloatingActionButton(
-              child: Icon(
-                Icons.edit,
-                color: Colors.white,
-              ),
-              tooltip: 'agregar',
-              heroTag: 'agregar',
-              onPressed: () {
-                Navigator.pushNamed(context, 'emergiContactos');
-              },
-            ),
-            SizedBox(
-              width: 20.0,
-            ),
-            FloatingActionButton(
-              child: Icon(Icons.check),
-              tooltip: 'regresar',
-              heroTag: 'regresar',
-              onPressed: () {
-                // *** actualizar BD ***
-                Navigator.pop(context);
-              },
-            ),
-          ],
-        ),
+        //floatingActionButton: Row(
+        // mainAxisAlignment: MainAxisAlignment.end,
+        // children: [
+        //   FloatingActionButton(
+        //     child: Icon(
+        //       Icons.edit,
+        //       color: Colors.white,
+        //     ),
+        //     tooltip: 'agregar',
+        //     heroTag: 'agregar',
+        //     onPressed: () {
+        //       Navigator.pushNamed(context, 'emergiContactos');
+        //     },
+        //   ),
+        //   SizedBox(
+        //     width: 20.0,
+        //   ),
+        //   FloatingActionButton(
+        //     child: Icon(Icons.check),
+        //     tooltip: 'regresar',
+        //     heroTag: 'regresar',
+        //     onPressed: () {
+        //       // *** actualizar BD ***
+        //       Navigator.pop(context);
+        //     },
+        //   ),
+        // ],
       ),
     );
   }
