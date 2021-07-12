@@ -13,12 +13,12 @@ class EmergenciaContactos extends StatefulWidget {
 class _EmergenciaContactos extends State<EmergenciaContactos> {
   List<ItemListaEmergencia> listaE =
       []; // lista activa de contactos telefonos de emergencia
-  List<String> _listaPhone = []; // lista de telefonos guardados
+  List<String> listaPhone = []; // lista de telefonos guardados
 
 // CARGA la lista de telefonos de emergemcia guardada
   cargarPrefs() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    _listaPhone = prefs.getStringList('listaE');
+    listaPhone = prefs.getStringList('listaE');
   }
 
 // GRABA la lista de telefonos de emergemcia
@@ -26,19 +26,19 @@ class _EmergenciaContactos extends State<EmergenciaContactos> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     // genera primero una lista con solo los numeros telefonicos que
     // es lo que se guarda
-    List<String> _listaPhone =
-        List.generate(listaE.length, (i) => listaE[i].phone);
-    prefs.setStringList('listaE', _listaPhone);
+    listaPhone = List.generate(listaE.length, (i) => listaE[i].phone);
+    prefs.setStringList('listaE', listaPhone);
   }
 
   @override
   Widget build(BuildContext context) {
     final listaSelectInfo = Provider.of<ContactosProvider>(context);
-    listaSelectInfo.obtenerlistaContactos();
-    if (listaSelectInfo.listaSelect.length == 0) {
+
+    if (listaE.length == 0) {
       cargarPrefs();
-      if (_listaPhone != null) {
-        for (var numero in _listaPhone) {
+      listaSelectInfo.obtenerlistaContactos();
+      if (listaPhone != null) {
+        for (var numero in listaPhone) {
           // genera lista de CONTACTOS seleccionados con los telf guardados
 
           listaSelectInfo.generarListaSelect(numero);
@@ -86,6 +86,7 @@ class _EmergenciaContactos extends State<EmergenciaContactos> {
             onPressed: () {
               // *** actualizar BD ***
               guardarLista();
+
               Navigator.pop(context);
             },
           ),
@@ -104,13 +105,13 @@ class _EmergenciaContactos extends State<EmergenciaContactos> {
             itemBuilder: (context, i) {
               return Dismissible(
                 onDismissed: (DismissDirection direction) {
-                  setState(() async {
-                    Provider.of<ContactosProvider>(context, listen: false)
-                        .cambiarCheck(listaE[i].iListaContacto, false);
-                    Provider.of<ContactosProvider>(context, listen: false)
-                        .quitarContacto(listaE[i].iListaContacto);
-                    guardarLista();
-                  });
+                  // setState(() async {
+                  Provider.of<ContactosProvider>(context, listen: false)
+                      .cambiarCheck(listaE[i].iListaContacto, false);
+                  Provider.of<ContactosProvider>(context, listen: false)
+                      .quitarContacto(listaE[i].iListaContacto);
+
+                  guardarLista();
                 },
                 key: UniqueKey(),
                 background: Container(
