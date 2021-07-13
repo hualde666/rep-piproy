@@ -8,7 +8,18 @@ encabezadoApp(String titulo) {
     expandedHeight: 150.0,
     floating: true,
     pinned: true,
-    title: Center(child: Text(titulo)),
+    title: Column(
+      children: [
+        Center(child: Text(titulo)),
+        SizedBox(
+          height: 5.0,
+        ),
+        Divider(
+          color: Colors.green,
+          height: 1.0,
+        ),
+      ],
+    ),
     flexibleSpace: encabezadoIcon(),
   );
 }

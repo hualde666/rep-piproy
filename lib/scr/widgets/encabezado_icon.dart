@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:piproy/scr/widgets/icon_conteiner.dart';
 
 Widget encabezadoIcon() {
-  final bool isOn = false;
+  //final bool isOn = false;
   final List<Widget> _listaWidget = [
     conteinerIcon(
         Icon(

@@ -30,7 +30,8 @@ Widget tarjetaContacto(BuildContext context, Contact contacto) {
                   image: MemoryImage(contacto.avatar), fit: BoxFit.cover),
           color: Colors.white38,
           borderRadius: BorderRadius.circular(20.0),
-          border: Border.all(color: Colors.green, width: 5.0)),
+          border:
+              Border.all(color: Color.fromRGBO(55, 57, 84, 1.0), width: 5.0)),
     ),
     onTap: () {
       Navigator.pop(context);
@@ -66,7 +67,7 @@ Widget _nombreContacto(String nombre) {
       decoration: BoxDecoration(
           color: Color.fromRGBO(55, 57, 84, 1.0),
           borderRadius: BorderRadius.circular(20.0),
-          border: Border.all(color: Colors.white)),
+          border: Border.all(color: Colors.green)),
       child: Center(
           child: Text(nombre,
               textAlign: TextAlign.center,
