@@ -3,6 +3,7 @@ import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 
 import 'package:sendsms/sendsms.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class BotonRojoPage extends StatelessWidget {
   @override
@@ -159,7 +160,6 @@ Future<String> _getAddressFromLatLng(dynamic _currentPosition) async {
 }
 
 Future<void> mandarSMS() async {
-  String _phone = '+0414-3811785';
   final pos = await _geoLocal();
   final dir = await _getAddressFromLatLng(pos); // direcion en texto.
 
@@ -175,10 +175,15 @@ Future<void> mandarSMS() async {
     print(resp.hashCode);
   }
 
-  if (await Sendsms.hasPermission()) {
-    final resp = await Sendsms.onSendSMS(_phone, _sms);
-    final resp1 = await Sendsms.onSendSMS(_phone, dir);
-    final resp2 = await Sendsms.onSendSMS(_phone, pos2);
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  final List<String> listaPhone = prefs.getStringList('listaE');
+  for (var phone in listaPhone) {
+    if (await Sendsms.hasPermission()) {
+      print(phone);
+      final resp = await Sendsms.onSendSMS(phone, _sms);
+      final resp1 = await Sendsms.onSendSMS(phone, dir);
+      final resp2 = await Sendsms.onSendSMS(phone, pos2);
+    }
   }
 }
 
