@@ -47,6 +47,7 @@ dependencies:
   contacts_service: ^0.6.1
   provider: ^5.0.0
   shared_preferences: ^2.0.6
+  whatsapp_unilink: ^2.0.0
 
 dev_dependencies:
   flutter_test:

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:piproy/scr/pages/mensaje_emergencia.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -46,7 +47,8 @@ class MyApp extends StatelessWidget {
           'botonRojo': (_) => BotonRojoPage(),
           'contactos': (_) => ContactosPage(),
           'emergiContactos': (_) => EmergenciaContactos(),
-          'selecContactos': (_) => SeleccionContacto()
+          'selecContactos': (_) => SeleccionContacto(),
+          'emergiMensaje': (_) => EmergenciaMensaje(),
         },
       ),
     );

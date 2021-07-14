@@ -32,7 +32,10 @@ class ConfigMenu extends StatelessWidget {
               color: Color.fromRGBO(55, 57, 84, 1.0),
             ),
             title: Text('Mensaje de emergencia'),
-            onTap: () {},
+            onTap: () {
+              Navigator.pop(context);
+              Navigator.pushNamed(context, 'emergiMensaje');
+            },
           ),
         ],
       ),

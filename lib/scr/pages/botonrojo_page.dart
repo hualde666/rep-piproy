@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
+// import 'package:url_launcher/url_launcher.dart';
+// import 'package:whatsapp_unilink/whatsapp_unilink.dart';
 
 import 'package:sendsms/sendsms.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -76,33 +78,6 @@ class BotonRojoPage extends StatelessWidget {
             ),
           ),
         ),
-        //floatingActionButton: Row(
-        // mainAxisAlignment: MainAxisAlignment.end,
-        // children: [
-        //   FloatingActionButton(
-        //     child: Icon(
-        //       Icons.edit,
-        //       color: Colors.white,
-        //     ),
-        //     tooltip: 'agregar',
-        //     heroTag: 'agregar',
-        //     onPressed: () {
-        //       Navigator.pushNamed(context, 'emergiContactos');
-        //     },
-        //   ),
-        //   SizedBox(
-        //     width: 20.0,
-        //   ),
-        //   FloatingActionButton(
-        //     child: Icon(Icons.check),
-        //     tooltip: 'regresar',
-        //     heroTag: 'regresar',
-        //     onPressed: () {
-        //       // *** actualizar BD ***
-        //       Navigator.pop(context);
-        //     },
-        //   ),
-        // ],
       ),
     );
   }
@@ -154,7 +129,6 @@ Future<String> _getAddressFromLatLng(dynamic _currentPosition) async {
 
     return " ${place.thoroughfare}  ${place.locality}   ${place.postalCode}  ${place.country}";
   } catch (e) {
-    print(e);
     return "";
   }
 }
@@ -163,26 +137,34 @@ Future<void> mandarSMS() async {
   final pos = await _geoLocal();
   final dir = await _getAddressFromLatLng(pos); // direcion en texto.
 
-  String _sms = 'E M E R G E N C I A      MAMÁ Necesita ayuda. Ubicacion:';
-  // String sms = _sms + dir;
-
   final lat = pos.latitude;
   final lng = pos.longitude;
-  final pos2 = 'https://maps.google.com/?q=$lat,$lng';
+  final pos2 = ' https://maps.google.com/?q=$lat,$lng';
 
   final resp = await Sendsms.onGetPermission();
   if (resp.hashCode != null) {
     print(resp.hashCode);
   }
 
+  // Obtengo datos del mensaje y numeros de telefonos
   SharedPreferences prefs = await SharedPreferences.getInstance();
+  String _mensaje = prefs.getString('mensajeE');
+  if (_mensaje == '') {
+    _mensaje = "Necesito ayuda !!";
+  }
   final List<String> listaPhone = prefs.getStringList('listaE');
+
   for (var phone in listaPhone) {
     if (await Sendsms.hasPermission()) {
-      print(phone);
-      final resp = await Sendsms.onSendSMS(phone, _sms);
+      // Envio mensaje a cada telefono de la lista
+      final resp = await Sendsms.onSendSMS(phone, _mensaje);
       final resp1 = await Sendsms.onSendSMS(phone, dir);
       final resp2 = await Sendsms.onSendSMS(phone, pos2);
+      //   final link = WhatsAppUnilink(
+      //     phoneNumber: phone,
+      //     text: _mensaje,
+      //   );
+      //   await launch('$link');
     }
   }
 }
