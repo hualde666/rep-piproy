@@ -2,25 +2,31 @@ import 'package:flutter/material.dart';
 
 import 'package:piproy/scr/widgets/icon_conteiner.dart';
 
-Widget encabezadoIcon() {
+Widget encabezadoIcon(BuildContext context) {
   //final bool isOn = false;
   final List<Widget> _listaWidget = [
     conteinerIcon(
-        Icon(
-          Icons.filter_alt,
-          size: 40.0,
-          color: Colors.white,
-          semanticLabel: 'linterna',
-        ),
-        'linterna'), // linterna
+        context,
+        Icon(Icons.filter_alt,
+            size: 40.0, color: Colors.white, semanticLabel: 'linterna'),
+        'linterna',
+        ''), // linterna
     conteinerIcon(
-        Icon(Icons.battery_std, size: 40.0, color: Colors.white), 'bateria'),
-    conteinerIcon(Icon(Icons.wifi, size: 40.0, color: Colors.white), 'wifi'),
+        context,
+        Icon(Icons.battery_std, size: 40.0, color: Colors.white),
+        'bateria',
+        ''),
     conteinerIcon(
-        Icon(Icons.access_alarms, size: 40.0, color: Colors.white), 'alarma'),
-    conteinerIcon(Icon(Icons.chat, size: 40.0, color: Colors.white), 'chat'),
+        context, Icon(Icons.wifi, size: 40.0, color: Colors.white), 'wifi', ''),
     conteinerIcon(
-        Icon(Icons.add_call, size: 40.0, color: Colors.white), 'llamada'),
+        context,
+        Icon(Icons.access_alarms, size: 40.0, color: Colors.white),
+        'alarma',
+        ''),
+    conteinerIcon(
+        context, Icon(Icons.chat, size: 40.0, color: Colors.white), 'chat', ''),
+    conteinerIcon(context,
+        Icon(Icons.add_call, size: 40.0, color: Colors.white), 'llamada', ''),
   ];
   return Container(
     height: 100.0,

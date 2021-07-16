@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 
-Widget conteinerIcon(Icon icon, String tarea) {
+Widget conteinerIcon(
+    BuildContext context, Icon icon, String tarea, String phone) {
   return GestureDetector(
     child: Tooltip(
       message: tarea,
@@ -22,7 +24,7 @@ Widget conteinerIcon(Icon icon, String tarea) {
         width: 70.0,
         height: 70.0,
         decoration: BoxDecoration(
-            color: Color.fromRGBO(55, 57, 84, 1.0),
+            color: Theme.of(context).primaryColor,
             borderRadius: BorderRadius.circular(40),
             border: Border.all(color: Colors.green, width: 1.0)),
         margin: EdgeInsets.only(
@@ -32,13 +34,22 @@ Widget conteinerIcon(Icon icon, String tarea) {
         child: icon, // Icon(icon, size: 40.0, color: Colors.green),
       ),
     ),
-    onTap: () => {funcionIcon(tarea)},
+    onTap: () => {funcionIcon(tarea, phone)},
   );
 }
 
-funcionIcon(String tarea) {
+funcionIcon(String tarea, String phone) {
   print(tarea);
-  if (tarea == 'linterna') {
-    // Flashlight.lightOn();
+  switch (tarea) {
+    case 'llamada':
+      llamar(phone);
+      break;
+    case 'linterna':
+      break;
   }
+}
+
+llamar(String phone) async {
+  bool res = await FlutterPhoneDirectCaller.callNumber(phone);
+  print(res);
 }

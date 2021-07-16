@@ -47,6 +47,8 @@ dependencies:
   contacts_service: ^0.6.1
   provider: ^5.0.0
   shared_preferences: ^2.0.6
+  flutter_phone_direct_caller: ^2.0.0
+  flutter_open_whatsapp: ^0.1.2
   whatsapp_unilink: ^2.0.0
 
 dev_dependencies:

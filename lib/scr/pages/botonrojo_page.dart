@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
-// import 'package:url_launcher/url_launcher.dart';
-// import 'package:whatsapp_unilink/whatsapp_unilink.dart';
 
 import 'package:sendsms/sendsms.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'package:flutter_open_whatsapp/flutter_open_whatsapp.dart';
+
+//import 'package:whatsapp_unilink/whatsapp_unilink.dart';
+//import 'package:url_launcher/url_launcher.dart';
 class BotonRojoPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -45,12 +48,13 @@ class BotonRojoPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     ElevatedButton(
-                      child: Text(
-                        'Enviar',
-                        style: TextStyle(
+                      child: Text('Enviar',
+                          style: TextStyle(
                             fontSize: 25.0,
-                            color: Color.fromRGBO(55, 57, 84, 1.0)),
-                      ),
+                            color: Theme.of(context).primaryColor,
+                          )
+                          // Theme.of(context).primaryColor),
+                          ),
                       onPressed: () {
                         mandarSMS();
 
@@ -62,7 +66,7 @@ class BotonRojoPage extends StatelessWidget {
                       child: Text('Cancelar',
                           style: TextStyle(
                               fontSize: 25.0,
-                              color: Color.fromRGBO(55, 57, 84, 1.0))),
+                              color: Theme.of(context).primaryColor)),
                       onPressed: () {
                         Navigator.pop(context);
                       },
@@ -157,9 +161,10 @@ Future<void> mandarSMS() async {
   for (var phone in listaPhone) {
     if (await Sendsms.hasPermission()) {
       // Envio mensaje a cada telefono de la lista
-      final resp = await Sendsms.onSendSMS(phone, _mensaje);
-      final resp1 = await Sendsms.onSendSMS(phone, dir);
-      final resp2 = await Sendsms.onSendSMS(phone, pos2);
+      //final resp = await Sendsms.onSendSMS(phone, _mensaje);
+      //final resp1 = await Sendsms.onSendSMS(phone, dir);
+      //final resp2 = await Sendsms.onSendSMS(phone, pos2);
+      FlutterOpenWhatsapp.sendSingleMessage(phone, _mensaje);
       //   final link = WhatsAppUnilink(
       //     phoneNumber: phone,
       //     text: _mensaje,
@@ -168,31 +173,3 @@ Future<void> mandarSMS() async {
     }
   }
 }
-
-//    Scaffold(
-//     // appBar: AppBar(
-//     //   backgroundColor: Colors.red[900],
-//     //   textTheme: TextTheme(
-//     //       headline1: TextStyle(color: Colors.white, fontSize: 30.0)),
-//     //   title: Text('LLAMADA DE EMERGENCIA'),
-//     // ),
-//     body: Center(
-//       child: Column(
-//         mainAxisAlignment: MainAxisAlignment.center,
-//         children: [
-//           BotonRojo('emergencia'),
-//           SizedBox(
-//             height: 50.0,
-//           ),
-//           BotonCancelar(),
-//         ],
-//       ),
-//     ),
-//     floatingActionButton: Icon(
-//       Icons.edit,
-//       size: 30.0,
-//       color: Colors.red,
-//     ),
-//   );
-// }
-// }

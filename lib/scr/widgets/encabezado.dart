@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:piproy/scr/widgets/encabezado_icon.dart';
 
-encabezadoApp(String titulo) {
+encabezadoApp(BuildContext context, String titulo) {
   return SliverAppBar(
     elevation: 5.0,
     // backgroundColor: Colors.teal[600],
@@ -20,6 +20,6 @@ encabezadoApp(String titulo) {
         ),
       ],
     ),
-    flexibleSpace: encabezadoIcon(),
+    flexibleSpace: encabezadoIcon(context),
   );
 }

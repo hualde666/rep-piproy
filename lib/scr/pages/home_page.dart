@@ -31,12 +31,12 @@ class HomePage extends StatelessWidget {
 
   List<Widget> _detalle(BuildContext context) {
     return <Widget>[
-      encabezadoApp('Proyecto PI'),
+      encabezadoApp(context, 'Proyecto PI'),
       SliverList(
         delegate: SliverChildListDelegate([
           SizedBox(height: 5.0),
           elementos(
-              context, Pila_Timpo_Clima(), Color.fromRGBO(55, 57, 84, 1.0), ''),
+              context, Pila_Timpo_Clima(), Theme.of(context).primaryColor, ''),
           elementos(
               context,
               Text('EMERGENCIA',
@@ -47,7 +47,7 @@ class HomePage extends StatelessWidget {
               context,
               Text('Contactos',
                   style: TextStyle(color: Colors.white, fontSize: 35.0)),
-              Color.fromRGBO(55, 57, 84, 1.0),
+              Theme.of(context).primaryColor,
               'contactos'),
           elementos(
               context,
@@ -56,19 +56,19 @@ class HomePage extends StatelessWidget {
                 width: 50.0,
                 color: Colors.amber,
               ),
-              Color.fromRGBO(55, 57, 84, 1.0),
+              Theme.of(context).primaryColor,
               ''),
           elementos(
               context,
               Text('ELEMENTO',
                   style: TextStyle(color: Colors.white, fontSize: 35.0)),
-              Color.fromRGBO(55, 57, 84, 1.0),
+              Theme.of(context).primaryColor,
               ''),
           elementos(
               context,
               Text('ELEMENTO',
                   style: TextStyle(color: Colors.white, fontSize: 35.0)),
-              Color.fromRGBO(55, 57, 84, 1.0),
+              Theme.of(context).primaryColor,
               ''),
         ]),
       )
@@ -87,12 +87,12 @@ class HomePage extends StatelessWidget {
                 'Configuración',
                 style: TextStyle(color: Colors.white, fontSize: 20.0),
               ),
-              color: Color.fromRGBO(55, 57, 84, 1.0),
+              color: Theme.of(context).primaryColor,
             ),
           ),
           ListTile(
               leading: Icon(Icons.contact_phone,
-                  size: 35.0, color: Color.fromRGBO(55, 57, 84, 1.0)),
+                  size: 35.0, color: Theme.of(context).primaryColor),
               title: Text('Contactos de emergencia'),
               onTap: () {
                 Navigator.pop(context);
@@ -102,7 +102,7 @@ class HomePage extends StatelessWidget {
             leading: Icon(
               Icons.message,
               size: 40.0,
-              color: Color.fromRGBO(55, 57, 84, 1.0),
+              color: Theme.of(context).primaryColor,
             ),
             title: Text('Mensaje de emergencia'),
             onTap: () {},

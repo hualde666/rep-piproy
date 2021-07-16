@@ -4,7 +4,7 @@ Widget bottonBarNavegador(BuildContext context) {
   return Theme(
       data: Theme.of(context).copyWith(),
       child: BottomNavigationBar(
-        // backgroundColor: Color.fromRGBO(55, 57, 84, 1.0),
+        // backgroundColor: Theme.of(context).primaryColor,
         // selectedItemColor: Colors.pink,
         // unselectedItemColor: Color.fromRGBO(166, 117, 152, 1.0),
         showSelectedLabels: false,

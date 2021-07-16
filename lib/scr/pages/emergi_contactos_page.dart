@@ -179,7 +179,7 @@ class _EmergenciaContactos extends State<EmergenciaContactos> {
       height: 100.0,
       margin: EdgeInsets.symmetric(horizontal: 4.0, vertical: 3.0),
       decoration: BoxDecoration(
-          color: Color.fromRGBO(55, 57, 84, 1.0), //Colors.green[300],
+          color: Theme.of(context).primaryColor, //Colors.green[300],
           borderRadius: BorderRadius.circular(20.0),
           border: Border.all(color: Colors.green)),
       child: Row(

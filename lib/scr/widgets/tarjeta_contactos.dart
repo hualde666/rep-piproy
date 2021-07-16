@@ -15,12 +15,12 @@ Widget tarjetaContacto(BuildContext context, Contact contacto) {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           // _avatar(contacto),
-          _nombreContacto(_nombre),
+          _nombreContacto(context, _nombre),
           SizedBox(
             height: 150.0,
           ),
 
-          _botonesContactos(),
+          _botonesContactos(context, contacto),
         ],
       ),
       decoration: BoxDecoration(
@@ -31,7 +31,7 @@ Widget tarjetaContacto(BuildContext context, Contact contacto) {
           color: Colors.white38,
           borderRadius: BorderRadius.circular(20.0),
           border:
-              Border.all(color: Color.fromRGBO(55, 57, 84, 1.0), width: 5.0)),
+              Border.all(color: Theme.of(context).primaryColor, width: 5.0)),
     ),
     onTap: () {
       Navigator.pop(context);
@@ -40,7 +40,7 @@ Widget tarjetaContacto(BuildContext context, Contact contacto) {
   );
 }
 
-Widget _botonesContactos() {
+Widget _botonesContactos(BuildContext context, Contact contacto) {
   return Container(
     height: 100.0,
     margin: EdgeInsets.only(bottom: 10.0, right: 15.0),
@@ -49,23 +49,32 @@ Widget _botonesContactos() {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         conteinerIcon(
-            Icon(Icons.message, size: 40.0, color: Colors.white), 'mensaje'),
-        conteinerIcon(Icon(Icons.video_call, size: 40.0, color: Colors.white),
-            'video llamada'),
+            context,
+            Icon(Icons.message, size: 40.0, color: Colors.white),
+            'mensaje',
+            ''),
         conteinerIcon(
-            Icon(Icons.call, size: 40.0, color: Colors.white), 'llamada'),
+            context,
+            Icon(Icons.video_call, size: 40.0, color: Colors.white),
+            'video llamada',
+            ''),
+        conteinerIcon(
+            context,
+            Icon(Icons.call, size: 40.0, color: Colors.white),
+            'llamada',
+            contacto.phones.elementAt(0).value),
       ],
     ),
   );
 }
 
-Widget _nombreContacto(String nombre) {
+Widget _nombreContacto(BuildContext context, String nombre) {
   return Container(
       height: 100,
       width: double.infinity,
       margin: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
       decoration: BoxDecoration(
-          color: Color.fromRGBO(55, 57, 84, 1.0),
+          color: Theme.of(context).primaryColor,
           borderRadius: BorderRadius.circular(20.0),
           border: Border.all(color: Colors.green)),
       child: Center(
@@ -76,22 +85,3 @@ Widget _nombreContacto(String nombre) {
                 fontSize: 30.0,
               ))));
 }
-
-// Widget _avatar(Contact contacto) {
-//   if (contacto.avatar.isEmpty) {
-//     return CircleAvatar(
-//       child: Text(
-//         contacto.initials(),
-//         style: TextStyle(fontSize: 30.0),
-//       ),
-//       foregroundColor: Colors.black,
-//       backgroundColor: Colors.green,
-//       maxRadius: 50.0,
-//     );
-//   } else {
-//     // return CircleAvatar(
-    //   maxRadius: 50.0,
-    //   backgroundImage: MemoryImage(contacto.avatar),
-    // );
-//   }
-// }
