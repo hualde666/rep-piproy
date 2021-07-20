@@ -12,12 +12,19 @@ class ContactosPage extends StatefulWidget {
 class _ContactosPageState extends State<ContactosPage> {
   List<Contact> listaContactos = [];
   List<Contact> listaContactosFiltro = [];
-  TextEditingController searchController = TextEditingController();
+  TextEditingController _searchController = TextEditingController();
   bool cargando = true;
+
   @override
   void initState() {
     super.initState();
     getAllContactos();
+  }
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
   }
 
   getAllContactos() async {
@@ -31,7 +38,7 @@ class _ContactosPageState extends State<ContactosPage> {
         listaContactos = _contactos
             .where((contac) => contac.phones.isEmpty == false)
             .toList();
-        searchController.addListener(() {
+        _searchController.addListener(() {
           filtrarContactos();
         });
       });
@@ -40,7 +47,7 @@ class _ContactosPageState extends State<ContactosPage> {
 
   @override
   Widget build(BuildContext context) {
-    bool hayBusqueda = searchController.text.isNotEmpty;
+    bool hayBusqueda = _searchController.text.isNotEmpty;
     final List<Widget> listaTarjetas = List.generate(
         hayBusqueda ? listaContactosFiltro.length : listaContactos.length,
         (i) => tarjetaContacto(context,
@@ -91,19 +98,21 @@ class _ContactosPageState extends State<ContactosPage> {
     return SliverAppBar(
       elevation: 2.0,
       // backgroundColor: Colors.teal[600],
-      expandedHeight: 130.0,
+      expandedHeight: 150.0,
+
       floating: true,
       pinned: true,
       title: Text('C O N T A C T O S'),
+      flexibleSpace: busqueda(),
     );
   }
 
   void filtrarContactos() {
     List<Contact> _contactos = [];
     _contactos.addAll(listaContactos);
-    if (searchController.text.isNotEmpty) {
+    if (_searchController.text.isNotEmpty) {
       _contactos.retainWhere((contacto) {
-        String busquedaMinuscula = searchController.text.toLowerCase();
+        String busquedaMinuscula = _searchController.text.toLowerCase();
         String nombreMinuscula = contacto.displayName.toLowerCase();
         return nombreMinuscula.contains(busquedaMinuscula);
       });
@@ -112,5 +121,31 @@ class _ContactosPageState extends State<ContactosPage> {
         listaContactosFiltro = _contactos;
       });
     }
+  }
+
+  Widget busqueda() {
+    return FlexibleSpaceBar(
+      collapseMode: CollapseMode.pin,
+      background: Container(
+        margin: EdgeInsets.only(top: 55.0, left: 5.0, right: 5.0),
+        height: 150.0,
+        child: TextField(
+          style: TextStyle(fontSize: 25.0, color: Colors.white, height: 1.0),
+          keyboardType: TextInputType.text,
+          controller: _searchController,
+          decoration: InputDecoration(
+            labelText: 'Busqueda:',
+            suffixIcon: IconButton(
+              onPressed: _searchController.clear,
+              icon: Icon(Icons.clear),
+            ),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(20.0),
+            ),
+          ),
+        ),
+      ),
+      //Icon(Icons.delete),
+    );
   }
 }

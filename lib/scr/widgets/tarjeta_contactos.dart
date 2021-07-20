@@ -5,7 +5,7 @@ import 'package:piproy/scr/widgets/icon_conteiner.dart';
 Widget tarjetaContacto(BuildContext context, Contact contacto) {
   final String _nombre =
       contacto.displayName != null ? contacto.displayName : 'Sin Nombre';
-  // final String _telefono = contacto.phones.elementAt(0).value;
+  // final String _telefono1 = contacto.phones.elementAt(0).value;
   return GestureDetector(
     child: Container(
       height: 400.0,

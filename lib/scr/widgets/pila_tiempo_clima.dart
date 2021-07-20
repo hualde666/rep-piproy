@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 
 import 'package:piproy/scr/widgets/reloj.dart';
 
-class Pila_Timpo_Clima extends StatefulWidget {
+class PilaTimpoClima extends StatefulWidget {
   @override
-  _Pila_Timpo_ClimaState createState() => _Pila_Timpo_ClimaState();
+  _PilaTimpoClimaState createState() => _PilaTimpoClimaState();
 }
 
-class _Pila_Timpo_ClimaState extends State<Pila_Timpo_Clima> {
+class _PilaTimpoClimaState extends State<PilaTimpoClima> {
   Timer startTimeout([int milliseconds]) {
     final timeout = Duration(seconds: 60);
     final ms = Duration(milliseconds: 1);

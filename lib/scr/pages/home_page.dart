@@ -36,7 +36,7 @@ class HomePage extends StatelessWidget {
         delegate: SliverChildListDelegate([
           SizedBox(height: 5.0),
           elementos(
-              context, Pila_Timpo_Clima(), Theme.of(context).primaryColor, ''),
+              context, PilaTimpoClima(), Theme.of(context).primaryColor, ''),
           elementos(
               context,
               Text('EMERGENCIA',

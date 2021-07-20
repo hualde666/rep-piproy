@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:shared_preferences/shared_preferences.dart';
 
 class EmergenciaMensaje extends StatefulWidget {
@@ -15,6 +16,12 @@ class _EmergenciaMensajeState extends State<EmergenciaMensaje> {
     super.initState();
     cargarPrefs();
     _textController = new TextEditingController(text: _mensaje);
+  }
+
+  @override
+  void dispose() {
+    _textController.dispose();
+    super.dispose();
   }
 
   cargarPrefs() async {
