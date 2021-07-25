@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
         title: 'Proyecto',
         theme: ThemeData(
           primaryColor: Color.fromRGBO(55, 57, 84, 1.0),
-     
+
           accentColor:
               Color.fromRGBO(55, 57, 84, 1.0), // afecta flotin action botto
           scaffoldBackgroundColor: Colors.white,

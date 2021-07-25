@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
+import 'package:piproy/scr/funciones/abrir_whatsapp.dart';
 
 Widget conteinerIcon(
     BuildContext context, Icon icon, String tarea, String phone) {
@@ -20,19 +21,22 @@ Widget conteinerIcon(
       ),
       showDuration: const Duration(seconds: 2),
       waitDuration: const Duration(seconds: 1),
-      child: Container(
+      child: Center(
+          child: Container(
         width: 70.0,
         height: 70.0,
         decoration: BoxDecoration(
-            color: Theme.of(context).primaryColor,
-            borderRadius: BorderRadius.circular(40),
-            border: Border.all(color: Colors.green, width: 1.0)),
-        margin: EdgeInsets.only(
-          left: 15.0,
-          top: 30.0,
-        ),
+            color: (tarea == 'whatsapp')
+                ? Colors.green
+                : Theme.of(context).primaryColor,
+            borderRadius: BorderRadius.circular(80),
+            border: Border.all(color: Colors.white, width: 2.0)),
+        // margin: EdgeInsets.only(
+        //   left: 15.0,
+        //   //   top: 30.0,
+        // ),
         child: icon, // Icon(icon, size: 40.0, color: Colors.green),
-      ),
+      )),
     ),
     onTap: () => {funcionIcon(tarea, phone)},
   );
@@ -45,6 +49,9 @@ funcionIcon(String tarea, String phone) {
       llamar(phone);
       break;
     case 'linterna':
+      break;
+    case 'whatsapp':
+      abrirWhatsapp(phone, '');
       break;
   }
 }
