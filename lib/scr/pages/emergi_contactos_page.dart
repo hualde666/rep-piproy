@@ -13,12 +13,12 @@ class EmergenciaContactos extends StatefulWidget {
 class _EmergenciaContactos extends State<EmergenciaContactos> {
   List<ItemListaEmergencia> listaE =
       []; // lista activa de contactos telefonos de emergencia
-  List<String> listaPhone = []; // lista de telefonos guardados
+  List<String> listaIdContacto = []; // lista de telefonos guardados
 
 // CARGA la lista de telefonos de emergemcia guardada
   cargarPrefs() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    listaPhone = prefs.getStringList('listaE');
+    listaIdContacto = prefs.getStringList('listaE');
   }
 
 // GRABA la lista de telefonos de emergemcia
@@ -26,8 +26,8 @@ class _EmergenciaContactos extends State<EmergenciaContactos> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     // genera primero una lista con solo los numeros telefonicos que
     // es lo que se guarda
-    listaPhone = List.generate(listaE.length, (i) => listaE[i].phone);
-    prefs.setStringList('listaE', listaPhone);
+    listaIdContacto = List.generate(listaE.length, (i) => listaE[i].idcontacto);
+    prefs.setStringList('listaE', listaIdContacto);
   }
 
   @override
@@ -37,11 +37,11 @@ class _EmergenciaContactos extends State<EmergenciaContactos> {
     if (listaE.length == 0) {
       cargarPrefs();
       listaSelectInfo.obtenerlistaContactos();
-      if (listaPhone != null) {
-        for (var numero in listaPhone) {
+      if (listaIdContacto != null) {
+        for (var idContacto in listaIdContacto) {
           // genera lista de CONTACTOS seleccionados con los telf guardados
 
-          listaSelectInfo.generarListaSelect(numero);
+          listaSelectInfo.generarListaSelect(idContacto);
         }
       }
     }

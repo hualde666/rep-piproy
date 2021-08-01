@@ -14,6 +14,7 @@ class ContactosProvider with ChangeNotifier {
 
   sumarContacto(Contact contacto, int i) {
     ItemListaEmergencia nuevo = ItemListaEmergencia(
+        contacto.identifier,
         contacto.displayName,
         contacto.avatar,
         i,
@@ -60,6 +61,7 @@ class ContactosProvider with ChangeNotifier {
         (listaContactos) => listaContactos.phones.elementAt(0).value == phone);
     if (i > 0) {
       ItemListaEmergencia nuevo = ItemListaEmergencia(
+          listaContactos[i].identifier,
           listaContactos[i].displayName,
           listaContactos[i].avatar,
           i,
@@ -73,11 +75,12 @@ class ContactosProvider with ChangeNotifier {
 }
 
 class ItemListaEmergencia {
+  String idcontacto;
   String nombre;
   Uint8List avatar;
   int iListaContacto;
   String initials;
   String phone;
-  ItemListaEmergencia(
-      this.nombre, this.avatar, this.iListaContacto, this.initials, this.phone);
+  ItemListaEmergencia(this.idcontacto, this.nombre, this.avatar,
+      this.iListaContacto, this.initials, this.phone);
 }

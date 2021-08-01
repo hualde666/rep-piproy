@@ -6,22 +6,28 @@ Widget tarjetaContacto2(BuildContext context, Contact contacto) {
   final String _nombre =
       contacto.displayName != null ? contacto.displayName : 'Sin Nombre';
   // final String _telefono1 = contacto.phones.elementAt(0).value;
-  return Container(
-    height: 240.0,
-    margin: EdgeInsets.symmetric(horizontal: 2.5, vertical: 2.5),
-    child: Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        //_avatar(contacto),
-        _nombreContacto(context, contacto),
+  return GestureDetector(
+    child: Container(
+      height: 240.0,
+      margin: EdgeInsets.symmetric(horizontal: 2.5, vertical: 2.5),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          //_avatar(contacto),
+          _nombreContacto(context, contacto),
 
-        _botonesContactos(context, contacto),
-      ],
+          _botonesContactos(context, contacto),
+        ],
+      ),
+      decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(15.0),
+          border:
+              Border.all(color: Theme.of(context).primaryColor, width: 3.0)),
     ),
-    decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(15.0),
-        border: Border.all(color: Theme.of(context).primaryColor, width: 3.0)),
+    onTap: () {
+      Navigator.pushNamed(context, 'editarContacto', arguments: contacto);
+    },
   );
 }
 

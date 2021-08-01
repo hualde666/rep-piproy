@@ -156,8 +156,9 @@ Future<void> mandarSMS() async {
   if (_mensaje == '') {
     _mensaje = "Necesito ayuda !!";
   }
-  final List<String> listaPhone = prefs.getStringList('listaE');
-
+  final List<String> listaIdContactos = prefs.getStringList('listaE');
+// generar lita de telefonos
+  final List<String> listaPhone = [];
   for (var phone in listaPhone) {
     if (await Sendsms.hasPermission()) {
       // Envio mensaje a cada telefono de la lista

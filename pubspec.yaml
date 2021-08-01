@@ -50,6 +50,7 @@ dependencies:
   flutter_phone_direct_caller: ^2.0.0
   flutter_open_whatsapp: ^0.1.2
   whatsapp_unilink: ^2.0.0
+  
 
 dev_dependencies:
   flutter_test:
