@@ -13,13 +13,7 @@ class EmergenciaContactos extends StatefulWidget {
 class _EmergenciaContactos extends State<EmergenciaContactos> {
   List<ItemListaEmergencia> listaE =
       []; // lista activa de contactos telefonos de emergencia
-  List<String> listaIdContacto = []; // lista de telefonos guardados
-
-// CARGA la lista de telefonos de emergemcia guardada
-  cargarPrefs() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    listaIdContacto = prefs.getStringList('listaE');
-  }
+  List<String> listaIdContacto = []; // lista de id contactos
 
 // GRABA la lista de telefonos de emergemcia
   guardarLista() async {
@@ -33,16 +27,14 @@ class _EmergenciaContactos extends State<EmergenciaContactos> {
   @override
   Widget build(BuildContext context) {
     final listaSelectInfo = Provider.of<ContactosProvider>(context);
+    listaIdContacto = listaSelectInfo.listaIdContacto;
 
-    if (listaE.length == 0) {
-      cargarPrefs();
-      listaSelectInfo.obtenerlistaContactos();
-      if (listaIdContacto != null) {
-        for (var idContacto in listaIdContacto) {
-          // genera lista de CONTACTOS seleccionados con los telf guardados
+    if (listaIdContacto != null) {
+      listaSelectInfo.listaSelect = [];
+      for (var idContacto in listaIdContacto) {
+        // genera lista de CONTACTOS seleccionados con los telf guardados
 
-          listaSelectInfo.generarListaSelect(idContacto);
-        }
+        listaSelectInfo.generarListaSelect(idContacto);
       }
     }
 
@@ -52,23 +44,21 @@ class _EmergenciaContactos extends State<EmergenciaContactos> {
       appBar: AppBar(
         title: Text('Contactos de Emergencía'),
       ),
-      body: listaSelectInfo.listaContactos.length == 0
-          ? Center(
-              child: Container(
-                height: 30,
-                width: 30,
-                child: CircularProgressIndicator(),
-              ),
-            )
-          : pantallaInicial(),
-      floatingActionButton: Row(
+      body: pantallaInicial(),
+      floatingActionButton: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          FloatingActionButton(
-            child: Icon(
-              Icons.add,
+          FloatingActionButton.extended(
+            icon: Icon(
+              Icons.add_circle,
+              size: 40,
               color: Colors.white,
             ),
+            label: Text(
+              'agregar',
+              style: TextStyle(fontSize: 20, color: Colors.white),
+            ),
+            backgroundColor: Color.fromRGBO(249, 75, 11, 1),
             tooltip: 'agergar',
             heroTag: 'agregar',
             onPressed: () {
@@ -77,10 +67,18 @@ class _EmergenciaContactos extends State<EmergenciaContactos> {
             },
           ),
           SizedBox(
-            width: 20.0,
+            height: 10,
           ),
-          FloatingActionButton(
-            child: Icon(Icons.check),
+          FloatingActionButton.extended(
+            icon: Icon(
+              Icons.check_circle,
+              size: 40,
+            ),
+            label: Text(
+              'guardar',
+              style: TextStyle(fontSize: 20, color: Colors.white),
+            ),
+            backgroundColor: Color.fromRGBO(249, 75, 11, 1),
             tooltip: 'guardar',
             heroTag: 'guardar',
             onPressed: () {
@@ -99,31 +97,35 @@ class _EmergenciaContactos extends State<EmergenciaContactos> {
     final listaSelectInfo = Provider.of<ContactosProvider>(context);
     listaE = listaSelectInfo.listaSelect;
 
-    return listaE.length != 0
+    return listaE.isNotEmpty
         ? ListView.builder(
             itemCount: listaE.length,
             itemBuilder: (context, i) {
-              return Dismissible(
-                onDismissed: (DismissDirection direction) {
-                  // setState(() async {
-                  Provider.of<ContactosProvider>(context, listen: false)
-                      .cambiarCheck(listaE[i].iListaContacto, false);
-                  Provider.of<ContactosProvider>(context, listen: false)
-                      .quitarContacto(listaE[i].iListaContacto);
-
-                  guardarLista();
-                },
-                key: UniqueKey(),
-                background: Container(
-                  padding: EdgeInsets.only(top: 25.0, left: 30.0),
-                  color: Colors.red,
-                  child: Text(
-                    'ELIMINAR',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ),
-                child: contactoWidget(listaE[i]),
-              );
+              return contactoWidget(listaE[i]);
+              //return
+              // Dismissible(
+              //   // onDismissed: (DismissDirection direction) {
+              //   //   // setState(() async {
+              //   //   Provider.of<ContactosProvider>(context, listen: false)
+              //   //       .cambiarCheck(listaE[i].iListaContacto, false);
+              //   //   Provider.of<ContactosProvider>(context, listen: false)
+              //   //       .quitarContacto(listaE[i].iListaContacto);
+              //   //   Provider.of<ContactosProvider>(context, listen: false)
+              //   //       .quitarIdContacto(listaE[i].idcontacto);
+              //   //   listaIdContacto = listaSelectInfo.listaIdContacto;
+              //   //   guardarLista();
+              //   // },
+              //   key: UniqueKey(),
+              //   background: Container(
+              //     padding: EdgeInsets.only(top: 25.0, left: 30.0),
+              //     color: Colors.red,
+              //     child: Text(
+              //       'ELIMINAR',
+              //       style: TextStyle(color: Colors.white),
+              //     ),
+              //   ),
+              //   child: contactoWidget(listaE[i]),
+              // );
             })
         : Center(
             child: Container(
@@ -149,7 +151,7 @@ class _EmergenciaContactos extends State<EmergenciaContactos> {
   Widget _avatar(ItemListaEmergencia contacto) {
     if (contacto.avatar.isEmpty) {
       return Container(
-        height: 90.0,
+        height: 60.0,
         child: CircleAvatar(
           child: Text(
             contacto.initials,
@@ -165,7 +167,7 @@ class _EmergenciaContactos extends State<EmergenciaContactos> {
       );
     } else {
       return Container(
-        height: 90.0,
+        height: 60.0,
         child: CircleAvatar(
           maxRadius: 50.0,
           backgroundImage: MemoryImage(contacto.avatar),
@@ -175,6 +177,7 @@ class _EmergenciaContactos extends State<EmergenciaContactos> {
   }
 
   Widget contactoWidget(ItemListaEmergencia contacto) {
+    String phone = contacto.phone.replaceAll('+', '');
     return Container(
       height: 100.0,
       margin: EdgeInsets.symmetric(horizontal: 4.0, vertical: 3.0),
@@ -186,7 +189,7 @@ class _EmergenciaContactos extends State<EmergenciaContactos> {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          _avatar(contacto),
+          //_avatar(contacto),
           Container(
             width: 200.0,
             child: Column(
@@ -199,11 +202,70 @@ class _EmergenciaContactos extends State<EmergenciaContactos> {
                       color: Colors.white,
                       fontWeight: FontWeight.bold),
                 ),
-                Text(contacto.phone,
+                Text(phone,
                     style: TextStyle(fontSize: 20.0, color: Colors.white)),
               ],
             ),
           ),
+          Container(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                IconButton(
+                  onPressed: () => showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                      title: Text(' ${contacto.nombre}',
+                          style: TextStyle(
+                            fontSize: 20,
+                          )),
+                      content:
+                          Text('¿Desea eliminar este contacto de emergencia?'),
+                      // shape: CircleBorder(),
+                      elevation: 14.0,
+                      actionsPadding: EdgeInsets.symmetric(horizontal: 30.0),
+                      actions: [
+                        TextButton(
+                            onPressed: () {
+                              Provider.of<ContactosProvider>(context,
+                                      listen: false)
+                                  .cambiarCheck(contacto.iListaContacto, false);
+                              Provider.of<ContactosProvider>(context,
+                                      listen: false)
+                                  .quitarContacto(contacto.iListaContacto);
+                              Provider.of<ContactosProvider>(context,
+                                      listen: false)
+                                  .quitarIdContacto(contacto.idcontacto);
+                              print(
+                                  'Lista id:  $listaIdContacto , ${contacto.idcontacto}');
+
+                              guardarLista();
+                              Navigator.pop(context);
+                            },
+                            child:
+                                Text('Si', style: TextStyle(fontSize: 20.0))),
+                        TextButton(
+                            autofocus: true,
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            child: Text('No', style: TextStyle(fontSize: 20.0)))
+                      ],
+                    ),
+                  ),
+                  icon: Icon(
+                    Icons.delete,
+                    size: 40,
+                    color: Colors.white,
+                  ),
+                ),
+                Text(
+                  'eliminar',
+                  style: TextStyle(color: Colors.white),
+                )
+              ],
+            ),
+          )
         ],
       ),
     );

@@ -27,7 +27,7 @@ class _PilaTimpoClimaState extends State<PilaTimpoClima> {
 
   void _actualizaHora() {
     setState(() {
-      startTimeout(null);
+      startTimeout(1);
     });
   }
 

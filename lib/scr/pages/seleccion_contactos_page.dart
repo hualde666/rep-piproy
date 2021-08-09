@@ -37,10 +37,19 @@ class _SeleccionContactoState extends State<SeleccionContacto> {
                 return contactoWidget(context, lista[i], i);
               },
             ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.check),
+      floatingActionButton: FloatingActionButton.extended(
+        icon: Icon(
+          Icons.check_circle,
+          size: 40,
+          color: Colors.white,
+        ),
+        label: Text(
+          'guardar',
+          style: TextStyle(fontSize: 20, color: Colors.white),
+        ),
+        elevation: 10,
+        backgroundColor: Color.fromRGBO(249, 75, 11, 1),
         onPressed: () {
-          print(listaSelectInfo.listaCheck.length);
           Navigator.pop(context);
         },
       ),
@@ -123,9 +132,13 @@ class _SeleccionContactoState extends State<SeleccionContacto> {
                     if (value) {
                       Provider.of<ContactosProvider>(context, listen: false)
                           .sumarContacto(contacto, i);
+                      Provider.of<ContactosProvider>(context, listen: false)
+                          .sumarIdContacto(contacto.identifier);
                     } else {
                       Provider.of<ContactosProvider>(context, listen: false)
                           .quitarContacto(i);
+                      Provider.of<ContactosProvider>(context, listen: false)
+                          .quitarIdContacto(contacto.identifier);
                     }
                   });
                 }),

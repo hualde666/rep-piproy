@@ -44,35 +44,57 @@ class _EmergenciaMensajeState extends State<EmergenciaMensaje> {
   Widget build(BuildContext context) {
     //cargarPrefs();
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Mensaje de Emergencia'),
-      ),
-      body: Center(
-        child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 20.0),
-          child: TextField(
-            style: TextStyle(fontSize: 25.0),
-            autofocus: true,
-            maxLines: null,
-            keyboardType: TextInputType.text,
-            controller: _textController,
-            decoration: InputDecoration(
-              hintText: _mensaje,
-              labelText: 'Mensaje de Emergencia:',
-              border: OutlineInputBorder(),
+        appBar: AppBar(
+          title: Text(
+            'Modificar Mensaje de Emergencia',
+            style: TextStyle(fontSize: 15),
+          ),
+        ),
+        body: Center(
+          child: Container(
+            padding: EdgeInsets.symmetric(horizontal: 20.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  child: Text(
+                    'Redacte el mensaje que desea enviar a sus contactos de emergencia en caso de un incidente.',
+                    style: TextStyle(
+                      fontSize: 20,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                SizedBox(
+                  height: 40,
+                ),
+                TextField(
+                  style: TextStyle(fontSize: 25.0),
+                  // autofocus: true,
+                  maxLines: null,
+                  keyboardType: TextInputType.text,
+                  controller: _textController,
+                  decoration: InputDecoration(
+                    hintText: _mensaje,
+                    labelText: 'Mensaje de Emergencia:',
+                    border: OutlineInputBorder(),
+                  ),
+                ),
+              ],
             ),
           ),
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-          child: Icon(Icons.check),
-          tooltip: 'guardar',
-          heroTag: 'guardar',
-          onPressed: () {
-            // *** actualizar mensaje***
-            guardarMensaje();
-            Navigator.pop(context);
-          }),
-    );
+        floatingActionButton: FloatingActionButton.extended(
+            icon: Icon(Icons.check_circle, color: Colors.white, size: 40),
+            backgroundColor: Color.fromRGBO(249, 75, 11, 1),
+            label: Text('guardar',
+                style: TextStyle(fontSize: 20, color: Colors.white)),
+            tooltip: 'guardar',
+            heroTag: 'guardar',
+            onPressed: () {
+              // *** actualizar mensaje***
+              guardarMensaje();
+              Navigator.pop(context);
+            }));
   }
 }

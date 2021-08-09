@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:piproy/scr/pages/configuracion_page.dart';
 import 'package:piproy/scr/pages/editar_contacto.dart';
 import 'package:piproy/scr/pages/mensaje_emergencia.dart';
 import 'package:provider/provider.dart';
@@ -21,7 +22,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => ContactosProvider(),
+      create: (context) => new ContactosProvider(),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Proyecto',
@@ -53,6 +54,7 @@ class MyApp extends StatelessWidget {
           'emergiContactos': (_) => EmergenciaContactos(),
           'selecContactos': (_) => SeleccionContacto(),
           'emergiMensaje': (_) => EmergenciaMensaje(),
+          'configurar': (_) => ConfiguracionPage(),
         },
       ),
     );

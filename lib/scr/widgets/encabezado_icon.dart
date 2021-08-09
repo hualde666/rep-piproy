@@ -5,51 +5,120 @@ import 'package:piproy/scr/widgets/icon_conteiner.dart';
 Widget encabezadoIcon(BuildContext context) {
   //final bool isOn = false;
   final List<Widget> _listaWidget = [
-    Container(
-      height: 75,
-      margin: EdgeInsets.only(left: 15, right: 10),
-      child: conteinerIcon(
-          context,
-          Icon(Icons.filter_alt,
-              size: 40.0, color: Colors.white, semanticLabel: 'linterna'),
+    Column(
+      children: [
+        Container(
+          height: 75,
+          margin: EdgeInsets.only(left: 10, right: 10),
+          child: conteinerIcon(
+              context,
+              Icon(Icons.engineering, size: 40.0, color: Colors.white),
+              'configurar',
+              ''),
+        ),
+        Text(
+          'configurar',
+          style: TextStyle(color: Colors.white60),
+        )
+      ],
+    ),
+// linterna
+    Column(
+      children: [
+        Container(
+          height: 75,
+          margin: EdgeInsets.only(right: 10),
+          child: conteinerIcon(
+              context,
+              Icon(Icons.filter_alt, size: 40.0, color: Colors.white),
+              'linterna',
+              ''),
+        ),
+        Text(
           'linterna',
-          ''),
-    ), // linterna
-    Container(
-      height: 75,
-      margin: EdgeInsets.only(right: 10),
-      child: conteinerIcon(
-          context,
-          Icon(Icons.battery_std, size: 40.0, color: Colors.white),
-          'bateria',
-          ''),
+          style: TextStyle(color: Colors.white60),
+        )
+      ],
     ),
-    Container(
-      height: 75,
-      margin: EdgeInsets.only(right: 10),
-      child: conteinerIcon(context,
-          Icon(Icons.wifi, size: 40.0, color: Colors.white), 'wifi', ''),
+    Column(
+      children: [
+        Container(
+          height: 75,
+          margin: EdgeInsets.only(right: 10),
+          child: conteinerIcon(
+              context,
+              Icon(Icons.battery_std, size: 40.0, color: Colors.white),
+              'bateria',
+              ''),
+        ),
+        Text(
+          'pila',
+          style: TextStyle(color: Colors.white60),
+        )
+      ],
     ),
-    Container(
-      height: 75,
-      margin: EdgeInsets.only(right: 10),
-      child: conteinerIcon(
-          context,
-          Icon(Icons.access_alarms, size: 40.0, color: Colors.white),
+    Column(
+      children: [
+        Container(
+          height: 75,
+          margin: EdgeInsets.only(right: 10),
+          child: conteinerIcon(context,
+              Icon(Icons.wifi, size: 40.0, color: Colors.white), 'wifi', ''),
+        ),
+        Text(
+          'wifi',
+          style: TextStyle(color: Colors.white60),
+        )
+      ],
+    ),
+    Column(
+      children: [
+        Container(
+          height: 75,
+          margin: EdgeInsets.only(right: 10),
+          child: conteinerIcon(
+              context,
+              Icon(Icons.access_alarms, size: 40.0, color: Colors.white),
+              'alarma',
+              ''),
+        ),
+        Text(
           'alarma',
-          ''),
+          style: TextStyle(color: Colors.white60),
+        )
+      ],
     ),
-    Container(
-      height: 75,
-      margin: EdgeInsets.only(right: 10),
-      child: conteinerIcon(context,
-          Icon(Icons.chat, size: 40.0, color: Colors.white), 'chat', ''),
+
+    Column(
+      children: [
+        Container(
+          height: 75,
+          margin: EdgeInsets.only(right: 10),
+          child: conteinerIcon(context,
+              Icon(Icons.chat, size: 40.0, color: Colors.white), 'chat', ''),
+        ),
+        Text(
+          'mensaje',
+          style: TextStyle(color: Colors.white60),
+        )
+      ],
     ),
-    Container(
-      height: 75,
-      margin: EdgeInsets.only(right: 10),
-      child: conteinerIcon(context,
-          Icon(Icons.add_call, size: 40.0, color: Colors.white), 'llamada', ''),
+    Column(
+      children: [
+        Container(
+          height: 75,
+          margin: EdgeInsets.only(right: 10),
+          child: conteinerIcon(
+              context,
+              Icon(Icons.add_call, size: 40.0, color: Colors.white),
+              'llamada',
+              ''),
+        ),
+        Text(
+          'telefono',
+          style: TextStyle(color: Colors.white60),
+        )
+      ],
     ),
   ];
   return Container(

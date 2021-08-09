@@ -5,12 +5,31 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:contacts_service/contacts_service.dart';
-import 'package:url_launcher/link.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ContactosProvider with ChangeNotifier {
   List<ItemListaEmergencia> listaSelect = [];
-  List<Contact> listaContactos = [];
+  List<Contact> _listaContactos = [];
+
+  List<String> _listaIdContacto = [];
   List<bool> listaCheck = [];
+  ContactosProvider() {
+    obtenerlistaContactos();
+    cargarPrefs();
+  }
+
+  get listaContactos {
+    return _listaContactos;
+  }
+
+  get listaIdContacto {
+    return _listaIdContacto;
+  }
+
+  cargarPrefs() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    _listaIdContacto = prefs.getStringList('listaE');
+  }
 
   sumarContacto(Contact contacto, int i) {
     ItemListaEmergencia nuevo = ItemListaEmergencia(
@@ -21,11 +40,22 @@ class ContactosProvider with ChangeNotifier {
         contacto.initials(),
         contacto.phones.elementAt(0).value);
     listaSelect.add(nuevo);
+    listaSelect.sort((a, b) => a.nombre.compareTo(b.nombre));
     notifyListeners();
   }
 
   quitarContacto(int i) {
     listaSelect.removeWhere((item) => item.iListaContacto == i);
+    notifyListeners();
+  }
+
+  quitarIdContacto(String i) {
+    _listaIdContacto.removeWhere((item) => item == i);
+    notifyListeners();
+  }
+
+  sumarIdContacto(String i) {
+    _listaIdContacto.add(i);
     notifyListeners();
   }
 
@@ -35,10 +65,10 @@ class ContactosProvider with ChangeNotifier {
   }
 
   obtenerlistaContactos() async {
-    if (listaContactos.length == 0) {
-      listaContactos = await getcontactos();
-      listaCheck = List.generate(listaContactos.length, (i) => false);
-      notifyListeners();
+    if (_listaContactos.isEmpty) {
+      _listaContactos = await getcontactos();
+      listaCheck = List.generate(_listaContactos.length, (i) => false);
+      // notifyListeners();
     }
   }
 
@@ -56,21 +86,21 @@ class ContactosProvider with ChangeNotifier {
     return [];
   }
 
-  generarListaSelect(String phone) {
-    int i = listaContactos.indexWhere(
-        (listaContactos) => listaContactos.phones.elementAt(0).value == phone);
+  generarListaSelect(String id) {
+    int i = _listaContactos
+        .indexWhere((_listaContactos) => _listaContactos.identifier == id);
     if (i > 0) {
       ItemListaEmergencia nuevo = ItemListaEmergencia(
-          listaContactos[i].identifier,
-          listaContactos[i].displayName,
-          listaContactos[i].avatar,
+          _listaContactos[i].identifier,
+          _listaContactos[i].displayName,
+          _listaContactos[i].avatar,
           i,
-          listaContactos[i].initials(),
-          listaContactos[i].phones.elementAt(0).value);
+          _listaContactos[i].initials(),
+          _listaContactos[i].phones.elementAt(0).value);
       listaSelect.add(nuevo);
       listaCheck[i] = true;
     }
-    notifyListeners();
+    // notifyListeners();
   }
 }
 
