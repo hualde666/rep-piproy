@@ -18,10 +18,15 @@ class _SeleccionContactoState extends State<SeleccionContacto> {
     final listaSelectInfo = Provider.of<ContactosProvider>(context);
 
     final lista = listaSelectInfo.listaContactos;
+    double alto = MediaQuery.of(context).size.height * 0.78;
     cargando = false;
     return Scaffold(
       appBar: AppBar(
-        title: Text('Seleccion de Contacto'),
+        title: Text('Seleccion Contacto Emergencia',
+            style: TextStyle(
+              fontSize: 15,
+            ),
+            textAlign: TextAlign.start),
       ),
       body: cargando
           ? Center(
@@ -31,11 +36,14 @@ class _SeleccionContactoState extends State<SeleccionContacto> {
                 child: CircularProgressIndicator(),
               ),
             )
-          : ListView.builder(
-              itemCount: lista.length,
-              itemBuilder: (context, i) {
-                return contactoWidget(context, lista[i], i);
-              },
+          : Container(
+              height: alto,
+              child: ListView.builder(
+                itemCount: lista.length,
+                itemBuilder: (context, i) {
+                  return contactoWidget(context, lista[i], i);
+                },
+              ),
             ),
       floatingActionButton: FloatingActionButton.extended(
         icon: Icon(
@@ -97,7 +105,7 @@ class _SeleccionContactoState extends State<SeleccionContacto> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          _avatar(contacto),
+          // _avatar(contacto),
           Container(
             width: 200.0,
             child: Column(
@@ -121,27 +129,48 @@ class _SeleccionContactoState extends State<SeleccionContacto> {
             data: Theme.of(context).copyWith(
               unselectedWidgetColor: Colors.white,
             ),
-            child: Checkbox(
-                value: listaSelectInfo.listaCheck[i],
-                activeColor: Colors.white,
-                checkColor: Colors.green,
-                onChanged: (value) {
-                  setState(() {
-                    Provider.of<ContactosProvider>(context, listen: false)
-                        .cambiarCheck(i, value);
-                    if (value) {
-                      Provider.of<ContactosProvider>(context, listen: false)
-                          .sumarContacto(contacto, i);
-                      Provider.of<ContactosProvider>(context, listen: false)
-                          .sumarIdContacto(contacto.identifier);
-                    } else {
-                      Provider.of<ContactosProvider>(context, listen: false)
-                          .quitarContacto(i);
-                      Provider.of<ContactosProvider>(context, listen: false)
-                          .quitarIdContacto(contacto.identifier);
-                    }
-                  });
-                }),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Transform.scale(
+                  scale: 1.5,
+                  child: Checkbox(
+                      value: listaSelectInfo.listaCheck[i],
+                      activeColor: Colors.white,
+                      checkColor: Colors.green,
+                      onChanged: (value) {
+                        setState(() {
+                          Provider.of<ContactosProvider>(context, listen: false)
+                              .cambiarCheck(i, value);
+                          if (value) {
+                            Provider.of<ContactosProvider>(context,
+                                    listen: false)
+                                .sumarContacto(contacto, i);
+                            Provider.of<ContactosProvider>(context,
+                                    listen: false)
+                                .sumarIdContacto(contacto.identifier);
+                          } else {
+                            Provider.of<ContactosProvider>(context,
+                                    listen: false)
+                                .quitarContacto(i);
+                            Provider.of<ContactosProvider>(context,
+                                    listen: false)
+                                .quitarIdContacto(contacto.identifier);
+                          }
+                        });
+                      }),
+                ),
+                listaSelectInfo.listaCheck[i]
+                    ? Text(
+                        'quitar',
+                        style: TextStyle(color: Colors.white, fontSize: 20),
+                      )
+                    : Text(
+                        'agregar',
+                        style: TextStyle(color: Colors.white, fontSize: 20),
+                      ),
+              ],
+            ),
           )
         ],
       ),

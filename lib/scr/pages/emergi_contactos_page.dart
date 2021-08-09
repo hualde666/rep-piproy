@@ -39,94 +39,79 @@ class _EmergenciaContactos extends State<EmergenciaContactos> {
     }
 
     listaE = listaSelectInfo.listaSelect;
+    double alto = MediaQuery.of(context).size.height * 0.78;
 
     return Scaffold(
       appBar: AppBar(
         title: Text('Contactos de Emergencía'),
       ),
       body: pantallaInicial(),
-      floatingActionButton: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          FloatingActionButton.extended(
-            icon: Icon(
-              Icons.add_circle,
-              size: 40,
-              color: Colors.white,
-            ),
-            label: Text(
-              'agregar',
-              style: TextStyle(fontSize: 20, color: Colors.white),
-            ),
-            backgroundColor: Color.fromRGBO(249, 75, 11, 1),
-            tooltip: 'agergar',
-            heroTag: 'agregar',
-            onPressed: () {
-              Navigator.pushNamed(context, 'selecContactos');
-              setState(() {});
-            },
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          FloatingActionButton.extended(
-            icon: Icon(
-              Icons.check_circle,
-              size: 40,
-            ),
-            label: Text(
-              'guardar',
-              style: TextStyle(fontSize: 20, color: Colors.white),
-            ),
-            backgroundColor: Color.fromRGBO(249, 75, 11, 1),
-            tooltip: 'guardar',
-            heroTag: 'guardar',
-            onPressed: () {
-              // *** actualizar BD ***
-              guardarLista();
+      floatingActionButton: BotonesFab(),
+    );
+  }
 
-              Navigator.pop(context);
-            },
+  Widget BotonesFab() {
+    double altopie = MediaQuery.of(context).size.height * 0.10;
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        FloatingActionButton.extended(
+          icon: Icon(
+            Icons.add_circle,
+            size: 40,
+            color: Colors.white,
           ),
-        ],
-      ),
+          label: Text(
+            'agregar',
+            style: TextStyle(fontSize: 15, color: Colors.white),
+          ),
+          backgroundColor: Color.fromRGBO(249, 75, 11, 1),
+          tooltip: 'agergar',
+          heroTag: 'agregar',
+          onPressed: () {
+            Navigator.pushNamed(context, 'selecContactos');
+            setState(() {});
+          },
+        ),
+        SizedBox(
+          height: 10,
+        ),
+        FloatingActionButton.extended(
+          icon: Icon(
+            Icons.check_circle,
+            size: 40,
+          ),
+          label: Text(
+            'guardar',
+            style: TextStyle(fontSize: 15, color: Colors.white),
+          ),
+          backgroundColor: Color.fromRGBO(249, 75, 11, 1),
+          tooltip: 'guardar',
+          heroTag: 'guardar',
+          onPressed: () {
+            // *** actualizar BD ***
+            guardarLista();
+
+            Navigator.pop(context);
+          },
+        ),
+      ],
     );
   }
 
   Widget pantallaInicial() {
     final listaSelectInfo = Provider.of<ContactosProvider>(context);
     listaE = listaSelectInfo.listaSelect;
-
+    double alto = MediaQuery.of(context).size.height * 0.78;
     return listaE.isNotEmpty
-        ? ListView.builder(
-            itemCount: listaE.length,
-            itemBuilder: (context, i) {
-              return contactoWidget(listaE[i]);
-              //return
-              // Dismissible(
-              //   // onDismissed: (DismissDirection direction) {
-              //   //   // setState(() async {
-              //   //   Provider.of<ContactosProvider>(context, listen: false)
-              //   //       .cambiarCheck(listaE[i].iListaContacto, false);
-              //   //   Provider.of<ContactosProvider>(context, listen: false)
-              //   //       .quitarContacto(listaE[i].iListaContacto);
-              //   //   Provider.of<ContactosProvider>(context, listen: false)
-              //   //       .quitarIdContacto(listaE[i].idcontacto);
-              //   //   listaIdContacto = listaSelectInfo.listaIdContacto;
-              //   //   guardarLista();
-              //   // },
-              //   key: UniqueKey(),
-              //   background: Container(
-              //     padding: EdgeInsets.only(top: 25.0, left: 30.0),
-              //     color: Colors.red,
-              //     child: Text(
-              //       'ELIMINAR',
-              //       style: TextStyle(color: Colors.white),
-              //     ),
-              //   ),
-              //   child: contactoWidget(listaE[i]),
-              // );
-            })
+        ? Container(
+            height: alto,
+            child: ListView.builder(
+                itemCount: listaE.length,
+                itemBuilder: (context, i) {
+                  return contactoWidget(listaE[i]);
+                }),
+          )
         : Center(
             child: Container(
                 child: Column(
