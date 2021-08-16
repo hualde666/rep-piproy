@@ -15,7 +15,10 @@ class BotonRojoPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(title: Text('Emergencia')),
+        appBar: AppBar(
+          title: Text('Emergencia'),
+          backgroundColor: Color.fromRGBO(55, 57, 84, 1.0),
+        ),
         body: Center(
           child: Container(
             height: 400.0,

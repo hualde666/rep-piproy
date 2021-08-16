@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:piproy/scr/definicion/thema_colores.dart';
 import 'package:piproy/scr/pages/configuracion_page.dart';
 import 'package:piproy/scr/pages/editar_contacto.dart';
+import 'package:piproy/scr/pages/home2_page.dart';
 import 'package:piproy/scr/pages/mensaje_emergencia.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -26,28 +28,10 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Proyecto',
-        theme: ThemeData(
-          primaryColor: Color.fromRGBO(55, 57, 84, 1.0),
-
-          accentColor:
-              Color.fromRGBO(55, 57, 84, 1.0), // afecta flotin action botto
-          scaffoldBackgroundColor: Colors.white,
-          elevatedButtonTheme: ElevatedButtonThemeData(
-              style: ElevatedButton.styleFrom(
-            primary: Colors.white,
-          )),
-          bottomNavigationBarTheme: BottomNavigationBarThemeData(
-              backgroundColor: Color.fromRGBO(55, 57, 84, 0.9),
-              selectedIconTheme:
-                  IconThemeData(color: Colors.green, opacity: 0.6, size: 40.0),
-              unselectedIconTheme: IconThemeData(
-                  color: Colors.green[100], opacity: 0.6, size: 30.0)),
-
-          // style: BorderStyle()
-        ),
+        theme: ThemaApi(),
         initialRoute: 'home',
         routes: {
-          'home': (_) => HomePage(),
+          'home': (_) => Home2Page(),
           'botonRojo': (_) => BotonRojoPage(),
           'contactos': (_) => ContactosPage(),
           'editarContacto': (_) => EditarContacto(),

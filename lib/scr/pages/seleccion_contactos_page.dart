@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:contacts_service/contacts_service.dart';
 
 import 'package:piproy/scr/providers/contactos_provider.dart';
+import 'package:piproy/scr/widgets/botton_bar.dart';
 import 'package:provider/provider.dart';
 
 //class SeleccionContacto extends StatelessWidget {
@@ -13,20 +14,50 @@ class SeleccionContacto extends StatefulWidget {
 
 class _SeleccionContactoState extends State<SeleccionContacto> {
   bool cargando = true;
+  List<Contact> listaContactos = [];
+  List<Contact> listaContactosFiltro = [];
+  TextEditingController _searchController = TextEditingController();
+  int tituloApp = 1;
+  @override
+  void initState() {
+    super.initState();
+
+    _searchController.addListener(filtrarContactos);
+  }
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
+
+  filtrarContactos() {
+    List<Contact> _contactos = [];
+    _contactos.addAll(listaContactos);
+    if (_searchController.text.isNotEmpty) {
+      _contactos.retainWhere((contacto) {
+        String busquedaMinuscula = _searchController.text.toLowerCase();
+        String nombreMinuscula = contacto.displayName.toLowerCase();
+        return nombreMinuscula.contains(busquedaMinuscula);
+      });
+      setState(() {
+        listaContactosFiltro = _contactos;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final listaSelectInfo = Provider.of<ContactosProvider>(context);
 
     final lista = listaSelectInfo.listaContactos;
-    double alto = MediaQuery.of(context).size.height * 0.78;
+    bool hayBusqueda = _searchController.text.isNotEmpty;
+
     cargando = false;
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Seleccion Contacto Emergencia',
-            style: TextStyle(
-              fontSize: 15,
-            ),
-            textAlign: TextAlign.start),
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(90.0), // here the desired height
+        child: (tituloApp == 2) ? busqueda() : titulo(),
       ),
       body: cargando
           ? Center(
@@ -36,14 +67,11 @@ class _SeleccionContactoState extends State<SeleccionContacto> {
                 child: CircularProgressIndicator(),
               ),
             )
-          : Container(
-              height: alto,
-              child: ListView.builder(
-                itemCount: lista.length,
-                itemBuilder: (context, i) {
-                  return contactoWidget(context, lista[i], i);
-                },
-              ),
+          : ListView.builder(
+              itemCount: lista.length,
+              itemBuilder: (context, i) {
+                return contactoWidget(context, lista[i], i);
+              },
             ),
       floatingActionButton: FloatingActionButton.extended(
         icon: Icon(
@@ -60,6 +88,82 @@ class _SeleccionContactoState extends State<SeleccionContacto> {
         onPressed: () {
           Navigator.pop(context);
         },
+      ),
+      // bottomNavigationBar: BottonBarNavegador(),
+    );
+  }
+
+  titulo() {
+    return AppBar(
+        backgroundColor: Color.fromRGBO(55, 57, 84, 1.0),
+        title: Container(
+          margin: EdgeInsets.only(top: 10.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text('Selección Contactos'),
+                  Text('de Emergencia'),
+                ],
+              ),
+              IconButton(
+                  // padding: EdgeInsets.only(right: 10.0),
+                  icon: Icon(
+                    Icons.search,
+                    size: 30.0,
+                  ),
+                  tooltip: 'Busqueda',
+                  onPressed: () {
+                    setState(() {
+                      tituloApp = 2;
+                    });
+                  }),
+            ],
+          ),
+        ));
+  }
+
+  Widget busqueda() {
+    return AppBar(
+      automaticallyImplyLeading: false,
+      flexibleSpace: Container(
+        color: Color.fromRGBO(55, 57, 84, 1.0),
+        margin: EdgeInsets.only(top: 40.0, left: 5.0, right: 5.0),
+        height: 100.0,
+        child: Column(
+          children: [
+            TextField(
+              style:
+                  TextStyle(fontSize: 25.0, color: Colors.white54, height: 1.0),
+              keyboardType: TextInputType.text,
+              controller: _searchController,
+              decoration: InputDecoration(
+                border: OutlineInputBorder(
+                    //borderSide: BorderSide(color: Colors.amber),
+                    borderRadius: BorderRadius.all(Radius.circular(25.0))),
+                labelStyle: TextStyle(color: Colors.white38, fontSize: 20),
+                labelText: 'Busqueda:',
+                suffixIcon: IconButton(
+                  onPressed: () {
+                    setState(() {
+                      tituloApp = 1;
+                      _searchController.clear();
+                    });
+                  },
+                  icon: Icon(
+                    Icons.clear,
+                    color: Colors.white,
+                  ),
+                ),
+                focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.white),
+                    borderRadius: BorderRadius.all(Radius.circular(25.0))),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

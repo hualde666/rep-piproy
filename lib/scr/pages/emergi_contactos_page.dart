@@ -1,4 +1,6 @@
+import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';
+import 'package:piproy/scr/widgets/botton_bar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:piproy/scr/providers/contactos_provider.dart';
@@ -13,7 +15,7 @@ class EmergenciaContactos extends StatefulWidget {
 class _EmergenciaContactos extends State<EmergenciaContactos> {
   List<ItemListaEmergencia> listaE =
       []; // lista activa de contactos telefonos de emergencia
-  List<String> listaIdContacto = []; // lista de id contactos
+  List<String> listaIdContacto = [];
 
 // GRABA la lista de telefonos de emergemcia
   guardarLista() async {
@@ -39,22 +41,25 @@ class _EmergenciaContactos extends State<EmergenciaContactos> {
     }
 
     listaE = listaSelectInfo.listaSelect;
-    double alto = MediaQuery.of(context).size.height * 0.78;
 
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Color.fromRGBO(55, 57, 84, 1.0),
         title: Text('Contactos de Emergencía'),
       ),
       body: pantallaInicial(),
       floatingActionButton: BotonesFab(),
+      // bottomNavigationBar: BottonBarNavegador(),
     );
   }
 
   Widget BotonesFab() {
-    double altopie = MediaQuery.of(context).size.height * 0.10;
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
+        SizedBox(
+          width: 20,
+        ),
         FloatingActionButton.extended(
           icon: Icon(
             Icons.add_circle,
@@ -74,7 +79,7 @@ class _EmergenciaContactos extends State<EmergenciaContactos> {
           },
         ),
         SizedBox(
-          height: 10,
+          width: 10,
         ),
         FloatingActionButton.extended(
           icon: Icon(
@@ -102,7 +107,7 @@ class _EmergenciaContactos extends State<EmergenciaContactos> {
   Widget pantallaInicial() {
     final listaSelectInfo = Provider.of<ContactosProvider>(context);
     listaE = listaSelectInfo.listaSelect;
-    double alto = MediaQuery.of(context).size.height * 0.78;
+    double alto = MediaQuery.of(context).size.height * 1;
     return listaE.isNotEmpty
         ? Container(
             height: alto,
@@ -217,10 +222,11 @@ class _EmergenciaContactos extends State<EmergenciaContactos> {
                                   .cambiarCheck(contacto.iListaContacto, false);
                               Provider.of<ContactosProvider>(context,
                                       listen: false)
-                                  .quitarContacto(contacto.iListaContacto);
+                                  .quitarIdContacto(contacto.idcontacto);
                               Provider.of<ContactosProvider>(context,
                                       listen: false)
-                                  .quitarIdContacto(contacto.idcontacto);
+                                  .quitarContacto(contacto.iListaContacto);
+
                               print(
                                   'Lista id:  $listaIdContacto , ${contacto.idcontacto}');
 

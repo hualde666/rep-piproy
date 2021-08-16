@@ -45,6 +45,7 @@ class _EmergenciaMensajeState extends State<EmergenciaMensaje> {
     //cargarPrefs();
     return Scaffold(
         appBar: AppBar(
+          backgroundColor: Color.fromRGBO(55, 57, 84, 1.0),
           title: Text(
             'Modificar Mensaje de Emergencia',
             style: TextStyle(fontSize: 15),

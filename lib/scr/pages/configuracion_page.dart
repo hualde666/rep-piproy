@@ -5,6 +5,7 @@ class ConfiguracionPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Color.fromRGBO(55, 57, 84, 1.0),
         title: Text('Configuración'),
       ),
       body: ListView(

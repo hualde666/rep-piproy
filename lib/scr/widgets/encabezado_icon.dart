@@ -22,6 +22,30 @@ Widget encabezadoIcon(BuildContext context) {
         )
       ],
     ),
+    // emergencia
+    // Column(
+    //   children: [
+    //     Container(
+    //       height: 75,
+    //       width: 70,
+    //       decoration: BoxDecoration(
+    //         color: Color.fromRGBO(150, 0, 0, 1.0),
+    //         borderRadius: BorderRadius.circular(25),
+    //         border: Border.all(color: Colors.white, width: 2.0),
+    //       ),
+    //       margin: EdgeInsets.only(right: 10),
+    //       child: Icon(
+    //         Icons.add,
+    //         size: 40,
+    //         color: Colors.white,
+    //       ),
+    //     ),
+    //     Text(
+    //       'emergencia',
+    //       style: TextStyle(color: Colors.white60),
+    //     )
+    //   ],
+    // ),
 // linterna
     Column(
       children: [
@@ -122,9 +146,11 @@ Widget encabezadoIcon(BuildContext context) {
     ),
   ];
   return Container(
-    height: 100.0,
+    height: 100,
+
+    ///100.0,
     width: double.infinity,
-    margin: EdgeInsets.only(top: 55.0),
+    //margin: //EdgeInsets.only(top: 55.0),
     child: ListView.builder(
       controller: PageController(viewportFraction: 0.1),
       scrollDirection: Axis.horizontal,

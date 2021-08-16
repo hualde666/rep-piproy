@@ -49,6 +49,7 @@ class ContactosProvider with ChangeNotifier {
     notifyListeners();
   }
 
+// elimina id de la lista de id conctactos
   quitarIdContacto(String i) {
     _listaIdContacto.removeWhere((item) => item == i);
     notifyListeners();
@@ -70,6 +71,7 @@ class ContactosProvider with ChangeNotifier {
       listaCheck = List.generate(_listaContactos.length, (i) => false);
       // notifyListeners();
     }
+    return _listaContactos;
   }
 
   Future<List<Contact>> getcontactos() async {
@@ -100,6 +102,7 @@ class ContactosProvider with ChangeNotifier {
       listaSelect.add(nuevo);
       listaCheck[i] = true;
     }
+    listaSelect.sort((a, b) => a.nombre.compareTo(b.nombre));
     // notifyListeners();
   }
 }
