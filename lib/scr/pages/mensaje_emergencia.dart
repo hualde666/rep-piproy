@@ -44,6 +44,7 @@ class _EmergenciaMensajeState extends State<EmergenciaMensaje> {
   Widget build(BuildContext context) {
     //cargarPrefs();
     return Scaffold(
+        resizeToAvoidBottomInset: false,
         appBar: AppBar(
           backgroundColor: Color.fromRGBO(55, 57, 84, 1.0),
           title: Text(
@@ -55,8 +56,11 @@ class _EmergenciaMensajeState extends State<EmergenciaMensaje> {
           child: Container(
             padding: EdgeInsets.symmetric(horizontal: 20.0),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
+                SizedBox(
+                  height: 20,
+                ),
                 Container(
                   child: Text(
                     'Redacte el mensaje que desea enviar a sus contactos de emergencia en caso de un incidente.',
@@ -67,7 +71,7 @@ class _EmergenciaMensajeState extends State<EmergenciaMensaje> {
                   ),
                 ),
                 SizedBox(
-                  height: 40,
+                  height: 80,
                 ),
                 TextField(
                   style: TextStyle(fontSize: 25.0),

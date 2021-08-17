@@ -247,6 +247,8 @@ class _SeleccionContactoState extends State<SeleccionContacto> {
                           Provider.of<ContactosProvider>(context, listen: false)
                               .cambiarCheck(i, value);
                           if (value) {
+                            print(contacto.displayName);
+                            print(i);
                             Provider.of<ContactosProvider>(context,
                                     listen: false)
                                 .sumarContacto(contacto, i);

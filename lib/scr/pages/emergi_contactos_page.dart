@@ -107,7 +107,7 @@ class _EmergenciaContactos extends State<EmergenciaContactos> {
   Widget pantallaInicial() {
     final listaSelectInfo = Provider.of<ContactosProvider>(context);
     listaE = listaSelectInfo.listaSelect;
-    double alto = MediaQuery.of(context).size.height * 1;
+    double alto = MediaQuery.of(context).size.height * 0.78;
     return listaE.isNotEmpty
         ? Container(
             height: alto,

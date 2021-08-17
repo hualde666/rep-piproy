@@ -13,6 +13,7 @@ class ContactosProvider with ChangeNotifier {
 
   List<String> _listaIdContacto = [];
   List<bool> listaCheck = [];
+
   ContactosProvider() {
     obtenerlistaContactos();
     cargarPrefs();
@@ -91,7 +92,7 @@ class ContactosProvider with ChangeNotifier {
   generarListaSelect(String id) {
     int i = _listaContactos
         .indexWhere((_listaContactos) => _listaContactos.identifier == id);
-    if (i > 0) {
+    if (i >= 0) {
       ItemListaEmergencia nuevo = ItemListaEmergencia(
           _listaContactos[i].identifier,
           _listaContactos[i].displayName,

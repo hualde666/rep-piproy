@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 Widget BotonHomeHeader(BuildContext context) {
   return GestureDetector(
-    onTap: () => Navigator.pushNamed(context, 'home'),
+    onTap: () => Navigator.pop(context, 'home'),
     child: Center(
       child: ClipOval(
         child: Container(
