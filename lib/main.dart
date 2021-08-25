@@ -4,15 +4,14 @@ import 'package:piproy/scr/pages/configuracion_page.dart';
 import 'package:piproy/scr/pages/editar_contacto.dart';
 import 'package:piproy/scr/pages/home2_page.dart';
 import 'package:piproy/scr/pages/mensaje_emergencia.dart';
-import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:piproy/scr/pages/botonrojo_page.dart';
 import 'package:piproy/scr/pages/contactos_page.dart';
 import 'package:piproy/scr/pages/emergi_contactos_page.dart';
-import 'package:piproy/scr/pages/home_page.dart';
 import 'package:piproy/scr/pages/seleccion_contactos_page.dart';
 import 'package:piproy/scr/providers/contactos_provider.dart';
+import 'package:piproy/scr/providers/lista_id_provider.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(MyApp());
@@ -23,8 +22,9 @@ class MyApp extends StatelessWidget {
   //List<Contact> listaSelect;
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => new ContactosProvider(),
+    ContactosProvider contactosProvider = new ContactosProvider();
+    return MultiProvider(
+      providers: [ChangeNotifierProvider(create: (_) => new ListaIdProvider())],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Proyecto',

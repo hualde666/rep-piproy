@@ -12,11 +12,10 @@ import 'package:piproy/scr/widgets/pila_tiempo_clima.dart';
 import 'package:provider/provider.dart';
 
 class Home2Page extends StatelessWidget {
+  //final contactosProvider = new ContactosProvider();
+
   @override
   Widget build(BuildContext context) {
-    final contactProvider = Provider.of<ContactosProvider>(context);
-    //  contactProvider.obtenerlistaContactos();
-    // final List<Contact> listaContactos = contactProvider.listaContactos;
     return SafeArea(
       child: Scaffold(
         appBar: PreferredSize(
