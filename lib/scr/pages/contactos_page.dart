@@ -95,82 +95,26 @@ class _ContactosPageState extends State<ContactosPage> {
                     ? Center(
                         child: CircularProgressIndicator(),
                       )
-                    : ListView.builder(
-                        itemCount: listaTarjetas.length,
-                        itemBuilder: (context, index) {
-                          Widget contacto = listaTarjetas[index];
-                          return contacto;
-                        });
+                    : GestureDetector(
+                        onTap: () {
+                          final FocusScopeNode focus = FocusScope.of(context);
+                          if (!focus.hasPrimaryFocus && focus.hasFocus) {
+                            FocusManager.instance.primaryFocus.unfocus();
+                          }
+                        },
+                        child: ListView.builder(
+                            itemCount: listaTarjetas.length,
+                            itemBuilder: (context, index) {
+                              Widget contacto = listaTarjetas[index];
+                              return contacto;
+                            }),
+                      );
               }
             }),
 
         //  bottomNavigationBar: BottonBarNavegador(),
       ),
     );
-  }
-
-  Widget encabezadoContactos() {
-    return SliverAppBar(
-      elevation: 2.0,
-      // backgroundColor: Colors.teal[600],
-      //expandedHeight: 100.0,
-
-      floating: true,
-      pinned: true,
-      title: Text('C O N T A C T O S'),
-      flexibleSpace: busqueda(),
-    );
-  }
-
-  titulo() {
-    return AppBar(
-        backgroundColor: Color.fromRGBO(55, 57, 84, 1.0),
-        automaticallyImplyLeading: false,
-        flexibleSpace: Container(
-          height: 220,
-          width: 400,
-          margin: EdgeInsets.only(top: 10.0),
-          child: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [BotonRojoHeader(context), BotonHomeHeader(context)],
-              ),
-              Divider(
-                height: 10,
-              ),
-              Container(
-                height: 70,
-                margin: EdgeInsets.symmetric(horizontal: 5),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(25),
-                    border: Border.all(color: Colors.white, width: 0.5)),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Text(
-                      'Buscar Contacto',
-                      style: TextStyle(fontSize: 25, color: Colors.white),
-                    ),
-                    IconButton(
-                        // padding: EdgeInsets.only(right: 10.0),
-                        icon: Icon(
-                          Icons.search,
-                          size: 40.0,
-                          color: Colors.white,
-                        ),
-                        tooltip: 'Busqueda',
-                        onPressed: () {
-                          setState(() {
-                            buscar = false;
-                          });
-                        }),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ));
   }
 
   Widget busqueda() {

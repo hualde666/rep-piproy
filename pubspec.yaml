@@ -30,10 +30,11 @@ dependencies:
   cupertino_icons: ^1.0.2
 
   # envio de correos o acceso paginas web
-  url_launcher: ^6.0.3
+  url_launcher: ^6.0.9
   mailer: ^5.0.0
   # envio sms
-  sendsms: ^1.0.3
+  sendsms: ^1.0.3 
+
   # nivel bateria
   battery: ^2.0.1
   # geo localizacion

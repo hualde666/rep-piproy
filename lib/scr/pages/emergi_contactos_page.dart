@@ -2,6 +2,7 @@ import 'dart:typed_data';
 
 import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';
+import 'package:piproy/scr/funciones/lista_selecion_contactos.dart';
 import 'package:piproy/scr/models/items_lista_contactos.dart';
 import 'package:piproy/scr/providers/lista_id_provider.dart';
 import 'package:provider/provider.dart';
@@ -49,27 +50,6 @@ class _EmergenciaContactos extends State<EmergenciaContactos> {
 
   Future<List<Contact>> cargarContactos() async {
     return await listaSelectInfo.listaContactos;
-  }
-
-  generaListaE(List<Contact> lista) {
-    listaE = [];
-    if (listaIdContacto != null) {
-      for (var item in listaIdContacto) {
-        Contact contacto =
-            lista.firstWhere((contac) => contac.identifier == item);
-
-        ItemListaEmergencia nuevo = ItemListaEmergencia(
-            contacto.identifier,
-            contacto.displayName,
-            contacto.avatar,
-            contacto.initials(),
-            contacto.phones.elementAt(0).value,
-            true);
-        listaE.add(nuevo);
-      }
-      listaE.sort((a, b) => a.nombre.compareTo(b.nombre));
-    }
-    //return listaE;
   }
 
   @override
@@ -157,7 +137,7 @@ class _EmergenciaContactos extends State<EmergenciaContactos> {
             }
             listaIdContacto = listaIdProvider.listaIdContacto;
 
-            generaListaE(snapshot.data);
+            listaE = generaListaE(snapshot.data, listaIdContacto);
 
             return listaE.isNotEmpty
                 ? Container(

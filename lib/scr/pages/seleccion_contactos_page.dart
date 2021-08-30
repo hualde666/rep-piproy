@@ -91,12 +91,6 @@ class _SeleccionContactoState extends State<SeleccionContacto> {
     }
   }
 
-  void _cambiarIcon() {
-    setState(() {
-      buscarIcon = !buscarIcon;
-    });
-  }
-
   Future<List<Contact>> cargarContactos() {
     lista = listaSelectInfo.listaContactos;
     return lista;
@@ -115,7 +109,20 @@ class _SeleccionContactoState extends State<SeleccionContacto> {
         preferredSize: Size.fromHeight(90.0), // here the desired height
         child: busqueda(),
       ),
-      body: mostrarContactos(context),
+      body: GestureDetector(
+          onTap: () {
+            final FocusScopeNode focus = FocusScope.of(context);
+            if (!focus.hasPrimaryFocus && focus.hasFocus) {
+              FocusManager.instance.primaryFocus.unfocus();
+            }
+          },
+          onTapUp: (_) {
+            final FocusScopeNode focus = FocusScope.of(context);
+            if (!focus.hasPrimaryFocus && focus.hasFocus) {
+              FocusManager.instance.primaryFocus.unfocus();
+            }
+          },
+          child: mostrarContactos(context)),
       floatingActionButton: FloatingActionButton.extended(
         icon: Icon(
           Icons.check_circle,
@@ -137,38 +144,6 @@ class _SeleccionContactoState extends State<SeleccionContacto> {
       ),
       // bottomNavigationBar: BottonBarNavegador(),
     );
-  }
-
-  titulo() {
-    return AppBar(
-        backgroundColor: Color.fromRGBO(55, 57, 84, 1.0),
-        title: Container(
-          margin: EdgeInsets.only(top: 10.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text('Selección Contactos'),
-                  Text('de Emergencia'),
-                ],
-              ),
-              IconButton(
-                  // padding: EdgeInsets.only(right: 10.0),
-                  icon: Icon(
-                    Icons.search,
-                    size: 30.0,
-                  ),
-                  tooltip: 'Busqueda',
-                  onPressed: () {
-                    // setState(() {
-                    //   tituloApp = 2;
-                    // });
-                  }),
-            ],
-          ),
-        ));
   }
 
   Widget busqueda() {
