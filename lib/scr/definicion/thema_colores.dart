@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 ThemeData ThemaApi() {
   return ThemeData(
     primaryColor: Color.fromRGBO(55, 57, 84, 1.0),
-    //primarySwatch:
+    // primarySwatch:Color.fromRGBO(55, 57, 84, 1.0),
     //colorScheme.copyWith(secondary: Color.fromRGBO(55, 57, 84, 1.0)),
 //colorScheme:              ColorScheme.fromRGBO(55, 57, 84, 1.0), // afecta flotin action botto
     scaffoldBackgroundColor: Colors.white,

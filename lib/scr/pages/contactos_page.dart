@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:contacts_service/contacts_service.dart';
 
 import 'package:piproy/scr/providers/contactos_provider.dart';
-import 'package:piproy/scr/widgets/boton_home.dart';
-import 'package:piproy/scr/widgets/botonrojo_app.dart';
 
 import 'package:piproy/scr/widgets/contactos_card.dart';
+import 'package:piproy/scr/widgets/tres_botones_header.dart';
 
 class ContactosPage extends StatefulWidget {
   @override
@@ -67,7 +66,7 @@ class _ContactosPageState extends State<ContactosPage> {
             preferredSize: Size.fromHeight(200.0), // here the desired height
             child:
                 // buscar ? titulo() :
-                busqueda()),
+                busqueda(context)),
         body: FutureBuilder(
             future: cargarContactos(),
             builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -117,7 +116,7 @@ class _ContactosPageState extends State<ContactosPage> {
     );
   }
 
-  Widget busqueda() {
+  Widget busqueda(BuildContext context) {
     return AppBar(
       backgroundColor: Color.fromRGBO(55, 57, 84, 1.0),
       automaticallyImplyLeading: false,
@@ -127,10 +126,7 @@ class _ContactosPageState extends State<ContactosPage> {
         child: Column(
           // crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [BotonRojoHeader(context), BotonHomeHeader(context)],
-            ),
+            TresBotonesHeader(context),
             Divider(
               height: 10,
             ),

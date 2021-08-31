@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:piproy/scr/funciones/lista_selecion_contactos.dart';
 import 'package:piproy/scr/models/items_lista_contactos.dart';
 import 'package:piproy/scr/providers/lista_id_provider.dart';
+import 'package:piproy/scr/widgets/header_app.dart';
 import 'package:provider/provider.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
@@ -56,10 +57,11 @@ class _EmergenciaContactos extends State<EmergenciaContactos> {
   Widget build(BuildContext context) {
     print('dibujando');
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Color.fromRGBO(55, 57, 84, 1.0),
-        title: Text('Contactos de Emergencía'),
-      ),
+      appBar: HeaderApp(context, 'Contactos de Emergencia', Text(''), 0.0),
+      //  AppBar(
+      //   backgroundColor: Color.fromRGBO(55, 57, 84, 1.0),
+      //   title: Text('Contactos de Emergencía'),
+      // ),
       body: pantallaInicial(context),
       floatingActionButton: BotonesFab(),
     );
@@ -67,55 +69,50 @@ class _EmergenciaContactos extends State<EmergenciaContactos> {
 
   Widget BotonesFab() {
     ListaIdProvider listaIdProvider = Provider.of<ListaIdProvider>(context);
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        SizedBox(
-          width: 20,
-        ),
+    return
+        //Row(
+        // mainAxisAlignment: MainAxisAlignment.center,
+        // ]
         FloatingActionButton.extended(
-          icon: Icon(
-            Icons.add_circle,
-            size: 40,
-            color: Colors.white,
-          ),
-          label: Text(
-            'agregar',
-            style: TextStyle(fontSize: 15, color: Colors.white),
-          ),
-          backgroundColor: Color.fromRGBO(249, 75, 11, 1),
-          tooltip: 'agergar',
-          heroTag: 'agregar',
-          onPressed: () {
-            Navigator.of(context).pushNamed('selecContactos');
-            cargando = true;
-          },
-        ),
-        SizedBox(
-          width: 10,
-        ),
-        FloatingActionButton.extended(
-          icon: Icon(
-            Icons.check_circle,
-            size: 40,
-          ),
-          label: Text(
-            'guardar',
-            style: TextStyle(fontSize: 15, color: Colors.white),
-          ),
-          backgroundColor: Color.fromRGBO(249, 75, 11, 1),
-          tooltip: 'guardar',
-          heroTag: 'guardar',
-          onPressed: () {
-            // *** actualizar BD ***
-            listaIdContacto = listaIdProvider.listaIdContacto;
-            guardarLista();
-
-            Navigator.pop(context);
-          },
-        ),
-      ],
+      icon: Icon(
+        Icons.add_circle,
+        size: 40,
+        color: Colors.white,
+      ),
+      label: Text(
+        'agregar',
+        style: TextStyle(fontSize: 15, color: Colors.white),
+      ),
+      backgroundColor: Color.fromRGBO(249, 75, 11, 1),
+      tooltip: 'agergar',
+      heroTag: 'agregar',
+      onPressed: () {
+        Navigator.of(context).pushNamed('selecContactos');
+        cargando = true;
+      },
     );
+    // SizedBox(
+    //   width: 10,
+    // ),
+    // FloatingActionButton.extended(
+    //   icon: Icon(
+    //     Icons.check_circle,
+    //     size: 40,
+    //   ),
+    //   label: Text(
+    //     'guardar',
+    //     style: TextStyle(fontSize: 15, color: Colors.white),
+    //   ),
+    //   backgroundColor: Color.fromRGBO(249, 75, 11, 1),
+    //   tooltip: 'guardar',
+    //   heroTag: 'guardar',
+    //   onPressed: () {
+    //     // *** actualizar BD ***
+    //     listaIdContacto = listaIdProvider.listaIdContacto;
+    //     guardarLista();
+
+    //     Navigator.pop(context);
+    //   },
   }
 
   Widget pantallaInicial(BuildContext context) {

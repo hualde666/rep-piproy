@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:piproy/scr/models/items_lista_contactos.dart';
+import 'package:piproy/scr/widgets/header_app.dart';
 import 'package:sendsms/sendsms.dart';
 
 class ResumenEnvioPage extends StatelessWidget {
@@ -13,30 +14,12 @@ class ResumenEnvioPage extends StatelessWidget {
     mandarSMS(listaE, mensaje);
     return Scaffold(
         //  backgroundColor: Color.fromRGBO(55, 57, 84, 1.0),
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(70),
-          child: AppBar(
-            title: Container(
-              padding: EdgeInsets.only(top: 15.0),
-              alignment: Alignment.center,
-              height: 80,
-              width: 500,
-              child: Column(
-                children: [
-                  Text(
-                    'Resumen Mensajes',
-                    textAlign: TextAlign.center,
-                  ),
-                  Text(
-                    'Enviados',
-                    textAlign: TextAlign.center,
-                  ),
-                ],
-              ),
-            ),
-            backgroundColor: Color.fromRGBO(55, 57, 84, 1.0),
-          ),
-        ),
+        appBar: HeaderApp(
+            context,
+            'Resumen Mesanjes',
+            Text('Enviados',
+                style: TextStyle(color: Colors.white, fontSize: 20)),
+            30),
         body: Container(
           height: 500,
           color: Colors.white,

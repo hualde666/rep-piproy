@@ -5,6 +5,7 @@ import 'package:piproy/scr/models/items_lista_contactos.dart';
 
 import 'package:piproy/scr/providers/contactos_provider.dart';
 import 'package:piproy/scr/providers/lista_id_provider.dart';
+import 'package:piproy/scr/widgets/header_app.dart';
 import 'package:provider/provider.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
@@ -105,10 +106,11 @@ class _SeleccionContactoState extends State<SeleccionContacto> {
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(90.0), // here the desired height
-        child: busqueda(),
-      ),
+      appBar: HeaderApp(context, 'Selección Contactos', busqueda(), 80.0),
+      //  PreferredSize(
+      //   preferredSize: Size.fromHeight(90.0), // here the desired height
+      //   child: busqueda(),
+      // ),
       body: GestureDetector(
           onTap: () {
             final FocusScopeNode focus = FocusScope.of(context);
@@ -123,30 +125,30 @@ class _SeleccionContactoState extends State<SeleccionContacto> {
             }
           },
           child: mostrarContactos(context)),
-      floatingActionButton: FloatingActionButton.extended(
-        icon: Icon(
-          Icons.check_circle,
-          size: 40,
-          color: Colors.white,
-        ),
-        label: Text(
-          'guardar',
-          style: TextStyle(fontSize: 15, color: Colors.white),
-        ),
-        elevation: 10,
-        backgroundColor: Color.fromRGBO(249, 75, 11, 1),
-        onPressed: () {
-          listaIdContacto = listaIdProvider.listaIdContacto;
-          guardarLista();
+      // floatingActionButton: FloatingActionButton.extended(
+      //   icon: Icon(
+      //     Icons.check_circle,
+      //     size: 40,
+      //     color: Colors.white,
+      //   ),
+      //   label: Text(
+      //     'guardar',
+      //     style: TextStyle(fontSize: 15, color: Colors.white),
+      //   ),
+      //   elevation: 10,
+      //   backgroundColor: Color.fromRGBO(249, 75, 11, 1),
+      //   onPressed: () {
+      //     listaIdContacto = listaIdProvider.listaIdContacto;
+      //     guardarLista();
 
-          Navigator.pop(context);
-        },
-      ),
+      //     Navigator.pop(context);
+      //   },
+      // ),
       // bottomNavigationBar: BottonBarNavegador(),
     );
   }
 
-  Widget busqueda() {
+  Widget busquedaV() {
     return AppBar(
         automaticallyImplyLeading: false,
         backgroundColor: Color.fromRGBO(55, 57, 84, 1.0),
@@ -191,6 +193,45 @@ class _SeleccionContactoState extends State<SeleccionContacto> {
                 ),
               )
             ])));
+  }
+
+  Widget busqueda() {
+    return Column(children: [
+      TextField(
+        style: TextStyle(fontSize: 25.0, color: Colors.white54, height: 1.0),
+        keyboardType: TextInputType.text,
+        controller: _searchController,
+        decoration: InputDecoration(
+          border: OutlineInputBorder(
+              //borderSide: BorderSide(color: Colors.amber),
+              borderRadius: BorderRadius.all(Radius.circular(25.0))),
+          labelStyle: TextStyle(color: Colors.white38, fontSize: 20),
+          labelText: 'Buscar Contacto:',
+          suffixIcon: _searchController.text.isNotEmpty
+              ? IconButton(
+                  onPressed: () {
+                    // _cambiarIcon();
+                    setState(() {
+                      _searchController.clear();
+                    });
+                  },
+                  icon: Icon(
+                    Icons.clear,
+                    color: Colors.white,
+                    size: 30,
+                  ),
+                )
+              : Icon(
+                  Icons.search,
+                  color: Colors.white,
+                  size: 30,
+                ),
+          focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.white),
+              borderRadius: BorderRadius.all(Radius.circular(25.0))),
+        ),
+      )
+    ]);
   }
 
   Widget contactoWidget(
@@ -254,7 +295,7 @@ class _SeleccionContactoState extends State<SeleccionContacto> {
                           }
                         });
                         // listaIdContacto = listaIdProvider.listaIdContacto;
-                        // guardarLista();
+                        guardarLista();
                       }),
                 ),
                 contacto.check

@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:piproy/scr/widgets/header_app.dart';
 
 class ConfiguracionPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Color.fromRGBO(55, 57, 84, 1.0),
-        title: Text('Configuración'),
-      ),
+      appBar: HeaderApp(context, 'Configuración', Text(''), 0.0),
+
+      // title: Text('Configuración'),
+
       body: ListView(
         children: [
           SizedBox(

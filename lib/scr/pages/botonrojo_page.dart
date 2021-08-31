@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:piproy/scr/funciones/lista_selecion_contactos.dart';
 import 'package:piproy/scr/pages/envio_emergencia.dart';
 import 'package:piproy/scr/providers/contactos_provider.dart';
+import 'package:piproy/scr/widgets/header_app.dart';
 import 'package:sendsms/sendsms.dart';
 
 import 'package:url_launcher/url_launcher.dart';
@@ -60,10 +61,7 @@ class _BotonRojoPageState extends State<BotonRojoPage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-          title: Text('Alerta de Emergencia'),
-          backgroundColor: Color.fromRGBO(55, 57, 84, 1.0),
-        ),
+        appBar: HeaderApp(context, 'Alerta de Emergencia', Text(''), 0.0),
         body: FutureBuilder(
             future: cargarContactos(),
             builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -115,41 +113,23 @@ conListaEmergenia(
           SizedBox(
             height: 50.0,
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              ElevatedButton(
-                child: Text('Enviar',
-                    style: TextStyle(
-                      fontSize: 25.0,
-                      color: Theme.of(context).primaryColor,
-                    )
-                    // Theme.of(context).primaryColor),
-                    ),
-                onPressed: () {
-                  //******************* */
+          ElevatedButton(
+            child: Text('Enviar',
+                style: TextStyle(
+                  fontSize: 25.0,
+                  color: Theme.of(context).primaryColor,
+                )
+                // Theme.of(context).primaryColor),
+                ),
+            onPressed: () {
+              //******************* */
 
-                  listaE[0].check = false;
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) =>
-                              ResumenEnvioPage(listaE: listaE)));
-                },
-              ),
-              ElevatedButton(
-                child: Text('Cancelar',
-                    style: TextStyle(
-                      fontSize: 25.0,
-                      color: Theme.of(context).primaryColor,
-                    )
-                    // Theme.of(context).primaryColor),
-                    ),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-              )
-            ],
+              listaE[0].check = false;
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => ResumenEnvioPage(listaE: listaE)));
+            },
           ),
         ],
       ),

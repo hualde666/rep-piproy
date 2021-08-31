@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 
-Widget BotonHomeHeader(BuildContext context) {
+Widget BotonBackHeader(BuildContext context) {
   return GestureDetector(
-    onTap: () => Navigator.of(context).popUntil(ModalRoute.withName('home')),
+    onTap: () => Navigator.pop(context),
     child: Center(
       child: ClipOval(
         child: Container(
           decoration: BoxDecoration(
-            color: Color.fromRGBO(249, 75, 11, 1),
+            color: Colors.green[800],
             borderRadius: BorderRadius.circular(25),
           ),
           child: Center(
               child: Text(
-            'Inicio',
+            'Retorno',
             style: TextStyle(color: Colors.white),
           )),
           height: 100,

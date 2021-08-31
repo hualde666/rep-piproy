@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:piproy/scr/widgets/header_app.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -45,13 +46,8 @@ class _EmergenciaMensajeState extends State<EmergenciaMensaje> {
     //cargarPrefs();
     return Scaffold(
         resizeToAvoidBottomInset: false,
-        appBar: AppBar(
-          backgroundColor: Color.fromRGBO(55, 57, 84, 1.0),
-          title: Text(
-            'Modificar Mensaje de Emergencia',
-            style: TextStyle(fontSize: 15),
-          ),
-        ),
+        appBar: HeaderApp(
+            context, 'Modificar Mensaje de Emergencia', Text(''), 0.0),
         body: Center(
           child: Container(
             padding: EdgeInsets.symmetric(horizontal: 20.0),
@@ -74,6 +70,13 @@ class _EmergenciaMensajeState extends State<EmergenciaMensaje> {
                   height: 80,
                 ),
                 TextField(
+                  onTap: () {
+                    final FocusScopeNode focus = FocusScope.of(context);
+                    if (!focus.hasPrimaryFocus && focus.hasFocus) {
+                      FocusManager.instance.primaryFocus.unfocus();
+                    }
+                  },
+
                   style: TextStyle(fontSize: 25.0),
                   // autofocus: true,
                   maxLines: null,
