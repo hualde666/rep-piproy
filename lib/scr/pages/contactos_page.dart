@@ -95,7 +95,7 @@ class _ContactosPageState extends State<ContactosPage> {
                         child: CircularProgressIndicator(),
                       )
                     : GestureDetector(
-                        onTap: () {
+                        onDoubleTap: () {
                           final FocusScopeNode focus = FocusScope.of(context);
                           if (!focus.hasPrimaryFocus && focus.hasFocus) {
                             FocusManager.instance.primaryFocus.unfocus();

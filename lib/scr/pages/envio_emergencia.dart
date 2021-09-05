@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:piproy/scr/models/items_lista_contactos.dart';
+import 'package:piproy/scr/widgets/boton_home.dart';
+import 'package:piproy/scr/widgets/boton_rojo_back.dart';
+import 'package:piproy/scr/widgets/botonback_app.dart';
 import 'package:piproy/scr/widgets/header_app.dart';
 import 'package:sendsms/sendsms.dart';
 
@@ -14,12 +17,7 @@ class ResumenEnvioPage extends StatelessWidget {
     mandarSMS(listaE, mensaje);
     return Scaffold(
         //  backgroundColor: Color.fromRGBO(55, 57, 84, 1.0),
-        appBar: HeaderApp(
-            context,
-            'Resumen Mesanjes',
-            Text('Enviados',
-                style: TextStyle(color: Colors.white, fontSize: 20)),
-            30),
+        appBar: HeaderResumen(context),
         body: Container(
           height: 500,
           color: Colors.white,
@@ -71,6 +69,32 @@ class ResumenEnvioPage extends StatelessWidget {
           ),
         ));
   }
+}
+
+Widget HeaderResumen(BuildContext context) {
+  return PreferredSize(
+    preferredSize: Size.fromHeight(200.0),
+    // here the desired height
+    child: Container(
+      padding: EdgeInsets.only(top: 35),
+      color: Color.fromRGBO(55, 57, 84, 1.0),
+      height: 170,
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              BotonBackHeader(context),
+              BotonRojoBack(context),
+              BotonHomeHeader(context),
+            ],
+          ),
+          Text('Resumen de Mensaje',
+              style: TextStyle(color: Colors.white, fontSize: 20)),
+        ],
+      ),
+    ),
+  );
 }
 
 Future _geoLocal() async {

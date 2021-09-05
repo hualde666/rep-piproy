@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:piproy/scr/widgets/boton_home.dart';
+import 'package:piproy/scr/widgets/botonback_app.dart';
 import 'package:piproy/scr/widgets/header_app.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
@@ -49,46 +51,57 @@ class _EmergenciaMensajeState extends State<EmergenciaMensaje> {
         appBar: HeaderApp(
             context, 'Modificar Mensaje de Emergencia', Text(''), 0.0),
         body: Center(
-          child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 20.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                SizedBox(
-                  height: 20,
-                ),
-                Container(
-                  child: Text(
-                    'Redacte el mensaje que desea enviar a sus contactos de emergencia en caso de un incidente.',
-                    style: TextStyle(
-                      fontSize: 20,
-                    ),
-                    textAlign: TextAlign.center,
+          child: GestureDetector(
+            onTap: () {
+              final FocusScopeNode focus = FocusScope.of(context);
+              if (!focus.hasPrimaryFocus && focus.hasFocus) {
+                FocusManager.instance.primaryFocus.unfocus();
+              }
+            },
+            child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 20.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    height: 20,
                   ),
-                ),
-                SizedBox(
-                  height: 80,
-                ),
-                TextField(
-                  onTap: () {
-                    final FocusScopeNode focus = FocusScope.of(context);
-                    if (!focus.hasPrimaryFocus && focus.hasFocus) {
-                      FocusManager.instance.primaryFocus.unfocus();
-                    }
-                  },
+                  Container(
+                    constraints: BoxConstraints(maxHeight: 300),
+                    child: TextField(
+                      onTap: () {
+                        final FocusScopeNode focus = FocusScope.of(context);
+                        if (!focus.hasPrimaryFocus && focus.hasFocus) {
+                          FocusManager.instance.primaryFocus.unfocus();
+                        }
+                      },
 
-                  style: TextStyle(fontSize: 25.0),
-                  // autofocus: true,
-                  maxLines: null,
-                  keyboardType: TextInputType.text,
-                  controller: _textController,
-                  decoration: InputDecoration(
-                    hintText: _mensaje,
-                    labelText: 'Mensaje de Emergencia:',
-                    border: OutlineInputBorder(),
+                      style: TextStyle(fontSize: 25.0),
+                      // autofocus: true,
+                      maxLines: null,
+                      keyboardType: TextInputType.text,
+                      controller: _textController,
+                      decoration: InputDecoration(
+                        hintText: _mensaje,
+                        labelText: 'Mensaje de Emergencia:',
+                        border: OutlineInputBorder(),
+                      ),
+                    ),
                   ),
-                ),
-              ],
+                  SizedBox(
+                    height: 40,
+                  ),
+                  Container(
+                    child: Text(
+                      'Redacte el mensaje que desea enviar a sus contactos de emergencia en caso de un incidente.',
+                      style: TextStyle(
+                        fontSize: 20,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
