@@ -2,34 +2,160 @@ import 'package:flutter/material.dart';
 
 import 'package:piproy/scr/widgets/icon_conteiner.dart';
 
-Widget encabezadoIcon() {
-  final bool isOn = false;
+Widget encabezadoIcon(BuildContext context) {
+  //final bool isOn = false;
   final List<Widget> _listaWidget = [
-    conteinerIcon(
-        Icon(
-          Icons.filter_alt,
-          size: 40.0,
-          color: Colors.white,
-          semanticLabel: 'linterna',
+    Column(
+      children: [
+        Container(
+          height: 75,
+          margin: EdgeInsets.only(left: 10, right: 10),
+          child: conteinerIcon(
+              context,
+              Icon(Icons.engineering, size: 40.0, color: Colors.white),
+              'configurar',
+              ''),
         ),
-        'linterna'), // linterna
-    conteinerIcon(
-        Icon(Icons.battery_std, size: 40.0, color: Colors.white), 'bateria'),
-    conteinerIcon(Icon(Icons.wifi, size: 40.0, color: Colors.white), 'wifi'),
-    conteinerIcon(
-        Icon(Icons.access_alarms, size: 40.0, color: Colors.white), 'alarma'),
-    conteinerIcon(Icon(Icons.chat, size: 40.0, color: Colors.white), 'chat'),
-    conteinerIcon(
-        Icon(Icons.add_call, size: 40.0, color: Colors.white), 'llamada'),
+        Text(
+          'configurar',
+          style: TextStyle(color: Colors.white60),
+        )
+      ],
+    ),
+    // emergencia
+    // Column(
+    //   children: [
+    //     Container(
+    //       height: 75,
+    //       width: 70,
+    //       decoration: BoxDecoration(
+    //         color: Color.fromRGBO(150, 0, 0, 1.0),
+    //         borderRadius: BorderRadius.circular(25),
+    //         border: Border.all(color: Colors.white, width: 2.0),
+    //       ),
+    //       margin: EdgeInsets.only(right: 10),
+    //       child: Icon(
+    //         Icons.add,
+    //         size: 40,
+    //         color: Colors.white,
+    //       ),
+    //     ),
+    //     Text(
+    //       'emergencia',
+    //       style: TextStyle(color: Colors.white60),
+    //     )
+    //   ],
+    // ),
+// linterna
+    Column(
+      children: [
+        Container(
+          height: 75,
+          margin: EdgeInsets.only(right: 10),
+          child: conteinerIcon(
+              context,
+              Icon(Icons.filter_alt, size: 40.0, color: Colors.white),
+              'linterna',
+              ''),
+        ),
+        Text(
+          'linterna',
+          style: TextStyle(color: Colors.white60),
+        )
+      ],
+    ),
+    Column(
+      children: [
+        Container(
+          height: 75,
+          margin: EdgeInsets.only(right: 10),
+          child: conteinerIcon(
+              context,
+              Icon(Icons.battery_std, size: 40.0, color: Colors.white),
+              'bateria',
+              ''),
+        ),
+        Text(
+          'pila',
+          style: TextStyle(color: Colors.white60),
+        )
+      ],
+    ),
+    Column(
+      children: [
+        Container(
+          height: 75,
+          margin: EdgeInsets.only(right: 10),
+          child: conteinerIcon(context,
+              Icon(Icons.wifi, size: 40.0, color: Colors.white), 'wifi', ''),
+        ),
+        Text(
+          'wifi',
+          style: TextStyle(color: Colors.white60),
+        )
+      ],
+    ),
+    Column(
+      children: [
+        Container(
+          height: 75,
+          margin: EdgeInsets.only(right: 10),
+          child: conteinerIcon(
+              context,
+              Icon(Icons.access_alarms, size: 40.0, color: Colors.white),
+              'alarma',
+              ''),
+        ),
+        Text(
+          'alarma',
+          style: TextStyle(color: Colors.white60),
+        )
+      ],
+    ),
+
+    Column(
+      children: [
+        Container(
+          height: 75,
+          margin: EdgeInsets.only(right: 10),
+          child: conteinerIcon(context,
+              Icon(Icons.chat, size: 40.0, color: Colors.white), 'chat', ''),
+        ),
+        Text(
+          'mensaje',
+          style: TextStyle(color: Colors.white60),
+        )
+      ],
+    ),
+    Column(
+      children: [
+        Container(
+          height: 75,
+          margin: EdgeInsets.only(right: 10),
+          child: conteinerIcon(
+              context,
+              Icon(Icons.add_call, size: 40.0, color: Colors.white),
+              'llamada',
+              ''),
+        ),
+        Text(
+          'telefono',
+          style: TextStyle(color: Colors.white60),
+        )
+      ],
+    ),
   ];
   return Container(
-    height: 100.0,
+    height: 100,
+
+    ///100.0,
     width: double.infinity,
-    margin: EdgeInsets.only(top: 30.0),
+    //margin: //EdgeInsets.only(top: 55.0),
     child: ListView.builder(
-        controller: PageController(viewportFraction: 0.1),
-        scrollDirection: Axis.horizontal,
-        itemCount: _listaWidget.length,
-        itemBuilder: (context, i) => _listaWidget[i]),
+      controller: PageController(viewportFraction: 0.1),
+      scrollDirection: Axis.horizontal,
+      itemCount: _listaWidget.length,
+      itemBuilder: (context, i) => _listaWidget[i],
+    ),
   );
 }

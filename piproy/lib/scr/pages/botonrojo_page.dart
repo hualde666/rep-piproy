@@ -1,70 +1,264 @@
 import 'package:flutter/material.dart';
+import 'package:piproy/scr/funciones/lista_selecion_contactos.dart';
+import 'package:piproy/scr/pages/envio_emergencia.dart';
+import 'package:piproy/scr/providers/contactos_provider.dart';
+import 'package:piproy/scr/widgets/boton_home.dart';
+import 'package:piproy/scr/widgets/botonback_app.dart';
+import 'package:piproy/scr/widgets/header_app.dart';
+import 'package:sendsms/sendsms.dart';
+
+import 'package:url_launcher/url_launcher.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import 'package:contacts_service/contacts_service.dart';
+
+import 'package:piproy/scr/models/items_lista_contactos.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 
-import 'package:sendsms/sendsms.dart';
+import 'package:flutter_open_whatsapp/flutter_open_whatsapp.dart';
 
-class BotonRojoPage extends StatelessWidget {
+class BotonRojoPage extends StatefulWidget {
+  @override
+  State<BotonRojoPage> createState() => _BotonRojoPageState();
+}
+
+class _BotonRojoPageState extends State<BotonRojoPage> {
+  final listaSelectInfo = new ContactosProvider();
+  List<String> listaIdContacto = [];
+
+  List<ItemListaEmergencia> listaE = [];
+  String mensaje = '';
+
+  List<Contact> listaContactos = [];
+  bool hayLista = true;
+
+  @override
+  void initState() {
+    super.initState();
+    cargarPrefs();
+  }
+
+  Future cargarPrefs() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    listaIdContacto = prefs.getStringList('listaE');
+    if (listaIdContacto == null) {
+      listaIdContacto = [];
+      hayLista = false;
+    } else {
+      if (listaIdContacto.length == 0) {
+        hayLista = false;
+      }
+    }
+    // Obtengo datos del mensaje y numeros de telefonos
+
+    mensaje = prefs.getString('mensajeE');
+    if (mensaje == null) {
+      mensaje = "Necesito ayuda !!";
+    }
+    return;
+  }
+
+  Future<List<Contact>> cargarContactos() async {
+    return await listaSelectInfo.listaContactos;
+  }
+
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(title: Text('Emergencia')),
-        body: Center(
+    return Scaffold(
+      appBar: HeaderEmergencia(context),
+      body: FutureBuilder(
+          future: cargarContactos(),
+          builder: (BuildContext context, AsyncSnapshot snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            } else {
+              if (hayLista) {
+                listaE = generaListaE(snapshot.data, listaIdContacto);
+              }
+              return hayLista
+                  ? conListaEmergenia(context, listaE, mensaje)
+                  : sinListaEmergenia(context);
+            }
+          }),
+    );
+  }
+}
+
+Widget HeaderEmergencia(BuildContext context) {
+  return PreferredSize(
+    preferredSize: Size.fromHeight(200.0),
+    // here the desired height
+    child: Container(
+      padding: EdgeInsets.only(top: 35),
+      color: Color.fromRGBO(55, 57, 84, 1.0),
+      height: 170,
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              BotonBackHeader(context),
+              SizedBox(
+                height: 100,
+                width: 100,
+              ),
+              BotonHomeHeader(context),
+            ],
+          ),
+          Text('Alerta de Emergencia',
+              style: TextStyle(color: Colors.white, fontSize: 20)),
+        ],
+      ),
+    ),
+  );
+}
+
+conListaEmergenia(
+    BuildContext context, List<ItemListaEmergencia> listaE, String mensaje) {
+  final queryData = MediaQuery.of(context);
+
+  final alto = queryData.size.height;
+  return alto > 400
+      ? Center(
           child: Container(
-            height: 400.0,
+          height: 500.0,
+          margin: EdgeInsets.symmetric(horizontal: 10.0),
+          alignment: Alignment.center,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Text(
+                'EMERGENCIA ',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 40.0,
+                ),
+              ),
+              Text(
+                'Enviar mensaje a mis contactos de emergencia',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 30.0,
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  //******************* */
+
+                  listaE[0].check = false;
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              ResumenEnvioPage(listaE: listaE)));
+                },
+                child: Container(
+                  height: 200,
+                  width: 200,
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(100.0),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.5),
+                          spreadRadius: 5,
+                          blurRadius: 5,
+                          offset: Offset(2, 5),
+                        ),
+                      ]),
+                  child: Center(
+                    child: Text('Enviar',
+                        style: TextStyle(
+                          fontSize: 50.0,
+                          color: Theme.of(context).primaryColor,
+                        )
+                        // Theme.of(context).primaryColor),
+                        ),
+                  ),
+                ),
+              )
+            ],
+          ),
+          decoration: BoxDecoration(
+            color: Color.fromRGBO(200, 0, 0, 1.0),
+            borderRadius: BorderRadius.circular(20.0),
+            // border: Border.all(color: Colors.white, width: 4.0)
+          ),
+        ))
+      : Center(
+          child: Container(
+            height: 300.0,
             margin: EdgeInsets.symmetric(horizontal: 10.0),
             alignment: Alignment.center,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Text(
-                  'EMERGENCIA ',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 40.0,
-                  ),
-                ),
-                Text(
-                  'Enviar  mensaje de emergencia a familiares',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 30.0,
-                  ),
-                ),
-                SizedBox(
-                  height: 50.0,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    ElevatedButton(
-                      child: Text(
-                        'Enviar',
+                Container(
+                  width: 430,
+                  child: Column(
+                    children: [
+                      Text(
+                        'EMERGENCIA ',
+                        textAlign: TextAlign.center,
                         style: TextStyle(
-                            fontSize: 25.0,
-                            color: Color.fromRGBO(55, 57, 84, 1.0)),
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 30.0,
+                        ),
                       ),
-                      onPressed: () {
-                        mandarSMS();
+                      SizedBox(height: 50),
+                      Text(
+                        'Enviar mensaje a mis contactos de emergencia',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 30.0,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    //******************* */
 
-                        Navigator.pop(context);
-                      },
-                    ),
-                    ElevatedButton(
-                      style: ButtonStyle(),
-                      child: Text('Cancelar',
+                    listaE[0].check = false;
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                ResumenEnvioPage(listaE: listaE)));
+                  },
+                  child: Container(
+                    height: 180,
+                    width: 180,
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(100.0),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.5),
+                            spreadRadius: 5,
+                            blurRadius: 5,
+                            offset: Offset(2, 5),
+                          ),
+                        ]),
+                    child: Center(
+                      child: Text('Enviar',
                           style: TextStyle(
-                              fontSize: 25.0,
-                              color: Color.fromRGBO(55, 57, 84, 1.0))),
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
+                            fontSize: 50.0,
+                            color: Theme.of(context).primaryColor,
+                          )
+                          // Theme.of(context).primaryColor),
+                          ),
                     ),
-                  ],
+                  ),
                 )
               ],
             ),
@@ -74,138 +268,81 @@ class BotonRojoPage extends StatelessWidget {
               // border: Border.all(color: Colors.white, width: 4.0)
             ),
           ),
-        ),
-        //floatingActionButton: Row(
-        // mainAxisAlignment: MainAxisAlignment.end,
-        // children: [
-        //   FloatingActionButton(
-        //     child: Icon(
-        //       Icons.edit,
-        //       color: Colors.white,
-        //     ),
-        //     tooltip: 'agregar',
-        //     heroTag: 'agregar',
-        //     onPressed: () {
-        //       Navigator.pushNamed(context, 'emergiContactos');
-        //     },
-        //   ),
-        //   SizedBox(
-        //     width: 20.0,
-        //   ),
-        //   FloatingActionButton(
-        //     child: Icon(Icons.check),
-        //     tooltip: 'regresar',
-        //     heroTag: 'regresar',
-        //     onPressed: () {
-        //       // *** actualizar BD ***
-        //       Navigator.pop(context);
-        //     },
-        //   ),
-        // ],
-      ),
-    );
-  }
+        );
 }
 
-Future _geoLocal() async {
-  bool serviceEnabled;
-  LocationPermission permission;
-  // Position pos;
+sinListaEmergenia(BuildContext context) {
+  MediaQueryData queryData;
+  queryData = MediaQuery.of(context);
 
-  // Test if location services are enabled.
-  serviceEnabled = await Geolocator.isLocationServiceEnabled();
-  if (!serviceEnabled) {
-    // Location services are not enabled don't continue
-    // accessing the position and request users of the
-    // App to enable the location services.
-    return Future.error('Location services are disabled.');
-  }
-
-  permission = await Geolocator.checkPermission();
-  if (permission == LocationPermission.denied) {
-    permission = await Geolocator.requestPermission();
-    if (permission == LocationPermission.denied) {
-      // Permissions are denied, next time you could try
-      // requesting permissions again (this is also where
-      // Android's shouldShowRequestPermissionRationale
-      // returned true. According to Android guidelines
-      // your App should show an explanatory UI now.
-      return Future.error('Location permissions are denied');
-    }
-  }
-
-  if (permission == LocationPermission.deniedForever) {
-    // Permissions are denied forever, handle appropriately.
-    return Future.error(
-        'Location permissions are permanently denied, we cannot request permissions.');
-  }
-  final pos = await Geolocator.getCurrentPosition();
-
-  return pos;
+  final alto = queryData.size.height;
+  return Center(
+      child: alto > 400
+          ? Container(
+              height: 400.0,
+              margin: EdgeInsets.symmetric(horizontal: 10.0),
+              alignment: Alignment.center,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Text(
+                    'ADVERTENCIA',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 40.0,
+                    ),
+                  ),
+                  Text(
+                    'Debe registrar sus contactos de emergencia para poder notificar la emergencia',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 30.0,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 50.0,
+                  ),
+                ],
+              ),
+              decoration: BoxDecoration(
+                color: Color.fromRGBO(249, 75, 11, 1),
+                borderRadius: BorderRadius.circular(20.0),
+                // border: Border.all(color: Colors.white, width: 4.0)
+              ),
+            )
+          : Container(
+              height: 150.0,
+              margin: EdgeInsets.symmetric(horizontal: 10.0),
+              alignment: Alignment.center,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'ADVERTENCIA',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 35.0,
+                    ),
+                  ),
+                  Text(
+                    'Debe registrar sus contactos de emergencia para poder notificar la emergencia',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 25.0,
+                    ),
+                  ),
+                ],
+              ),
+              decoration: BoxDecoration(
+                color: Color.fromRGBO(249, 75, 11, 1),
+                borderRadius: BorderRadius.circular(20.0),
+                // border: Border.all(color: Colors.white, width: 4.0)
+              ),
+            ));
 }
-
-Future<String> _getAddressFromLatLng(dynamic _currentPosition) async {
-  try {
-    List<Placemark> placemarks = await placemarkFromCoordinates(
-        _currentPosition.latitude, _currentPosition.longitude);
-
-    Placemark place = placemarks[0];
-
-    return " ${place.thoroughfare}  ${place.locality}   ${place.postalCode}  ${place.country}";
-  } catch (e) {
-    print(e);
-    return "";
-  }
-}
-
-Future<void> mandarSMS() async {
-  String _phone = '+0414-3811785';
-  final pos = await _geoLocal();
-  final dir = await _getAddressFromLatLng(pos); // direcion en texto.
-
-  String _sms = 'E M E R G E N C I A      MAMÁ Necesita ayuda. Ubicacion:';
-  // String sms = _sms + dir;
-
-  final lat = pos.latitude;
-  final lng = pos.longitude;
-  final pos2 = 'https://maps.google.com/?q=$lat,$lng';
-
-  final resp = await Sendsms.onGetPermission();
-  if (resp.hashCode != null) {
-    print(resp.hashCode);
-  }
-
-  if (await Sendsms.hasPermission()) {
-    final resp = await Sendsms.onSendSMS(_phone, _sms);
-    final resp1 = await Sendsms.onSendSMS(_phone, dir);
-    final resp2 = await Sendsms.onSendSMS(_phone, pos2);
-  }
-}
-
-//    Scaffold(
-//     // appBar: AppBar(
-//     //   backgroundColor: Colors.red[900],
-//     //   textTheme: TextTheme(
-//     //       headline1: TextStyle(color: Colors.white, fontSize: 30.0)),
-//     //   title: Text('LLAMADA DE EMERGENCIA'),
-//     // ),
-//     body: Center(
-//       child: Column(
-//         mainAxisAlignment: MainAxisAlignment.center,
-//         children: [
-//           BotonRojo('emergencia'),
-//           SizedBox(
-//             height: 50.0,
-//           ),
-//           BotonCancelar(),
-//         ],
-//       ),
-//     ),
-//     floatingActionButton: Icon(
-//       Icons.edit,
-//       size: 30.0,
-//       color: Colors.red,
-//     ),
-//   );
-// }
-// }

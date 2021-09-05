@@ -6,48 +6,48 @@ import 'package:piproy/scr/widgets/config_menu.dart';
 
 import 'package:piproy/scr/widgets/elemntos.dart';
 import 'package:piproy/scr/widgets/encabezado.dart';
+import 'package:piproy/scr/widgets/encabezado2.dart';
 
 import 'package:piproy/scr/widgets/pila_tiempo_clima.dart';
 import 'package:provider/provider.dart';
 
-class HomePage extends StatelessWidget {
+class Home2Page extends StatelessWidget {
+  //final contactosProvider = new ContactosProvider();
+
   @override
   Widget build(BuildContext context) {
-    final contactProvider = Provider.of<ContactosProvider>(context);
-    //  contactProvider.obtenerlistaContactos();
-    // final List<Contact> listaContactos = contactProvider.listaContactos;
     return SafeArea(
       child: Scaffold(
         appBar: PreferredSize(
-          preferredSize: Size.fromHeight(150.0),
+          preferredSize: Size.fromHeight(220.0),
           child: AppBar(
-              title: Center(child: Text('Proyecto PI')),
-              // automaticallyImplyLeading: false, // hides leading widget
-              flexibleSpace: encabezadoApp(context, 'Proyecto PI')),
+              //       //title: Center(child: Text('Proyecto PI')),
+              //       // automaticallyImplyLeading: false, // hides leading widget
+              flexibleSpace: encabezadoApp2(context, 'Proyecto PI')),
         ),
         backgroundColor: Colors.white70,
         body: CustomScrollView(
           slivers: _detalle(context),
         ),
-        bottomNavigationBar: BottonBarNavegador(),
+        // bottomNavigationBar: BottonBarNavegador(),
       ),
     );
   }
 
   List<Widget> _detalle(BuildContext context) {
     return <Widget>[
-      //encabezadoApp(context, 'Proyecto PI'),
+      // encabezadoApp2(context, 'Proyecto PI'),
       SliverList(
         delegate: SliverChildListDelegate([
           SizedBox(height: 5.0),
           elementos(
               context, PilaTimpoClima(), Theme.of(context).primaryColor, ''),
-          elementos(
-              context,
-              Text('EMERGENCIA',
-                  style: TextStyle(color: Colors.white, fontSize: 35.0)),
-              Color.fromRGBO(150, 0, 0, 1.0),
-              'botonRojo'),
+          // elementos(
+          //     context,
+          //     Text('EMERGENCIA',
+          //         style: TextStyle(color: Colors.white, fontSize: 35.0)),
+          //     Color.fromRGBO(150, 0, 0, 1.0),
+          //     'botonRojo'),
           elementos(
               context,
               Text('Contactos',

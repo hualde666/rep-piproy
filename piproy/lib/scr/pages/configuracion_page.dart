@@ -1,39 +1,38 @@
 import 'package:flutter/material.dart';
+import 'package:piproy/scr/widgets/header_app.dart';
 
-class ConfigMenu extends StatelessWidget {
+class ConfiguracionPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Drawer(
-      child: ListView(
+    return Scaffold(
+      appBar: HeaderApp(context, 'Configuración', Text(''), 0.0),
+
+      // title: Text('Configuración'),
+
+      body: ListView(
         children: [
-          DrawerHeader(
-            child: Container(
-              height: 30.0,
-              alignment: Alignment.center,
-              child: Text(
-                'Configuración',
-                style: TextStyle(color: Colors.white, fontSize: 20.0),
-              ),
-              color: Theme.of(context).primaryColor,
-            ),
+          SizedBox(
+            height: 20,
           ),
           ListTile(
               leading: Icon(Icons.contact_phone,
                   size: 35.0, color: Theme.of(context).primaryColor),
-              title: Text('Contactos de emergencia'),
+              title: Text('Agregar o eliminar contactos de emergencia'),
               onTap: () {
-                Navigator.pop(context);
+                //Navigator.pop(context);
                 Navigator.pushNamed(context, 'emergiContactos');
               }),
+          SizedBox(
+            height: 20,
+          ),
           ListTile(
             leading: Icon(
               Icons.message,
               size: 40.0,
               color: Theme.of(context).primaryColor,
             ),
-            title: Text('Mensaje de emergencia'),
+            title: Text('Redactar mensaje de emergencia'),
             onTap: () {
-              Navigator.pop(context);
               Navigator.pushNamed(context, 'emergiMensaje');
             },
           ),

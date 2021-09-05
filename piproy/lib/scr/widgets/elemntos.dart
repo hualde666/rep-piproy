@@ -14,7 +14,9 @@ Widget elementos(
           border: Border.all(color: Colors.white)),
     ),
     onTap: () {
-      Navigator.pushNamed(context, ruta);
+      if (ruta != '') {
+        Navigator.pushNamed(context, ruta);
+      }
     },
   );
 }

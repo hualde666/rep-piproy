@@ -1,8 +1,16 @@
+import 'dart:typed_data';
+
+import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';
+import 'package:piproy/scr/funciones/lista_selecion_contactos.dart';
+import 'package:piproy/scr/models/items_lista_contactos.dart';
+import 'package:piproy/scr/providers/lista_id_provider.dart';
+import 'package:piproy/scr/widgets/header_app.dart';
+import 'package:provider/provider.dart';
+
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:piproy/scr/providers/contactos_provider.dart';
-import 'package:provider/provider.dart';
 
 //class EmergenciaContactos extends StatelessWidget {
 class EmergenciaContactos extends StatefulWidget {
@@ -11,145 +19,159 @@ class EmergenciaContactos extends StatefulWidget {
 }
 
 class _EmergenciaContactos extends State<EmergenciaContactos> {
-  List<ItemListaEmergencia> listaE =
-      []; // lista activa de contactos telefonos de emergencia
-  List<String> listaPhone = []; // lista de telefonos guardados
+  final listaSelectInfo = new ContactosProvider();
+  List<ItemListaEmergencia> listaE = []; // lista  de  contactos  de emergencia
+  List<String> listaIdContacto;
 
-// CARGA la lista de telefonos de emergemcia guardada
-  cargarPrefs() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    listaPhone = prefs.getStringList('listaE');
+  Future<List<Contact>> lista;
+  bool cargando = true;
+  @override
+  void initState() {
+    super.initState();
+    cargarPrefs();
   }
 
 // GRABA la lista de telefonos de emergemcia
   guardarLista() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    // genera primero una lista con solo los numeros telefonicos que
+    // genera primero una lista con solo los id de contactos que
     // es lo que se guarda
-    listaPhone = List.generate(listaE.length, (i) => listaE[i].phone);
-    prefs.setStringList('listaE', listaPhone);
+    // listaIdContacto = List.generate(listaE.length, (i) => listaE[i].idcontacto);
+    prefs.setStringList('listaE', listaIdContacto);
+  }
+
+  Future cargarPrefs() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    listaIdContacto = prefs.getStringList('listaE');
+    if (listaIdContacto == null) {
+      listaIdContacto = [];
+    }
+    return;
+  }
+
+  Future<List<Contact>> cargarContactos() async {
+    return await listaSelectInfo.listaContactos;
   }
 
   @override
   Widget build(BuildContext context) {
-    final listaSelectInfo = Provider.of<ContactosProvider>(context);
-
-    if (listaE.length == 0) {
-      cargarPrefs();
-      listaSelectInfo.obtenerlistaContactos();
-      if (listaPhone != null) {
-        for (var numero in listaPhone) {
-          // genera lista de CONTACTOS seleccionados con los telf guardados
-
-          listaSelectInfo.generarListaSelect(numero);
-        }
-      }
-    }
-
-    listaE = listaSelectInfo.listaSelect;
-
+    print('dibujando');
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Contactos de Emergencía'),
-      ),
-      body: listaSelectInfo.listaContactos.length == 0
-          ? Center(
-              child: Container(
-                height: 30,
-                width: 30,
-                child: CircularProgressIndicator(),
-              ),
-            )
-          : pantallaInicial(),
-      floatingActionButton: Row(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          FloatingActionButton(
-            child: Icon(
-              Icons.add,
-              color: Colors.white,
-            ),
-            tooltip: 'agergar',
-            heroTag: 'agregar',
-            onPressed: () {
-              Navigator.pushNamed(context, 'selecContactos');
-              setState(() {});
-            },
-          ),
-          SizedBox(
-            width: 20.0,
-          ),
-          FloatingActionButton(
-            child: Icon(Icons.check),
-            tooltip: 'guardar',
-            heroTag: 'guardar',
-            onPressed: () {
-              // *** actualizar BD ***
-              guardarLista();
-
-              Navigator.pop(context);
-            },
-          ),
-        ],
-      ),
+      appBar: HeaderApp(context, 'Contactos de Emergencia', Text(''), 0.0),
+      //  AppBar(
+      //   backgroundColor: Color.fromRGBO(55, 57, 84, 1.0),
+      //   title: Text('Contactos de Emergencía'),
+      // ),
+      body: pantallaInicial(context),
+      floatingActionButton: BotonesFab(),
     );
   }
 
-  Widget pantallaInicial() {
-    final listaSelectInfo = Provider.of<ContactosProvider>(context);
-    listaE = listaSelectInfo.listaSelect;
+  Widget BotonesFab() {
+    ListaIdProvider listaIdProvider = Provider.of<ListaIdProvider>(context);
+    return
+        //Row(
+        // mainAxisAlignment: MainAxisAlignment.center,
+        // ]
+        FloatingActionButton.extended(
+      icon: Icon(
+        Icons.add_circle,
+        size: 40,
+        color: Colors.white,
+      ),
+      label: Text(
+        'agregar',
+        style: TextStyle(fontSize: 15, color: Colors.white),
+      ),
+      backgroundColor: Color.fromRGBO(249, 75, 11, 1),
+      tooltip: 'agergar',
+      heroTag: 'agregar',
+      onPressed: () {
+        Navigator.of(context).pushNamed('selecContactos');
+        cargando = true;
+      },
+    );
+    // SizedBox(
+    //   width: 10,
+    // ),
+    // FloatingActionButton.extended(
+    //   icon: Icon(
+    //     Icons.check_circle,
+    //     size: 40,
+    //   ),
+    //   label: Text(
+    //     'guardar',
+    //     style: TextStyle(fontSize: 15, color: Colors.white),
+    //   ),
+    //   backgroundColor: Color.fromRGBO(249, 75, 11, 1),
+    //   tooltip: 'guardar',
+    //   heroTag: 'guardar',
+    //   onPressed: () {
+    //     // *** actualizar BD ***
+    //     listaIdContacto = listaIdProvider.listaIdContacto;
+    //     guardarLista();
 
-    return listaE.length != 0
-        ? ListView.builder(
-            itemCount: listaE.length,
-            itemBuilder: (context, i) {
-              return Dismissible(
-                onDismissed: (DismissDirection direction) {
-                  // setState(() async {
-                  Provider.of<ContactosProvider>(context, listen: false)
-                      .cambiarCheck(listaE[i].iListaContacto, false);
-                  Provider.of<ContactosProvider>(context, listen: false)
-                      .quitarContacto(listaE[i].iListaContacto);
+    //     Navigator.pop(context);
+    //   },
+  }
 
-                  guardarLista();
-                },
-                key: UniqueKey(),
-                background: Container(
-                  padding: EdgeInsets.only(top: 25.0, left: 30.0),
-                  color: Colors.red,
-                  child: Text(
-                    'ELIMINAR',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ),
-                child: contactoWidget(listaE[i]),
-              );
-            })
-        : Center(
-            child: Container(
-                child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  'Definir contactos de Emergencia. ',
-                  style: TextStyle(fontSize: 20.0),
-                ),
-                SizedBox(
-                  height: 20.0,
-                ),
-                Text(
-                  'Tocar simbolo  +  para añadir.',
-                  style: TextStyle(fontSize: 20.0),
-                ),
-              ],
-            )),
-          );
+  Widget pantallaInicial(BuildContext context) {
+    final listaIdProvider = Provider.of<ListaIdProvider>(context);
+    double alto = MediaQuery.of(context).size.height * 0.78;
+
+    return FutureBuilder(
+        future: cargarContactos(),
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          } else {
+            if (cargando) {
+              listaIdProvider.listaIdContacto = listaIdContacto;
+
+              cargando = false;
+            }
+            listaIdContacto = listaIdProvider.listaIdContacto;
+
+            listaE = generaListaE(snapshot.data, listaIdContacto);
+
+            return listaE.isNotEmpty
+                ? Container(
+                    height: alto,
+                    child: ListView.builder(
+                        itemCount: listaE.length,
+                        itemBuilder: (context, i) {
+                          return contactoWidget(listaE[i], i);
+                        }),
+                  )
+                : Center(
+                    child: Container(
+                        child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Definir contactos de Emergencia. ',
+                          style: TextStyle(fontSize: 20.0),
+                        ),
+                        SizedBox(
+                          height: 20.0,
+                        ),
+                        Text(
+                          'Tocar simbolo  +  para añadir.',
+                          style: TextStyle(fontSize: 20.0),
+                        ),
+                      ],
+                    )),
+                  );
+          }
+        });
   }
 
   Widget _avatar(ItemListaEmergencia contacto) {
     if (contacto.avatar.isEmpty) {
       return Container(
-        height: 90.0,
+        height: 60.0,
         child: CircleAvatar(
           child: Text(
             contacto.initials,
@@ -165,7 +187,7 @@ class _EmergenciaContactos extends State<EmergenciaContactos> {
       );
     } else {
       return Container(
-        height: 90.0,
+        height: 60.0,
         child: CircleAvatar(
           maxRadius: 50.0,
           backgroundImage: MemoryImage(contacto.avatar),
@@ -174,19 +196,20 @@ class _EmergenciaContactos extends State<EmergenciaContactos> {
     }
   }
 
-  Widget contactoWidget(ItemListaEmergencia contacto) {
+  Widget contactoWidget(ItemListaEmergencia contacto, int i) {
+    String phone = contacto.phone.replaceAll('+', '');
     return Container(
       height: 100.0,
       margin: EdgeInsets.symmetric(horizontal: 4.0, vertical: 3.0),
       decoration: BoxDecoration(
-          color: Color.fromRGBO(55, 57, 84, 1.0), //Colors.green[300],
+          color: Theme.of(context).primaryColor, //Colors.green[300],
           borderRadius: BorderRadius.circular(20.0),
           border: Border.all(color: Colors.green)),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          _avatar(contacto),
+          //_avatar(contacto),
           Container(
             width: 200.0,
             child: Column(
@@ -199,11 +222,65 @@ class _EmergenciaContactos extends State<EmergenciaContactos> {
                       color: Colors.white,
                       fontWeight: FontWeight.bold),
                 ),
-                Text(contacto.phone,
+                Text(phone,
                     style: TextStyle(fontSize: 20.0, color: Colors.white)),
               ],
             ),
           ),
+          Container(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                IconButton(
+                  onPressed: () => showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                      title: Text(' ${contacto.nombre}',
+                          style: TextStyle(
+                            fontSize: 20,
+                          )),
+                      content:
+                          Text('¿Desea eliminar este contacto de emergencia?'),
+                      // shape: CircleBorder(),
+                      elevation: 14.0,
+                      actionsPadding: EdgeInsets.symmetric(horizontal: 30.0),
+                      actions: [
+                        TextButton(
+                            onPressed: () {
+                              Provider.of<ListaIdProvider>(context,
+                                      listen: false)
+                                  .quitarIdContacto(contacto.idcontacto);
+                              listaE.removeWhere((item) =>
+                                  item.idcontacto == contacto.idcontacto);
+
+                              guardarLista();
+                              Navigator.pop(context);
+                              setState(() {});
+                            },
+                            child:
+                                Text('Si', style: TextStyle(fontSize: 20.0))),
+                        TextButton(
+                            autofocus: true,
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            child: Text('No', style: TextStyle(fontSize: 20.0)))
+                      ],
+                    ),
+                  ),
+                  icon: Icon(
+                    Icons.delete,
+                    size: 40,
+                    color: Colors.white,
+                  ),
+                ),
+                Text(
+                  'eliminar',
+                  style: TextStyle(color: Colors.white),
+                )
+              ],
+            ),
+          )
         ],
       ),
     );
