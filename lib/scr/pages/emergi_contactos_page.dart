@@ -91,28 +91,6 @@ class _EmergenciaContactos extends State<EmergenciaContactos> {
         cargando = true;
       },
     );
-    // SizedBox(
-    //   width: 10,
-    // ),
-    // FloatingActionButton.extended(
-    //   icon: Icon(
-    //     Icons.check_circle,
-    //     size: 40,
-    //   ),
-    //   label: Text(
-    //     'guardar',
-    //     style: TextStyle(fontSize: 15, color: Colors.white),
-    //   ),
-    //   backgroundColor: Color.fromRGBO(249, 75, 11, 1),
-    //   tooltip: 'guardar',
-    //   heroTag: 'guardar',
-    //   onPressed: () {
-    //     // *** actualizar BD ***
-    //     listaIdContacto = listaIdProvider.listaIdContacto;
-    //     guardarLista();
-
-    //     Navigator.pop(context);
-    //   },
   }
 
   Widget pantallaInicial(BuildContext context) {

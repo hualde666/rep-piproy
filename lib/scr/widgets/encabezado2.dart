@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:piproy/scr/widgets/botonrojo_app.dart';
+import 'package:piproy/scr/widgets/boton_exit.dart';
+import 'package:piproy/scr/widgets/boton_rojo.dart';
 import 'package:piproy/scr/widgets/encabezado_icon.dart';
 import 'package:piproy/scr/widgets/hora.dart';
 
@@ -16,8 +17,16 @@ encabezadoApp2(BuildContext context, String titulo) {
             height: 10,
           ),
           Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [BotonRojoHeader(context)], // Hora(context)],
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+
+            children: [
+              BotonExit(context),
+              BotonRojoHeader(context),
+              Container(
+                height: 100,
+                width: 100,
+              )
+            ], // Hora(context)],
           ),
           Divider(
             height: 2,

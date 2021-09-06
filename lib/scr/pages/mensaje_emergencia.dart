@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:piproy/scr/widgets/boton_home.dart';
-import 'package:piproy/scr/widgets/botonback_app.dart';
+import 'package:piproy/scr/widgets/boton_verde.dart';
 import 'package:piproy/scr/widgets/header_app.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
