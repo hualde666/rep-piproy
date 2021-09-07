@@ -3,20 +3,13 @@ import 'package:piproy/scr/funciones/lista_selecion_contactos.dart';
 import 'package:piproy/scr/pages/envio_emergencia.dart';
 import 'package:piproy/scr/providers/contactos_provider.dart';
 import 'package:piproy/scr/widgets/boton_home.dart';
-import 'package:piproy/scr/widgets/botonback_app.dart';
-import 'package:piproy/scr/widgets/header_app.dart';
-import 'package:sendsms/sendsms.dart';
+import 'package:piproy/scr/widgets/boton_verde.dart';
 
-import 'package:url_launcher/url_launcher.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:contacts_service/contacts_service.dart';
 
 import 'package:piproy/scr/models/items_lista_contactos.dart';
-import 'package:geocoding/geocoding.dart';
-import 'package:geolocator/geolocator.dart';
-
-import 'package:flutter_open_whatsapp/flutter_open_whatsapp.dart';
 
 class BotonRojoPage extends StatefulWidget {
   @override
