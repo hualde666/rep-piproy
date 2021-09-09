@@ -75,7 +75,7 @@ flutter:
      - assets/boton_rojo.png
      - assets/boton_verde.png
      - assets/boton_home.png
-     - assets/boton_gris.png
+     - assets/boton_exit.png
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 

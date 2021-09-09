@@ -5,7 +5,6 @@ import 'package:piproy/scr/providers/contactos_provider.dart';
 import 'package:piproy/scr/widgets/boton_home.dart';
 import 'package:piproy/scr/widgets/boton_verde.dart';
 import 'package:piproy/scr/widgets/header_app.dart';
-import 'package:sendsms/sendsms.dart';
 
 import 'package:url_launcher/url_launcher.dart';
 import 'package:shared_preferences/shared_preferences.dart';

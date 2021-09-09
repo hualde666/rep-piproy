@@ -6,7 +6,6 @@ import 'package:piproy/scr/widgets/boton_home.dart';
 import 'package:piproy/scr/widgets/boton_rojo_back.dart';
 import 'package:piproy/scr/widgets/boton_verde.dart';
 import 'package:piproy/scr/widgets/header_app.dart';
-import 'package:sendsms/sendsms.dart';
 
 class ResumenEnvioPage extends StatelessWidget {
   final List<ItemListaEmergencia> listaE;
@@ -157,26 +156,24 @@ Future<void> mandarSMS(List<ItemListaEmergencia> listaE, String mensaje) async {
 //  final lng = pos.longitude;
 //  final pos2 = ' https://maps.google.com/?q=$lat,$lng';
 
-  final resp = await Sendsms.onGetPermission();
-  if (resp.hashCode != null) {
-    print('Permisos: ${resp.hashCode}');
+  // final resp = await Sendsms.onGetPermission();
+  // if (resp.hashCode != null) {
+  //   print('Permisos: ${resp.hashCode}');
 
-    // generar lita de telefonos
+  //   // generar lita de telefonos
 
-    for (var contacto in listaE) {
-      String _phone = contacto.phone;
+  //   for (var contacto in listaE) {
+  //     String _phone = contacto.phone;
 
-      /// ENVIAR MENSAJE
-      if (await Sendsms.hasPermission()) {
-        //Envio mensaje a cada telefono de la lista
-        final resp = await Sendsms.onSendSMS(_phone, mensaje);
-        // final resp1 = await Sendsms.onSendSMS(_phone, dir);
-        // final resp2 = await Sendsms.onSendSMS(_phone, pos2);
-        print('Respuesta: $resp  ');
-        if (!resp) {
-          contacto.check = false;
-        }
-      }
-    }
-  }
+  //     /// ENVIAR MENSAJE
+  //     if (await Sendsms.hasPermission()) {
+  //       //Envio mensaje a cada telefono de la lista
+  //       final resp = await Sendsms.onSendSMS(_phone, mensaje);
+  //       // final resp1 = await Sendsms.onSendSMS(_phone, dir);
+  //       // final resp2 = await Sendsms.onSendSMS(_phone, pos2);
+  //       print('Respuesta: $resp  ');
+  //       if (!resp) {
+  //         contacto.check = false;
+  //       }
+  //     }
 }

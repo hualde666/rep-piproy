@@ -22,7 +22,7 @@ Widget BotonExit(BuildContext context) {
           //shape: CircleBorder(),
           elevation: 14.0,
           actionsPadding: EdgeInsets.symmetric(horizontal: 15.0),
-          actionsAlignment: MainAxisAlignment.spaceAround,
+          //actionsAlignment: MainAxisAlignment.spaceAround,
           actions: [
             TextButton(
                 onPressed: () {
@@ -61,7 +61,7 @@ Widget BotonExit(BuildContext context) {
     child: Center(
       child: Container(
         child: Image(
-            image: AssetImage('assets/boton_gris.png'), fit: BoxFit.cover),
+            image: AssetImage('assets/boton_exit.png'), fit: BoxFit.cover),
         height: 100,
         width: 100,
       ),

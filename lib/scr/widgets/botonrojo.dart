@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:sendsms/sendsms.dart';
+
 //import 'package:location/location.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
@@ -140,16 +140,16 @@ class BotonRojo extends StatelessWidget {
     final lng = pos.longitude;
     final pos2 = 'https://maps.google.com/?q=$lat,$lng';
     String _sms2 = pos2;
-    final resp = await Sendsms.onGetPermission();
-    if (resp.hashCode != null) {
-      print(resp.hashCode);
-    }
+    // final resp = await Sendsms.onGetPermission();
+    // if (resp.hashCode != null) {
+    //   print(resp.hashCode);
+    // }
 
-    if (await Sendsms.hasPermission()) {
-      final resp = await Sendsms.onSendSMS(_phone, _sms);
-      final resp1 = await Sendsms.onSendSMS(_phone, dir);
-      final resp2 = await Sendsms.onSendSMS(_phone, pos2);
-    }
+    // if (await Sendsms.hasPermission()) {
+    //   final resp = await Sendsms.onSendSMS(_phone, _sms);
+    //   final resp1 = await Sendsms.onSendSMS(_phone, dir);
+    //   final resp2 = await Sendsms.onSendSMS(_phone, pos2);
+    // }
   }
 
   //***           ENVIAR CORREO DE EMERGENCIA */
