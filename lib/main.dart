@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:piproy/scr/definicion/thema_colores.dart';
 import 'package:piproy/scr/pages/configuracion_page.dart';
 import 'package:piproy/scr/pages/editar_contacto.dart';
@@ -7,7 +8,7 @@ import 'package:piproy/scr/pages/home2_page.dart';
 import 'package:piproy/scr/pages/mensaje_emergencia.dart';
 
 import 'package:piproy/scr/pages/botonrojo_page.dart';
-import 'package:piproy/scr/pages/envio_emergencia.dart';
+
 import 'package:piproy/scr/pages/contactos_page.dart';
 import 'package:piproy/scr/pages/emergi_contactos_page.dart';
 import 'package:piproy/scr/pages/seleccion_contactos_page.dart';
@@ -21,10 +22,10 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
-  //List<Contact> listaSelect;
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations(
+        [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
     ContactosProvider contactosProvider = new ContactosProvider();
     return MultiProvider(
       providers: [ChangeNotifierProvider(create: (_) => new ListaIdProvider())],
