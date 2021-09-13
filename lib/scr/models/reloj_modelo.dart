@@ -5,6 +5,7 @@ class RelojModel {
   int min;
   int dia;
   int mes;
+  int year;
   String ampm;
   int diaweek;
 //   Timer _timer;
@@ -36,6 +37,7 @@ class RelojModel {
     this.min = DateTime.now().minute;
     this.dia = DateTime.now().day;
     this.mes = DateTime.now().month;
+    this.year = DateTime.now().year;
     this.diaweek = DateTime.now().weekday;
 
     this.sminutos = this.min.toString();

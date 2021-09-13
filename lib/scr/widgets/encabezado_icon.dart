@@ -148,7 +148,6 @@ Widget encabezadoIcon(BuildContext context) {
   return Container(
     height: 100,
 
-    ///100.0,
     width: double.infinity,
     //margin: //EdgeInsets.only(top: 55.0),
     child: ListView.builder(

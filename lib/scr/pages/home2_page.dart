@@ -1,15 +1,7 @@
-import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';
-import 'package:piproy/scr/providers/contactos_provider.dart';
-import 'package:piproy/scr/widgets/botton_bar.dart';
-import 'package:piproy/scr/widgets/config_menu.dart';
-
 import 'package:piproy/scr/widgets/elemntos.dart';
-import 'package:piproy/scr/widgets/encabezado.dart';
 import 'package:piproy/scr/widgets/encabezado2.dart';
-
 import 'package:piproy/scr/widgets/pila_tiempo_clima.dart';
-import 'package:provider/provider.dart';
 
 class Home2Page extends StatelessWidget {
   //final contactosProvider = new ContactosProvider();
@@ -25,7 +17,7 @@ class Home2Page extends StatelessWidget {
               //       // automaticallyImplyLeading: false, // hides leading widget
               flexibleSpace: encabezadoApp2(context, 'Proyecto PI')),
         ),
-        backgroundColor: Colors.white70,
+        backgroundColor: Colors.white,
         body: CustomScrollView(
           slivers: _detalle(context),
         ),

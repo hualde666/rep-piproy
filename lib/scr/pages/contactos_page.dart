@@ -61,7 +61,7 @@ class _ContactosPageState extends State<ContactosPage> {
 
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Colors.white60,
+        backgroundColor: Colors.white,
         appBar: PreferredSize(
             preferredSize: Size.fromHeight(200.0), // here the desired height
             child:
@@ -85,7 +85,7 @@ class _ContactosPageState extends State<ContactosPage> {
                     hayBusqueda
                         ? listaContactosFiltro.length
                         : snapshot.data.length,
-                    (i) => tarjetaContacto2(
+                    (i) => TarjetaContacto2(
                         context,
                         hayBusqueda
                             ? listaContactosFiltro[i]

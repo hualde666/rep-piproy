@@ -4,18 +4,12 @@ import 'package:piproy/scr/pages/envio_emergencia.dart';
 import 'package:piproy/scr/providers/contactos_provider.dart';
 import 'package:piproy/scr/widgets/boton_home.dart';
 import 'package:piproy/scr/widgets/boton_verde.dart';
-import 'package:piproy/scr/widgets/header_app.dart';
 
-import 'package:url_launcher/url_launcher.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:contacts_service/contacts_service.dart';
 
 import 'package:piproy/scr/models/items_lista_contactos.dart';
-import 'package:geocoding/geocoding.dart';
-import 'package:geolocator/geolocator.dart';
-
-import 'package:flutter_open_whatsapp/flutter_open_whatsapp.dart';
 
 class BotonRojoPage extends StatefulWidget {
   @override
@@ -27,7 +21,7 @@ class _BotonRojoPageState extends State<BotonRojoPage> {
   List<String> listaIdContacto = [];
 
   List<ItemListaEmergencia> listaE = [];
-  String mensaje = '';
+  String mensaje;
 
   List<Contact> listaContactos = [];
   bool hayLista = true;
@@ -120,154 +114,78 @@ conListaEmergenia(
   final queryData = MediaQuery.of(context);
 
   final alto = queryData.size.height;
-  return alto > 400
-      ? Center(
-          child: Container(
-          height: 500.0,
-          margin: EdgeInsets.symmetric(horizontal: 10.0),
-          alignment: Alignment.center,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Text(
-                'EMERGENCIA ',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 40.0,
-                ),
-              ),
-              Text(
-                'Enviar mensaje a mis contactos de emergencia',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 30.0,
-                ),
-              ),
-              GestureDetector(
-                onTap: () {
-                  //******************* */
-
-                  listaE[0].check = false;
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) =>
-                              ResumenEnvioPage(listaE: listaE)));
-                },
-                child: Container(
-                  height: 200,
-                  width: 200,
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(100.0),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.5),
-                          spreadRadius: 5,
-                          blurRadius: 5,
-                          offset: Offset(2, 5),
-                        ),
-                      ]),
-                  child: Center(
-                    child: Text('Enviar',
-                        style: TextStyle(
-                          fontSize: 50.0,
-                          color: Theme.of(context).primaryColor,
-                        )
-                        // Theme.of(context).primaryColor),
-                        ),
-                  ),
-                ),
-              )
-            ],
+  return Center(
+    child: Container(
+      height: 500.0,
+      margin: EdgeInsets.symmetric(horizontal: 10.0),
+      alignment: Alignment.center,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          Text(
+            'EMERGENCIA ',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+              fontSize: 40.0,
+            ),
           ),
-          decoration: BoxDecoration(
-            color: Color.fromRGBO(200, 0, 0, 1.0),
-            borderRadius: BorderRadius.circular(20.0),
-            // border: Border.all(color: Colors.white, width: 4.0)
+          Text(
+            'Enviar mensaje a mis contactos de emergencia',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 30.0,
+            ),
           ),
-        ))
-      : Center(
-          child: Container(
-            height: 300.0,
-            margin: EdgeInsets.symmetric(horizontal: 10.0),
-            alignment: Alignment.center,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Container(
-                  width: 430,
-                  child: Column(
-                    children: [
-                      Text(
-                        'EMERGENCIA ',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 30.0,
-                        ),
-                      ),
-                      SizedBox(height: 50),
-                      Text(
-                        'Enviar mensaje a mis contactos de emergencia',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 30.0,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    //******************* */
+          GestureDetector(
+            onTap: () {
+              //******************* */
 
-                    listaE[0].check = false;
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                ResumenEnvioPage(listaE: listaE)));
-                  },
-                  child: Container(
-                    height: 180,
-                    width: 180,
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(100.0),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(0.5),
-                            spreadRadius: 5,
-                            blurRadius: 5,
-                            offset: Offset(2, 5),
-                          ),
-                        ]),
-                    child: Center(
-                      child: Text('Enviar',
-                          style: TextStyle(
-                            fontSize: 50.0,
-                            color: Theme.of(context).primaryColor,
-                          )
-                          // Theme.of(context).primaryColor),
-                          ),
+              //listaE[0].check = false;
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => ResumenEnvioPage(
+                            listaE: listaE,
+                            mensaje: mensaje,
+                          )));
+            },
+            child: Container(
+              height: 200,
+              width: 200,
+              decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(100.0),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.5),
+                      spreadRadius: 5,
+                      blurRadius: 5,
+                      offset: Offset(2, 5),
                     ),
-                  ),
-                )
-              ],
+                  ]),
+              child: Center(
+                child: Text('Enviar',
+                    style: TextStyle(
+                      fontSize: 50.0,
+                      color: Theme.of(context).primaryColor,
+                    )
+                    // Theme.of(context).primaryColor),
+                    ),
+              ),
             ),
-            decoration: BoxDecoration(
-              color: Color.fromRGBO(200, 0, 0, 1.0),
-              borderRadius: BorderRadius.circular(20.0),
-              // border: Border.all(color: Colors.white, width: 4.0)
-            ),
-          ),
-        );
+          )
+        ],
+      ),
+      decoration: BoxDecoration(
+        color: Color.fromRGBO(200, 0, 0, 1.0),
+        borderRadius: BorderRadius.circular(20.0),
+        // border: Border.all(color: Colors.white, width: 4.0)
+      ),
+    ),
+  );
 }
 
 sinListaEmergenia(BuildContext context) {

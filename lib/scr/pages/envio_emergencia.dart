@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:piproy/channel/channel_android.dart';
 import 'package:piproy/scr/models/items_lista_contactos.dart';
 import 'package:piproy/scr/widgets/boton_home.dart';
 import 'package:piproy/scr/widgets/boton_rojo_back.dart';
 import 'package:piproy/scr/widgets/boton_verde.dart';
-import 'package:piproy/scr/widgets/header_app.dart';
 
 class ResumenEnvioPage extends StatelessWidget {
   final List<ItemListaEmergencia> listaE;
@@ -149,12 +149,13 @@ Future<String> _getAddressFromLatLng(dynamic _currentPosition) async {
 placemarkFromCoordinates(latitude, longitude) {}
 
 Future<void> mandarSMS(List<ItemListaEmergencia> listaE, String mensaje) async {
-  // final pos = await _geoLocal();
-  // final dir = await _getAddressFromLatLng(pos); // direcion en texto.
+  AndroidChannel _androidChannel = AndroidChannel();
+  final pos = await _geoLocal();
+  //final dir = await _getAddressFromLatLng(pos); // direcion en texto.
 
-//  final lat = pos.latitude;
-//  final lng = pos.longitude;
-//  final pos2 = ' https://maps.google.com/?q=$lat,$lng';
+  final lat = pos.latitude;
+  final lng = pos.longitude;
+  final pos2 = ' https://maps.google.com/?q=$lat,$lng';
 
   // final resp = await Sendsms.onGetPermission();
   // if (resp.hashCode != null) {
@@ -162,18 +163,18 @@ Future<void> mandarSMS(List<ItemListaEmergencia> listaE, String mensaje) async {
 
   //   // generar lita de telefonos
 
-  //   for (var contacto in listaE) {
-  //     String _phone = contacto.phone;
+  for (var contacto in listaE) {
+    String _phone = contacto.phone;
 
-  //     /// ENVIAR MENSAJE
-  //     if (await Sendsms.hasPermission()) {
-  //       //Envio mensaje a cada telefono de la lista
-  //       final resp = await Sendsms.onSendSMS(_phone, mensaje);
-  //       // final resp1 = await Sendsms.onSendSMS(_phone, dir);
-  //       // final resp2 = await Sendsms.onSendSMS(_phone, pos2);
-  //       print('Respuesta: $resp  ');
-  //       if (!resp) {
-  //         contacto.check = false;
-  //       }
-  //     }
+    /// ENVIAR MENSAJE
+
+    final respE = await _androidChannel.mandarSms(_phone, mensaje);
+
+    //final resp1 = await _androidChannel.mandarSms(_phone, dir);
+    final resp2 = await _androidChannel.mandarSms(_phone, pos2);
+    // print('Respuesta: $respE');
+    // if (respE. ) {
+    //   contacto.check = false;
+    // }
+  }
 }

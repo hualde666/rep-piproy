@@ -27,7 +27,7 @@ class Reloj extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                   color: Colors.white)),
           Text(
-            '${reloj.meses[reloj.mes - 1]} ${reloj.dia}',
+            '${reloj.dia} ${reloj.meses[reloj.mes - 1]} ${reloj.year}',
             style: TextStyle(
                 fontSize: 30, fontWeight: FontWeight.bold, color: Colors.white),
           ),
