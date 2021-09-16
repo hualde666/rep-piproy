@@ -227,12 +227,6 @@ Widget _nombreContacto(BuildContext context, Contact contacto) {
       height: 90,
       color: Color.fromRGBO(55, 57, 84, 1.0),
       width: double.infinity,
-      //margin: EdgeInsets.symmetric(horizontal: 5.0, vertical: 2.0),
-      // decoration: BoxDecoration(
-      //     color:
-      //         Color.fromRGBO(55, 57, 84, 1.0), //Theme.of(context).primaryColor,
-      //     borderRadius: BorderRadius.circular(10.0)),
-      //border: Border.all(color: Colors.green)),
       child:
           // _avatar(context, contacto),
 
@@ -242,7 +236,6 @@ Widget _nombreContacto(BuildContext context, Contact contacto) {
           Center(
             child: Text(
               contacto.displayName,
-              //overflow: TextOverflow.ellipsis,
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: Colors.white,
