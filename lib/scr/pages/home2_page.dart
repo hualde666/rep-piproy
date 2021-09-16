@@ -1,10 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:piproy/scr/widgets/boton_exit.dart';
+import 'package:piproy/scr/widgets/boton_home.dart';
+import 'package:piproy/scr/widgets/boton_rojo.dart';
 import 'package:piproy/scr/widgets/elemntos.dart';
 import 'package:piproy/scr/widgets/encabezado2.dart';
+import 'package:piproy/scr/widgets/encabezado_icon.dart';
 import 'package:piproy/scr/widgets/pila_tiempo_clima.dart';
 
-class Home2Page extends StatelessWidget {
+class Home2Page extends StatefulWidget {
   //final contactosProvider = new ContactosProvider();
+
+  @override
+  State<Home2Page> createState() => _Home2PageState();
+}
+
+class _Home2PageState extends State<Home2Page> {
+  ScrollController _scrollController = ScrollController();
+  bool _topScroll;
+  @override
+  void initState() {
+    super.initState();
+    _scrollController = ScrollController()
+      ..addListener(() {
+        setState(() {
+          _topScroll = true;
+        });
+      });
+  }
+
+  void scrollToTop() {
+    _scrollController.jumpTo(0.0);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -12,13 +38,11 @@ class Home2Page extends StatelessWidget {
       child: Scaffold(
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(220.0),
-          child: AppBar(
-              //       //title: Center(child: Text('Proyecto PI')),
-              //       // automaticallyImplyLeading: false, // hides leading widget
-              flexibleSpace: encabezadoApp2(context, 'Proyecto PI')),
+          child: AppBar(flexibleSpace: encabezadoApp(context, 'Proyecto PI')),
         ),
         backgroundColor: Colors.white,
         body: CustomScrollView(
+          controller: _scrollController,
           slivers: _detalle(context),
         ),
         // bottomNavigationBar: BottonBarNavegador(),
@@ -32,19 +56,12 @@ class Home2Page extends StatelessWidget {
       SliverList(
         delegate: SliverChildListDelegate([
           SizedBox(height: 5.0),
-          elementos(
-              context, PilaTimpoClima(), Theme.of(context).primaryColor, ''),
-          // elementos(
-          //     context,
-          //     Text('EMERGENCIA',
-          //         style: TextStyle(color: Colors.white, fontSize: 35.0)),
-          //     Color.fromRGBO(150, 0, 0, 1.0),
-          //     'botonRojo'),
+          elementos(context, PilaTimpoClima(), 200, ''),
           elementos(
               context,
               Text('Contactos',
                   style: TextStyle(color: Colors.white, fontSize: 35.0)),
-              Theme.of(context).primaryColor,
+              100,
               'contactos'),
           elementos(
               context,
@@ -53,22 +70,98 @@ class Home2Page extends StatelessWidget {
                 width: 50.0,
                 color: Colors.amber,
               ),
-              Theme.of(context).primaryColor,
+              100,
+              ''),
+          elementos(
+              context,
+              Text('Whatsapp',
+                  style: TextStyle(color: Colors.white, fontSize: 35.0)),
+              100,
               ''),
           elementos(
               context,
               Text('ELEMENTO',
                   style: TextStyle(color: Colors.white, fontSize: 35.0)),
-              Theme.of(context).primaryColor,
+              100,
+              ''),
+          elementos(
+              context,
+              Text('Instagram',
+                  style: TextStyle(color: Colors.white, fontSize: 35.0)),
+              100,
               ''),
           elementos(
               context,
               Text('ELEMENTO',
                   style: TextStyle(color: Colors.white, fontSize: 35.0)),
-              Theme.of(context).primaryColor,
+              100,
+              ''),
+          elementos(
+              context,
+              Text('ELEMENTO',
+                  style: TextStyle(color: Colors.white, fontSize: 35.0)),
+              100,
               ''),
         ]),
       )
     ];
   }
+
+  encabezadoApp(BuildContext context, String titulo) {
+    return AppBar(
+      //elevation: 1.0,
+      automaticallyImplyLeading: true,
+      flexibleSpace: Container(
+        height: 220,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Divider(
+              height: 10,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+
+              children: [
+                BotonExit(context),
+                BotonRojoHeader(context),
+                GestureDetector(
+                  onTap: () {
+                    scrollToTop();
+                    //            mScrollView.scrollBy(10, 10);
+                  },
+                  child: Container(
+                    child: Image(
+                        image: AssetImage('assets/boton_home.png'),
+                        fit: BoxFit.cover),
+                    height: 100,
+                    width: 100,
+                    //color: Colors.red),
+                  ),
+                )
+              ], // Hora(context)],
+            ),
+            Divider(
+              height: 2,
+            ),
+            encabezadoIcon(context),
+          ],
+        ),
+        color: Color.fromRGBO(55, 57, 84, 1.0),
+      ),
+    );
+  }
+}
+
+Widget botonInicio() {
+  return GestureDetector(
+    onTap: () {},
+    child: Container(
+      child:
+          Image(image: AssetImage('assets/boton_home.png'), fit: BoxFit.cover),
+      height: 100,
+      width: 100,
+      //color: Colors.red),
+    ),
+  );
 }
