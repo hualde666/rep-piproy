@@ -52,17 +52,17 @@ Widget _botonesContactos(BuildContext context, Contact contacto) {
             context,
             Icon(Icons.message, size: 40.0, color: Colors.white),
             'mensaje',
-            ''),
+            null),
         conteinerIcon(
             context,
             Icon(Icons.video_call, size: 40.0, color: Colors.white),
             'video llamada',
-            ''),
+            null),
         conteinerIcon(
             context,
             Icon(Icons.call, size: 40.0, color: Colors.white),
             'llamada',
-            contacto.phones.elementAt(0).value),
+            contacto),
       ],
     ),
   );

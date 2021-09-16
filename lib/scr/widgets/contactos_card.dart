@@ -90,7 +90,7 @@ Widget _botonesContactos(BuildContext context, Contact contacto) {
               context,
               Icon(Icons.call, size: 50.0, color: Colors.white),
               'llamada',
-              contacto.phones.elementAt(0).value),
+              contacto),
         ),
         Text(
           'Llamar',
@@ -115,7 +115,7 @@ Widget _botonesContactos(BuildContext context, Contact contacto) {
               context,
               Icon(Icons.message, size: 50.0, color: Colors.white),
               'mensaje',
-              ''),
+              null),
         ),
         Text(
           'Mensajes',
@@ -144,7 +144,7 @@ Widget _botonesContactos(BuildContext context, Contact contacto) {
                 color: Colors.white,
               ),
               'whatsapp',
-              contacto.phones.elementAt(0).value),
+              contacto),
         ),
         //  Divider(),
         Text(
@@ -169,8 +169,8 @@ Widget _botonesContactos(BuildContext context, Contact contacto) {
           child: conteinerIcon(
               context,
               Icon(Icons.video_call, size: 50.0, color: Colors.white),
-              'mensaje',
-              ''),
+              'video',
+              null),
         ),
         Text(
           ' Video',
@@ -198,8 +198,8 @@ Widget _botonesContactos(BuildContext context, Contact contacto) {
                 size: 50.0,
                 color: Colors.white,
               ),
-              'whatsapp',
-              contacto.phones.elementAt(0).value),
+              'editar',
+              contacto),
         ),
         Text(
           'Editar',

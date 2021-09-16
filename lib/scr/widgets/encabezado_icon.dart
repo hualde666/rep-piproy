@@ -14,7 +14,7 @@ Widget encabezadoIcon(BuildContext context) {
               context,
               Icon(Icons.engineering, size: 40.0, color: Colors.white),
               'configurar',
-              ''),
+              null),
         ),
         Text(
           'configurar',
@@ -32,7 +32,7 @@ Widget encabezadoIcon(BuildContext context) {
               context,
               Icon(Icons.filter_alt, size: 40.0, color: Colors.white),
               'linterna',
-              ''),
+              null),
         ),
         Text(
           'linterna',
@@ -49,7 +49,7 @@ Widget encabezadoIcon(BuildContext context) {
               context,
               Icon(Icons.battery_std, size: 40.0, color: Colors.white),
               'bateria',
-              ''),
+              null),
         ),
         Text(
           'pila',
@@ -63,7 +63,7 @@ Widget encabezadoIcon(BuildContext context) {
           height: 75,
           margin: EdgeInsets.only(right: 10),
           child: conteinerIcon(context,
-              Icon(Icons.wifi, size: 40.0, color: Colors.white), 'wifi', ''),
+              Icon(Icons.wifi, size: 40.0, color: Colors.white), 'wifi', null),
         ),
         Text(
           'wifi',
@@ -80,7 +80,7 @@ Widget encabezadoIcon(BuildContext context) {
               context,
               Icon(Icons.access_alarms, size: 40.0, color: Colors.white),
               'alarma',
-              ''),
+              null),
         ),
         Text(
           'alarma',
@@ -94,7 +94,7 @@ Widget encabezadoIcon(BuildContext context) {
           height: 75,
           margin: EdgeInsets.only(right: 10),
           child: conteinerIcon(context,
-              Icon(Icons.chat, size: 40.0, color: Colors.white), 'chat', ''),
+              Icon(Icons.chat, size: 40.0, color: Colors.white), 'chat', null),
         ),
         Text(
           'mensaje',
@@ -111,7 +111,7 @@ Widget encabezadoIcon(BuildContext context) {
               context,
               Icon(Icons.add_call, size: 40.0, color: Colors.white),
               'llamada',
-              ''),
+              null),
         ),
         Text(
           'telefono',

@@ -1,9 +1,14 @@
+import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:piproy/scr/funciones/abrir_whatsapp.dart';
 
 Widget conteinerIcon(
-    BuildContext context, Icon icon, String tarea, String phone) {
+    BuildContext context, Icon icon, String tarea, Contact contacto) {
+  String phone;
+  if (phone != null) {
+    phone = contacto.phones.elementAt(0).value;
+  }
   return GestureDetector(
       child: Tooltip(
         message: tarea,
@@ -41,10 +46,11 @@ Widget conteinerIcon(
         ),
       ),
       //icon, // Icon(icon, size: 40.0, color: Colors.green),
-      onTap: () => {funcionIcon(context, tarea, phone)});
+      onTap: () => {funcionIcon(context, tarea, contacto)});
 }
 
-funcionIcon(BuildContext context, String tarea, String phone) {
+funcionIcon(BuildContext context, String tarea, Contact contacto) {
+  String phone = contacto.phones.elementAt(0).value;
   print(tarea);
   switch (tarea) {
     case 'llamada':
@@ -57,6 +63,9 @@ funcionIcon(BuildContext context, String tarea, String phone) {
       break;
     case 'configurar':
       Navigator.pushNamed(context, 'configurar');
+      break;
+    case 'editar':
+      Navigator.pushNamed(context, 'editarContacto', arguments: contacto);
       break;
   }
 }
