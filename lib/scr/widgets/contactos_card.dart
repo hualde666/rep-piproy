@@ -101,28 +101,6 @@ Widget _botonesContactos(BuildContext context, Contact contacto) {
     SizedBox(
       width: 10,
     ),
-    Column(
-      children: [
-        Container(
-          height: 75,
-          width: 75,
-          margin: EdgeInsets.only(top: 10),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(80),
-            color: Colors.black,
-          ),
-          child: conteinerIcon(
-              context,
-              Icon(Icons.message, size: 50.0, color: Colors.white),
-              'mensaje',
-              null),
-        ),
-        Text(
-          'Mensajes',
-          style: TextStyle(fontSize: 15),
-        )
-      ],
-    ),
     SizedBox(
       width: 10,
     ),
@@ -168,12 +146,12 @@ Widget _botonesContactos(BuildContext context, Contact contacto) {
           ),
           child: conteinerIcon(
               context,
-              Icon(Icons.video_call, size: 50.0, color: Colors.white),
-              'video',
+              Icon(Icons.message, size: 50.0, color: Colors.white),
+              'mensaje',
               null),
         ),
         Text(
-          ' Video',
+          'Mensajes',
           style: TextStyle(fontSize: 15),
         )
       ],
@@ -203,6 +181,31 @@ Widget _botonesContactos(BuildContext context, Contact contacto) {
         ),
         Text(
           'Editar',
+          style: TextStyle(fontSize: 15),
+        )
+      ],
+    ),
+    SizedBox(
+      width: 10,
+    ),
+    Column(
+      children: [
+        Container(
+          height: 75,
+          width: 75,
+          margin: EdgeInsets.only(top: 10),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(80),
+            color: Colors.black,
+          ),
+          child: conteinerIcon(
+              context,
+              Icon(Icons.video_call, size: 50.0, color: Colors.white),
+              'video',
+              null),
+        ),
+        Text(
+          ' Video',
           style: TextStyle(fontSize: 15),
         )
       ],

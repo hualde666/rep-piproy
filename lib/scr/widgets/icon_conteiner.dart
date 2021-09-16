@@ -50,7 +50,10 @@ Widget conteinerIcon(
 }
 
 funcionIcon(BuildContext context, String tarea, Contact contacto) {
-  String phone = contacto.phones.elementAt(0).value;
+  String phone;
+  if (contacto != null) {
+    phone = contacto.phones.elementAt(0).value;
+  }
   print(tarea);
   switch (tarea) {
     case 'llamada':
