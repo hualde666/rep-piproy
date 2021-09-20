@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-Widget BotonHomeHeader(BuildContext context) {
+Widget botonHomeHeader(BuildContext context) {
   String pagina = '';
   return GestureDetector(
     onTap: () {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-Widget BotonRojoBack(BuildContext context) {
+Widget botonRojoBack(BuildContext context) {
   return GestureDetector(
     onTap: () => Navigator.pop(context),
     child: Center(

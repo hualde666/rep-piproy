@@ -1,12 +1,5 @@
-import 'dart:typed_data';
-
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
-
-import 'package:flutter/cupertino.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:contacts_service/contacts_service.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class ContactosProvider {
   static final ContactosProvider _contactosProvider =

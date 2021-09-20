@@ -55,18 +55,18 @@ class _EmergenciaContactos extends State<EmergenciaContactos> {
   Widget build(BuildContext context) {
     print('dibujando');
     return Scaffold(
-      appBar: HeaderApp(context, 'Contactos de Emergencia', Text(''), 0.0),
+      appBar: headerApp(context, 'Contactos de Emergencia', Text(''), 0.0),
       //  AppBar(
       //   backgroundColor: Color.fromRGBO(55, 57, 84, 1.0),
       //   title: Text('Contactos de Emergencía'),
       // ),
       body: pantallaInicial(context),
-      floatingActionButton: BotonesFab(),
+      floatingActionButton: botonesFab(),
     );
   }
 
-  Widget BotonesFab() {
-    ListaIdProvider listaIdProvider = Provider.of<ListaIdProvider>(context);
+  Widget botonesFab() {
+    //ListaIdProvider listaIdProvider = Provider.of<ListaIdProvider>(context);
     return
         //Row(
         // mainAxisAlignment: MainAxisAlignment.center,
@@ -142,34 +142,6 @@ class _EmergenciaContactos extends State<EmergenciaContactos> {
                   );
           }
         });
-  }
-
-  Widget _avatar(ItemListaEmergencia contacto) {
-    if (contacto.avatar.isEmpty) {
-      return Container(
-        height: 60.0,
-        child: CircleAvatar(
-          child: Text(
-            contacto.initials,
-            style: TextStyle(
-                fontSize: 30.0,
-                fontWeight: FontWeight.w900,
-                color: Colors.green),
-          ),
-          foregroundColor: Colors.green,
-          backgroundColor: Colors.white,
-          maxRadius: 50.0,
-        ),
-      );
-    } else {
-      return Container(
-        height: 60.0,
-        child: CircleAvatar(
-          maxRadius: 50.0,
-          backgroundImage: MemoryImage(contacto.avatar),
-        ),
-      );
-    }
   }
 
   Widget contactoWidget(ItemListaEmergencia contacto, int i) {

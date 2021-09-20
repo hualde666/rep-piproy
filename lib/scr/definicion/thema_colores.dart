@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-ThemeData ThemaApi() {
+ThemeData themaApi() {
   return ThemeData(
     primaryColor: Color.fromRGBO(55, 57, 84, 1.0),
     // primarySwatch:Color.fromRGBO(55, 57, 84, 1.0),

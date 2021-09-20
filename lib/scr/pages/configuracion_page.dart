@@ -5,7 +5,7 @@ class ConfiguracionPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: HeaderApp(context, 'Configuración', Text(''), 0.0),
+      appBar: headerApp(context, 'Configuración', Text(''), 0.0),
 
       // title: Text('Configuración'),
 

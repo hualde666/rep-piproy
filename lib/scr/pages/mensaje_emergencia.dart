@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:piproy/scr/widgets/boton_home.dart';
-import 'package:piproy/scr/widgets/boton_verde.dart';
+
 import 'package:piproy/scr/widgets/header_app.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
@@ -40,6 +39,9 @@ class _EmergenciaMensajeState extends State<EmergenciaMensaje> {
   guardarMensaje() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     _mensaje = _textController.text;
+    if (_mensaje.isEmpty) {
+      _mensaje = "Necesito ayuda !!";
+    }
     prefs.setString('mensajeE', _mensaje);
   }
 
@@ -49,7 +51,7 @@ class _EmergenciaMensajeState extends State<EmergenciaMensaje> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar:
-          HeaderApp(context, 'Modificar Mensaje de Emergencia', Text(''), 0.0),
+          headerApp(context, 'Modificar Mensaje de Emergencia', Text(''), 0.0),
       body: Center(
         child: GestureDetector(
           onTap: () {

@@ -8,7 +8,7 @@ class Reloj extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final RelojModel reloj = RelojModel();
-    final _screenSize = MediaQuery.of(context).size;
+
     return Container(
       height: 200.0,
 

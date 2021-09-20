@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-Widget BotonBackHeader(BuildContext context) {
+Widget botonBackHeader(BuildContext context) {
   return GestureDetector(
     onTap: () => Navigator.pop(context),
     child: Container(

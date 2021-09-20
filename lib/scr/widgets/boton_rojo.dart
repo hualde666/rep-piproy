@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-Widget BotonRojoHeader(BuildContext context) {
+Widget botonRojoHeader(BuildContext context) {
   return GestureDetector(
     onTap: () => Navigator.pushNamed(context, 'botonRojo'),
     child: Container(

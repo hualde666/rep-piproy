@@ -33,7 +33,6 @@ class _PilaTimpoClimaState extends State<PilaTimpoClima> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
   }
 

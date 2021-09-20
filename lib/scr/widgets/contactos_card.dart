@@ -4,8 +4,8 @@ import 'package:piproy/scr/widgets/icon_conteiner.dart';
 
 class TarjetaContacto2 extends StatefulWidget {
   TarjetaContacto2(this.context, this.contacto);
-  BuildContext context;
-  Contact contacto;
+  final BuildContext context;
+  final Contact contacto;
   @override
   _TarjetaContacto2 createState() => _TarjetaContacto2();
 }
@@ -15,7 +15,6 @@ class _TarjetaContacto2 extends State<TarjetaContacto2> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     oneTap = false;
   }
@@ -255,32 +254,4 @@ Widget _nombreContacto(BuildContext context, Contact contacto) {
           // )
         ],
       ));
-}
-
-Widget _avatar(BuildContext context, Contact contacto) {
-  if (contacto.avatar.isEmpty) {
-    return Container(
-      height: 90.0,
-      child: CircleAvatar(
-        child: Text(
-          contacto.initials(),
-          style: TextStyle(
-              fontSize: 30.0,
-              fontWeight: FontWeight.w900,
-              color: Theme.of(context).primaryColor),
-        ),
-        foregroundColor: Theme.of(context).primaryColor,
-        backgroundColor: Colors.white,
-        maxRadius: 50.0,
-      ),
-    );
-  } else {
-    return Container(
-      height: 90.0,
-      child: CircleAvatar(
-        maxRadius: 50.0,
-        backgroundImage: MemoryImage(contacto.avatar),
-      ),
-    );
-  }
 }

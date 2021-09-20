@@ -4,6 +4,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:piproy/channel/channel_android.dart';
 import 'package:piproy/scr/models/items_lista_contactos.dart';
 import 'package:piproy/scr/widgets/boton_home.dart';
+
 import 'package:piproy/scr/widgets/boton_rojo_back.dart';
 import 'package:piproy/scr/widgets/boton_verde.dart';
 
@@ -16,7 +17,7 @@ class ResumenEnvioPage extends StatelessWidget {
     mandarSMS(listaE, mensaje);
     return Scaffold(
         //  backgroundColor: Color.fromRGBO(55, 57, 84, 1.0),
-        appBar: HeaderResumen(context),
+        appBar: headerResumen(context),
         body: Container(
           height: 500,
           color: Colors.white,
@@ -70,7 +71,7 @@ class ResumenEnvioPage extends StatelessWidget {
   }
 }
 
-Widget HeaderResumen(BuildContext context) {
+Widget headerResumen(BuildContext context) {
   return PreferredSize(
     preferredSize: Size.fromHeight(200.0),
     // here the desired height
@@ -83,9 +84,9 @@ Widget HeaderResumen(BuildContext context) {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              BotonBackHeader(context),
-              BotonRojoBack(context),
-              BotonHomeHeader(context),
+              botonBackHeader(context),
+              botonRojoBack(context),
+              botonHomeHeader(context),
             ],
           ),
           Text('Resumen de Mensaje',

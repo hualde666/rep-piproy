@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-Widget Hora(BuildContext context) {
+Widget hora(BuildContext context) {
   return Center(
     child: ClipRRect(
       child: Container(

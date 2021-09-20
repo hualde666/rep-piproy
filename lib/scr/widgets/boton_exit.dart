@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 
-Widget BotonExit(BuildContext context) {
+Widget botonExit(BuildContext context) {
   return GestureDetector(
     onTap: () => {
       showDialog(

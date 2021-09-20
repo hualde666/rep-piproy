@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:piproy/scr/widgets/boton_exit.dart';
-import 'package:piproy/scr/widgets/boton_home.dart';
+
 import 'package:piproy/scr/widgets/boton_rojo.dart';
 import 'package:piproy/scr/widgets/elemntos.dart';
-import 'package:piproy/scr/widgets/encabezado2.dart';
+
 import 'package:piproy/scr/widgets/encabezado_icon.dart';
 import 'package:piproy/scr/widgets/pila_tiempo_clima.dart';
 
@@ -123,8 +123,8 @@ class _Home2PageState extends State<Home2Page> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
 
               children: [
-                BotonExit(context),
-                BotonRojoHeader(context),
+                botonExit(context),
+                botonRojoHeader(context),
                 GestureDetector(
                   onTap: () {
                     scrollToTop();
@@ -152,6 +152,8 @@ class _Home2PageState extends State<Home2Page> {
     );
   }
 }
+
+class BotonRojoHeader {}
 
 Widget botonInicio() {
   return GestureDetector(

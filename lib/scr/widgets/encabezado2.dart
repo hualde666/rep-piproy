@@ -3,7 +3,6 @@ import 'package:piproy/scr/widgets/boton_exit.dart';
 import 'package:piproy/scr/widgets/boton_home.dart';
 import 'package:piproy/scr/widgets/boton_rojo.dart';
 import 'package:piproy/scr/widgets/encabezado_icon.dart';
-import 'package:piproy/scr/widgets/hora.dart';
 
 encabezadoApp3(BuildContext context, String titulo) {
   return AppBar(
@@ -21,9 +20,9 @@ encabezadoApp3(BuildContext context, String titulo) {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
 
             children: [
-              BotonExit(context),
-              BotonRojoHeader(context),
-              BotonHomeHeader(context)
+              botonExit(context),
+              botonRojoHeader(context),
+              botonHomeHeader(context)
             ], // Hora(context)],
           ),
           Divider(

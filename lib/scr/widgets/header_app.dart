@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:piproy/scr/widgets/tres_botones_header.dart';
 
-Widget HeaderApp(
+Widget headerApp(
     BuildContext context, String titulo, Widget otroWidget, double alto) {
   return PreferredSize(
     preferredSize: Size.fromHeight(200.0 + alto),
@@ -12,7 +12,7 @@ Widget HeaderApp(
       height: 170 + alto,
       child: Column(
         children: [
-          TresBotonesHeader(context),
+          tresBotonesHeader(context),
           Text(titulo, style: TextStyle(color: Colors.white, fontSize: 20)),
           alto > 0
               ? Column(

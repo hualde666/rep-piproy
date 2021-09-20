@@ -10,6 +10,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:contacts_service/contacts_service.dart';
 
 import 'package:piproy/scr/models/items_lista_contactos.dart';
+import 'package:audioplayers/audioplayers.dart';
 
 class BotonRojoPage extends StatefulWidget {
   @override
@@ -59,7 +60,7 @@ class _BotonRojoPageState extends State<BotonRojoPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: HeaderEmergencia(context),
+      appBar: headerEmergencia(context),
       body: FutureBuilder(
           future: cargarContactos(),
           builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -80,7 +81,7 @@ class _BotonRojoPageState extends State<BotonRojoPage> {
   }
 }
 
-Widget HeaderEmergencia(BuildContext context) {
+Widget headerEmergencia(BuildContext context) {
   return PreferredSize(
     preferredSize: Size.fromHeight(200.0),
     // here the desired height
@@ -93,12 +94,12 @@ Widget HeaderEmergencia(BuildContext context) {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              BotonBackHeader(context),
+              botonBackHeader(context),
               SizedBox(
                 height: 100,
                 width: 100,
               ),
-              BotonHomeHeader(context),
+              botonHomeHeader(context),
             ],
           ),
           Text('Alerta de Emergencia',
@@ -111,9 +112,6 @@ Widget HeaderEmergencia(BuildContext context) {
 
 conListaEmergenia(
     BuildContext context, List<ItemListaEmergencia> listaE, String mensaje) {
-  final queryData = MediaQuery.of(context);
-
-  final alto = queryData.size.height;
   return Center(
     child: Container(
       height: 500.0,
@@ -142,7 +140,8 @@ conListaEmergenia(
           GestureDetector(
             onTap: () {
               //******************* */
-
+              final AudioCache player = new AudioCache();
+              player.play('audio_emergencia.mpeg');
               //listaE[0].check = false;
               Navigator.push(
                   context,

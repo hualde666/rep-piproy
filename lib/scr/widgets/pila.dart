@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+
 import 'package:battery/battery.dart';
 
 class NivelPila extends StatelessWidget {
@@ -37,7 +37,7 @@ class NivelPila extends StatelessWidget {
 
   Future _getNivelBateria() async {
     final int batteryLevel = await battery.batteryLevel;
-    final int batteryLevel2 = 60;
-    return batteryLevel2;
+
+    return batteryLevel;
   }
 }

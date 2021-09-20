@@ -92,12 +92,10 @@ class _SeleccionContactoState extends State<SeleccionContacto> {
   Widget build(BuildContext context) {
     ListaIdProvider listaIdProvider = Provider.of<ListaIdProvider>(context);
     listaIdContacto = listaIdProvider.listaIdContacto;
-    bool hayBusqueda = _searchController.text.isNotEmpty;
-    double alto = MediaQuery.of(context).size.height * 0.73;
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: HeaderApp(context, 'Selección Contactos', busqueda(), 80.0),
+      appBar: headerApp(context, 'Selección Contactos', busqueda(), 80.0),
       body: GestureDetector(
           onTap: () {
             final FocusScopeNode focus = FocusScope.of(context);
@@ -203,8 +201,6 @@ class _SeleccionContactoState extends State<SeleccionContacto> {
 
   Widget contactoWidget(
       BuildContext context, ItemListaEmergencia contacto, int i) {
-    ListaIdProvider listaIdProvider = Provider.of<ListaIdProvider>(context);
-
     Color _colorBorde = Theme.of(context).primaryColor;
     return GestureDetector(
       onTap: () {
@@ -244,51 +240,6 @@ class _SeleccionContactoState extends State<SeleccionContacto> {
                 ],
               ),
             ),
-            //   Theme(
-            //     data: Theme.of(context).copyWith(
-            //       unselectedWidgetColor: Colors.white,
-            //     ),
-            //     child: Column(
-            //       mainAxisAlignment: MainAxisAlignment.center,
-            //       children: [
-            //         Transform.scale(
-            //           scale: 1.5,
-            //           child: Checkbox(
-            //               value: contacto.check,
-            //               activeColor: Colors.white,
-            //               checkColor: Colors.green,
-            //               onChanged: (value) {
-            //                 contacto.check = value;
-
-            //                 setState(() {
-            //                   if (value) {
-            //                     print(contacto.idcontacto);
-            //                     Provider.of<ListaIdProvider>(context,
-            //                             listen: false)
-            //                         .sumarIdContacto(contacto.idcontacto);
-            //                   } else {
-            //                     print(contacto.idcontacto);
-            //                     Provider.of<ListaIdProvider>(context,
-            //                             listen: false)
-            //                         .quitarIdContacto(contacto.idcontacto);
-            //                   }
-            //                 });
-            //                 // listaIdContacto = listaIdProvider.listaIdContacto;
-            //                 guardarLista();
-            //               }),
-            //         ),
-            //         contacto.check
-            //             ? Text(
-            //                 'quitar',
-            //                 style: TextStyle(color: Colors.white, fontSize: 20),
-            //               )
-            //             : Text(
-            //                 'agregar',
-            //                 style: TextStyle(color: Colors.white, fontSize: 20),
-            //               ),
-            //       ],
-            //     ),
-            //   )
           ],
         ),
       ),
@@ -337,9 +288,9 @@ class _SeleccionContactoState extends State<SeleccionContacto> {
 
 class ContactoWidget extends StatefulWidget {
   ContactoWidget(this.context, this.contacto, this.i);
-  ItemListaEmergencia contacto;
-  int i;
-  BuildContext context;
+  final ItemListaEmergencia contacto;
+  final int i;
+  final BuildContext context;
 
   @override
   _ContactoWidget createState() => _ContactoWidget();
