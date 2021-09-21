@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:piproy/scr/ayuda_widget/fab_ayuda.dart';
 import 'package:piproy/scr/widgets/header_app.dart';
 
 class ConfiguracionPage extends StatelessWidget {
@@ -38,6 +39,8 @@ class ConfiguracionPage extends StatelessWidget {
           ),
         ],
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
+      floatingActionButton: BotonFlotante(pagina: 'configurar'),
     );
   }
 }

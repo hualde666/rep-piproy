@@ -68,7 +68,7 @@ funcionIcon(BuildContext context, String tarea, Contact contacto) {
       Navigator.pushNamed(context, 'configurar');
       break;
     case 'editar':
-      Navigator.pushNamed(context, 'editarContacto', arguments: contacto);
+      Navigator.pushNamed(context, 'mostrarContacto', arguments: contacto);
       break;
   }
 }

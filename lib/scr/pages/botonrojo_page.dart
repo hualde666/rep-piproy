@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:piproy/scr/ayuda_widget/fab_ayuda.dart';
 import 'package:piproy/scr/funciones/lista_selecion_contactos.dart';
 import 'package:piproy/scr/pages/envio_emergencia.dart';
 import 'package:piproy/scr/providers/contactos_provider.dart';
@@ -77,6 +78,8 @@ class _BotonRojoPageState extends State<BotonRojoPage> {
                   : sinListaEmergenia(context);
             }
           }),
+      floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
+      floatingActionButton: BotonFlotante(pagina: 'botonRojo'),
     );
   }
 }

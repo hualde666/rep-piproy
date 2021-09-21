@@ -1,5 +1,6 @@
 import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';
+import 'package:piproy/scr/ayuda_widget/fab_ayuda.dart';
 import 'package:piproy/scr/funciones/lista_selecion_contactos.dart';
 import 'package:piproy/scr/models/items_lista_contactos.dart';
 import 'package:piproy/scr/providers/lista_id_provider.dart';
@@ -67,28 +68,25 @@ class _EmergenciaContactos extends State<EmergenciaContactos> {
 
   Widget botonesFab() {
     //ListaIdProvider listaIdProvider = Provider.of<ListaIdProvider>(context);
-    return
-        //Row(
-        // mainAxisAlignment: MainAxisAlignment.center,
-        // ]
-        FloatingActionButton.extended(
-      icon: Icon(
-        Icons.add_circle,
-        size: 40,
-        color: Colors.white,
-      ),
-      label: Text(
-        'agregar',
-        style: TextStyle(fontSize: 15, color: Colors.white),
-      ),
-      backgroundColor: Color.fromRGBO(249, 75, 11, 1),
-      tooltip: 'agergar',
-      heroTag: 'agregar',
-      onPressed: () {
-        Navigator.of(context).pushNamed('selecContactos');
-        cargando = true;
-      },
-    );
+    return Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
+      // BotonFlotante(pagina: 'emergiContactos'),
+      FloatingActionButton.extended(
+        icon: Icon(
+          Icons.add_circle,
+          size: 40,
+          color: Colors.white,
+        ),
+        label: Text(
+          'agregar',
+          style: TextStyle(fontSize: 15, color: Colors.white),
+        ),
+        backgroundColor: Color.fromRGBO(249, 75, 11, 1),
+        onPressed: () {
+          Navigator.of(context).pushNamed('selecContactos');
+          cargando = true;
+        },
+      )
+    ]);
   }
 
   Widget pantallaInicial(BuildContext context) {

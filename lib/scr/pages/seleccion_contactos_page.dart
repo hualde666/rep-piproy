@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:contacts_service/contacts_service.dart';
+import 'package:piproy/scr/ayuda_widget/fab_ayuda.dart';
 import 'package:piproy/scr/models/items_lista_contactos.dart';
 
 import 'package:piproy/scr/providers/contactos_provider.dart';
@@ -110,6 +111,8 @@ class _SeleccionContactoState extends State<SeleccionContacto> {
             }
           },
           child: mostrarContactos(context)),
+      floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
+      floatingActionButton: BotonFlotante(pagina: 'selecContactos'),
     );
   }
 

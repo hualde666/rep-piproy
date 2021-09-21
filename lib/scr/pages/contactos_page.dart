@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:contacts_service/contacts_service.dart';
+import 'package:piproy/scr/ayuda_widget/fab_ayuda.dart';
 
 import 'package:piproy/scr/providers/contactos_provider.dart';
 
@@ -112,7 +113,7 @@ class _ContactosPageState extends State<ContactosPage> {
             }),
         resizeToAvoidBottomInset: false,
         floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
-        floatingActionButton: BotonFlotante(),
+        floatingActionButton: BotonFlotante(pagina: 'contactosPage'),
 
         //  bottomNavigationBar: BottonBarNavegador(),
       ),
@@ -171,68 +172,6 @@ class _ContactosPageState extends State<ContactosPage> {
           ],
         ),
       ),
-    );
-  }
-}
-
-class BotonFlotante extends StatelessWidget {
-  const BotonFlotante({
-    Key key,
-  }) : super(key: key);
-  final String contenio = "prueba de ayuda";
-  @override
-  Widget build(BuildContext context) {
-    return FloatingActionButton.extended(
-      backgroundColor: Color.fromRGBO(249, 75, 11, 1),
-      icon: Icon(
-        Icons.help,
-        color: Colors.white,
-        size: 40,
-      ),
-      label: Text('ayuda', style: TextStyle(fontSize: 15, color: Colors.white)),
-      onPressed: () {
-        showDialog(context: context, builder: (context) => Ayuda());
-      },
-    );
-  }
-}
-
-class Ayuda extends StatelessWidget {
-  final Widget ayuda = Center(
-    child: Text('mensaje de ayuda',
-        textAlign: TextAlign.center,
-        style: TextStyle(fontSize: 20, color: Colors.black)),
-  );
-  @override
-  Widget build(BuildContext context) {
-    return AlertDialog(
-      backgroundColor: Colors.white,
-      title: Container(
-        width: 120,
-        height: 490,
-        child: ayuda,
-      ),
-
-      //shape: CircleBorder(),
-      elevation: 14.0,
-      actionsPadding: EdgeInsets.symmetric(horizontal: 15.0),
-      //actionsAlignment: MainAxisAlignment.spaceAround,
-      actions: [
-        TextButton(
-            autofocus: true,
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            child: ClipOval(
-                child: Container(
-                    height: 40,
-                    width: 40,
-                    color: Colors.black38,
-                    child: Center(
-                        child: Text('Ok',
-                            style: TextStyle(
-                                fontSize: 15.0, color: Colors.white))))))
-      ],
     );
   }
 }

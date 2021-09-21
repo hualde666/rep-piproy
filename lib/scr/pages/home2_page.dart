@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:piproy/scr/ayuda_widget/fab_ayuda.dart';
 import 'package:piproy/scr/widgets/boton_exit.dart';
 
 import 'package:piproy/scr/widgets/boton_rojo.dart';
@@ -45,6 +46,8 @@ class _Home2PageState extends State<Home2Page> {
           controller: _scrollController,
           slivers: _detalle(context),
         ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
+        floatingActionButton: BotonFlotante(pagina: 'home'),
         // bottomNavigationBar: BottonBarNavegador(),
       ),
     );

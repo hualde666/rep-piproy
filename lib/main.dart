@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:piproy/scr/definicion/thema_colores.dart';
+import 'package:piproy/scr/pages/ayuda.dart';
 import 'package:piproy/scr/pages/configuracion_page.dart';
+import 'package:piproy/scr/pages/editar_contacto.dart';
 import 'package:piproy/scr/pages/mostrar_contacto.dart';
 import 'package:piproy/scr/pages/envio_emergencia.dart';
 import 'package:piproy/scr/pages/home2_page.dart';
@@ -39,11 +41,13 @@ class MyApp extends StatelessWidget {
           'botonRojo': (_) => BotonRojoPage(),
           'resumenRojo': (_) => ResumenEnvioPage(),
           'contactos': (_) => ContactosPage(),
-          'editarContacto': (_) => MostrarContacto(),
+          'mostrarContacto': (_) => MostrarContacto(),
+          'editarContacto': (_) => EditarContacto(),
           'emergiContactos': (_) => EmergenciaContactos(),
           'selecContactos': (_) => SeleccionContacto(),
           'emergiMensaje': (_) => EmergenciaMensaje(),
           'configurar': (_) => ConfiguracionPage(),
+          'ayuda': (_) => Ayuda(),
         },
       ),
     );

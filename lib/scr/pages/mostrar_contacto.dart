@@ -3,7 +3,6 @@ import 'package:contacts_service/contacts_service.dart';
 import 'package:piproy/scr/widgets/header_app.dart';
 
 class MostrarContacto extends StatelessWidget {
-  //final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     final Contact _contact = ModalRoute.of(context).settings.arguments;
@@ -22,7 +21,9 @@ class MostrarContacto extends StatelessWidget {
           style: TextStyle(fontSize: 15, color: Colors.white),
         ),
         backgroundColor: Color.fromRGBO(249, 75, 11, 1),
-        onPressed: () {},
+        onPressed: () {
+          Navigator.pushNamed(context, 'editarContacto', arguments: _contact);
+        },
       ),
     );
   }
@@ -61,7 +62,6 @@ class MostrarContacto extends StatelessWidget {
     return ListView.builder(
         itemCount: listaPhone.length,
         itemBuilder: (contest, i) {
-          print('$i');
           return listaPhone[i];
         });
 
@@ -104,10 +104,21 @@ class MostrarContacto extends StatelessWidget {
     ];
 
     for (var i = 0; i < _contact.phones.length; i++) {
+      String phone = _contact.phones.elementAt(i).value.replaceAll('+', '');
+      phone = phone + ' ' + _contact.phones.elementAt(i).label;
       if (i == 0) {
-        lista.add(dato('Teléfonos:', _contact.phones.elementAt(i).value));
+        lista.add(dato('Teléfonos:', phone));
       } else {
-        lista.add(dato(' ', _contact.phones.elementAt(i).value));
+        lista.add(dato(' ', phone));
+      }
+    }
+
+    for (var i = 0; i < _contact.emails.length; i++) {
+      String correo = _contact.emails.elementAt(i).value;
+      if (i == 0) {
+        lista.add(dato('Correos:', correo));
+      } else {
+        lista.add(dato('C', correo));
       }
     }
     lista.add(SizedBox(
@@ -117,28 +128,43 @@ class MostrarContacto extends StatelessWidget {
   }
 
   Widget dato(String titulo, String campo) {
-    return Container(
-      margin: EdgeInsets.symmetric(horizontal: 5),
-      height: 70,
-      color: Color.fromRGBO(55, 57, 84, 1.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text('$titulo  ',
+    double altoLetra = 28.0;
+    double altoContainer = 50;
+    if (titulo == 'Correos:' || titulo == 'C') {
+      altoLetra = 20;
+      altoContainer = 100;
+      if (titulo == 'C') {
+        titulo = '';
+      }
+    }
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      //mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Container(
+          height: 20,
+          color: Color.fromRGBO(55, 57, 84, 1.0),
+          child: Text('$titulo  ',
               textAlign: TextAlign.center,
               style: TextStyle(color: Colors.white, fontSize: 15)),
-          campo != null
+        ),
+        Container(
+          height: altoContainer,
+          color: Color.fromRGBO(55, 57, 84, 1.0),
+          child: campo != null
               ? Center(
                   child: Text(' $campo',
-                      style: TextStyle(color: Colors.white, fontSize: 28)),
+                      style:
+                          TextStyle(color: Colors.white, fontSize: altoLetra)),
                 )
-              : Text(''),
-          Divider(
-            height: 10,
-            color: Colors.white,
-          ),
-        ],
-      ),
+              : Text('',
+                  style: TextStyle(color: Colors.white, fontSize: altoLetra)),
+        ),
+        Divider(
+          height: 10,
+          color: Colors.white,
+        ),
+      ],
     );
   }
 }

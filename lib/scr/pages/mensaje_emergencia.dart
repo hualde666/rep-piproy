@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:piproy/scr/ayuda_widget/fab_ayuda.dart';
 
 import 'package:piproy/scr/widgets/header_app.dart';
 
@@ -114,6 +115,9 @@ class _EmergenciaMensajeState extends State<EmergenciaMensaje> {
           ),
         ),
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
+      floatingActionButton: BotonFlotante(pagina: 'emergiMensaje'),
+      // bottomNavigationBar: BottonBarNavegador(),
       // floatingActionButton: FloatingActionButton.extended(
       // icon: Icon(Icons.check_circle, color: Colors.white, size: 40),
       // backgroundColor: Color.fromRGBO(249, 75, 11, 1),
