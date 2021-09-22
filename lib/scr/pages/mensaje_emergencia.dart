@@ -80,6 +80,7 @@ class _EmergenciaMensajeState extends State<EmergenciaMensaje> {
                       }
                     },
                     onTap: () {
+                      guardarMensaje();
                       final FocusScopeNode focus = FocusScope.of(context);
                       if (!focus.hasPrimaryFocus && focus.hasFocus) {
                         FocusManager.instance.primaryFocus.unfocus();
@@ -92,7 +93,7 @@ class _EmergenciaMensajeState extends State<EmergenciaMensaje> {
                     keyboardType: TextInputType.text,
                     controller: _textController,
                     decoration: InputDecoration(
-                      hintText: _mensaje,
+                      // hintText: _mensaje,
                       labelText: 'Mensaje de Emergencia:',
                       border: OutlineInputBorder(),
                     ),
