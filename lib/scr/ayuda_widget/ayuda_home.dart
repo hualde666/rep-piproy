@@ -29,6 +29,13 @@ class AyudaHome extends StatelessWidget {
             child: Text('Pantalla Inicial',
                 style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold))),
       ),
+      SizedBox(
+        height: 10,
+      ),
+      Divider(
+        height: 10,
+        color: Colors.black87,
+      ),
       Container(
         height: 150,
         margin: EdgeInsets.only(left: 5),
@@ -68,6 +75,10 @@ class AyudaHome extends StatelessWidget {
             ),
           ],
         ),
+      ),
+      Divider(
+        height: 10,
+        color: Colors.black87,
       ),
       Container(
         height: 150,
@@ -112,6 +123,10 @@ class AyudaHome extends StatelessWidget {
       SizedBox(
         height: 10,
       ),
+      Divider(
+        height: 10,
+        color: Colors.black87,
+      ),
       Container(
         height: 150,
         margin: EdgeInsets.only(left: 5),
@@ -154,6 +169,10 @@ class AyudaHome extends StatelessWidget {
       ),
       SizedBox(
         height: 10,
+      ),
+      Divider(
+        height: 10,
+        color: Colors.black87,
       ),
       Container(
         height: 150,

@@ -6,7 +6,7 @@ class AyudaEditarContacto extends StatelessWidget {
     return Center(
         child: Container(
       child: Text(
-        'ConfiguraPagiba',
+        'Editar Contacto',
         style: TextStyle(fontSize: 30),
       ),
     ));

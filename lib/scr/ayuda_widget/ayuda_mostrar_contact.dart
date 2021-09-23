@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-class AyudaConfigurarPage extends StatelessWidget {
+class AyudaMostrarContacto extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
         child: Container(
       child: Text(
-        'Configura Pagina',
+        'Mostrar Contacto',
         style: TextStyle(fontSize: 30),
       ),
     ));

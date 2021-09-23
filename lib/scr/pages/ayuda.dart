@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:piproy/scr/ayuda_widget/ayuda_botonrojo.dart';
 import 'package:piproy/scr/ayuda_widget/ayuda_configurar.dart';
+import 'package:piproy/scr/ayuda_widget/ayuda_editar_contact.dart';
 import 'package:piproy/scr/ayuda_widget/ayuda_emer_contact.dart';
 import 'package:piproy/scr/ayuda_widget/ayuda_home.dart';
 import 'package:piproy/scr/ayuda_widget/ayuda_mensaje_emerg.dart';
+import 'package:piproy/scr/ayuda_widget/ayuda_mostrar_contact.dart';
 import 'package:piproy/scr/ayuda_widget/ayuda_selec_contact.dart';
 import 'package:piproy/scr/ayuda_widget/ayuda_pagina_contactos.dart';
 import 'package:piproy/scr/widgets/header_app.dart';
@@ -56,6 +58,12 @@ class PaginaAyuda extends StatelessWidget {
         break;
       case 'selecContactos':
         ayuda = AyudaSeleccionContactos();
+        break;
+      case 'mostrarContacto':
+        ayuda = AyudaMostrarContacto();
+        break;
+      case 'editarContacto':
+        ayuda = AyudaEditarContacto();
         break;
       case 'emergiMensaje':
         ayuda = AyudaMensajeEmergencia();

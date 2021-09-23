@@ -74,6 +74,7 @@ class _TarjetaContacto2 extends State<TarjetaContacto2> {
 }
 
 Widget _botonesContactos(BuildContext context, Contact contacto) {
+  print('');
   final List<Widget> _listaWidget = [
     Column(
       children: [
@@ -245,6 +246,7 @@ Widget _nombreContacto(BuildContext context, Contact contacto) {
               ),
             ),
           ),
+
           // Text(
           //   contacto.phones.elementAt(0).value,
           //   style: TextStyle(

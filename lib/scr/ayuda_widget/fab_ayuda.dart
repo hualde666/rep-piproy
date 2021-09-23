@@ -9,6 +9,7 @@ class BotonFlotante extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FloatingActionButton.extended(
+      heroTag: pagina,
       backgroundColor: Color.fromRGBO(0, 0, 0, 0.0),
       icon: Icon(
         Icons.help,

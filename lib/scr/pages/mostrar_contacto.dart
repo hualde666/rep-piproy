@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:contacts_service/contacts_service.dart';
+import 'package:piproy/scr/ayuda_widget/fab_ayuda.dart';
 import 'package:piproy/scr/widgets/header_app.dart';
 
-class MostrarContacto extends StatelessWidget {
+class MostrarContacto extends StatefulWidget {
+  @override
+  State<MostrarContacto> createState() => _MostrarContactoState();
+}
+
+class _MostrarContactoState extends State<MostrarContacto> {
   @override
   Widget build(BuildContext context) {
     final Contact _contact = ModalRoute.of(context).settings.arguments;
@@ -10,20 +16,29 @@ class MostrarContacto extends StatelessWidget {
       appBar: headerApp(context, 'Contacto', Text(''), 0.0),
       backgroundColor: Color.fromRGBO(55, 57, 84, 1.0),
       body: fichaContacto(_contact),
-      floatingActionButton: FloatingActionButton.extended(
-        icon: Icon(
-          Icons.edit,
-          size: 40,
-          color: Colors.white,
-        ),
-        label: Text(
-          'editar',
-          style: TextStyle(fontSize: 15, color: Colors.white),
-        ),
-        backgroundColor: Color.fromRGBO(249, 75, 11, 1),
-        onPressed: () {
-          Navigator.pushNamed(context, 'editarContacto', arguments: _contact);
-        },
+      floatingActionButton: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          BotonFlotante(pagina: 'mostrarContacto'),
+          FloatingActionButton.extended(
+            heroTag: "editar",
+            icon: Icon(
+              Icons.edit,
+              size: 40,
+              color: Colors.white,
+            ),
+            label: Text(
+              'editar',
+              style: TextStyle(fontSize: 15, color: Colors.white),
+            ),
+            backgroundColor: Color.fromRGBO(249, 75, 11, 1),
+            onPressed: () {
+              Navigator.pushNamed(context, 'editarContacto',
+                  arguments: _contact);
+              setState(() {});
+            },
+          ),
+        ],
       ),
     );
   }
@@ -102,25 +117,29 @@ class MostrarContacto extends StatelessWidget {
       dato('Apellido:', _contact.familyName),
       dato('Compañia:', _contact.company),
     ];
-
-    for (var i = 0; i < _contact.phones.length; i++) {
-      String phone = _contact.phones.elementAt(i).value.replaceAll('+', '');
-      phone = phone + ' ' + _contact.phones.elementAt(i).label;
-      if (i == 0) {
-        lista.add(dato('Teléfonos:', phone));
-      } else {
-        lista.add(dato(' ', phone));
+    if (_contact.phones.isNotEmpty) {
+      for (var i = 0; i < _contact.phones.length; i++) {
+        String phone = _contact.phones.elementAt(i).value.replaceAll('+', '');
+        phone = phone + ' ' + _contact.phones.elementAt(i).label;
+        if (i == 0) {
+          lista.add(dato('Teléfonos:', phone));
+        } else {
+          lista.add(dato(' ', phone));
+        }
       }
     }
 
-    for (var i = 0; i < _contact.emails.length; i++) {
-      String correo = _contact.emails.elementAt(i).value;
-      if (i == 0) {
-        lista.add(dato('Correos:', correo));
-      } else {
-        lista.add(dato('C', correo));
+    if (_contact.emails.isNotEmpty) {
+      for (var i = 0; i < _contact.emails.length; i++) {
+        String correo = _contact.emails.elementAt(i).value;
+        if (i == 0) {
+          lista.add(dato('Correos:', correo));
+        } else {
+          lista.add(dato('C', correo));
+        }
       }
     }
+
     lista.add(SizedBox(
       height: 70,
     ));
