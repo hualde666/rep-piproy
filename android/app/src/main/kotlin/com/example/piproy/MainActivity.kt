@@ -49,6 +49,11 @@ class MainActivity: FlutterActivity() {
                     result.success(resultado)
                  
                   }
+                  if (call.method == "aplicaciones") {
+                    // val resultado = getListaApi()
+                    // result.success(resultado)
+                 
+                  }
                   if (call.method == "bateria") {
                     
                     val batteryLevel = getNivelBateria()
@@ -66,6 +71,10 @@ class MainActivity: FlutterActivity() {
         
                 }
               }
+              // private fun getListaApi(){
+              //   List<PackageInfo> packs = context.getPackageManager().getInstalledPackages(0);
+              //   return packs
+              // }
         
            private fun getAndroidVersion(): String {
                  val  sdkVersion: Int

@@ -52,7 +52,8 @@ dependencies:
   flutter_open_whatsapp: ^0.1.2
   whatsapp_unilink: ^2.0.0
   audioplayers: ^0.20.1
-
+  device_apps: ^2.1.1
+  android_intent:
   
   
 

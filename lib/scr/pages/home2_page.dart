@@ -1,5 +1,8 @@
+import 'package:device_apps/device_apps.dart';
 import 'package:flutter/material.dart';
+
 import 'package:piproy/scr/ayuda_widget/fab_ayuda.dart';
+import 'package:piproy/scr/providers/aplicaciones_provider.dart';
 import 'package:piproy/scr/widgets/boton_exit.dart';
 
 import 'package:piproy/scr/widgets/boton_rojo.dart';
@@ -17,14 +20,16 @@ class Home2Page extends StatefulWidget {
 
 class _Home2PageState extends State<Home2Page> {
   ScrollController _scrollController = ScrollController();
-  bool _topScroll;
+  final aplicacionesProvider = new AplicacionesProvider();
+  Application api;
   @override
   void initState() {
     super.initState();
+
     _scrollController = ScrollController()
       ..addListener(() {
         setState(() {
-          _topScroll = true;
+          //  _topScroll = true;
         });
       });
   }
@@ -42,10 +47,21 @@ class _Home2PageState extends State<Home2Page> {
           child: AppBar(flexibleSpace: encabezadoApp(context, 'Proyecto PI')),
         ),
         backgroundColor: Colors.white,
-        body: CustomScrollView(
-          controller: _scrollController,
-          slivers: _detalle(context),
-        ),
+        body: FutureBuilder(
+            future: obtener('Whatsapp'),
+            builder: (BuildContext context, AsyncSnapshot snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              } else {
+                print(snapshot.data);
+                return CustomScrollView(
+                  controller: _scrollController,
+                  slivers: _detalle(context),
+                );
+              }
+            }),
         floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
         floatingActionButton: BotonFlotante(pagina: 'home'),
         // bottomNavigationBar: BottonBarNavegador(),
@@ -55,7 +71,6 @@ class _Home2PageState extends State<Home2Page> {
 
   List<Widget> _detalle(BuildContext context) {
     return <Widget>[
-      // encabezadoApp2(context, 'Proyecto PI'),
       SliverList(
         delegate: SliverChildListDelegate([
           SizedBox(height: 5.0),
@@ -68,13 +83,38 @@ class _Home2PageState extends State<Home2Page> {
               'contactos'),
           elementos(
               context,
-              Container(
-                height: 50.0,
-                width: 50.0,
-                color: Colors.amber,
-              ),
+              Text('Aplicaciones',
+                  style: TextStyle(color: Colors.white, fontSize: 35.0)),
               100,
-              ''),
+              'apilista'),
+          // elementos(
+          //     context,
+          //     Container(
+          //       child: Column(
+          //         children: [
+          //           Divider(
+          //             height: 10,
+          //             color: Colors.white,
+          //           ),
+          //           SizedBox(
+          //             width: 20,
+          //           ),
+          //           Image.memory(
+          //             (api as ApplicationWithIcon).icon,
+          //             width: 100,
+          //           ),
+          //           SizedBox(
+          //             width: 20,
+          //           ),
+          //           Text(
+          //             api.appName,
+          //             style: TextStyle(fontSize: 30, color: Colors.white),
+          //           ),
+          //         ],
+          //       ),
+          //     ),
+          //     100,
+          //     ''),
           elementos(
               context,
               Text('Whatsapp',
@@ -153,6 +193,24 @@ class _Home2PageState extends State<Home2Page> {
         color: Color.fromRGBO(55, 57, 84, 1.0),
       ),
     );
+  }
+
+  obtener(String nombre) async {
+    List listaApp = await aplicacionesProvider.listaApp;
+    // Application app;
+    // int i = 0;
+    // int items = listaApp.length;
+    // if (items >= 0) {
+    //   while (i <= items - 1) {
+    //     if (listaApp[i].appName == nombre) {
+    //       app = listaApp[i];
+    //       return app;
+    //     } else {
+    //       i++;
+    //     }
+    //   }
+
+    return listaApp;
   }
 }
 

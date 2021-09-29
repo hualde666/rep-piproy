@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:piproy/scr/widgets/icon_conteiner.dart';
 
 class AyudaHome extends StatelessWidget {
   @override
@@ -8,15 +7,13 @@ class AyudaHome extends StatelessWidget {
   }
 
   Widget _listaAyudaHome(BuildContext context) {
-    List<Widget> _lista_ayuda = _crearListaAyuda(context);
+    List<Widget> _listaAyuda = _crearListaAyuda(context);
 
     return ListView.builder(
-        itemCount: _lista_ayuda.length,
+        itemCount: _listaAyuda.length,
         itemBuilder: (contest, i) {
-          return _lista_ayuda[i];
+          return _listaAyuda[i];
         });
-
-    //_contact.phones.
   }
 
   List<Widget> _crearListaAyuda(BuildContext context) {

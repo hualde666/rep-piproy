@@ -7,10 +7,6 @@ import 'package:geolocator/geolocator.dart';
 //import 'package:geolocator_platform_interface/src/enums/location_accuracy.dart';
 
 class BotonRojo extends StatelessWidget {
-//  RoundedRectangleBorder(
-//         side: BorderSide(color: Colors.white, width: 2.0),
-//         borderRadius: BorderRadius.circular(20.0),
-//       )
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
@@ -34,38 +30,6 @@ class BotonRojo extends StatelessWidget {
     );
   }
 
-  // Future<String> _geoLocal() async {
-  //   Location location = new Location();
-  //   final String _direccion = '';
-
-  //   bool _serviceEnabled;
-  //   PermissionStatus _permissionGranted;
-  //   LocationData _locationData;
-
-  //   _serviceEnabled = await location.serviceEnabled();
-  //   if (!_serviceEnabled) {
-  //     _serviceEnabled = await location.requestService();
-  //     if (!_serviceEnabled) {
-  //       return "";
-  //     }
-  //   }
-
-  //   _permissionGranted = await location.hasPermission();
-  //   if (_permissionGranted == PermissionStatus.denied) {
-  //     _permissionGranted = await location.requestPermission();
-  //     if (_permissionGranted != PermissionStatus.granted) {
-  //       return "";
-  //     }
-  //   }
-
-  //   _locationData = await location.getLocation();
-
-  //   final lat = _locationData.latitude;
-  //   final lng = _locationData.longitude;
-  //   final pos = 'https://maps.google.com/?q=$lat,$lng';
-  //   print('Geolocalizacion:   ************ $_locationData ; $pos ****');
-  //   return pos;
-  // }
   Future _geoLocal() async {
     bool serviceEnabled;
     LocationPermission permission;
