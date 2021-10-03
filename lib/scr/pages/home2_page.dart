@@ -20,7 +20,7 @@ class Home2Page extends StatefulWidget {
 
 class _Home2PageState extends State<Home2Page> {
   ScrollController _scrollController = ScrollController();
-  final aplicacionesProvider = new AplicacionesProvider();
+
   Application api;
   @override
   void initState() {
@@ -40,6 +40,7 @@ class _Home2PageState extends State<Home2Page> {
 
   @override
   Widget build(BuildContext context) {
+    final aplicacionesProvider = new AplicacionesProvider();
     return SafeArea(
       child: Scaffold(
         appBar: PreferredSize(
@@ -47,21 +48,11 @@ class _Home2PageState extends State<Home2Page> {
           child: AppBar(flexibleSpace: encabezadoApp(context, 'Proyecto PI')),
         ),
         backgroundColor: Colors.white,
-        body: FutureBuilder(
-            future: obtener('Whatsapp'),
-            builder: (BuildContext context, AsyncSnapshot snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return Center(
-                  child: CircularProgressIndicator(),
-                );
-              } else {
-                print(snapshot.data);
-                return CustomScrollView(
-                  controller: _scrollController,
-                  slivers: _detalle(context),
-                );
-              }
-            }),
+        body: CustomScrollView(
+          controller: _scrollController,
+          slivers: _detalle(context),
+        ),
+
         floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
         floatingActionButton: BotonFlotante(pagina: 'home'),
         // bottomNavigationBar: BottonBarNavegador(),
@@ -196,6 +187,7 @@ class _Home2PageState extends State<Home2Page> {
   }
 
   obtener(String nombre) async {
+    AplicacionesProvider aplicacionesProvider = new AplicacionesProvider();
     List listaApp = await aplicacionesProvider.listaApp;
     // Application app;
     // int i = 0;
