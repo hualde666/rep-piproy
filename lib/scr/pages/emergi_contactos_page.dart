@@ -1,5 +1,6 @@
 import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';
+import 'package:piproy/scr/ayuda_widget/fab_ayuda.dart';
 
 import 'package:piproy/scr/funciones/lista_selecion_contactos.dart';
 import 'package:piproy/scr/models/items_lista_contactos.dart';
@@ -69,8 +70,9 @@ class _EmergenciaContactos extends State<EmergenciaContactos> {
   Widget botonesFab() {
     //ListaIdProvider listaIdProvider = Provider.of<ListaIdProvider>(context);
     return Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
-      // BotonFlotante(pagina: 'emergiContactos'),
+      BotonFlotante(pagina: 'emergiContactos'),
       FloatingActionButton.extended(
+        heroTag: "emergCpntactos",
         icon: Icon(
           Icons.add_circle,
           size: 40,

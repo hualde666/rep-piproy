@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'package:piproy/scr/ayuda_widget/fab_ayuda.dart';
 import 'package:piproy/scr/providers/aplicaciones_provider.dart';
+import 'package:piproy/scr/providers/db_provider.dart';
 import 'package:piproy/scr/widgets/boton_exit.dart';
 
 import 'package:piproy/scr/widgets/boton_rojo.dart';
@@ -10,6 +11,7 @@ import 'package:piproy/scr/widgets/elemntos.dart';
 
 import 'package:piproy/scr/widgets/encabezado_icon.dart';
 import 'package:piproy/scr/widgets/pila_tiempo_clima.dart';
+import 'package:provider/provider.dart';
 
 class Home2Page extends StatefulWidget {
   //final contactosProvider = new ContactosProvider();
@@ -40,7 +42,7 @@ class _Home2PageState extends State<Home2Page> {
 
   @override
   Widget build(BuildContext context) {
-    final aplicacionesProvider = new AplicacionesProvider();
+    DbTiposAplicaciones.db.database;
     return SafeArea(
       child: Scaffold(
         appBar: PreferredSize(
@@ -78,6 +80,14 @@ class _Home2PageState extends State<Home2Page> {
                   style: TextStyle(color: Colors.white, fontSize: 35.0)),
               100,
               'apilista'),
+
+          elementos(
+              context,
+              Text('Api grupos',
+                  style: TextStyle(color: Colors.white, fontSize: 35.0)),
+              100,
+              'apilista3'),
+          // elementos(
           // elementos(
           //     context,
           //     Container(
@@ -187,8 +197,8 @@ class _Home2PageState extends State<Home2Page> {
   }
 
   obtener(String nombre) async {
-    AplicacionesProvider aplicacionesProvider = new AplicacionesProvider();
-    List listaApp = await aplicacionesProvider.listaApp;
+    // AplicacionesProvider aplicacionesProvider = new AplicacionesProvider();
+    //  List listaApp = await aplicacionesProvider.listaApp;
     // Application app;
     // int i = 0;
     // int items = listaApp.length;
@@ -202,7 +212,7 @@ class _Home2PageState extends State<Home2Page> {
     //     }
     //   }
 
-    return listaApp;
+    // return listaApp;
   }
 }
 

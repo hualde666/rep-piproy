@@ -10,6 +10,7 @@ Widget headerApp(
       padding: EdgeInsets.only(top: 35),
       color: Color.fromRGBO(55, 57, 84, 1.0),
       height: 170 + alto,
+      width: double.infinity,
       child: Column(
         children: [
           tresBotonesHeader(context),
