@@ -42,7 +42,6 @@ class _Home2PageState extends State<Home2Page> {
 
   @override
   Widget build(BuildContext context) {
-    DbTiposAplicaciones.db.database;
     return SafeArea(
       child: Scaffold(
         appBar: PreferredSize(

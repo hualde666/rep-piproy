@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ContactosProvider contactosProvider = new ContactosProvider();
-    // AplicacionesProvider aplicacionesProvider = new AplicacionesProvider();
+    AplicacionesProvider aplicacionesProvider = new AplicacionesProvider();
     SystemChrome.setPreferredOrientations(
         [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
 

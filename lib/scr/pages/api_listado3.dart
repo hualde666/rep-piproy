@@ -4,7 +4,7 @@ import 'package:device_apps/device_apps.dart';
 import 'package:piproy/scr/ayuda_widget/fab_ayuda.dart';
 import 'package:piproy/scr/models/api_tipos.dart';
 import 'package:piproy/scr/providers/aplicaciones_provider.dart';
-
+import 'package:piproy/scr/providers/db_provider.dart';
 import 'package:piproy/scr/widgets/tres_botones_header.dart';
 import 'package:provider/provider.dart';
 
@@ -149,7 +149,7 @@ class SelecionTipo extends StatefulWidget {
 class _SelecionTipoState extends State<SelecionTipo> {
   @override
   Widget build(BuildContext context) {
-    //final apiProvider = Provider.of<AplicacionesProvider>(context);
+    final apiProvider = Provider.of<AplicacionesProvider>(context);
 
     return Container(
       height: 65,
@@ -317,6 +317,7 @@ class ElementoApi2 extends StatelessWidget {
   final String tipo;
   @override
   Widget build(BuildContext context) {
+    DbTiposAplicaciones.db.database;
     final apiProvider = Provider.of<AplicacionesProvider>(context);
     final selecionada = apiProvider.categoryApi[tipo].contains(api);
     final color = selecionada
