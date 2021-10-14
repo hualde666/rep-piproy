@@ -55,15 +55,12 @@ class _EmergenciaContactos extends State<EmergenciaContactos> {
 
   @override
   Widget build(BuildContext context) {
-    print('dibujando');
-    return Scaffold(
-      appBar: headerApp(context, 'Contactos de Emergencia', Text(''), 0.0),
-      //  AppBar(
-      //   backgroundColor: Color.fromRGBO(55, 57, 84, 1.0),
-      //   title: Text('Contactos de Emergencía'),
-      // ),
-      body: pantallaInicial(context),
-      floatingActionButton: botonesFab(),
+    return SafeArea(
+      child: Scaffold(
+        appBar: headerApp(context, 'Contactos de Emergencia', Text(''), 0.0),
+        body: pantallaInicial(context),
+        floatingActionButton: botonesFab(),
+      ),
     );
   }
 

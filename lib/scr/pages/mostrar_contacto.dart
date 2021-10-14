@@ -12,33 +12,35 @@ class _MostrarContactoState extends State<MostrarContacto> {
   @override
   Widget build(BuildContext context) {
     final Contact _contact = ModalRoute.of(context).settings.arguments;
-    return Scaffold(
-      appBar: headerApp(context, 'Contacto', Text(''), 0.0),
-      backgroundColor: Color.fromRGBO(55, 57, 84, 1.0),
-      body: fichaContacto(_contact),
-      floatingActionButton: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          BotonFlotante(pagina: 'mostrarContacto'),
-          FloatingActionButton.extended(
-            heroTag: "editar",
-            icon: Icon(
-              Icons.edit,
-              size: 40,
-              color: Colors.white,
+    return SafeArea(
+      child: Scaffold(
+        appBar: headerApp(context, 'Contacto', Text(''), 0.0),
+        backgroundColor: Color.fromRGBO(55, 57, 84, 1.0),
+        body: fichaContacto(_contact),
+        floatingActionButton: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            BotonFlotante(pagina: 'mostrarContacto'),
+            FloatingActionButton.extended(
+              heroTag: "editar",
+              icon: Icon(
+                Icons.edit,
+                size: 40,
+                color: Colors.white,
+              ),
+              label: Text(
+                'editar',
+                style: TextStyle(fontSize: 15, color: Colors.white),
+              ),
+              backgroundColor: Color.fromRGBO(249, 75, 11, 1),
+              onPressed: () {
+                Navigator.pushNamed(context, 'editarContacto',
+                    arguments: _contact);
+                setState(() {});
+              },
             ),
-            label: Text(
-              'editar',
-              style: TextStyle(fontSize: 15, color: Colors.white),
-            ),
-            backgroundColor: Color.fromRGBO(249, 75, 11, 1),
-            onPressed: () {
-              Navigator.pushNamed(context, 'editarContacto',
-                  arguments: _contact);
-              setState(() {});
-            },
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

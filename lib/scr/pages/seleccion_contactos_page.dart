@@ -94,25 +94,27 @@ class _SeleccionContactoState extends State<SeleccionContacto> {
     ListaIdProvider listaIdProvider = Provider.of<ListaIdProvider>(context);
     listaIdContacto = listaIdProvider.listaIdContacto;
 
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      appBar: headerApp(context, 'Selección Contactos', busqueda(), 80.0),
-      body: GestureDetector(
-          onTap: () {
-            final FocusScopeNode focus = FocusScope.of(context);
-            if (!focus.hasPrimaryFocus && focus.hasFocus) {
-              FocusManager.instance.primaryFocus.unfocus();
-            }
-          },
-          onTapUp: (_) {
-            final FocusScopeNode focus = FocusScope.of(context);
-            if (!focus.hasPrimaryFocus && focus.hasFocus) {
-              FocusManager.instance.primaryFocus.unfocus();
-            }
-          },
-          child: mostrarContactos(context)),
-      floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
-      floatingActionButton: BotonFlotante(pagina: 'selecContactos'),
+    return SafeArea(
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        appBar: headerApp(context, 'Selección Contactos', busqueda(), 80.0),
+        body: GestureDetector(
+            onTap: () {
+              final FocusScopeNode focus = FocusScope.of(context);
+              if (!focus.hasPrimaryFocus && focus.hasFocus) {
+                FocusManager.instance.primaryFocus.unfocus();
+              }
+            },
+            onTapUp: (_) {
+              final FocusScopeNode focus = FocusScope.of(context);
+              if (!focus.hasPrimaryFocus && focus.hasFocus) {
+                FocusManager.instance.primaryFocus.unfocus();
+              }
+            },
+            child: mostrarContactos(context)),
+        floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
+        floatingActionButton: BotonFlotante(pagina: 'selecContactos'),
+      ),
     );
   }
 

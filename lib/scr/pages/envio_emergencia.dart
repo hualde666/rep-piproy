@@ -15,59 +15,61 @@ class ResumenEnvioPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     mandarSMS(listaE, mensaje);
-    return Scaffold(
-        //  backgroundColor: Color.fromRGBO(55, 57, 84, 1.0),
-        appBar: headerResumen(context),
-        body: Container(
-          height: 500,
-          color: Colors.white,
-          margin: EdgeInsets.symmetric(horizontal: 10, vertical: 50),
-          child: ListView.builder(
-            itemCount: listaE.length,
-            itemBuilder: (context, i) {
-              return Container(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Divider(
-                      height: 12,
-                    ),
-                    listaE[i].check
-                        ? Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                                Text(
-                                  listaE[i].nombre,
-                                  style: TextStyle(
-                                      color: Colors.green, fontSize: 30),
-                                ),
-                                Container(
+    return SafeArea(
+      child: Scaffold(
+          //  backgroundColor: Color.fromRGBO(55, 57, 84, 1.0),
+          appBar: headerResumen(context),
+          body: Container(
+            height: 500,
+            color: Colors.white,
+            margin: EdgeInsets.symmetric(horizontal: 10, vertical: 50),
+            child: ListView.builder(
+              itemCount: listaE.length,
+              itemBuilder: (context, i) {
+                return Container(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Divider(
+                        height: 12,
+                      ),
+                      listaE[i].check
+                          ? Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                  Text(
+                                    listaE[i].nombre,
+                                    style: TextStyle(
+                                        color: Colors.green, fontSize: 30),
+                                  ),
+                                  Container(
+                                      alignment: Alignment.centerRight,
+                                      child: Text(
+                                        'Mensaje Enviado',
+                                        style: TextStyle(fontSize: 20),
+                                      ))
+                                ])
+                          : Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                  Text(
+                                    listaE[i].nombre,
+                                    style: TextStyle(
+                                        color: Colors.red, fontSize: 30),
+                                  ),
+                                  Container(
                                     alignment: Alignment.centerRight,
-                                    child: Text(
-                                      'Mensaje Enviado',
-                                      style: TextStyle(fontSize: 20),
-                                    ))
-                              ])
-                        : Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                                Text(
-                                  listaE[i].nombre,
-                                  style: TextStyle(
-                                      color: Colors.red, fontSize: 30),
-                                ),
-                                Container(
-                                  alignment: Alignment.centerRight,
-                                  child: Text('Mensaje No Enviado',
-                                      style: TextStyle(fontSize: 20)),
-                                )
-                              ]),
-                  ],
-                ),
-              );
-            },
-          ),
-        ));
+                                    child: Text('Mensaje No Enviado',
+                                        style: TextStyle(fontSize: 20)),
+                                  )
+                                ]),
+                    ],
+                  ),
+                );
+              },
+            ),
+          )),
+    );
   }
 }
 

@@ -9,32 +9,34 @@ class EditarContacto extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Contact _contact = ModalRoute.of(context).settings.arguments;
-    return Scaffold(
-      appBar: headerApp(context, 'Contacto', Text(''), 0.0),
-      backgroundColor: Color.fromRGBO(55, 57, 84, 1.0),
-      body: FormContacto(_contact),
-      resizeToAvoidBottomInset: false,
-      floatingActionButton: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          BotonFlotante(pagina: 'editarContacto'),
-          FloatingActionButton.extended(
-            heroTag: "guardar",
-            icon: Icon(
-              Icons.save,
-              size: 40,
-              color: Colors.white,
+    return SafeArea(
+      child: Scaffold(
+        appBar: headerApp(context, 'Contacto', Text(''), 0.0),
+        backgroundColor: Color.fromRGBO(55, 57, 84, 1.0),
+        body: FormContacto(_contact),
+        resizeToAvoidBottomInset: false,
+        floatingActionButton: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            BotonFlotante(pagina: 'editarContacto'),
+            FloatingActionButton.extended(
+              heroTag: "guardar",
+              icon: Icon(
+                Icons.save,
+                size: 40,
+                color: Colors.white,
+              ),
+              label: Text(
+                'guardar',
+                style: TextStyle(fontSize: 15, color: Colors.white),
+              ),
+              backgroundColor: Color.fromRGBO(249, 75, 11, 1),
+              onPressed: () {
+                // _guardarContacto(_contact);
+              },
             ),
-            label: Text(
-              'guardar',
-              style: TextStyle(fontSize: 15, color: Colors.white),
-            ),
-            backgroundColor: Color.fromRGBO(249, 75, 11, 1),
-            onPressed: () {
-              // _guardarContacto(_contact);
-            },
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

@@ -1,8 +1,15 @@
 import 'package:device_apps/device_apps.dart';
 
 import 'package:flutter/material.dart';
+import 'package:piproy/scr/providers/db_provider.dart';
 
 class AplicacionesProvider with ChangeNotifier {
+  static final AplicacionesProvider _aplicacionesProvider =
+      AplicacionesProvider._internal();
+  factory AplicacionesProvider() {
+    return _aplicacionesProvider;
+  }
+
   bool _cargando = true;
   String _tipoSeleccion = 'todas';
   List<Application> _listaApp;
@@ -36,12 +43,17 @@ class AplicacionesProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  AplicacionesProvider() {
+  AplicacionesProvider._internal() {
     apitipos.forEach((item) {
       this.categoryApi[item] = [];
     });
     getListaApp();
     this._cargando = false;
+    final lista = DbTiposAplicaciones.db.getAllRegistros();
+    if (lista != null) {
+      //for(var i=0; i < lista.le ){}
+
+    }
   }
 
   get listaApp {
@@ -52,13 +64,18 @@ class AplicacionesProvider with ChangeNotifier {
     return this._listaSeleccion;
   }
 
-  modiApiListaPorTipo(String tipo, Application api) {
-    if (!this.categoryApi[tipo].contains(api)) {
-      this.categoryApi[tipo].add(api);
+  modiApiListaPorTipo(Application api) {
+    if (!this.categoryApi[_tipoSeleccion].contains(api)) {
+      this.categoryApi[_tipoSeleccion].add(api);
     } else {
-      this.categoryApi[tipo].remove(api);
+      this.categoryApi[_tipoSeleccion].remove(api);
     }
 
+    notifyListeners();
+  }
+
+  eliminar(Application api) {
+    this.categoryApi[_tipoSeleccion].remove(api);
     notifyListeners();
   }
 
@@ -84,5 +101,9 @@ class AplicacionesProvider with ChangeNotifier {
 // genero lista por categorias
 
     this.categoryApi['todas'].addAll(resp);
+  }
+
+  cargarCategorias() async {
+    final db_categorias = await DbTiposAplicaciones.db.getAllRegistros();
   }
 }

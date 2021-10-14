@@ -3,20 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:device_apps/device_apps.dart';
 import 'package:piproy/scr/ayuda_widget/fab_ayuda.dart';
 import 'package:piproy/scr/models/api_tipos.dart';
+import 'package:piproy/scr/pages/api_seleccion.dart';
 import 'package:piproy/scr/providers/aplicaciones_provider.dart';
 import 'package:piproy/scr/providers/db_provider.dart';
 import 'package:piproy/scr/widgets/tres_botones_header.dart';
 import 'package:provider/provider.dart';
 
-class ApiLista3Page extends StatefulWidget {
-  @override
-  State<ApiLista3Page> createState() => _ApiLista3PageState();
-}
-
-class _ApiLista3PageState extends State<ApiLista3Page> {
+class ApiLista3Page extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final apiProvider = Provider.of<AplicacionesProvider>(context);
+    DbTiposAplicaciones.db.getAllRegistros();
     final categoria = apiProvider.apitipos;
     final tipo = apiProvider.tipoSeleccion;
     final lista = apiProvider.categoryApi[tipo];
@@ -44,7 +41,11 @@ class _ApiLista3PageState extends State<ApiLista3Page> {
                   backgroundColor: Color.fromRGBO(249, 75, 11, 1),
                   onPressed: () {
                     // SELECCION DE API POR TIPO
-                    _seleccionApi(context, tipo);
+                    //_seleccionApi(context, tipo);
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ApiSeleecionPage()));
                   },
                 ),
               ],
@@ -53,43 +54,43 @@ class _ApiLista3PageState extends State<ApiLista3Page> {
     ));
   }
 
-  void _seleccionApi(BuildContext context, String tipo) async {
-    return await showDialog(
-        context: context,
-        builder: (context) {
-          return listaTodasApi(context);
-        });
-  }
+  // void _seleccionApi(BuildContext context, String tipo) async {
+  //   return await showDialog(
+  //       context: context,
+  //       builder: (context) {
+  //         return listaTodasApi(context);
+  //       });
+  // }
 
-  AlertDialog listaTodasApi(BuildContext context) {
-    final apiProvider = Provider.of<AplicacionesProvider>(context);
-    final lista = apiProvider.categoryApi['todas'];
-    final tipo = apiProvider.tipoSeleccion;
-    List<Widget> listaApi = List.generate(
-        lista.length, (i) => ElementoApi2(api: lista[i], tipo: tipo));
-    return AlertDialog(
-      backgroundColor: Colors.white60,
-      content: Container(
-        height: 400,
-        child: ListView.builder(
-            itemCount: lista.length,
-            itemBuilder: (BuildContext context, int i) {
-              return listaApi[i];
-            }),
-      ),
-      actions: [
-        TextButton(
-          child: Text(
-            'Ok',
-            style: TextStyle(fontSize: 20, color: Colors.black),
-          ),
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-        )
-      ],
-    );
-  }
+  // AlertDialog listaTodasApi(BuildContext context) {
+  //   final apiProvider = Provider.of<AplicacionesProvider>(context);
+  //   final lista = apiProvider.categoryApi['todas'];
+  //   final tipo = apiProvider.tipoSeleccion;
+  //   List<Widget> listaApi = List.generate(
+  //       lista.length, (i) => ElementoApi3(api: lista[i], tipo: tipo));
+  //   return AlertDialog(
+  //     backgroundColor: Colors.white60,
+  //     content: Container(
+  //       height: 400,
+  //       child: ListView.builder(
+  //           itemCount: lista.length,
+  //           itemBuilder: (BuildContext context, int i) {
+  //             return listaApi[i];
+  //           }),
+  //     ),
+  //     actions: [
+  //       TextButton(
+  //         child: Text(
+  //           'Ok',
+  //           style: TextStyle(fontSize: 20, color: Colors.black),
+  //         ),
+  //         onPressed: () {
+  //           Navigator.of(context).pop();
+  //         },
+  //       )
+  //     ],
+  //   );
+  // }
 }
 
 Widget headerApi(BuildContext context, List<String> categoria) {
@@ -149,11 +150,10 @@ class SelecionTipo extends StatefulWidget {
 class _SelecionTipoState extends State<SelecionTipo> {
   @override
   Widget build(BuildContext context) {
-    final apiProvider = Provider.of<AplicacionesProvider>(context);
-
     return Container(
-      height: 65,
-      margin: EdgeInsets.only(left: 3),
+      height: 60,
+      // color:,
+      margin: EdgeInsets.only(left: 5),
       width: double.infinity,
       child: ListView.builder(
           physics: BouncingScrollPhysics(),
@@ -222,8 +222,12 @@ class BotonTipoApi extends StatelessWidget {
             if (_tipoControle.value.text != "" &&
                 !apiProvider.apitipos.contains(_tipoControle.value.text)) {
               apiProvider.agregarApiTipos(_tipoControle.value.text);
-
-              // guarda datos
+              // agregar a BD
+//
+//
+              final nuevo =
+                  new ApiTipos(tipo: _tipoControle.value.text, nombreApi: "");
+              DbTiposAplicaciones.db.nuevoTipo(nuevo);
             }
 
             Navigator.of(context).pop();
@@ -247,29 +251,45 @@ class BotonTipoApi extends StatelessWidget {
           crearTipo(context);
         }
       },
-      child: Container(
-        child: Padding(
-            padding: EdgeInsets.all(3),
-            child: Column(
-              children: [
-                Container(
-                    height: 50,
-                    width: 120,
-                    decoration: BoxDecoration(
-                        color: apiProvider.tipoSeleccion == categoria
-                            ? Color.fromRGBO(249, 75, 11, 1)
-                            : null,
-                        borderRadius: BorderRadius.circular(25),
-                        border: Border.all(color: Colors.white, width: 1.0)),
-                    child: Center(
-                      child: Text(
-                        categoria,
-                        style: TextStyle(fontSize: 20, color: Colors.white),
-                      ),
-                    )),
-              ],
-            )),
-      ),
+      child: categoria != '+'
+          ? Container(
+              child: Padding(
+                  padding: EdgeInsets.all(3),
+                  child: Column(
+                    children: [
+                      Container(
+                          height: 50,
+                          width: 120,
+                          decoration: BoxDecoration(
+                              color: apiProvider.tipoSeleccion == categoria
+                                  ? Color.fromRGBO(249, 75, 11, 1)
+                                  : null,
+                              borderRadius: BorderRadius.circular(25),
+                              border:
+                                  Border.all(color: Colors.white, width: 1.0)),
+                          child: Center(
+                            child: Text(
+                              categoria,
+                              style:
+                                  TextStyle(fontSize: 20, color: Colors.white),
+                            ),
+                          )),
+                    ],
+                  )),
+            )
+          : Container(
+              height: 60,
+              width: 60,
+              decoration: BoxDecoration(
+                  color: Theme.of(context).primaryColor,
+                  borderRadius: BorderRadius.circular(50),
+                  border: Border.all(color: Colors.white, width: 1.0)),
+              child: Center(
+                  child: Text(
+                '+',
+                style: TextStyle(fontSize: 20, color: Colors.white),
+              )),
+            ),
     );
   }
 }
@@ -279,10 +299,18 @@ class ElementoApi extends StatelessWidget {
   final Application api;
   @override
   Widget build(BuildContext context) {
+    final apiProvider = Provider.of<AplicacionesProvider>(context);
+    final tipo = apiProvider.tipoSeleccion;
     return GestureDetector(
       onTap: () {
         if (api.appName != "") {
           api.openApp();
+        }
+      },
+      onLongPress: () {
+        // eliminar api?
+        if (tipo != 'todas') {
+          eliminarApi(context, tipo);
         }
       },
       child: Container(
@@ -309,54 +337,93 @@ class ElementoApi extends StatelessWidget {
       ),
     );
   }
-}
 
-class ElementoApi2 extends StatelessWidget {
-  const ElementoApi2({@required this.api, @required this.tipo});
-  final Application api;
-  final String tipo;
-  @override
-  Widget build(BuildContext context) {
-    DbTiposAplicaciones.db.database;
-    final apiProvider = Provider.of<AplicacionesProvider>(context);
-    final selecionada = apiProvider.categoryApi[tipo].contains(api);
-    final color = selecionada
-        ? Theme.of(context).primaryColor
-        : Color.fromRGBO(55, 57, 84, 0.6);
-    return GestureDetector(
-      onTap: () {
-        if (api.appName != "") {
-          final apiProvider =
-              Provider.of<AplicacionesProvider>(context, listen: false);
-          apiProvider.modiApiListaPorTipo(tipo, api);
-        }
-      },
-      child: Container(
-        color: color,
-        child: Column(
-          children: [
-            SizedBox(
-              width: 10,
-            ),
-            Image.memory(
-              (api as ApplicationWithIcon).icon,
-              width: 100,
-            ),
-            SizedBox(
-              width: 20,
-            ),
-            Text(
-              api.appName,
-              textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 20, color: Colors.white),
-            ),
-            Divider(
-              height: 2,
-              color: Colors.white,
-            )
+  Future<dynamic> eliminarApi(BuildContext context, String tipo) => showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text(' ${api.appName}',
+              style: TextStyle(
+                fontSize: 20,
+              )),
+          content: Text('¿Desea eliminar este aplicación de categoría $tipo ?'),
+          // shape: CircleBorder(),
+          elevation: 14.0,
+          actionsPadding: EdgeInsets.symmetric(horizontal: 30.0),
+          actions: [
+            TextButton(
+                onPressed: () {
+                  final apiProvider =
+                      Provider.of<AplicacionesProvider>(context, listen: false)
+                          .eliminar(api);
+                  Navigator.pop(context);
+                },
+                child: Text('Si', style: TextStyle(fontSize: 20.0))),
+            TextButton(
+                autofocus: true,
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: Text('No', style: TextStyle(fontSize: 20.0)))
           ],
         ),
-      ),
-    );
-  }
+      );
 }
+
+// class ElementoApi3 extends StatelessWidget {
+//   const ElementoApi3({@required this.api, @required this.tipo});
+//   final Application api;
+//   final String tipo;
+//   @override
+//   Widget build(BuildContext context) {
+//     DbTiposAplicaciones.db.database;
+//     final apiProvider = Provider.of<AplicacionesProvider>(context);
+//     final selecionada = apiProvider.categoryApi[tipo].contains(api);
+//     final color = Color.fromRGBO(55, 57, 84, 0.6);
+//     ;
+//     // final color = selecionada
+//     //     ? Theme.of(context).primaryColor
+//     //     : Color.fromRGBO(55, 57, 84, 0.6);
+//     return GestureDetector(
+//       onTap: () {
+//         if (api.appName != "") {
+//           // final apiProvider =
+//           //     Provider.of<AplicacionesProvider>(context, listen: false);
+//           // apiProvider.modiApiListaPorTipo(tipo, api);
+
+//           /// agregar o eliminar api
+//           if (apiProvider.categoryApi[tipo].contains(api)) {
+//             // agrego
+//           } else {
+//             // elimino
+//           }
+//         }
+//       },
+//       child: Container(
+//         color: color,
+//         child: Column(
+//           children: [
+//             SizedBox(
+//               width: 10,
+//             ),
+//             Image.memory(
+//               (api as ApplicationWithIcon).icon,
+//               width: 100,
+//             ),
+//             SizedBox(
+//               width: 20,
+//             ),
+//             Text(
+//               api.appName,
+//               textAlign: TextAlign.center,
+//               style: TextStyle(fontSize: 20, color: Colors.white),
+//             ),
+//             Divider(
+//               height: 2,
+//               color: Colors.white,
+//             )
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }

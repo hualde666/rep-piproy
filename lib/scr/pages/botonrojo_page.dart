@@ -60,26 +60,28 @@ class _BotonRojoPageState extends State<BotonRojoPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: headerEmergencia(context),
-      body: FutureBuilder(
-          future: cargarContactos(),
-          builder: (BuildContext context, AsyncSnapshot snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(
-                child: CircularProgressIndicator(),
-              );
-            } else {
-              if (hayLista) {
-                listaE = generaListaE(snapshot.data, listaIdContacto);
+    return SafeArea(
+      child: Scaffold(
+        appBar: headerEmergencia(context),
+        body: FutureBuilder(
+            future: cargarContactos(),
+            builder: (BuildContext context, AsyncSnapshot snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              } else {
+                if (hayLista) {
+                  listaE = generaListaE(snapshot.data, listaIdContacto);
+                }
+                return hayLista
+                    ? conListaEmergenia(context, listaE, mensaje)
+                    : sinListaEmergenia(context);
               }
-              return hayLista
-                  ? conListaEmergenia(context, listaE, mensaje)
-                  : sinListaEmergenia(context);
-            }
-          }),
-      floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
-      floatingActionButton: BotonFlotante(pagina: 'botonRojo'),
+            }),
+        floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
+        floatingActionButton: BotonFlotante(pagina: 'botonRojo'),
+      ),
     );
   }
 }

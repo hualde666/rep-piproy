@@ -38,6 +38,32 @@ class DbTiposAplicaciones {
   Future<int> nuevoTipo(ApiTipos nuevo) async {
     final db = await database;
     final resp = await db.insert('TiposApi', nuevo.toJson());
+    print(resp);
+    return resp;
+  }
+
+  // Future<int> deleteApi(int id) async {
+  //   final db = await database;
+  //   final resp = await db.delete('TiposApi', where: 'id =?', whereArgs: [id]);
+  //   print(resp);
+  //   return resp;
+  // }
+
+  Future<int> deleteApi(String tipo, String nombreApi) async {
+    final db = await database;
+    final resp = await db.query('TiposApi',
+        where: 'tipo =? and nombreApi= ?', whereArgs: [tipo, nombreApi]);
+
+    //     final resp2 = await db.delete('TiposApi', where: 'id =?', whereArgs: [id]);
+    print(resp);
+    return 1;
+  }
+
+  Future<List<Map<String, Object>>> getAllRegistros() async {
+    final db = await database;
+    final resp = await db.query('TiposApi');
+
+    print(resp[0]);
     return resp;
   }
 }
