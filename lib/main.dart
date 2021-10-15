@@ -23,6 +23,7 @@ import 'package:piproy/scr/providers/contactos_provider.dart';
 import 'package:piproy/scr/providers/lista_id_provider.dart';
 
 import 'package:provider/provider.dart';
+import 'package:piproy/scr/providers/db_provider.dart';
 
 void main() {
   runApp(MyApp());
@@ -33,6 +34,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     ContactosProvider contactosProvider = new ContactosProvider();
     AplicacionesProvider aplicacionesProvider = new AplicacionesProvider();
+
     SystemChrome.setPreferredOrientations(
         [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
 

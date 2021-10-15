@@ -2,6 +2,7 @@ import 'package:device_apps/device_apps.dart';
 
 import 'package:flutter/material.dart';
 import 'package:piproy/scr/providers/db_provider.dart';
+import 'package:piproy/scr/models/api_tipos.dart';
 
 class AplicacionesProvider with ChangeNotifier {
   static final AplicacionesProvider _aplicacionesProvider =
@@ -48,12 +49,8 @@ class AplicacionesProvider with ChangeNotifier {
       this.categoryApi[item] = [];
     });
     getListaApp();
-    this._cargando = false;
-    final lista = DbTiposAplicaciones.db.getAllRegistros();
-    if (lista != null) {
-      //for(var i=0; i < lista.le ){}
 
-    }
+    // cargarCategorias();
   }
 
   get listaApp {
@@ -104,6 +101,33 @@ class AplicacionesProvider with ChangeNotifier {
   }
 
   cargarCategorias() async {
-    final db_categorias = await DbTiposAplicaciones.db.getAllRegistros();
+    // obtengo lista de api por categorias
+    final resp = await DbTiposAplicaciones.db.getAllRegistros();
+    if (this._cargando) {
+      this._cargando = false;
+
+      print(resp);
+      if (resp.isNotEmpty) {
+        final resp2 = resp.map((s) => ApiTipos.fromJson(s)).toList();
+        for (var i = 0; i < resp2.length; i++) {
+          if (!apitipos.contains(resp2[i].tipo)) {
+            apitipos.add(resp2[i].tipo);
+            categoryApi[resp2[i].tipo] = [];
+          }
+
+          ////// encontrar Api con nombreApi
+          ///
+          final String nombreApi = resp2[i].nombreApi;
+          if (nombreApi != "") {
+            final Application api = this
+                .categoryApi['todas']
+                .firstWhere((element) => element.appName == nombreApi);
+            if (api != null) {
+              categoryApi[resp2[i].tipo].add(api);
+            }
+          }
+        }
+      }
+    }
   }
 }

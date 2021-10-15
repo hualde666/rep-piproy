@@ -22,7 +22,7 @@ class DbTiposAplicaciones {
     Directory docmentsDirectory = await getApplicationDocumentsDirectory();
     final path = join(docmentsDirectory.path, 'Vitalfon.db');
     print(path);
-    return await openDatabase(path, version: 2, onOpen: (db) {},
+    return await openDatabase(path, version: 1, onOpen: (db) {},
         onCreate: (Database db, int version) async {
       await db.execute('''
       CREATE TABLE TiposApi(
@@ -53,9 +53,11 @@ class DbTiposAplicaciones {
     final db = await database;
     final resp = await db.query('TiposApi',
         where: 'tipo =? and nombreApi= ?', whereArgs: [tipo, nombreApi]);
+    // if (resp  0){
+    //   final resp2 = await db.delete(resp);
+    // }
 
-    //     final resp2 = await db.delete('TiposApi', where: 'id =?', whereArgs: [id]);
-    print(resp);
+    // print(resp);
     return 1;
   }
 
@@ -63,7 +65,6 @@ class DbTiposAplicaciones {
     final db = await database;
     final resp = await db.query('TiposApi');
 
-    print(resp[0]);
     return resp;
   }
 }

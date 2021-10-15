@@ -13,10 +13,11 @@ class ApiLista3Page extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final apiProvider = Provider.of<AplicacionesProvider>(context);
-    DbTiposAplicaciones.db.getAllRegistros();
+
     final categoria = apiProvider.apitipos;
     final tipo = apiProvider.tipoSeleccion;
     final lista = apiProvider.categoryApi[tipo];
+
     return SafeArea(
         child: Scaffold(
       appBar: headerApi(context, categoria),
@@ -251,6 +252,9 @@ class BotonTipoApi extends StatelessWidget {
           crearTipo(context);
         }
       },
+      onLongPress: () {
+        /// borrar categoria y sus api
+      },
       child: categoria != '+'
           ? Container(
               child: Padding(
@@ -352,9 +356,12 @@ class ElementoApi extends StatelessWidget {
           actions: [
             TextButton(
                 onPressed: () {
-                  final apiProvider =
-                      Provider.of<AplicacionesProvider>(context, listen: false)
-                          .eliminar(api);
+                  /// elina api de pantalla
+                  Provider.of<AplicacionesProvider>(context, listen: false)
+                      .eliminar(api);
+                  DbTiposAplicaciones.db
+                      .deleteApi(tipo, api.appName); //elimina api de BD
+
                   Navigator.pop(context);
                 },
                 child: Text('Si', style: TextStyle(fontSize: 20.0))),

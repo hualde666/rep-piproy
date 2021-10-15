@@ -9,4 +9,9 @@ class ApiTipos {
 
   Map<String, dynamic> toJson() =>
       {"id": id, "tipo": tipo, "nombreApi": nombreApi};
+  factory ApiTipos.fromJson(Map<String, dynamic> json) => ApiTipos(
+        id: json["id"],
+        tipo: json["tipo"],
+        nombreApi: json["nombreApi"],
+      );
 }
