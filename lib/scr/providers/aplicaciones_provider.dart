@@ -29,6 +29,10 @@ class AplicacionesProvider with ChangeNotifier {
     // _tipoSeleccion = tipo;
     apitipos.add(tipo);
     categoryApi[tipo] = [];
+    _tipoSeleccion = tipo;
+    apitipos.sort((a, b) {
+      return a.toLowerCase().compareTo(b.toLowerCase());
+    });
 
     notifyListeners();
   }
@@ -64,6 +68,9 @@ class AplicacionesProvider with ChangeNotifier {
   modiApiListaPorTipo(Application api) {
     if (!this.categoryApi[_tipoSeleccion].contains(api)) {
       this.categoryApi[_tipoSeleccion].add(api);
+      categoryApi[_tipoSeleccion].sort((a, b) {
+        return a.appName.toLowerCase().compareTo(b.appName.toLowerCase());
+      });
     } else {
       this.categoryApi[_tipoSeleccion].remove(api);
     }
@@ -100,6 +107,12 @@ class AplicacionesProvider with ChangeNotifier {
     this.categoryApi['todas'].addAll(resp);
   }
 
+  eliminarTipos(String tipo) {
+    apitipos.removeWhere((element) => element == tipo);
+    categoryApi.remove(tipo = tipo);
+    notifyListeners();
+  }
+
   cargarCategorias() async {
     // obtengo lista de api por categorias
     final resp = await DbTiposAplicaciones.db.getAllRegistros();
@@ -126,6 +139,14 @@ class AplicacionesProvider with ChangeNotifier {
               categoryApi[resp2[i].tipo].add(api);
             }
           }
+        }
+      }
+      // ordenar todas las alfabeticamente todas las api por categoria
+      for (var i = 0; i < apitipos.length; i++) {
+        if (apitipos[i] != '+' && apitipos[i] != 'todas') {
+          categoryApi[apitipos[i]].sort((a, b) {
+            return a.appName.toLowerCase().compareTo(b.appName.toLowerCase());
+          });
         }
       }
     }

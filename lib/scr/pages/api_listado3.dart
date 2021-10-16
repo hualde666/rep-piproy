@@ -54,44 +54,6 @@ class ApiLista3Page extends StatelessWidget {
           : Container(),
     ));
   }
-
-  // void _seleccionApi(BuildContext context, String tipo) async {
-  //   return await showDialog(
-  //       context: context,
-  //       builder: (context) {
-  //         return listaTodasApi(context);
-  //       });
-  // }
-
-  // AlertDialog listaTodasApi(BuildContext context) {
-  //   final apiProvider = Provider.of<AplicacionesProvider>(context);
-  //   final lista = apiProvider.categoryApi['todas'];
-  //   final tipo = apiProvider.tipoSeleccion;
-  //   List<Widget> listaApi = List.generate(
-  //       lista.length, (i) => ElementoApi3(api: lista[i], tipo: tipo));
-  //   return AlertDialog(
-  //     backgroundColor: Colors.white60,
-  //     content: Container(
-  //       height: 400,
-  //       child: ListView.builder(
-  //           itemCount: lista.length,
-  //           itemBuilder: (BuildContext context, int i) {
-  //             return listaApi[i];
-  //           }),
-  //     ),
-  //     actions: [
-  //       TextButton(
-  //         child: Text(
-  //           'Ok',
-  //           style: TextStyle(fontSize: 20, color: Colors.black),
-  //         ),
-  //         onPressed: () {
-  //           Navigator.of(context).pop();
-  //         },
-  //       )
-  //     ],
-  //   );
-  // }
 }
 
 Widget headerApi(BuildContext context, List<String> categoria) {
@@ -238,10 +200,56 @@ class BotonTipoApi extends StatelessWidget {
     );
   }
 
+  Future eliminarTipo(BuildContext context, String tipo) async {
+    return await showDialog(
+        context: context,
+        builder: (context) {
+          return eliminarTipoForm(context, tipo);
+        });
+  }
+
+  AlertDialog eliminarTipoForm(BuildContext context, String tipo) {
+    return AlertDialog(
+      title: Text('¿Desea elminar la categoria $tipo ?'),
+      actions: [
+        TextButton(
+          child: Text('Cancelar'),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
+        TextButton(
+          child: Text('Ok'),
+          onPressed: () {
+            // Eliminar de categoria
+
+            Provider.of<AplicacionesProvider>(context, listen: false)
+                .eliminarTipos(tipo);
+            // eliminar  a BD
+//
+//
+            DbTiposAplicaciones.db.eliminarTipo(tipo);
+
+            Navigator.of(context).pop();
+          },
+        )
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final apiProvider = Provider.of<AplicacionesProvider>(context);
     return GestureDetector(
+      onLongPress: () {
+        /// borrar categoria y sus api
+        if (categoria != '+' && categoria != 'todas') {
+          eliminarTipo(context, categoria);
+          if (categoria == apiProvider.tipoSeleccion) {
+            Navigator.pop(context);
+          }
+        }
+      },
       onTap: () {
         if (categoria != '+') {
           final apiProvider =
@@ -249,11 +257,9 @@ class BotonTipoApi extends StatelessWidget {
           apiProvider.tipoSeleccion = categoria;
         } else {
           // crear categoria
+          // ver como voy a esa categoria un avez creada
           crearTipo(context);
         }
-      },
-      onLongPress: () {
-        /// borrar categoria y sus api
       },
       child: categoria != '+'
           ? Container(
@@ -375,62 +381,3 @@ class ElementoApi extends StatelessWidget {
         ),
       );
 }
-
-// class ElementoApi3 extends StatelessWidget {
-//   const ElementoApi3({@required this.api, @required this.tipo});
-//   final Application api;
-//   final String tipo;
-//   @override
-//   Widget build(BuildContext context) {
-//     DbTiposAplicaciones.db.database;
-//     final apiProvider = Provider.of<AplicacionesProvider>(context);
-//     final selecionada = apiProvider.categoryApi[tipo].contains(api);
-//     final color = Color.fromRGBO(55, 57, 84, 0.6);
-//     ;
-//     // final color = selecionada
-//     //     ? Theme.of(context).primaryColor
-//     //     : Color.fromRGBO(55, 57, 84, 0.6);
-//     return GestureDetector(
-//       onTap: () {
-//         if (api.appName != "") {
-//           // final apiProvider =
-//           //     Provider.of<AplicacionesProvider>(context, listen: false);
-//           // apiProvider.modiApiListaPorTipo(tipo, api);
-
-//           /// agregar o eliminar api
-//           if (apiProvider.categoryApi[tipo].contains(api)) {
-//             // agrego
-//           } else {
-//             // elimino
-//           }
-//         }
-//       },
-//       child: Container(
-//         color: color,
-//         child: Column(
-//           children: [
-//             SizedBox(
-//               width: 10,
-//             ),
-//             Image.memory(
-//               (api as ApplicationWithIcon).icon,
-//               width: 100,
-//             ),
-//             SizedBox(
-//               width: 20,
-//             ),
-//             Text(
-//               api.appName,
-//               textAlign: TextAlign.center,
-//               style: TextStyle(fontSize: 20, color: Colors.white),
-//             ),
-//             Divider(
-//               height: 2,
-//               color: Colors.white,
-//             )
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }

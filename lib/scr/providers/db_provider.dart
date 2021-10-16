@@ -51,14 +51,25 @@ class DbTiposAplicaciones {
 
   Future<int> deleteApi(String tipo, String nombreApi) async {
     final db = await database;
-    final resp = await db.query('TiposApi',
-        where: 'tipo =? and nombreApi= ?', whereArgs: [tipo, nombreApi]);
-    // if (resp  0){
-    //   final resp2 = await db.delete(resp);
-    // }
 
-    // print(resp);
-    return 1;
+    ///
+    /// OJO: mejorar el query para que devuelva un dolo reg
+    ///
+    final resp = await db
+        .query('TiposApi', where: ' nombreApi= ?', whereArgs: [nombreApi]);
+    final resp2 = resp.map((s) => ApiTipos.fromJson(s)).toList();
+    final row = resp2.firstWhere((element) => element.tipo == tipo);
+    final result =
+        await db.delete('TiposApi', where: 'id=?', whereArgs: [row.id]);
+
+    return result;
+  }
+
+  Future<int> eliminarTipo(String tipo) async {
+    final db = await database;
+    final result =
+        await db.delete('TiposApi', where: 'tipo=?', whereArgs: [tipo]);
+    return result;
   }
 
   Future<List<Map<String, Object>>> getAllRegistros() async {
