@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:geocoding/geocoding.dart';
+
 import 'package:geolocator/geolocator.dart';
 import 'package:piproy/channel/channel_android.dart';
 import 'package:piproy/scr/models/items_lista_contactos.dart';
@@ -136,19 +136,6 @@ Future _geoLocal() async {
   return pos;
 }
 
-Future<String> _getAddressFromLatLng(dynamic _currentPosition) async {
-  try {
-    List<Placemark> placemarks = await placemarkFromCoordinates(
-        _currentPosition.latitude, _currentPosition.longitude);
-
-    Placemark place = placemarks[0];
-
-    return " ${place.thoroughfare}  ${place.locality}   ${place.postalCode}  ${place.country}";
-  } catch (e) {
-    return "";
-  }
-}
-
 placemarkFromCoordinates(latitude, longitude) {}
 
 Future<void> mandarSMS(List<ItemListaEmergencia> listaE, String mensaje) async {
@@ -171,10 +158,12 @@ Future<void> mandarSMS(List<ItemListaEmergencia> listaE, String mensaje) async {
 
     /// ENVIAR MENSAJE
 
-    final respE = await _androidChannel.mandarSms(_phone, mensaje);
+    // final respE =
+    await _androidChannel.mandarSms(_phone, mensaje);
 
     //final resp1 = await _androidChannel.mandarSms(_phone, dir);
-    final resp2 = await _androidChannel.mandarSms(_phone, pos2);
+    // final resp2 =
+    await _androidChannel.mandarSms(_phone, pos2);
     // print('Respuesta: $respE');
     // if (respE. ) {
     //   contacto.check = false;

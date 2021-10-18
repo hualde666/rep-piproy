@@ -17,7 +17,7 @@ import 'package:piproy/scr/pages/botonrojo_page.dart';
 import 'package:piproy/scr/pages/contactos_page.dart';
 import 'package:piproy/scr/pages/emergi_contactos_page.dart';
 import 'package:piproy/scr/pages/seleccion_contactos_page.dart';
-import 'package:piproy/scr/pages/splash.dart';
+//import 'package:piproy/scr/pages/splash.dart';
 import 'package:piproy/scr/providers/aplicaciones_provider.dart';
 import 'package:piproy/scr/providers/contactos_provider.dart';
 import 'package:piproy/scr/providers/lista_id_provider.dart';
@@ -32,6 +32,7 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    DbTiposAplicaciones.db.database;
     ContactosProvider contactosProvider = new ContactosProvider();
     AplicacionesProvider aplicacionesProvider = new AplicacionesProvider();
 

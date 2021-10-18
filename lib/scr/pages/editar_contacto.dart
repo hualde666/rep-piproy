@@ -49,8 +49,6 @@ Future _guardarContacto(Contact contacto) async {
     await ContactsService.updateContact(contacto);
   }
   return;
-
-  //contacto.updateContact(contacto);
 }
 
 class FormContacto extends StatelessWidget {
@@ -67,6 +65,7 @@ class FormContacto extends StatelessWidget {
                 TextFormField(
                   initialValue: this.contact.givenName,
                   autocorrect: false,
+                  textCapitalization: TextCapitalization.words,
                   textAlign: TextAlign.center,
                   style: TextStyle(fontSize: 25, color: Colors.white),
                   decoration: InputDecorations.authInputDecoration(
@@ -78,11 +77,13 @@ class FormContacto extends StatelessWidget {
                 ),
                 TextFormField(
                   autocorrect: false,
+                  textCapitalization: TextCapitalization.words,
                   style: TextStyle(fontSize: 25, color: Colors.white),
                   textAlign: TextAlign.center,
                   initialValue: this.contact.familyName,
                   decoration: InputDecorations.authInputDecoration(
                       labelText: 'Apellido:'),
+                  onChanged: (value) => this.contact.familyName = value,
                 ),
               ],
             )));

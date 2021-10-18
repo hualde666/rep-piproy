@@ -18,18 +18,20 @@ class AplicacionesProvider with ChangeNotifier {
   List<String> apitipos = [
     '+',
     'todas',
-
-    // ApiTipos(Icons.headphones, 'audio'),
-    // ApiTipos(Icons.video_camera_back, 'video'),
-    // ApiTipos(Icons.paragliding_outlined, 'play'),
-    // ApiTipos(Icons.ac_unit, 'undifined'),
   ];
 
+  AplicacionesProvider._internal() {
+    apitipos.forEach((item) {
+      this.categoryApi[item] = [];
+    });
+    getListaApp();
+
+    // cargarCategorias();
+  }
   agregarApiTipos(String tipo) {
-    // _tipoSeleccion = tipo;
     apitipos.add(tipo);
     categoryApi[tipo] = [];
-    _tipoSeleccion = tipo;
+    // _tipoSeleccion = tipo;
     apitipos.sort((a, b) {
       return a.toLowerCase().compareTo(b.toLowerCase());
     });
@@ -46,15 +48,6 @@ class AplicacionesProvider with ChangeNotifier {
     this._tipoSeleccion = valor;
 
     notifyListeners();
-  }
-
-  AplicacionesProvider._internal() {
-    apitipos.forEach((item) {
-      this.categoryApi[item] = [];
-    });
-    getListaApp();
-
-    // cargarCategorias();
   }
 
   get listaApp {
@@ -83,7 +76,7 @@ class AplicacionesProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  obtenerListaSeleccion(String tipo) async {
+  obtenerListaSeleccion() async {
     String tipo = this._tipoSeleccion;
 
     return this.categoryApi[tipo];
@@ -116,10 +109,10 @@ class AplicacionesProvider with ChangeNotifier {
   cargarCategorias() async {
     // obtengo lista de api por categorias
     final resp = await DbTiposAplicaciones.db.getAllRegistros();
+    print(resp);
     if (this._cargando) {
       this._cargando = false;
 
-      print(resp);
       if (resp.isNotEmpty) {
         final resp2 = resp.map((s) => ApiTipos.fromJson(s)).toList();
         for (var i = 0; i < resp2.length; i++) {
@@ -140,15 +133,26 @@ class AplicacionesProvider with ChangeNotifier {
             }
           }
         }
-      }
-      // ordenar todas las alfabeticamente todas las api por categoria
-      for (var i = 0; i < apitipos.length; i++) {
-        if (apitipos[i] != '+' && apitipos[i] != 'todas') {
-          categoryApi[apitipos[i]].sort((a, b) {
-            return a.appName.toLowerCase().compareTo(b.appName.toLowerCase());
-          });
+
+        // ordenor tipos de categoria alfabeticamente
+        apitipos.sort((a, b) {
+          return a.toLowerCase().compareTo(b.toLowerCase());
+        });
+        // ordenar  alfabeticamente todas las api por categoria
+        for (var i = 0; i < apitipos.length; i++) {
+          if (apitipos[i] != '+' && apitipos[i] != 'todas') {
+            if (categoryApi[apitipos[i]].isNotEmpty) {
+              categoryApi[apitipos[i]].sort((a, b) {
+                return a.appName
+                    .toLowerCase()
+                    .compareTo(b.appName.toLowerCase());
+              });
+            }
+          }
         }
+        this._tipoSeleccion = apitipos[1];
       }
     }
+    return categoryApi[this._tipoSeleccion];
   }
 }

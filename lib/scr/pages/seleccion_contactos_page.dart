@@ -11,7 +11,6 @@ import 'package:provider/provider.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
-//class SeleccionContacto extends StatelessWidget {
 class SeleccionContacto extends StatefulWidget {
   @override
   _SeleccionContactoState createState() => _SeleccionContactoState();

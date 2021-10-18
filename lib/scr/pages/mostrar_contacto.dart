@@ -14,7 +14,7 @@ class _MostrarContactoState extends State<MostrarContacto> {
     final Contact _contact = ModalRoute.of(context).settings.arguments;
     return SafeArea(
       child: Scaffold(
-        appBar: headerApp(context, 'Contacto', Text(''), 0.0),
+        appBar: headerApp(context, '', Text(''), 0.0),
         backgroundColor: Color.fromRGBO(55, 57, 84, 1.0),
         body: fichaContacto(_contact),
         floatingActionButton: Row(

@@ -21,7 +21,7 @@ class DbTiposAplicaciones {
   Future<Database> initDB() async {
     Directory docmentsDirectory = await getApplicationDocumentsDirectory();
     final path = join(docmentsDirectory.path, 'Vitalfon.db');
-    print(path);
+
     return await openDatabase(path, version: 1, onOpen: (db) {},
         onCreate: (Database db, int version) async {
       await db.execute('''
@@ -38,22 +38,15 @@ class DbTiposAplicaciones {
   Future<int> nuevoTipo(ApiTipos nuevo) async {
     final db = await database;
     final resp = await db.insert('TiposApi', nuevo.toJson());
-    print(resp);
+
     return resp;
   }
-
-  // Future<int> deleteApi(int id) async {
-  //   final db = await database;
-  //   final resp = await db.delete('TiposApi', where: 'id =?', whereArgs: [id]);
-  //   print(resp);
-  //   return resp;
-  // }
 
   Future<int> deleteApi(String tipo, String nombreApi) async {
     final db = await database;
 
     ///
-    /// OJO: mejorar el query para que devuelva un dolo reg
+    /// OJO: mejorar el query para que devuelva un solo reg
     ///
     final resp = await db
         .query('TiposApi', where: ' nombreApi= ?', whereArgs: [nombreApi]);

@@ -17,7 +17,9 @@ Widget headerApp(
           SizedBox(
             height: 10,
           ),
-          Text(titulo, style: TextStyle(color: Colors.white, fontSize: 20)),
+          Text(titulo,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(color: Colors.white, fontSize: 20)),
           alto > 0
               ? Column(
                   children: [

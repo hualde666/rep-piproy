@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'package:piproy/scr/ayuda_widget/fab_ayuda.dart';
 import 'package:piproy/scr/providers/aplicaciones_provider.dart';
-import 'package:piproy/scr/providers/db_provider.dart';
+
 import 'package:piproy/scr/widgets/boton_exit.dart';
 
 import 'package:piproy/scr/widgets/boton_rojo.dart';
@@ -42,9 +42,8 @@ class _Home2PageState extends State<Home2Page> {
 
   @override
   Widget build(BuildContext context) {
-    DbTiposAplicaciones.db.database;
-    final apiProvider = Provider.of<AplicacionesProvider>(context);
-    apiProvider.cargarCategorias();
+    // final apiProvider = Provider.of<AplicacionesProvider>(context);
+    //apiProvider.cargarCategorias();
     return SafeArea(
       child: Scaffold(
         appBar: PreferredSize(

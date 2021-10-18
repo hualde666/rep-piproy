@@ -14,16 +14,33 @@ class ApiLista3Page extends StatelessWidget {
   Widget build(BuildContext context) {
     final apiProvider = Provider.of<AplicacionesProvider>(context);
 
-    final categoria = apiProvider.apitipos;
-    final tipo = apiProvider.tipoSeleccion;
-    final lista = apiProvider.categoryApi[tipo];
-
     return SafeArea(
         child: Scaffold(
-      appBar: headerApi(context, categoria),
+      appBar: headerApi(context),
+      resizeToAvoidBottomInset: false,
       backgroundColor: Theme.of(context).primaryColor,
-      body: ListaApiSelec(lista: lista),
-      floatingActionButton: tipo != 'todas'
+      body: FutureBuilder(
+          future: apiProvider.cargarCategorias(),
+          builder: (BuildContext context, AsyncSnapshot snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            } else {
+              final List<Application> lista = snapshot.data;
+              return Container(
+                  height: 600,
+                  child: Column(
+                    children: [
+                      SelecionTipo(),
+                      Container(
+                          height: 500, child: ListaApiSelec(lista: lista)),
+                    ],
+                  ));
+            }
+          }),
+      floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
+      floatingActionButton: apiProvider.tipoSeleccion != 'todas'
           ? Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
@@ -46,7 +63,9 @@ class ApiLista3Page extends StatelessWidget {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => ApiSeleecionPage()));
+                            builder: (context) => ApiSeleecionPage(
+                                tipo: apiProvider.tipoSeleccion,
+                                lista: apiProvider.categoryApi['todas'])));
                   },
                 ),
               ],
@@ -56,9 +75,10 @@ class ApiLista3Page extends StatelessWidget {
   }
 }
 
-Widget headerApi(BuildContext context, List<String> categoria) {
+Widget headerApi(BuildContext context) {
   return PreferredSize(
-      preferredSize: Size.fromHeight(180.0), // here the desired height
+      preferredSize: Size.fromHeight(120.0),
+      // here the desired height
       child: AppBar(
         backgroundColor: Color.fromRGBO(55, 57, 84, 1.0),
         automaticallyImplyLeading: false,
@@ -74,9 +94,7 @@ Widget headerApi(BuildContext context, List<String> categoria) {
               Divider(
                 height: 5,
               ),
-              SelecionTipo(
-                categoria: categoria,
-              )
+              //   SelecionTipo()
             ],
           ),
         ),
@@ -98,33 +116,21 @@ class ListaApiSelec extends StatelessWidget {
   }
 }
 
-class SelecionTipo extends StatefulWidget {
-  const SelecionTipo({
-    Key key,
-    @required this.categoria,
-  }) : super(key: key);
-
-  final List<String> categoria;
-
-  @override
-  State<SelecionTipo> createState() => _SelecionTipoState();
-}
-
-class _SelecionTipoState extends State<SelecionTipo> {
-  @override
+class SelecionTipo extends StatelessWidget {
   Widget build(BuildContext context) {
+    final apiProvider = Provider.of<AplicacionesProvider>(context);
+
+    final categoria = apiProvider.apitipos;
     return Container(
       height: 60,
       // color:,
       margin: EdgeInsets.only(left: 5),
       width: double.infinity,
       child: ListView.builder(
-          physics: BouncingScrollPhysics(),
-          //controller: _controller,
           scrollDirection: Axis.horizontal,
-          itemCount: widget.categoria.length,
+          itemCount: categoria.length,
           itemBuilder: (BuildContext context, int i) {
-            return BotonTipoApi(categoria: widget.categoria[i]);
+            return BotonTipoApi(categoria: categoria[i]);
           }),
     );
   }
@@ -268,22 +274,24 @@ class BotonTipoApi extends StatelessWidget {
                   child: Column(
                     children: [
                       Container(
-                          height: 50,
-                          width: 120,
-                          decoration: BoxDecoration(
-                              color: apiProvider.tipoSeleccion == categoria
-                                  ? Color.fromRGBO(249, 75, 11, 1)
-                                  : null,
-                              borderRadius: BorderRadius.circular(25),
-                              border:
-                                  Border.all(color: Colors.white, width: 1.0)),
-                          child: Center(
-                            child: Text(
-                              categoria,
-                              style:
-                                  TextStyle(fontSize: 20, color: Colors.white),
-                            ),
-                          )),
+                        height: 50,
+                        width: 150,
+                        decoration: BoxDecoration(
+                            color: apiProvider.tipoSeleccion == categoria
+                                ? Color.fromRGBO(249, 75, 11, 1)
+                                : null,
+                            borderRadius: BorderRadius.circular(25),
+                            border:
+                                Border.all(color: Colors.white, width: 1.0)),
+                        child: Center(
+                          child: Text(
+                            categoria,
+                            overflow: TextOverflow.ellipsis,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(fontSize: 20, color: Colors.white),
+                          ),
+                        ),
+                      ),
                     ],
                   )),
             )
