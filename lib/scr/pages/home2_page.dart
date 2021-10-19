@@ -81,13 +81,19 @@ class _Home2PageState extends State<Home2Page> {
                   style: TextStyle(color: Colors.white, fontSize: 35.0)),
               100,
               'apilista'),
-
           elementos(
               context,
               Text('Api grupos',
                   style: TextStyle(color: Colors.white, fontSize: 35.0)),
               100,
               'apilista3'),
+
+          elementos(
+              context,
+              Text('ApiGruposNuevo',
+                  style: TextStyle(color: Colors.white, fontSize: 35.0)),
+              100,
+              'apigrupos'),
           // elementos(
           // elementos(
           //     context,

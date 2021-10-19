@@ -63,9 +63,10 @@ class ApiLista3Page extends StatelessWidget {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => ApiSeleecionPage(
-                                tipo: apiProvider.tipoSeleccion,
-                                lista: apiProvider.categoryApi['todas'])));
+                            builder: (context) => ApiSeleccionPage(
+                                context: context,
+                                listaVieja: apiProvider
+                                    .categoryApi[apiProvider.tipoSeleccion])));
                   },
                 ),
               ],

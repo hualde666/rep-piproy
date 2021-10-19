@@ -5,8 +5,10 @@ Widget headerApp(
     BuildContext context, String titulo, Widget otroWidget, double alto) {
   return PreferredSize(
     preferredSize: Size.fromHeight(180.0 + alto),
+
     // here the desired height
     child: Container(
+      //decoration: BoxDecoration(border: Border.all(color: Colors.black)),
       padding: EdgeInsets.only(top: 5),
       color: Color.fromRGBO(55, 57, 84, 1.0),
       height: 150 + alto,
@@ -17,7 +19,7 @@ Widget headerApp(
           SizedBox(
             height: 10,
           ),
-          Text(titulo,
+          Text(titulo.toUpperCase(),
               overflow: TextOverflow.ellipsis,
               style: TextStyle(color: Colors.white, fontSize: 20)),
           alto > 0

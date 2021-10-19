@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:piproy/scr/definicion/thema_colores.dart';
+import 'package:piproy/scr/pages/api_grupos.dart';
 import 'package:piproy/scr/pages/api_listado.dart';
 
 import 'package:piproy/scr/pages/api_listado3.dart';
+import 'package:piproy/scr/pages/api_por_grupos.dart';
 import 'package:piproy/scr/pages/ayuda.dart';
 import 'package:piproy/scr/pages/configuracion_page.dart';
 import 'package:piproy/scr/pages/editar_contacto.dart';
@@ -71,6 +73,8 @@ class MyApp extends StatelessWidget {
       'ayuda': (_) => Ayuda(),
       'apilista': (_) => ApiListaPage(),
       'apilista3': (_) => ApiLista3Page(),
+      'apigrupos': (_) => ApiGruposPage(),
+      'grupo': (_) => ApiPorGrupoPage()
     };
   }
 }

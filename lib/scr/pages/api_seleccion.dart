@@ -8,54 +8,127 @@ import 'package:piproy/scr/providers/db_provider.dart';
 import 'package:piproy/scr/widgets/header_app.dart';
 import 'package:provider/provider.dart';
 
-class ApiSeleecionPage extends StatelessWidget {
-  final List<Application> lista;
-  final String tipo;
-  ApiSeleecionPage({Key key, @required this.lista, @required this.tipo})
-      : super(key: key);
+class ApiSeleccionPage extends StatelessWidget {
+  final BuildContext context;
+  ApiSeleccionPage({this.context, this.listaVieja});
+  final List<Application> listaVieja;
 
-  @override
-  Widget build(BuildContext context) {
-    List<Widget> listaApi =
-        List.generate(lista.length, (i) => ElementoApi2(api: lista[i]));
+  final List<Application> listaNueva = [];
 
-    return SafeArea(
-      child: Scaffold(
-        appBar: headerApp(
-            context,
-            'Seleccion Apps para: ',
-            Text(
-              '$tipo',
-              style: TextStyle(color: Colors.white, fontSize: 20),
-            ),
-            35.0),
-        resizeToAvoidBottomInset: false,
-        body: ListView(
-          children: listaApi,
-        ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
-        floatingActionButton: BotonFlotante(pagina: 'selecApi'),
-      ),
-    );
-  }
-}
-
-class ElementoApi2 extends StatefulWidget {
-  const ElementoApi2({
-    @required this.api,
-  });
-  final Application api;
-
-  @override
-  State<ElementoApi2> createState() => _ElementoApi2State();
-}
-
-class _ElementoApi2State extends State<ElementoApi2> {
   @override
   Widget build(BuildContext context) {
     final apiProvider = Provider.of<AplicacionesProvider>(context);
-    final String tipo = apiProvider.tipoSeleccion;
-    final selecionada = apiProvider.categoryApi[tipo].contains(widget.api);
+    final tipo = apiProvider.tipoSeleccion;
+    final listaTodas = apiProvider.categoryApi['todas'];
+    listaNueva.addAll(listaVieja);
+    List<Widget> listaApi = List.generate(
+        listaTodas.length,
+        (i) => WidgetApi(
+            listaNueva: listaNueva, context: context, api: listaTodas[i]));
+    return SafeArea(
+      child: Scaffold(
+          appBar: headerApp(
+              context,
+              'Seleccion Apps para: ',
+              Text(
+                '$tipo',
+                style: TextStyle(color: Colors.white, fontSize: 20),
+              ),
+              35.0),
+          resizeToAvoidBottomInset: false,
+          body: ListView(
+            children: listaApi,
+          ),
+          floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
+          floatingActionButton: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              BotonFlotante(pagina: 'selecApi'),
+              FloatingActionButton.extended(
+                heroTag: "guardar",
+                icon: Icon(
+                  Icons.add,
+                  size: 40,
+                  color: Colors.white,
+                ),
+                label: Text(
+                  'guardar',
+                  style: TextStyle(fontSize: 15, color: Colors.white),
+                ),
+                backgroundColor: Color.fromRGBO(249, 75, 11, 1),
+                onPressed: () {
+                  for (var i = 0; i < listaVieja.length; i++) {
+                    if (!listaNueva.contains(listaVieja[i])) {
+                      // eliminar
+                      Provider.of<AplicacionesProvider>(context, listen: false)
+                          .modiApiListaPorTipo(listaVieja[i]);
+                      DbTiposAplicaciones.db
+                          .deleteApi(tipo, listaVieja[i].appName);
+                    }
+                  }
+                  for (var i = 0; i < listaNueva.length; i++) {
+                    if (!listaVieja.contains(listaNueva[i])) {
+                      // agregar
+                      Provider.of<AplicacionesProvider>(context, listen: false)
+                          .modiApiListaPorTipo(listaNueva[i]);
+                      final nuevo = new ApiTipos(
+                          tipo: tipo, nombreApi: listaNueva[i].appName);
+                      DbTiposAplicaciones.db.nuevoTipo(nuevo);
+                    }
+                  }
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          )),
+    );
+  }
+
+  cambiarListas() {
+    final apiProvider = Provider.of<AplicacionesProvider>(context);
+    final tipo = apiProvider.tipoSeleccion;
+    //final listaVieja = apiProvider.categoryApi[tipo];
+    for (var i = 0; i < listaVieja.length; i++) {
+      if (!listaNueva.contains(listaVieja[i])) {
+        // eliminar
+        Provider.of<AplicacionesProvider>(context, listen: true)
+            .modiApiListaPorTipo(listaVieja[i]);
+        DbTiposAplicaciones.db.deleteApi(tipo, listaVieja[i].appName);
+      }
+    }
+    for (var i = 0; i < listaNueva.length; i++) {
+      if (!listaVieja.contains(listaNueva[i])) {
+        // agregar
+        Provider.of<AplicacionesProvider>(context, listen: true)
+            .modiApiListaPorTipo(listaNueva[i]);
+        final nuevo =
+            new ApiTipos(tipo: tipo, nombreApi: listaNueva[i].appName);
+        DbTiposAplicaciones.db.nuevoTipo(nuevo);
+      }
+    }
+  }
+}
+
+class WidgetApi extends StatefulWidget {
+  const WidgetApi({
+    Key key,
+    @required this.listaNueva,
+    @required this.context,
+    @required this.api,
+  }) : super(key: key);
+
+  final List<Application> listaNueva;
+  final BuildContext context;
+  final Application api;
+
+  @override
+  State<WidgetApi> createState() => _WidgetApiState();
+}
+
+class _WidgetApiState extends State<WidgetApi> {
+  @override
+  Widget build(BuildContext context) {
+    final selecionada = widget.listaNueva.contains(widget.api);
     Color color = selecionada
         ? Theme.of(context).primaryColor
         : Color.fromRGBO(55, 57, 84, 0.6);
@@ -64,18 +137,16 @@ class _ElementoApi2State extends State<ElementoApi2> {
         if (widget.api.appName != "") {
           /// agregar o eliminar api
           ///
-          Provider.of<AplicacionesProvider>(context, listen: false)
-              .modiApiListaPorTipo(widget.api);
+          // Provider.of<AplicacionesProvider>(context, listen: false)
+          //    .modiApiListaPorTipo(api);
 
-          if (apiProvider.categoryApi[tipo].contains(widget.api)) {
+          if (widget.listaNueva.contains(widget.api)) {
             // agrego bd
-            final nuevo =
-                new ApiTipos(tipo: tipo, nombreApi: widget.api.appName);
-            DbTiposAplicaciones.db.nuevoTipo(nuevo);
+            widget.listaNueva.remove(widget.api);
           } else {
-            // elimino bd
-            DbTiposAplicaciones.db.deleteApi(tipo, widget.api.appName);
+            widget.listaNueva.add(widget.api);
           }
+          setState(() {});
         }
       },
       child: Container(
