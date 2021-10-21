@@ -59,6 +59,7 @@ class _EmergenciaContactos extends State<EmergenciaContactos> {
       child: Scaffold(
         appBar: headerApp(context, 'Contactos de Emergencia', Text(''), 0.0),
         body: pantallaInicial(context),
+        floatingActionButtonLocation: FloatingActionButtonLocation.startDocked,
         floatingActionButton: botonesFab(),
       ),
     );
@@ -113,6 +114,7 @@ class _EmergenciaContactos extends State<EmergenciaContactos> {
                 ? Container(
                     height: alto,
                     child: ListView.builder(
+                        padding: EdgeInsets.only(bottom: 100),
                         itemCount: listaE.length,
                         itemBuilder: (context, i) {
                           return contactoWidget(listaE[i], i);

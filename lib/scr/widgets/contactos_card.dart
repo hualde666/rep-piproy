@@ -25,11 +25,14 @@ class _TarjetaContacto2 extends State<TarjetaContacto2> {
         ? GestureDetector(
             child: Container(
               height: 225,
-              margin: EdgeInsets.symmetric(horizontal: 2.5, vertical: 2.5),
+              margin: EdgeInsets.symmetric(horizontal: 2.5, vertical: 2.0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   //_avatar(contacto),
+                  SizedBox(
+                    height: 10,
+                  ),
                   _nombreContacto(context, widget.contacto),
 
                   _botonesContactos(context, widget.contacto),
@@ -49,20 +52,15 @@ class _TarjetaContacto2 extends State<TarjetaContacto2> {
           )
         : GestureDetector(
             child: Container(
-              height: 96,
-              margin: EdgeInsets.symmetric(horizontal: 2.5, vertical: 1),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
+              height: 100,
+              margin: EdgeInsets.symmetric(horizontal: 2.5, vertical: 2.0),
+              child:
                   //_avatar(contacto),
                   _nombreContacto(context, widget.contacto),
-                ],
-              ),
               decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(15.0),
-                  border: Border.all(
-                      color: Theme.of(context).primaryColor, width: 3.0)),
+                  borderRadius: BorderRadius.circular(20.0),
+                  border: Border.all(color: Colors.white)),
+              // borderRadius: BorderRadius.circular(35.0),
             ),
             onTap: () {
               oneTap = !oneTap;
@@ -228,8 +226,14 @@ Widget _botonesContactos(BuildContext context, Contact contacto) {
 Widget _nombreContacto(BuildContext context, Contact contacto) {
   return Container(
       height: 90,
-      color: Color.fromRGBO(55, 57, 84, 1.0),
+      decoration: BoxDecoration(
+        color: Theme.of(context).primaryColor,
+        borderRadius: BorderRadius.circular(20.0),
+      ),
+      //border: Border.all()),
+      //.fromRGBO(55, 57, 84, 1.0),
       width: double.infinity,
+      margin: EdgeInsets.symmetric(horizontal: 2),
       child:
           // _avatar(context, contacto),
 
@@ -239,6 +243,7 @@ Widget _nombreContacto(BuildContext context, Contact contacto) {
           Center(
             child: Text(
               contacto.displayName,
+              overflow: TextOverflow.ellipsis,
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: Colors.white,

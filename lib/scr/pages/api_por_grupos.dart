@@ -20,6 +20,7 @@ class ApiPorGrupoPage extends StatelessWidget {
       backgroundColor: Theme.of(context).primaryColor,
       appBar: headerApp(context, '$tipo', Text(''), 0.0),
       body: GridView.count(
+        padding: EdgeInsets.only(bottom: 60),
         children: listaApi,
         crossAxisCount: 2,
       ),

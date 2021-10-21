@@ -15,10 +15,12 @@ class Ayuda extends StatelessWidget {
   Widget build(BuildContext context) {
     final String pagina = ModalRoute.of(context).settings.arguments;
 
-    return Scaffold(
-      appBar: headerApp(context, 'Ayuda', Text(''), 0.0),
-      //backgroundColor: Color.fromRGBO(55, 57, 84, 1.0),
-      body: PaginaAyuda(pagina: pagina),
+    return SafeArea(
+      child: Scaffold(
+        appBar: headerApp(context, 'Ayuda', Text(''), 0.0),
+        //backgroundColor: Color.fromRGBO(55, 57, 84, 1.0),
+        body: PaginaAyuda(pagina: pagina),
+      ),
     );
   }
 }

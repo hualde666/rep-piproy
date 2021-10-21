@@ -39,7 +39,7 @@ class ApiSeleccionPage extends StatelessWidget {
           body: ListView(
             children: listaApi,
           ),
-          floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
+          // floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
           floatingActionButton: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [

@@ -97,6 +97,7 @@ class _SeleccionContactoState extends State<SeleccionContacto> {
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: headerApp(context, 'Selección Contactos', busqueda(), 80.0),
+        backgroundColor: Theme.of(context).primaryColor,
         body: GestureDetector(
             onTap: () {
               final FocusScopeNode focus = FocusScope.of(context);
@@ -111,7 +112,7 @@ class _SeleccionContactoState extends State<SeleccionContacto> {
               }
             },
             child: mostrarContactos(context)),
-        floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
+        floatingActionButtonLocation: FloatingActionButtonLocation.startDocked,
         floatingActionButton: BotonFlotante(pagina: 'selecContactos'),
       ),
     );
@@ -280,6 +281,7 @@ class _SeleccionContactoState extends State<SeleccionContacto> {
             return Container(
               height: alto,
               child: ListView.builder(
+                  padding: EdgeInsets.only(bottom: 50),
                   itemCount: listaContactosCheck.length,
                   itemBuilder: (context, i) {
                     return ContactoWidget(context, listaContactosCheck[i], i);
@@ -347,7 +349,8 @@ class _ContactoWidget extends State<ContactoWidget> {
         margin: EdgeInsets.symmetric(horizontal: 2.5, vertical: 1.0),
         decoration: BoxDecoration(
             color: _colorBorde, //Colors.green[300],
-            borderRadius: BorderRadius.circular(20.0)),
+            borderRadius: BorderRadius.circular(20.0),
+            border: Border.all(color: Colors.white)),
         child: Center(
           child: Text(
             widget.contacto.nombre,

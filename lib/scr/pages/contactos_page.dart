@@ -62,7 +62,7 @@ class _ContactosPageState extends State<ContactosPage> {
 
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: Theme.of(context).primaryColor,
         appBar: PreferredSize(
             preferredSize: Size.fromHeight(200.0), // here the desired height
             child:
@@ -103,6 +103,7 @@ class _ContactosPageState extends State<ContactosPage> {
                           }
                         },
                         child: ListView.builder(
+                            padding: EdgeInsets.only(bottom: 60),
                             itemCount: listaTarjetas.length,
                             itemBuilder: (context, index) {
                               Widget contacto = listaTarjetas[index];

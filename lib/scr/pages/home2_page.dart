@@ -2,7 +2,6 @@ import 'package:device_apps/device_apps.dart';
 import 'package:flutter/material.dart';
 
 import 'package:piproy/scr/ayuda_widget/fab_ayuda.dart';
-import 'package:piproy/scr/providers/aplicaciones_provider.dart';
 
 import 'package:piproy/scr/widgets/boton_exit.dart';
 
@@ -11,7 +10,6 @@ import 'package:piproy/scr/widgets/elemntos.dart';
 
 import 'package:piproy/scr/widgets/encabezado_icon.dart';
 import 'package:piproy/scr/widgets/pila_tiempo_clima.dart';
-import 'package:provider/provider.dart';
 
 class Home2Page extends StatefulWidget {
   //final contactosProvider = new ContactosProvider();
@@ -45,22 +43,29 @@ class _Home2PageState extends State<Home2Page> {
     // final apiProvider = Provider.of<AplicacionesProvider>(context);
     //apiProvider.cargarCategorias();
     return SafeArea(
-      child: Scaffold(
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(220.0),
-          child: AppBar(flexibleSpace: encabezadoApp(context, 'Proyecto PI')),
-        ),
-        backgroundColor: Colors.white,
-        body: CustomScrollView(
-          controller: _scrollController,
-          slivers: _detalle(context),
-        ),
-
-        floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
-        floatingActionButton: BotonFlotante(pagina: 'home'),
-        // bottomNavigationBar: BottonBarNavegador(),
+        child: Scaffold(
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(220.0),
+        child: AppBar(flexibleSpace: encabezadoApp(context, 'Proyecto PI')),
       ),
-    );
+      backgroundColor: Theme.of(context).primaryColor,
+      body: CustomScrollView(
+        controller: _scrollController,
+        slivers: _detalle(context),
+      ),
+      // floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
+      floatingActionButton: Container(
+        margin: EdgeInsets.only(left: 25),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            BotonFlotante(pagina: 'home'),
+            BotonAgregar(ruta: 'agregaboton'),
+          ],
+          // bottomNavigationBar: BottonBarNavegador(),
+        ),
+      ),
+    ));
   }
 
   List<Widget> _detalle(BuildContext context) {
@@ -75,18 +80,24 @@ class _Home2PageState extends State<Home2Page> {
                   style: TextStyle(color: Colors.white, fontSize: 35.0)),
               100,
               'contactos'),
-          elementos(
-              context,
-              Text('Aplicaciones',
-                  style: TextStyle(color: Colors.white, fontSize: 35.0)),
-              100,
-              'apilista'),
-          elementos(
-              context,
-              Text('Api grupos',
-                  style: TextStyle(color: Colors.white, fontSize: 35.0)),
-              100,
-              'apilista3'),
+          // elementos(
+          //     context,
+          //     Text('Splash',
+          //         style: TextStyle(color: Colors.white, fontSize: 35.0)),
+          //     100,
+          //     'splash'),
+          // elementos(
+          //     context,
+          //     Text('Aplicaciones',
+          //         style: TextStyle(color: Colors.white, fontSize: 35.0)),
+          //     100,
+          //     'apilista'),
+          // elementos(
+          //     context,
+          //     Text('Api grupos',
+          //         style: TextStyle(color: Colors.white, fontSize: 35.0)),
+          //     100,
+          //     'apilista3'),
 
           elementos(
               context,
@@ -123,36 +134,39 @@ class _Home2PageState extends State<Home2Page> {
           //     ),
           //     100,
           //     ''),
-          elementos(
-              context,
-              Text('Whatsapp',
-                  style: TextStyle(color: Colors.white, fontSize: 35.0)),
-              100,
-              ''),
-          elementos(
-              context,
-              Text('ELEMENTO',
-                  style: TextStyle(color: Colors.white, fontSize: 35.0)),
-              100,
-              ''),
-          elementos(
-              context,
-              Text('Instagram',
-                  style: TextStyle(color: Colors.white, fontSize: 35.0)),
-              100,
-              ''),
-          elementos(
-              context,
-              Text('ELEMENTO',
-                  style: TextStyle(color: Colors.white, fontSize: 35.0)),
-              100,
-              ''),
-          elementos(
-              context,
-              Text('ELEMENTO',
-                  style: TextStyle(color: Colors.white, fontSize: 35.0)),
-              100,
-              ''),
+          // elementos(
+          //     context,
+          //     Text('Whatsapp',
+          //         style: TextStyle(color: Colors.white, fontSize: 35.0)),
+          //     100,
+          //     ''),
+          // elementos(
+          //     context,
+          //     Text('ELEMENTO',
+          //         style: TextStyle(color: Colors.white, fontSize: 35.0)),
+          //     100,
+          //     ''),
+          // elementos(
+          //     context,
+          //     Text('Instagram',
+          //         style: TextStyle(color: Colors.white, fontSize: 35.0)),
+          //     100,
+          //     ''),
+          // elementos(
+          //     context,
+          //     Text('ELEMENTO',
+          //         style: TextStyle(color: Colors.white, fontSize: 35.0)),
+          //     100,
+          //     ''),
+          // elementos(
+          //     context,
+          //     Text('ELEMENTO',
+          //         style: TextStyle(color: Colors.white, fontSize: 35.0)),
+          //     100,
+          //     ''),
+          SizedBox(
+            height: 100,
+          )
         ]),
       )
     ];

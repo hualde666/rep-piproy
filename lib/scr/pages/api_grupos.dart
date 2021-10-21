@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:piproy/scr/ayuda_widget/fab_ayuda.dart';
 import 'package:piproy/scr/models/api_tipos.dart';
-import 'package:piproy/scr/pages/api_seleccion.dart';
+
 import 'package:piproy/scr/providers/db_provider.dart';
 import 'package:piproy/scr/widgets/header_app.dart';
 import 'package:provider/provider.dart';
@@ -27,7 +27,9 @@ class ApiGruposPage extends StatelessWidget {
                   } else {
                     final List<String> listaGrupos = apiProvider.apitipos;
                     listaGrupos.remove('+');
+                    // listaGrupos.add(' ');
                     return ListView.builder(
+                        padding: EdgeInsets.only(bottom: 65),
                         itemCount: listaGrupos.length,
                         itemBuilder: (context, i) {
                           return grupo(context, listaGrupos[i]);
@@ -71,7 +73,7 @@ class ApiGruposPage extends StatelessWidget {
       },
       onLongPress: () => eliminarTipo(context, grupo),
       child: Container(
-        margin: EdgeInsets.symmetric(vertical: 1.5, horizontal: 3.0),
+        margin: EdgeInsets.symmetric(vertical: 3, horizontal: 4.0),
         height: 60,
         decoration: BoxDecoration(
             color: Theme.of(context).primaryColor,
@@ -79,7 +81,8 @@ class ApiGruposPage extends StatelessWidget {
             border: Border.all(color: Colors.white)),
         child: Center(
           child: Text(
-            '$grupo',
+            grupo,
+            overflow: TextOverflow.ellipsis,
             style: TextStyle(color: Colors.white, fontSize: 30),
           ),
         ),
@@ -110,6 +113,7 @@ class ApiGruposPage extends StatelessWidget {
                 height: 20,
               ),
               TextFormField(
+                textCapitalization: TextCapitalization.words,
                 controller: _tipoControle,
                 validator: (valor) {
                   // validar que no exite ya

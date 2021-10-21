@@ -9,6 +9,7 @@ import 'package:piproy/scr/pages/api_por_grupos.dart';
 import 'package:piproy/scr/pages/ayuda.dart';
 import 'package:piproy/scr/pages/configuracion_page.dart';
 import 'package:piproy/scr/pages/editar_contacto.dart';
+import 'package:piproy/scr/pages/home_agrega_boton.dart';
 import 'package:piproy/scr/pages/mostrar_contacto.dart';
 import 'package:piproy/scr/pages/envio_emergencia.dart';
 import 'package:piproy/scr/pages/home2_page.dart';
@@ -19,6 +20,7 @@ import 'package:piproy/scr/pages/botonrojo_page.dart';
 import 'package:piproy/scr/pages/contactos_page.dart';
 import 'package:piproy/scr/pages/emergi_contactos_page.dart';
 import 'package:piproy/scr/pages/seleccion_contactos_page.dart';
+import 'package:piproy/scr/pages/splash.dart';
 //import 'package:piproy/scr/pages/splash.dart';
 import 'package:piproy/scr/providers/aplicaciones_provider.dart';
 import 'package:piproy/scr/providers/contactos_provider.dart';
@@ -74,7 +76,9 @@ class MyApp extends StatelessWidget {
       'apilista': (_) => ApiListaPage(),
       'apilista3': (_) => ApiLista3Page(),
       'apigrupos': (_) => ApiGruposPage(),
-      'grupo': (_) => ApiPorGrupoPage()
+      'grupo': (_) => ApiPorGrupoPage(),
+      'splash': (_) => SplashPage(),
+      'agregaboton': (_) => AgregaBotonPage()
     };
   }
 }
