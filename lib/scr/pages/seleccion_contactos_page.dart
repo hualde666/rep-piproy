@@ -99,6 +99,7 @@ class _SeleccionContactoState extends State<SeleccionContacto> {
         appBar: headerApp(context, 'Selección Contactos', busqueda(), 80.0),
         backgroundColor: Theme.of(context).primaryColor,
         body: GestureDetector(
+            // el gesture es para la busqueda por nombre
             onTap: () {
               final FocusScopeNode focus = FocusScope.of(context);
               if (!focus.hasPrimaryFocus && focus.hasFocus) {
@@ -116,53 +117,6 @@ class _SeleccionContactoState extends State<SeleccionContacto> {
         floatingActionButton: BotonFlotante(pagina: 'selecContactos'),
       ),
     );
-  }
-
-  Widget busquedaV() {
-    return AppBar(
-        automaticallyImplyLeading: false,
-        backgroundColor: Color.fromRGBO(55, 57, 84, 1.0),
-        flexibleSpace: Container(
-            //color: Color.fromRGBO(55, 57, 84, 1.0),
-            margin: EdgeInsets.only(top: 40.0, left: 5.0, right: 5.0),
-            height: 100.0,
-            child: Column(children: [
-              TextField(
-                style: TextStyle(
-                    fontSize: 25.0, color: Colors.white54, height: 1.0),
-                keyboardType: TextInputType.text,
-                controller: _searchController,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                      //borderSide: BorderSide(color: Colors.amber),
-                      borderRadius: BorderRadius.all(Radius.circular(25.0))),
-                  labelStyle: TextStyle(color: Colors.white38, fontSize: 20),
-                  labelText: 'Buscar Contacto:',
-                  suffixIcon: _searchController.text.isNotEmpty
-                      ? IconButton(
-                          onPressed: () {
-                            // _cambiarIcon();
-                            setState(() {
-                              _searchController.clear();
-                            });
-                          },
-                          icon: Icon(
-                            Icons.clear,
-                            color: Colors.white,
-                            size: 30,
-                          ),
-                        )
-                      : Icon(
-                          Icons.search,
-                          color: Colors.white,
-                          size: 30,
-                        ),
-                  focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.white),
-                      borderRadius: BorderRadius.all(Radius.circular(25.0))),
-                ),
-              )
-            ])));
   }
 
   Widget busqueda() {
@@ -202,53 +156,6 @@ class _SeleccionContactoState extends State<SeleccionContacto> {
         ),
       )
     ]);
-  }
-
-  Widget contactoWidget(
-      BuildContext context, ItemListaEmergencia contacto, int i) {
-    Color _colorBorde = Theme.of(context).primaryColor;
-    return GestureDetector(
-      onTap: () {
-        if (_colorBorde == Theme.of(context).primaryColor) {
-          _colorBorde = Colors.yellow;
-        } else {
-          _colorBorde = Theme.of(context).primaryColor;
-        }
-        setState(() {});
-      },
-      child: Container(
-        height: 150.0,
-        margin: EdgeInsets.symmetric(horizontal: 4.0, vertical: 3.0),
-        decoration: BoxDecoration(
-            color: _colorBorde, //Colors.green[300],
-            borderRadius: BorderRadius.circular(20.0)),
-        //  border: Border.all(color: _colorBorde, width: 2.0)),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Container(
-              width: 200.0,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                // crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    contacto.nombre,
-                    style: TextStyle(
-                        fontSize: 28.0,
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold),
-                  ),
-                  Text(contacto.phone,
-                      style: TextStyle(fontSize: 20.0, color: Colors.white)),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
   }
 
   mostrarContactos(BuildContext context) {
@@ -318,9 +225,7 @@ class _ContactoWidget extends State<ContactoWidget> {
   Widget build(BuildContext context) {
     ListaIdProvider listaIdProvider = Provider.of<ListaIdProvider>(context);
     listaIdContacto = listaIdProvider.listaIdContacto;
-    Color _colorBorde = widget.contacto.check
-        ? Color.fromRGBO(55, 57, 84, 1.0)
-        : Color.fromRGBO(55, 57, 84, 0.8);
+
     return GestureDetector(
       onDoubleTap: () {
         final FocusScopeNode focus = FocusScope.of(context);
@@ -330,12 +235,12 @@ class _ContactoWidget extends State<ContactoWidget> {
       },
       onTap: () {
         if (!widget.contacto.check) {
-          _colorBorde = Color.fromRGBO(55, 57, 84, 1.0);
+          // seleci
           Provider.of<ListaIdProvider>(context, listen: false)
               .sumarIdContacto(widget.contacto.idcontacto);
           widget.contacto.check = true;
         } else {
-          _colorBorde = Color.fromRGBO(55, 57, 84, 0.8);
+          //_colorBorde = Color.fromRGBO(55, 57, 84, 0.8);
           Provider.of<ListaIdProvider>(context, listen: false)
               .quitarIdContacto(widget.contacto.idcontacto);
           widget.contacto.check = false;
@@ -344,11 +249,14 @@ class _ContactoWidget extends State<ContactoWidget> {
         setState(() {});
       },
       child: Container(
+        // color: widget.contacto.check_colorBorde,
         width: double.infinity,
         height: 96.0,
         margin: EdgeInsets.symmetric(horizontal: 2.5, vertical: 1.0),
         decoration: BoxDecoration(
-            color: _colorBorde, //Colors.green[300],
+            color: widget.contacto.check == true
+                ? Color.fromRGBO(55, 57, 84, 1)
+                : Colors.grey[600],
             borderRadius: BorderRadius.circular(20.0),
             border: Border.all(color: Colors.white)),
         child: Center(
