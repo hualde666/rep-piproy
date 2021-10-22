@@ -15,8 +15,7 @@ class AplicacionesProvider with ChangeNotifier {
   String _tipoSeleccion = 'todas';
   List<Application> _listaApp;
   List<Application> _listaSeleccion;
-  List<String> apitipos = [
-    '+',
+  List<String> _apitipos = [
     'todas',
   ];
 
@@ -31,6 +30,7 @@ class AplicacionesProvider with ChangeNotifier {
   agregarApiTipos(String tipo) {
     apitipos.add(tipo);
     categoryApi[tipo] = [];
+
     // _tipoSeleccion = tipo;
     apitipos.sort((a, b) {
       return a.toLowerCase().compareTo(b.toLowerCase());
@@ -40,9 +40,24 @@ class AplicacionesProvider with ChangeNotifier {
   }
 
   Map<String, List<Application>> categoryApi = {};
+  List<String> listaMenu = [];
 
   bool get cargando => this._cargando;
   get tipoSeleccion => this._tipoSeleccion;
+  List<String> get apitipos {
+    final lista = _apitipos;
+    lista.remove('MPC');
+    return lista;
+  }
+
+  List<String> get apitiposMenu {
+    final List<String> lista = [];
+    lista.addAll(_apitipos.where((element) => element == 'MPC'));
+    lista.sort((a, b) {
+      return a.toLowerCase().compareTo(b.toLowerCase());
+    });
+    return lista;
+  }
 
   set tipoSeleccion(String valor) {
     this._tipoSeleccion = valor;
@@ -68,6 +83,14 @@ class AplicacionesProvider with ChangeNotifier {
       this.categoryApi[_tipoSeleccion].remove(api);
     }
 
+    notifyListeners();
+  }
+
+  agregarMenu(String tipo) {
+    listaMenu.add(tipo);
+    listaMenu.sort((a, b) {
+      return a.toLowerCase().compareTo(b.toLowerCase());
+    });
     notifyListeners();
   }
 
@@ -116,31 +139,44 @@ class AplicacionesProvider with ChangeNotifier {
       if (resp.isNotEmpty) {
         final resp2 = resp.map((s) => ApiTipos.fromJson(s)).toList();
         for (var i = 0; i < resp2.length; i++) {
-          if (!apitipos.contains(resp2[i].tipo)) {
-            apitipos.add(resp2[i].tipo);
-            categoryApi[resp2[i].tipo] = [];
-          }
+          if (resp2[i].tipo == 'MPC') {
+            // es una opcion de menu
+            listaMenu.add(resp2[i].nombreApi);
+          } else {
+            // es una categoria
+            if (!_apitipos.contains(resp2[i].tipo)) {
+              _apitipos.add(resp2[i].tipo);
+              categoryApi[resp2[i].tipo] = [];
+            }
+////// encontrar Api con nombreApi
+            ///
 
-          ////// encontrar Api con nombreApi
-          ///
-          final String nombreApi = resp2[i].nombreApi;
-          if (nombreApi != "") {
-            final Application api = this
-                .categoryApi['todas']
-                .firstWhere((element) => element.appName == nombreApi);
-            if (api != null) {
-              categoryApi[resp2[i].tipo].add(api);
+            final String nombreApi = resp2[i].nombreApi;
+            if (nombreApi != "") {
+              final Application api = this
+                  .categoryApi['todas']
+                  .firstWhere((element) => element.appName == nombreApi);
+              if (api != null) {
+                categoryApi[resp2[i].tipo].add(api);
+              }
             }
           }
         }
-
+        //orenar el menu alfabeticament
+        //
+        listaMenu.sort((a, b) {
+          return a.toLowerCase().compareTo(b.toLowerCase());
+        });
         // ordenor tipos de categoria alfabeticamente
+        //
         apitipos.sort((a, b) {
           return a.toLowerCase().compareTo(b.toLowerCase());
         });
+
         // ordenar  alfabeticamente todas las api por categoria
+        //
         for (var i = 0; i < apitipos.length; i++) {
-          if (apitipos[i] != '+' && apitipos[i] != 'todas') {
+          if (apitipos[i] != 'MPC' && apitipos[i] != 'todas') {
             if (categoryApi[apitipos[i]].isNotEmpty) {
               categoryApi[apitipos[i]].sort((a, b) {
                 return a.appName
@@ -150,9 +186,8 @@ class AplicacionesProvider with ChangeNotifier {
             }
           }
         }
-        this._tipoSeleccion = apitipos[1];
       }
     }
-    return categoryApi[this._tipoSeleccion];
+    return categoryApi[_tipoSeleccion];
   }
 }

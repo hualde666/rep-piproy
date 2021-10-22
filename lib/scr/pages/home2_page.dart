@@ -2,6 +2,7 @@ import 'package:device_apps/device_apps.dart';
 import 'package:flutter/material.dart';
 
 import 'package:piproy/scr/ayuda_widget/fab_ayuda.dart';
+import 'package:piproy/scr/providers/aplicaciones_provider.dart';
 
 import 'package:piproy/scr/widgets/boton_exit.dart';
 
@@ -10,6 +11,7 @@ import 'package:piproy/scr/widgets/elemntos.dart';
 
 import 'package:piproy/scr/widgets/encabezado_icon.dart';
 import 'package:piproy/scr/widgets/pila_tiempo_clima.dart';
+import 'package:provider/provider.dart';
 
 class Home2Page extends StatefulWidget {
   //final contactosProvider = new ContactosProvider();
@@ -40,8 +42,7 @@ class _Home2PageState extends State<Home2Page> {
 
   @override
   Widget build(BuildContext context) {
-    // final apiProvider = Provider.of<AplicacionesProvider>(context);
-    //apiProvider.cargarCategorias();
+    final apiProvider = Provider.of<AplicacionesProvider>(context);
     return SafeArea(
         child: Scaffold(
       appBar: PreferredSize(
@@ -49,10 +50,22 @@ class _Home2PageState extends State<Home2Page> {
         child: AppBar(flexibleSpace: encabezadoApp(context, 'Proyecto PI')),
       ),
       backgroundColor: Theme.of(context).primaryColor,
-      body: CustomScrollView(
-        controller: _scrollController,
-        slivers: _detalle(context),
-      ),
+      body: FutureBuilder(
+          future: apiProvider.cargarCategorias(),
+          builder: (BuildContext context, AsyncSnapshot snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            } else {
+              return detalle(context);
+            }
+          }),
+
+      //  CustomScrollView(
+      //   controller: _scrollController,
+      //   slivers: _detalle(context),
+
       // floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
       floatingActionButton: Container(
         margin: EdgeInsets.only(left: 25),
@@ -60,7 +73,6 @@ class _Home2PageState extends State<Home2Page> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             BotonFlotante(pagina: 'home'),
-            BotonAgregar(ruta: 'agregaboton'),
           ],
           // bottomNavigationBar: BottonBarNavegador(),
         ),
@@ -68,108 +80,72 @@ class _Home2PageState extends State<Home2Page> {
     ));
   }
 
-  List<Widget> _detalle(BuildContext context) {
-    return <Widget>[
-      SliverList(
-        delegate: SliverChildListDelegate([
-          SizedBox(height: 5.0),
-          elementos(context, PilaTimpoClima(), 200, ''),
-          elementos(
-              context,
-              Text('Contactos',
-                  style: TextStyle(color: Colors.white, fontSize: 35.0)),
-              100,
-              'contactos'),
-          // elementos(
-          //     context,
-          //     Text('Splash',
-          //         style: TextStyle(color: Colors.white, fontSize: 35.0)),
-          //     100,
-          //     'splash'),
-          // elementos(
-          //     context,
-          //     Text('Aplicaciones',
-          //         style: TextStyle(color: Colors.white, fontSize: 35.0)),
-          //     100,
-          //     'apilista'),
-          // elementos(
-          //     context,
-          //     Text('Api grupos',
-          //         style: TextStyle(color: Colors.white, fontSize: 35.0)),
-          //     100,
-          //     'apilista3'),
-
-          elementos(
-              context,
-              Text('ApiGruposNuevo',
-                  style: TextStyle(color: Colors.white, fontSize: 35.0)),
-              100,
-              'apigrupos'),
-          // elementos(
-          // elementos(
-          //     context,
-          //     Container(
-          //       child: Column(
-          //         children: [
-          //           Divider(
-          //             height: 10,
-          //             color: Colors.white,
-          //           ),
-          //           SizedBox(
-          //             width: 20,
-          //           ),
-          //           Image.memory(
-          //             (api as ApplicationWithIcon).icon,
-          //             width: 100,
-          //           ),
-          //           SizedBox(
-          //             width: 20,
-          //           ),
-          //           Text(
-          //             api.appName,
-          //             style: TextStyle(fontSize: 30, color: Colors.white),
-          //           ),
-          //         ],
-          //       ),
-          //     ),
-          //     100,
-          //     ''),
-          // elementos(
-          //     context,
-          //     Text('Whatsapp',
-          //         style: TextStyle(color: Colors.white, fontSize: 35.0)),
-          //     100,
-          //     ''),
-          // elementos(
-          //     context,
-          //     Text('ELEMENTO',
-          //         style: TextStyle(color: Colors.white, fontSize: 35.0)),
-          //     100,
-          //     ''),
-          // elementos(
-          //     context,
-          //     Text('Instagram',
-          //         style: TextStyle(color: Colors.white, fontSize: 35.0)),
-          //     100,
-          //     ''),
-          // elementos(
-          //     context,
-          //     Text('ELEMENTO',
-          //         style: TextStyle(color: Colors.white, fontSize: 35.0)),
-          //     100,
-          //     ''),
-          // elementos(
-          //     context,
-          //     Text('ELEMENTO',
-          //         style: TextStyle(color: Colors.white, fontSize: 35.0)),
-          //     100,
-          //     ''),
-          SizedBox(
-            height: 100,
-          )
-        ]),
-      )
+  detalle(BuildContext context) {
+    final apiProvider = Provider.of<AplicacionesProvider>(context);
+    List<String> listaMenu = apiProvider.listaMenu;
+    List<Widget> listaOpciones = [
+      SizedBox(height: 5.0),
+      elementos(context, PilaTimpoClima(), 200, '', ''),
+      elementos(
+          context,
+          Text('Contactos',
+              style: TextStyle(color: Colors.white, fontSize: 35.0)),
+          100,
+          'contactos',
+          ''),
+      elementos(
+          context,
+          Text('ApiGruposNuevo',
+              style: TextStyle(color: Colors.white, fontSize: 35.0)),
+          100,
+          'apigrupos',
+          ''),
     ];
+    if (listaMenu.isNotEmpty) {
+      for (var i = 0; i < listaMenu.length; i++) {
+        final String titulo = listaMenu[i];
+        listaOpciones.add(elementos(
+            context,
+            Text(titulo, style: TextStyle(color: Colors.white, fontSize: 35.0)),
+            100,
+            titulo,
+            'MPC'));
+      }
+    }
+    listaOpciones.add(SizedBox(
+      height: 70,
+    ));
+
+    return ListView.builder(
+        itemCount: listaOpciones.length,
+        itemBuilder: (context, i) {
+          return listaOpciones[i];
+        });
+
+    // <Widget>[
+    //   SliverList(
+    //     delegate: SliverChildListDelegate([
+    //       SizedBox(height: 5.0),
+    //       elementos(context, PilaTimpoClima(), 200, ''),
+    //       elementos(
+    //           context,
+    //           Text('Contactos',
+    //               style: TextStyle(color: Colors.white, fontSize: 35.0)),
+    //           100,
+    //           'contactos'),
+
+    //       elementos(
+    //           context,
+    //           Text('ApiGruposNuevo',
+    //               style: TextStyle(color: Colors.white, fontSize: 35.0)),
+    //           100,
+    //           'apigrupos'),
+    //      SizedBox(
+    //         height: 100,
+    //       )
+    //     ]),
+    //   )
+    // ];
   }
 
   encabezadoApp(BuildContext context, String titulo) {

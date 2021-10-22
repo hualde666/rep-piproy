@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:piproy/scr/providers/aplicaciones_provider.dart';
+import 'package:provider/provider.dart';
 
-Widget elementos(
-    BuildContext context, Widget widget, double altura, String ruta) {
+Widget elementos(BuildContext context, Widget widget, double altura,
+    String ruta, String tipo) {
   return GestureDetector(
     child: Container(
       height: altura,
@@ -15,7 +17,13 @@ Widget elementos(
     ),
     onTap: () {
       if (ruta != '') {
-        Navigator.pushNamed(context, ruta);
+        if (tipo == 'MPC') {
+          Provider.of<AplicacionesProvider>(context, listen: false)
+              .tipoSeleccion = ruta;
+          Navigator.pushNamed(context, 'grupo');
+        } else {
+          Navigator.pushNamed(context, ruta);
+        }
       }
     },
   );

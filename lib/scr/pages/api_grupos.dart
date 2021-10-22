@@ -26,7 +26,7 @@ class ApiGruposPage extends StatelessWidget {
                     );
                   } else {
                     final List<String> listaGrupos = apiProvider.apitipos;
-                    listaGrupos.remove('+');
+
                     // listaGrupos.add(' ');
                     return ListView.builder(
                         padding: EdgeInsets.only(bottom: 65),
@@ -72,6 +72,7 @@ class ApiGruposPage extends StatelessWidget {
         Navigator.pushNamed(context, 'grupo');
       },
       onLongPress: () => eliminarTipo(context, grupo),
+      onDoubleTap: () => agregaMPC(context, grupo),
       child: Container(
         margin: EdgeInsets.symmetric(vertical: 3, horizontal: 4.0),
         height: 60,
@@ -184,6 +185,45 @@ class ApiGruposPage extends StatelessWidget {
 //
 //
             DbTiposAplicaciones.db.eliminarTipo(tipo);
+
+            Navigator.of(context).pop();
+          },
+        )
+      ],
+    );
+  }
+
+  Future agregaMPC(BuildContext context, String tipo) async {
+    return await showDialog(
+        context: context,
+        builder: (context) {
+          return agregaMpcForm(context, tipo);
+        });
+  }
+
+  AlertDialog agregaMpcForm(BuildContext context, String tipo) {
+    final apiProvider = Provider.of<AplicacionesProvider>(context);
+    return AlertDialog(
+      title: Text('¿Desea crear acceso directo a $tipo  ?'),
+      actions: [
+        TextButton(
+          child: Text('Cancelar'),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
+        TextButton(
+          child: Text('Ok'),
+          onPressed: () {
+            final nuevo = new ApiTipos(tipo: 'MPC', nombreApi: tipo);
+            if (!apiProvider.listaMenu.contains(tipo)) {
+              /// actualizar lista MENU
+              ///
+              Provider.of<AplicacionesProvider>(context, listen: false)
+                  .agregarMenu(tipo);
+
+              DbTiposAplicaciones.db.nuevoTipo(nuevo);
+            }
 
             Navigator.of(context).pop();
           },
