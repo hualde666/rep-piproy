@@ -129,10 +129,15 @@ class AplicacionesProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  eliminarTipoMPC(String tipo) {
+    listaMenu.remove(tipo);
+    notifyListeners();
+  }
+
   cargarCategorias() async {
     // obtengo lista de api por categorias
     final resp = await DbTiposAplicaciones.db.getAllRegistros();
-    print(resp);
+
     if (this._cargando) {
       this._cargando = false;
 
@@ -188,6 +193,7 @@ class AplicacionesProvider with ChangeNotifier {
         }
       }
     }
-    return categoryApi[_tipoSeleccion];
+
+    return categoryApi['toda'];
   }
 }

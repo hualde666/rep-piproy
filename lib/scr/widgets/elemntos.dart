@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:piproy/scr/providers/aplicaciones_provider.dart';
+import 'package:piproy/scr/providers/db_provider.dart';
 import 'package:provider/provider.dart';
 
 Widget elementos(BuildContext context, Widget widget, double altura,
@@ -17,13 +18,22 @@ Widget elementos(BuildContext context, Widget widget, double altura,
     ),
     onTap: () {
       if (ruta != '') {
-        if (tipo == 'MPC') {
+        if (tipo.contains('MPC')) {
           Provider.of<AplicacionesProvider>(context, listen: false)
               .tipoSeleccion = ruta;
           Navigator.pushNamed(context, 'grupo');
         } else {
           Navigator.pushNamed(context, ruta);
         }
+      }
+    },
+    onLongPress: () {
+      /// preguntar??
+      if (tipo.contains('MPC')) {
+        final String categoria = tipo.substring(3);
+        Provider.of<AplicacionesProvider>(context, listen: false)
+            .eliminarTipoMPC(categoria);
+        DbTiposAplicaciones.db.eliminarTipoMPC(categoria);
       }
     },
   );

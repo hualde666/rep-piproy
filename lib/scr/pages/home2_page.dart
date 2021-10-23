@@ -21,23 +21,23 @@ class Home2Page extends StatefulWidget {
 }
 
 class _Home2PageState extends State<Home2Page> {
-  ScrollController _scrollController = ScrollController();
+  // ScrollController _scrollController = ScrollController();
 
   Application api;
   @override
   void initState() {
     super.initState();
 
-    _scrollController = ScrollController()
-      ..addListener(() {
-        setState(() {
-          //  _topScroll = true;
-        });
-      });
+    //  _scrollController = ScrollController()
+    //    ..addListener(() {
+    setState(() {
+      //  _topScroll = true;
+    });
+    //    });
   }
 
   void scrollToTop() {
-    _scrollController.jumpTo(0.0);
+    //_scrollController.jumpTo(0.0);
   }
 
   @override
@@ -109,7 +109,7 @@ class _Home2PageState extends State<Home2Page> {
             Text(titulo, style: TextStyle(color: Colors.white, fontSize: 35.0)),
             100,
             titulo,
-            'MPC'));
+            'MPC$titulo'));
       }
     }
     listaOpciones.add(SizedBox(

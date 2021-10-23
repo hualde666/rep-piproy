@@ -91,6 +91,10 @@ class ApiGruposPage extends StatelessWidget {
     );
   }
 
+  ///
+  ///************** CREA  CATEGORIA ************/
+  ///
+
   Future crearTipo(BuildContext context) async {
     return await showDialog(
         context: context,
@@ -143,7 +147,7 @@ class ApiGruposPage extends StatelessWidget {
               apiProvider.agregarApiTipos(_tipoControle.value.text);
               // agregar a BD
 //
-//
+
               final nuevo =
                   new ApiTipos(tipo: _tipoControle.value.text, nombreApi: "");
               DbTiposAplicaciones.db.nuevoTipo(nuevo);
@@ -156,6 +160,9 @@ class ApiGruposPage extends StatelessWidget {
     );
   }
 
+  ///
+  ///************** ELIMINA CATEGORIA ************/
+  ///
   Future eliminarTipo(BuildContext context, String tipo) async {
     return await showDialog(
         context: context,
@@ -165,6 +172,7 @@ class ApiGruposPage extends StatelessWidget {
   }
 
   AlertDialog eliminarTipoForm(BuildContext context, String tipo) {
+    final apiProvider = Provider.of<AplicacionesProvider>(context);
     return AlertDialog(
       title: Text('¿Desea elminar la categoria $tipo ?'),
       actions: [
@@ -182,9 +190,16 @@ class ApiGruposPage extends StatelessWidget {
             Provider.of<AplicacionesProvider>(context, listen: false)
                 .eliminarTipos(tipo);
             // eliminar  a BD
-//
-//
             DbTiposAplicaciones.db.eliminarTipo(tipo);
+
+            ///
+            ///         ELIMNAR DEL MENU PRINCIPAL
+
+            if (apiProvider.listaMenu.contains(tipo)) {
+              Provider.of<AplicacionesProvider>(context, listen: false)
+                  .eliminarTipoMPC(tipo);
+              DbTiposAplicaciones.db.eliminarTipoMPC(tipo);
+            }
 
             Navigator.of(context).pop();
           },

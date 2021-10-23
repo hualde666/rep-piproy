@@ -65,6 +65,13 @@ class DbTiposAplicaciones {
     return result;
   }
 
+  Future<int> eliminarTipoMPC(String tipo) async {
+    final db = await database;
+    final result =
+        await db.delete('TiposApi', where: 'nombreApi=?', whereArgs: [tipo]);
+    return result;
+  }
+
   Future<List<Map<String, Object>>> getAllRegistros() async {
     final db = await database;
     final resp = await db.query('TiposApi');
