@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'package:piproy/scr/ayuda_widget/fab_ayuda.dart';
 import 'package:piproy/scr/providers/aplicaciones_provider.dart';
+import 'package:piproy/scr/providers/db_provider.dart';
 
 import 'package:piproy/scr/widgets/boton_exit.dart';
 
@@ -58,15 +59,12 @@ class _Home2PageState extends State<Home2Page> {
                 child: CircularProgressIndicator(),
               );
             } else {
+              final List<Application> lista = snapshot.data;
+              apiProvider.ordenarListasMenu();
+
               return detalle(context);
             }
           }),
-
-      //  CustomScrollView(
-      //   controller: _scrollController,
-      //   slivers: _detalle(context),
-
-      // floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
       floatingActionButton: Container(
         margin: EdgeInsets.only(left: 25),
         child: Row(
@@ -103,13 +101,21 @@ class _Home2PageState extends State<Home2Page> {
     ];
     if (listaMenu.isNotEmpty) {
       for (var i = 0; i < listaMenu.length; i++) {
-        final String titulo = listaMenu[i];
-        listaOpciones.add(elementos(
-            context,
-            Text(titulo, style: TextStyle(color: Colors.white, fontSize: 35.0)),
-            100,
-            titulo,
-            'MPC$titulo'));
+        final String titulo = listaMenu[i].substring(3);
+        if (listaMenu[i].contains('MPC')) {
+          listaOpciones.add(elementos(
+              context,
+              Text(titulo,
+                  style: TextStyle(color: Colors.white, fontSize: 35.0)),
+              100,
+              titulo,
+              listaMenu[i]));
+        } else {
+          final apiProvider = Provider.of<AplicacionesProvider>(context);
+          final Application api = apiProvider.categoryApi['Todas']
+              .firstWhere((eApi) => eApi.appName == listaMenu[i].substring(3));
+          listaOpciones.add(elementoApi2(context, api));
+        }
       }
     }
     listaOpciones.add(SizedBox(
@@ -121,31 +127,6 @@ class _Home2PageState extends State<Home2Page> {
         itemBuilder: (context, i) {
           return listaOpciones[i];
         });
-
-    // <Widget>[
-    //   SliverList(
-    //     delegate: SliverChildListDelegate([
-    //       SizedBox(height: 5.0),
-    //       elementos(context, PilaTimpoClima(), 200, ''),
-    //       elementos(
-    //           context,
-    //           Text('Contactos',
-    //               style: TextStyle(color: Colors.white, fontSize: 35.0)),
-    //           100,
-    //           'contactos'),
-
-    //       elementos(
-    //           context,
-    //           Text('ApiGruposNuevo',
-    //               style: TextStyle(color: Colors.white, fontSize: 35.0)),
-    //           100,
-    //           'apigrupos'),
-    //      SizedBox(
-    //         height: 100,
-    //       )
-    //     ]),
-    //   )
-    // ];
   }
 
   encabezadoApp(BuildContext context, String titulo) {
@@ -192,25 +173,6 @@ class _Home2PageState extends State<Home2Page> {
       ),
     );
   }
-
-  obtener(String nombre) async {
-    // AplicacionesProvider aplicacionesProvider = new AplicacionesProvider();
-    //  List listaApp = await aplicacionesProvider.listaApp;
-    // Application app;
-    // int i = 0;
-    // int items = listaApp.length;
-    // if (items >= 0) {
-    //   while (i <= items - 1) {
-    //     if (listaApp[i].appName == nombre) {
-    //       app = listaApp[i];
-    //       return app;
-    //     } else {
-    //       i++;
-    //     }
-    //   }
-
-    // return listaApp;
-  }
 }
 
 class BotonRojoHeader {}
@@ -224,6 +186,82 @@ Widget botonInicio() {
       height: 100,
       width: 100,
       //color: Colors.red),
+    ),
+  );
+}
+
+Widget elementoApi2(BuildContext context, Application api) {
+  return GestureDetector(
+    onTap: () {
+      if (api.appName != "") {
+        api.openApp();
+      }
+    },
+    onLongPress: () {
+      // eliminar del Menu principal
+      eliminarApi(context, 'MPA' + api.appName);
+    },
+    child: Container(
+      margin: EdgeInsets.symmetric(vertical: 1.5, horizontal: 3.0),
+      decoration: BoxDecoration(
+          color: Theme.of(context).primaryColor,
+          borderRadius: BorderRadius.circular(20.0),
+          border: Border.all(color: Colors.white)),
+      // color: Theme.of(context).primaryColor,
+      child: Column(
+        children: [
+          SizedBox(
+            height: 10,
+          ),
+          Image.memory(
+            (api as ApplicationWithIcon).icon,
+            width: 100,
+          ),
+          SizedBox(
+            width: 20,
+          ),
+          Text(
+            api.appName,
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 30, color: Colors.white),
+          ),
+        ],
+      ),
+    ),
+  );
+}
+
+Future<dynamic> eliminarApi(BuildContext context, String tipo) {
+  final String titulo = tipo.substring(3);
+  return showDialog(
+    context: context,
+    builder: (context) => AlertDialog(
+      content: Text('¿Desea eliminar $titulo  del menú ?'),
+      // shape: CircleBorder(),
+      elevation: 14.0,
+      actionsPadding: EdgeInsets.symmetric(horizontal: 30.0),
+      actions: [
+        TextButton(
+            onPressed: () {
+              /// elina api de pantalla
+              Provider.of<AplicacionesProvider>(context, listen: false)
+                  .eliminarTipoMPC(tipo);
+
+              DbTiposAplicaciones.db
+                  .deleteApi(tipo.substring(0, 3), tipo.substring(3));
+
+              //elimina api de BD
+
+              Navigator.pop(context);
+            },
+            child: Text('Si', style: TextStyle(fontSize: 20.0))),
+        TextButton(
+            autofocus: true,
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: Text('No', style: TextStyle(fontSize: 20.0))),
+      ],
     ),
   );
 }

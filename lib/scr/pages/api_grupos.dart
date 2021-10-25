@@ -174,16 +174,10 @@ class ApiGruposPage extends StatelessWidget {
   AlertDialog eliminarTipoForm(BuildContext context, String tipo) {
     final apiProvider = Provider.of<AplicacionesProvider>(context);
     return AlertDialog(
-      title: Text('¿Desea elminar la categoria $tipo ?'),
+      title: Text('¿Desea ELIMINAR la categoria $tipo ?'),
       actions: [
         TextButton(
-          child: Text('Cancelar'),
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-        ),
-        TextButton(
-          child: Text('Ok'),
+          child: Text('Si', style: TextStyle(fontSize: 20)),
           onPressed: () {
             // Eliminar de categoria
 
@@ -195,12 +189,21 @@ class ApiGruposPage extends StatelessWidget {
             ///
             ///         ELIMNAR DEL MENU PRINCIPAL
 
-            if (apiProvider.listaMenu.contains(tipo)) {
+            if (apiProvider.listaMenu.contains('MPC' + tipo)) {
               Provider.of<AplicacionesProvider>(context, listen: false)
-                  .eliminarTipoMPC(tipo);
+                  .eliminarTipoMPC('MPC' + tipo);
               DbTiposAplicaciones.db.eliminarTipoMPC(tipo);
             }
 
+            Navigator.of(context).pop();
+          },
+        ),
+        TextButton(
+          child: Text(
+            'No',
+            style: TextStyle(fontSize: 20),
+          ),
+          onPressed: () {
             Navigator.of(context).pop();
           },
         )
@@ -208,41 +211,43 @@ class ApiGruposPage extends StatelessWidget {
     );
   }
 
-  Future agregaMPC(BuildContext context, String tipo) async {
+  Future agregaMPC(BuildContext context, String grupo) async {
+    // grupo es el nombre de categoria a agregar al menu principal
     return await showDialog(
         context: context,
         builder: (context) {
-          return agregaMpcForm(context, tipo);
+          return agregaMpcForm(context, grupo);
         });
   }
 
-  AlertDialog agregaMpcForm(BuildContext context, String tipo) {
+  AlertDialog agregaMpcForm(BuildContext context, String grupo) {
     final apiProvider = Provider.of<AplicacionesProvider>(context);
     return AlertDialog(
-      title: Text('¿Desea crear acceso directo a $tipo  ?'),
+      content:
+          Text('¿Desea crear  acceso directo de $grupo  en menu principal?'),
       actions: [
         TextButton(
-          child: Text('Cancelar'),
+          child: Text('Si', style: TextStyle(fontSize: 20)),
           onPressed: () {
-            Navigator.of(context).pop();
-          },
-        ),
-        TextButton(
-          child: Text('Ok'),
-          onPressed: () {
-            final nuevo = new ApiTipos(tipo: 'MPC', nombreApi: tipo);
-            if (!apiProvider.listaMenu.contains(tipo)) {
+            final nuevo = new ApiTipos(tipo: 'MPC', nombreApi: grupo);
+            if (!apiProvider.listaMenu.contains('MPC' + grupo)) {
               /// actualizar lista MENU
               ///
               Provider.of<AplicacionesProvider>(context, listen: false)
-                  .agregarMenu(tipo);
+                  .agregarMenu('MPC' + grupo);
 
               DbTiposAplicaciones.db.nuevoTipo(nuevo);
             }
 
             Navigator.of(context).pop();
           },
-        )
+        ),
+        TextButton(
+          child: Text('No', style: TextStyle(fontSize: 20)),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
       ],
     );
   }

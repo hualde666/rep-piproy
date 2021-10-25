@@ -23,18 +23,57 @@ Widget elementos(BuildContext context, Widget widget, double altura,
               .tipoSeleccion = ruta;
           Navigator.pushNamed(context, 'grupo');
         } else {
-          Navigator.pushNamed(context, ruta);
+          if (tipo.contains('MPA')) {
+          } else {
+            Navigator.pushNamed(context, ruta);
+          }
         }
       }
     },
     onLongPress: () {
       /// preguntar??
-      if (tipo.contains('MPC')) {
-        final String categoria = tipo.substring(3);
-        Provider.of<AplicacionesProvider>(context, listen: false)
-            .eliminarTipoMPC(categoria);
-        DbTiposAplicaciones.db.eliminarTipoMPC(categoria);
-      }
+      eliminarApi(context, tipo);
+      // if (tipo.contains('MPC')) {
+      //   final String categoria = tipo.substring(3);
+      //   Provider.of<AplicacionesProvider>(context, listen: false)
+      //       .eliminarTipoMPC(tipo);
+      //   DbTiposAplicaciones.db.eliminarTipoMPC(categoria);
+      // }
     },
+  );
+}
+
+Future<dynamic> eliminarApi(BuildContext context, String tipo) {
+  final String titulo = tipo.substring(3);
+  return showDialog(
+    context: context,
+    builder: (context) => AlertDialog(
+      content: Text('¿Desea eliminar $titulo  del menú ?'),
+      // shape: CircleBorder(),
+      elevation: 14.0,
+      actionsPadding: EdgeInsets.symmetric(horizontal: 30.0),
+      actions: [
+        TextButton(
+            onPressed: () {
+              /// elina api de pantalla
+              Provider.of<AplicacionesProvider>(context, listen: false)
+                  .eliminarTipoMPC(tipo);
+
+              DbTiposAplicaciones.db
+                  .deleteApi(tipo.substring(0, 3), tipo.substring(3));
+
+              //elimina api de BD
+
+              Navigator.pop(context);
+            },
+            child: Text('Si', style: TextStyle(fontSize: 20.0))),
+        TextButton(
+            autofocus: true,
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: Text('No', style: TextStyle(fontSize: 20.0))),
+      ],
+    ),
   );
 }

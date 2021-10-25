@@ -1,6 +1,7 @@
 import 'package:device_apps/device_apps.dart';
 import 'package:flutter/material.dart';
 import 'package:piproy/scr/ayuda_widget/fab_ayuda.dart';
+import 'package:piproy/scr/models/api_tipos.dart';
 import 'package:piproy/scr/pages/api_seleccion.dart';
 import 'package:piproy/scr/providers/aplicaciones_provider.dart';
 import 'package:piproy/scr/providers/db_provider.dart';
@@ -24,7 +25,7 @@ class ApiPorGrupoPage extends StatelessWidget {
         children: listaApi,
         crossAxisCount: 2,
       ),
-      floatingActionButton: tipo != 'todas'
+      floatingActionButton: tipo != 'Todas'
           ? Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
@@ -75,10 +76,11 @@ class ElementoApi extends StatelessWidget {
       },
       onLongPress: () {
         // eliminar api?
-        if (tipo != 'todas') {
+        if (tipo != 'Todas') {
           eliminarApi(context, tipo);
         }
       },
+      onDoubleTap: () => agregaMPA(context, api),
       child: Container(
         color: Theme.of(context).primaryColor,
         child: Column(
@@ -136,4 +138,43 @@ class ElementoApi extends StatelessWidget {
           ],
         ),
       );
+  Future agregaMPA(BuildContext context, Application api) async {
+    return await showDialog(
+        context: context,
+        builder: (context) {
+          return agregaMpaForm(context, api);
+        });
+  }
+
+  AlertDialog agregaMpaForm(BuildContext context, Application api) {
+    final apiProvider = Provider.of<AplicacionesProvider>(context);
+    return AlertDialog(
+      // title: Text('¿Desea crear acceso directo a ${api.appName}?'),
+      content: Text('¿Desea crear acceso directo a ${api.appName}?'),
+      actions: [
+        TextButton(
+          child: Text('Si', style: TextStyle(fontSize: 20.0)),
+          onPressed: () {
+            final nuevo = new ApiTipos(tipo: 'MPA', nombreApi: api.appName);
+            if (!apiProvider.listaMenu.contains(api.appName)) {
+              /// actualizar lista MENU
+              ///
+              Provider.of<AplicacionesProvider>(context, listen: false)
+                  .agregarMenu('MPA' + api.appName);
+
+              DbTiposAplicaciones.db.nuevoTipo(nuevo);
+            }
+
+            Navigator.of(context).pop();
+          },
+        ),
+        TextButton(
+          child: Text('No', style: TextStyle(fontSize: 20.0)),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
+      ],
+    );
+  }
 }

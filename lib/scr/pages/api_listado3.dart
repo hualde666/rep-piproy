@@ -40,7 +40,7 @@ class ApiLista3Page extends StatelessWidget {
             }
           }),
       floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
-      floatingActionButton: apiProvider.tipoSeleccion != 'todas'
+      floatingActionButton: apiProvider.tipoSeleccion != 'Todas'
           ? Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
@@ -250,7 +250,7 @@ class BotonTipoApi extends StatelessWidget {
     return GestureDetector(
       onLongPress: () {
         /// borrar categoria y sus api
-        if (categoria != '+' && categoria != 'todas') {
+        if (categoria != '+' && categoria != 'Todas') {
           eliminarTipo(context, categoria);
           if (categoria == apiProvider.tipoSeleccion) {
             Navigator.pop(context);
@@ -328,7 +328,7 @@ class ElementoApi extends StatelessWidget {
       },
       onLongPress: () {
         // eliminar api?
-        if (tipo != 'todas') {
+        if (tipo != 'Todas') {
           eliminarApi(context, tipo);
         }
       },

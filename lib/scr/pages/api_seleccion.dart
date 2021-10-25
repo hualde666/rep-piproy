@@ -19,7 +19,7 @@ class ApiSeleccionPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final apiProvider = Provider.of<AplicacionesProvider>(context);
     final tipo = apiProvider.tipoSeleccion;
-    final listaTodas = apiProvider.categoryApi['todas'];
+    final listaTodas = apiProvider.categoryApi['Todas'];
     listaNueva.addAll(listaVieja);
     List<Widget> listaApi = List.generate(
         listaTodas.length,

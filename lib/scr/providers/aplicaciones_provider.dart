@@ -12,17 +12,16 @@ class AplicacionesProvider with ChangeNotifier {
   }
 
   bool _cargando = true;
-  String _tipoSeleccion = 'todas';
+  String _tipoSeleccion = 'Todas';
   List<Application> _listaApp;
   List<Application> _listaSeleccion;
   List<String> _apitipos = [
-    'todas',
+    'Todas',
   ];
 
   AplicacionesProvider._internal() {
-    apitipos.forEach((item) {
-      this.categoryApi[item] = [];
-    });
+    this.categoryApi['Todas'] = [];
+
     getListaApp();
 
     // cargarCategorias();
@@ -114,13 +113,9 @@ class AplicacionesProvider with ChangeNotifier {
         includeSystemApps: true,
         onlyAppsWithLaunchIntent: true);
 
-    resp.sort((a, b) {
-      return a.appName.toLowerCase().compareTo(b.appName.toLowerCase());
-    });
-
 // genero lista por categorias
 
-    this.categoryApi['todas'].addAll(resp);
+    this.categoryApi['Todas'].addAll(resp);
   }
 
   eliminarTipos(String tipo) {
@@ -137,63 +132,67 @@ class AplicacionesProvider with ChangeNotifier {
   cargarCategorias() async {
     // obtengo lista de api por categorias
     final resp = await DbTiposAplicaciones.db.getAllRegistros();
-
+    print(resp);
     if (this._cargando) {
-      this._cargando = false;
-
       if (resp.isNotEmpty) {
         final resp2 = resp.map((s) => ApiTipos.fromJson(s)).toList();
         for (var i = 0; i < resp2.length; i++) {
           if (resp2[i].tipo == 'MPC') {
-            // es una opcion de menu
-            listaMenu.add(resp2[i].nombreApi);
+            // es una opcion de Categori del  menu
+            listaMenu.add('MPC' + resp2[i].nombreApi);
           } else {
-            // es una categoria
-            if (!_apitipos.contains(resp2[i].tipo)) {
-              _apitipos.add(resp2[i].tipo);
-              categoryApi[resp2[i].tipo] = [];
-            }
-////// encontrar Api con nombreApi
-            ///
+            if (resp2[i].tipo == 'MPA') {
+              // es una opcion API del menu
+              listaMenu.add('MPA' + resp2[i].nombreApi);
+            } else {
+              // es una categoria
+              if (!_apitipos.contains(resp2[i].tipo)) {
+                _apitipos.add(resp2[i].tipo);
+                categoryApi[resp2[i].tipo] = [];
+              }
+              ////// encontrar Api con nombreApi
+              ///
 
-            final String nombreApi = resp2[i].nombreApi;
-            if (nombreApi != "") {
-              final Application api = this
-                  .categoryApi['todas']
-                  .firstWhere((element) => element.appName == nombreApi);
-              if (api != null) {
-                categoryApi[resp2[i].tipo].add(api);
+              final String nombreApi = resp2[i].nombreApi;
+              if (nombreApi != "") {
+                final Application api = this
+                    .categoryApi['Todas']
+                    .firstWhere((element) => element.appName == nombreApi);
+                if (api != null) {
+                  categoryApi[resp2[i].tipo].add(api);
+                }
               }
             }
           }
         }
-        //orenar el menu alfabeticament
+        //ordenar el menu alfabeticament
         //
-        listaMenu.sort((a, b) {
-          return a.toLowerCase().compareTo(b.toLowerCase());
-        });
-        // ordenor tipos de categoria alfabeticamente
-        //
-        apitipos.sort((a, b) {
-          return a.toLowerCase().compareTo(b.toLowerCase());
-        });
 
-        // ordenar  alfabeticamente todas las api por categoria
-        //
-        for (var i = 0; i < apitipos.length; i++) {
-          if (apitipos[i] != 'MPC' && apitipos[i] != 'todas') {
-            if (categoryApi[apitipos[i]].isNotEmpty) {
-              categoryApi[apitipos[i]].sort((a, b) {
-                return a.appName
-                    .toLowerCase()
-                    .compareTo(b.appName.toLowerCase());
-              });
-            }
-          }
-        }
+      }
+      this._cargando = false;
+    }
+    print(categoryApi);
+    return categoryApi['Todas'];
+  }
+
+  ordenarListasMenu() {
+    listaMenu.sort((a, b) {
+      return a.toLowerCase().compareTo(b.toLowerCase());
+    });
+    // ordenor tipos de categoria alfabeticamente
+    //
+    apitipos.sort((a, b) {
+      return a.toLowerCase().compareTo(b.toLowerCase());
+    });
+
+    // ordenar  alfabeticamente Todas las api por categoria
+    //
+    for (var i = 0; i < apitipos.length; i++) {
+      if (categoryApi[apitipos[i]].isNotEmpty) {
+        categoryApi[apitipos[i]].sort((a, b) {
+          return a.appName.toLowerCase().compareTo(b.appName.toLowerCase());
+        });
       }
     }
-
-    return categoryApi['toda'];
   }
 }

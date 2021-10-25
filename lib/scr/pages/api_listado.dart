@@ -18,7 +18,7 @@ class _ApiListaPageState extends State<ApiListaPage> {
   @override
   Widget build(BuildContext context) {
     final apiProvider = Provider.of<AplicacionesProvider>(context);
-    List<Application> listaApi = apiProvider.categoryApi['todas'];
+    List<Application> listaApi = apiProvider.categoryApi['Todas'];
 
     return SafeArea(
       child: Scaffold(
