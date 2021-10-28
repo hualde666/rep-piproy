@@ -133,29 +133,31 @@ class ApiGruposPage extends StatelessWidget {
       ),
       actions: [
         TextButton(
-          child: Text('Cancelar'),
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-        ),
-        TextButton(
-          child: Text('Ok'),
+          child: Text('Si', style: TextStyle(fontSize: 20.0)),
           onPressed: () {
             // no puede estar en blanco ni ya definido
             if (_tipoControle.value.text != "" &&
                 !apiProvider.apitipos.contains(_tipoControle.value.text)) {
-              apiProvider.agregarApiTipos(_tipoControle.value.text);
               // agregar a BD
-//
-
-              final nuevo =
-                  new ApiTipos(tipo: _tipoControle.value.text, nombreApi: "");
+              String categoria = _tipoControle.value.text[0].toUpperCase();
+              if (_tipoControle.value.text.length > 1) {
+                categoria = _tipoControle.value.text[0].toUpperCase() +
+                    _tipoControle.value.text.substring(1);
+              }
+              apiProvider.agregarApiTipos(categoria);
+              final nuevo = new ApiTipos(tipo: categoria, nombreApi: "");
               DbTiposAplicaciones.db.nuevoTipo(nuevo);
             }
 
             Navigator.of(context).pop();
           },
-        )
+        ),
+        TextButton(
+          child: Text('No', style: TextStyle(fontSize: 20.0)),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
       ],
     );
   }
@@ -164,6 +166,9 @@ class ApiGruposPage extends StatelessWidget {
   ///************** ELIMINA CATEGORIA ************/
   ///
   Future eliminarTipo(BuildContext context, String tipo) async {
+    if (tipo == 'Todas') {
+      return;
+    }
     return await showDialog(
         context: context,
         builder: (context) {
@@ -174,7 +179,8 @@ class ApiGruposPage extends StatelessWidget {
   AlertDialog eliminarTipoForm(BuildContext context, String tipo) {
     final apiProvider = Provider.of<AplicacionesProvider>(context);
     return AlertDialog(
-      title: Text('¿Desea ELIMINAR la categoria $tipo ?'),
+      //title: Text('¿Desea ELIMINAR la categoria $tipo ?'),
+      content: Text('¿Desea ELIMINAR la categoria $tipo ?'),
       actions: [
         TextButton(
           child: Text('Si', style: TextStyle(fontSize: 20)),

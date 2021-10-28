@@ -1,6 +1,6 @@
 import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
+
 import 'package:piproy/scr/funciones/abrir_whatsapp.dart';
 
 Widget conteinerIcon(
@@ -53,6 +53,5 @@ funcionIcon(BuildContext context, String tarea, Contact contacto) {
 }
 
 llamar(String phone) async {
-  bool res = await FlutterPhoneDirectCaller.callNumber(phone);
-  print(res);
+  // bool res = await FlutterPhoneDirectCaller.callNumber(phone);
 }

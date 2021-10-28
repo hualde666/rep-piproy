@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 Widget botonExit(BuildContext context) {
   return GestureDetector(
@@ -26,7 +27,9 @@ Widget botonExit(BuildContext context) {
           actions: [
             TextButton(
                 onPressed: () {
-                  exit(0);
+                  SystemNavigator.pop();
+                  // exit(0);
+                  //Navigator.pop(context);
                 },
                 child: ClipOval(
                   child: Container(

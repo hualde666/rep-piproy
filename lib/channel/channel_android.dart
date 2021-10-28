@@ -15,6 +15,7 @@ class AndroidChannel {
   }
 
   Future<void> listaApis() async {
+    print('Entre a listaApis');
     try {
       final result = await _methodChannel.invokeMethod("aplicaciones");
       print('Respuesta : $result');

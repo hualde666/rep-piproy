@@ -2,6 +2,7 @@ import 'package:device_apps/device_apps.dart';
 import 'package:flutter/material.dart';
 
 import 'package:piproy/scr/ayuda_widget/fab_ayuda.dart';
+import 'package:piproy/scr/models/api_tipos.dart';
 import 'package:piproy/scr/providers/aplicaciones_provider.dart';
 import 'package:piproy/scr/providers/db_provider.dart';
 
@@ -59,10 +60,14 @@ class _Home2PageState extends State<Home2Page> {
                 child: CircularProgressIndicator(),
               );
             } else {
-              final List<Application> lista = snapshot.data;
-              apiProvider.ordenarListasMenu();
+              if (snapshot.hasData) {
+                final List<ApiTipos> lista = snapshot.data;
+                apiProvider.ordenarListasMenu(lista);
 
-              return detalle(context);
+                return detalle(context);
+              } else {
+                return Container();
+              }
             }
           }),
       floatingActionButton: Container(
@@ -93,7 +98,7 @@ class _Home2PageState extends State<Home2Page> {
           ''),
       elementos(
           context,
-          Text('ApiGruposNuevo',
+          Text('Alicaciones',
               style: TextStyle(color: Colors.white, fontSize: 35.0)),
           100,
           'apigrupos',
