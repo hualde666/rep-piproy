@@ -98,7 +98,7 @@ class _Home2PageState extends State<Home2Page> {
           ''),
       elementos(
           context,
-          Text('Alicaciones',
+          Text('Aplicaciones',
               style: TextStyle(color: Colors.white, fontSize: 35.0)),
           100,
           'apigrupos',
