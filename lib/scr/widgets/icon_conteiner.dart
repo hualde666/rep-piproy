@@ -2,6 +2,9 @@ import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';
 
 import 'package:piproy/scr/funciones/abrir_whatsapp.dart';
+import 'package:piproy/scr/pages/linterna_page.dart';
+import 'package:piproy/scr/pages/pila_page.dart';
+import 'package:piproy/scr/pages/wifi_page.dart';
 
 Widget conteinerIcon(
     BuildContext context, Icon icon, String tarea, Contact contacto) {
@@ -38,7 +41,23 @@ funcionIcon(BuildContext context, String tarea, Contact contacto) {
     case 'llamada':
       llamar(phone);
       break;
+    case 'bateria':
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => PilaPage()),
+      );
+      break;
+    case 'wifi':
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => WifiPage()),
+      );
+      break;
     case 'linterna':
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => LinternaPage()),
+      );
       break;
     case 'whatsapp':
       abrirWhatsapp(phone, '');
