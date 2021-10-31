@@ -19,19 +19,33 @@ class AndroidChannel {
     try {
       final result = await _methodChannel.invokeMethod("aplicaciones");
       print('Respuesta : $result');
+      return result;
     } catch (e) {
       print('ERROR: $e');
     }
   }
 
-  Future<void> nivelBateria() async {
+  Future<int> nivelBateria() async {
     try {
       final result = await _methodChannel.invokeMethod("bateria");
-      print('Nivel de Bateria: $result');
+
+      return result;
     } catch (e) {
       print('ERROR: $e');
+      return e;
     }
   }
+
+  // Future<bool> cargandoBateria() async {
+  //   try {
+  //     final result = await _methodChannel.invokeMethod("cargando");
+
+  //     return result;
+  //   } catch (e) {
+  //     print('ERROR: $e');
+  //     return e;
+  //   }
+  // }
 
   Future<void> mandarSms(String phone, String mensaje) async {
     try {

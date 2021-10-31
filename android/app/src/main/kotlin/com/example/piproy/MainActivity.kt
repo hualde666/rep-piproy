@@ -59,11 +59,15 @@ class MainActivity: FlutterActivity() {
                     val batteryLevel = getNivelBateria()
             
                     if (batteryLevel != -1) {
+                     
                       result.success(batteryLevel)
                     } else {
                       result.error("UNAVAILABLE", "Battery level not available.", null)
+                      println("error en bateria")
                     }
-                  }else{
+                  }
+                 
+                  else{
         
                   
                     result.notImplemented()
@@ -86,21 +90,34 @@ class MainActivity: FlutterActivity() {
                   return respuesta
                 
               }
+
               private fun getNivelBateria(): Int{
         
-                // val batteryLevel: Int
-                // if (VERSION.SDK_INT >= VERSION_CODES.LOLLIPOP) {
-                //   val batteryManager = getSystemService(Context.BATTERY_SERVICE) as BatteryManager
-                //   batteryLevel = batteryManager.getIntProperty(BatteryManager.BATTERY_PROPERTY_CAPACITY)
-                // } else {
-                //   val intent = ContextWrapper(applicationContext).registerReceiver(null, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
-                //   batteryLevel = intent!!.getIntExtra(BatteryManager.EXTRA_LEVEL, -1) * 100 / intent.getIntExtra(BatteryManager.EXTRA_SCALE, -1)
+                val batteryLevel: Int
+                if (VERSION.SDK_INT >= VERSION_CODES.LOLLIPOP) {
+                  val batteryManager = getSystemService(Context.BATTERY_SERVICE) as BatteryManager
+                  batteryLevel = batteryManager.getIntProperty(BatteryManager.BATTERY_PROPERTY_CAPACITY)
+                } else {
+                  val intent = ContextWrapper(applicationContext).registerReceiver(null, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
+                  batteryLevel = intent!!.getIntExtra(BatteryManager.EXTRA_LEVEL, -1) * 100 / intent.getIntExtra(BatteryManager.EXTRA_SCALE, -1)
                
-            
-                return 1 //batteryLevel
+                }
+                return batteryLevel
               }
+              // private fun getCargandolBateria(): Boolean{
         
-        
+              //   val batteryCargando: Boolean = false
+              //   // if (VERSION.SDK_INT >= VERSION_CODES.LOLLIPOP) {
+              //   //   val batteryManager = getSystemService(Context.BATTERY_SERVICE) as BatteryManager
+              //   //   batteryCargando = batteryManager.
+              //   // } else {
+              //   //   val intent = ContextWrapper(applicationContext).registerReceiver(null, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
+              //   //   batteryLevel = intent!!.getIntExtra(BatteryManager.EXTRA_LEVEL, -1) * 100 / intent.getIntExtra(BatteryManager.EXTRA_SCALE, -1)
+               
+              //   }
+              //   return batteryCargando
+              // }
+           
               private fun sendSms( phone: String, text: String): Boolean {
                 
         

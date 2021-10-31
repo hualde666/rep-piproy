@@ -1,8 +1,10 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:piproy/scr/providers/estado_celular.dart';
 
 import 'package:piproy/scr/widgets/reloj.dart';
+import 'package:provider/provider.dart';
 
 class PilaTimpoClima extends StatefulWidget {
   @override
@@ -27,7 +29,7 @@ class _PilaTimpoClimaState extends State<PilaTimpoClima> {
 
   void _actualizaHora() {
     setState(() {
-      startTimeout(1);
+      startTimeout(1000);
     });
   }
 
@@ -38,6 +40,8 @@ class _PilaTimpoClimaState extends State<PilaTimpoClima> {
 
   @override
   Widget build(BuildContext context) {
+    final celProvider = Provider.of<EstadoProvider>(context);
+    celProvider.actulizarDatos();
     return
         // Clima(),
         Reloj();

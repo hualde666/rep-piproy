@@ -24,6 +24,7 @@ import 'package:piproy/scr/pages/splash.dart';
 //import 'package:piproy/scr/pages/splash.dart';
 import 'package:piproy/scr/providers/aplicaciones_provider.dart';
 import 'package:piproy/scr/providers/contactos_provider.dart';
+import 'package:piproy/scr/providers/estado_celular.dart';
 import 'package:piproy/scr/providers/lista_id_provider.dart';
 
 import 'package:provider/provider.dart';
@@ -37,14 +38,16 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     DbTiposAplicaciones.db.database;
-    ContactosProvider contactosProvider = new ContactosProvider();
+    EstadoProvider estadoProvider = new EstadoProvider();
     AplicacionesProvider aplicacionesProvider = new AplicacionesProvider();
+    ContactosProvider contactosProvider = new ContactosProvider();
 
     SystemChrome.setPreferredOrientations(
         [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
 
     return MultiProvider(
       providers: [
+        ChangeNotifierProvider(create: (_) => new EstadoProvider()),
         ChangeNotifierProvider(create: (_) => new ListaIdProvider()),
         ChangeNotifierProvider(create: (_) => new AplicacionesProvider()),
       ],

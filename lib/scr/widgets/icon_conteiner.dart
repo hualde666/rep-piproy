@@ -1,34 +1,41 @@
 import 'package:contacts_service/contacts_service.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:piproy/channel/channel_android.dart';
 
 import 'package:piproy/scr/funciones/abrir_whatsapp.dart';
 import 'package:piproy/scr/pages/linterna_page.dart';
 import 'package:piproy/scr/pages/pila_page.dart';
 import 'package:piproy/scr/pages/wifi_page.dart';
+import 'package:piproy/scr/providers/estado_celular.dart';
+import 'package:provider/provider.dart';
 
 Widget conteinerIcon(
     BuildContext context, Icon icon, String tarea, Contact contacto) {
   String phone;
+  Widget widget;
+
   if (phone != null) {
     phone = contacto.phones.elementAt(0).value;
   }
-  return GestureDetector(
-      child: Center(
+  if (tarea == 'bateria') {
+    widget = Pila(icon);
+  } else {
+    widget = Center(
         child: Container(
-          width: 70.0,
-          height: 70.0,
-          decoration: BoxDecoration(
-              color: (tarea == 'whatsapp')
-                  ? Colors.green
-                  : Theme.of(context).primaryColor,
-              borderRadius: BorderRadius.circular(80),
-              border: Border.all(color: Colors.white, width: 2.0)),
-          child: icon,
-        ),
-      ),
-
-      //icon, // Icon(icon, size: 40.0, color: Colors.green),
-      onTap: () => {funcionIcon(context, tarea, contacto)});
+      width: 70.0,
+      height: 70.0,
+      decoration: BoxDecoration(
+          color: (tarea == 'whatsapp')
+              ? Colors.green
+              : Theme.of(context).primaryColor,
+          borderRadius: BorderRadius.circular(80),
+          border: Border.all(color: Colors.white, width: 2.0)),
+      child: icon,
+    ));
+  }
+  return GestureDetector(
+      child: widget, onTap: () => funcionIcon(context, tarea, contacto));
 }
 
 funcionIcon(BuildContext context, String tarea, Contact contacto) {
@@ -73,4 +80,45 @@ funcionIcon(BuildContext context, String tarea, Contact contacto) {
 
 llamar(String phone) async {
   // bool res = await FlutterPhoneDirectCaller.callNumber(phone);
+}
+
+class Pila extends StatefulWidget {
+  Icon icon;
+  Pila(Icon icon);
+  @override
+  _PilaState createState() => _PilaState();
+}
+
+class _PilaState extends State<Pila> {
+  Color color;
+  int nivelBateria;
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final celProvider = Provider.of<EstadoProvider>(context);
+    nivelBateria = celProvider.nivelBateria;
+    color = celProvider.bateriaColor;
+    return Center(
+        child: Container(
+            width: 70.0,
+            height: 70.0,
+            decoration: BoxDecoration(
+                color: color,
+                borderRadius: BorderRadius.circular(80),
+                border: Border.all(color: Colors.white, width: 2.0)),
+            child: Center(
+              child: Text(
+                '$nivelBateria%',
+                style: TextStyle(
+                    fontSize: 20,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold),
+              ),
+            ) // Icon(Icons.battery_std, size: 40.0, color: Colors.white),
+            ));
+  }
 }
