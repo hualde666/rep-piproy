@@ -47,6 +47,17 @@ class AndroidChannel {
     }
   }
 
+  Future<bool> conectadoWifi() async {
+    try {
+      final result = await _methodChannel.invokeMethod("wifi");
+
+      return result;
+    } catch (e) {
+      print('ERROR: $e');
+      return false;
+    }
+  }
+
   Future<void> mandarSms(String phone, String mensaje) async {
     try {
       var parametros = {'phone': phone, 'mensaje': mensaje};

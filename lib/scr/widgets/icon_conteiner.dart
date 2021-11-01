@@ -1,7 +1,6 @@
 import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:piproy/channel/channel_android.dart';
 
 import 'package:piproy/scr/funciones/abrir_whatsapp.dart';
 import 'package:piproy/scr/pages/linterna_page.dart';
@@ -18,21 +17,26 @@ Widget conteinerIcon(
   if (phone != null) {
     phone = contacto.phones.elementAt(0).value;
   }
+
   if (tarea == 'bateria') {
     widget = Pila(icon);
   } else {
-    widget = Center(
-        child: Container(
-      width: 70.0,
-      height: 70.0,
-      decoration: BoxDecoration(
-          color: (tarea == 'whatsapp')
-              ? Colors.green
-              : Theme.of(context).primaryColor,
-          borderRadius: BorderRadius.circular(80),
-          border: Border.all(color: Colors.white, width: 2.0)),
-      child: icon,
-    ));
+    if (tarea == 'wifi') {
+      widget = Wifi();
+    } else {
+      widget = Center(
+          child: Container(
+        width: 70.0,
+        height: 70.0,
+        decoration: BoxDecoration(
+            color: (tarea == 'whatsapp')
+                ? Colors.green
+                : Theme.of(context).primaryColor,
+            borderRadius: BorderRadius.circular(80),
+            border: Border.all(color: Colors.white, width: 2.0)),
+        child: icon,
+      ));
+    }
   }
   return GestureDetector(
       child: widget, onTap: () => funcionIcon(context, tarea, contacto));
@@ -82,6 +86,33 @@ llamar(String phone) async {
   // bool res = await FlutterPhoneDirectCaller.callNumber(phone);
 }
 
+class Wifi extends StatefulWidget {
+  @override
+  State<Wifi> createState() => _WifiState();
+}
+
+class _WifiState extends State<Wifi> {
+  Color color;
+
+  @override
+  Widget build(BuildContext context) {
+    final celProvider = Provider.of<EstadoProvider>(context);
+
+    color = celProvider.wifiColor;
+
+    return Center(
+        child: Container(
+      width: 70.0,
+      height: 70.0,
+      decoration: BoxDecoration(
+          color: color,
+          borderRadius: BorderRadius.circular(80),
+          border: Border.all(color: Colors.white, width: 2.0)),
+      child: Center(child: Icon(Icons.wifi, size: 40.0, color: Colors.white)),
+    ));
+  }
+}
+
 class Pila extends StatefulWidget {
   Icon icon;
   Pila(Icon icon);
@@ -93,6 +124,7 @@ class _PilaState extends State<Pila> {
   Color color;
   int nivelBateria;
   bool cargando;
+
   @override
   void initState() {
     super.initState();
@@ -104,6 +136,7 @@ class _PilaState extends State<Pila> {
     nivelBateria = celProvider.nivelBateria;
     color = celProvider.bateriaColor;
     cargando = celProvider.cargandoBateria;
+
     return Center(
         child: Container(
             width: 70.0,

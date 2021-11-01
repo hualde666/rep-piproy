@@ -51,9 +51,11 @@ Widget encabezadoIcon(BuildContext context) {
               'bateria',
               null),
         ),
-        Text(
-          'pila',
-          style: TextStyle(color: Colors.white60),
+        Center(
+          child: Text(
+            'pila',
+            style: TextStyle(color: Colors.white60),
+          ),
         )
       ],
     ),

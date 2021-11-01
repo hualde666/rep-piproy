@@ -23,6 +23,9 @@ import android.os.Bundle
 import android.telephony.SmsManager
 import android.Manifest
 import android.content.pm.PackageManager
+import android.net.ConnectivityManager
+import android.net.ConnectivityManager.NetworkCallback
+import 	android.net.NetworkCapabilities
 
 class MainActivity: FlutterActivity() {
     
@@ -54,6 +57,11 @@ class MainActivity: FlutterActivity() {
                     // result.success(resultado)
                  
                   }
+                  if (call.method == "wifi") {
+                    val resultado = getWifi()
+                    result.success(resultado)
+    
+                }
                   if (call.method == "cargando") {
                     val resultado = getCargaBateria()
                     result.success(resultado)
@@ -123,7 +131,28 @@ class MainActivity: FlutterActivity() {
                 return isCharging
             }
       
-           
+            private fun getWifi(): Boolean{
+              
+              val connectivityManager = this.getSystemService(android.content.Context.CONNECTIVITY_SERVICE)
+                  as ConnectivityManager
+
+              if (VERSION.SDK_INT >=VERSION_CODES.M) {
+                      val networkCapabilities = connectivityManager.activeNetwork ?: return false
+                      val activeNetwork = connectivityManager.getNetworkCapabilities(networkCapabilities) ?: return false
+
+                  return when {
+
+                  // activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) ||
+                  //  activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) ||
+            activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> true
+                    else -> false
+                   }
+                 }
+             else {
+                return false
+              }
+          }        
+    
               private fun sendSms( phone: String, text: String): Boolean {
                 
         
