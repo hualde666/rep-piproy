@@ -54,6 +54,11 @@ class MainActivity: FlutterActivity() {
                     // result.success(resultado)
                  
                   }
+                  if (call.method == "cargando") {
+                    val resultado = getCargaBateria()
+                    result.success(resultado)
+    
+                }
                   if (call.method == "bateria") {
                     
                     val batteryLevel = getNivelBateria()
@@ -104,27 +109,27 @@ class MainActivity: FlutterActivity() {
                 }
                 return batteryLevel
               }
-              // private fun getCargandolBateria(): Boolean{
+              private fun getCargaBateria(): Boolean{
+           
+                val batteryStatus: Intent? = IntentFilter(Intent.ACTION_BATTERY_CHANGED).let { ifilter ->
+                  context.registerReceiver(null, ifilter)
+              }
+              val status: Int = batteryStatus?.getIntExtra(BatteryManager.EXTRA_STATUS, -1) ?: -1
+              val isCharging: Boolean = status == BatteryManager.BATTERY_STATUS_CHARGING
+                      || status == BatteryManager.BATTERY_STATUS_FULL
+          
+          
         
-              //   val batteryCargando: Boolean = false
-              //   // if (VERSION.SDK_INT >= VERSION_CODES.LOLLIPOP) {
-              //   //   val batteryManager = getSystemService(Context.BATTERY_SERVICE) as BatteryManager
-              //   //   batteryCargando = batteryManager.
-              //   // } else {
-              //   //   val intent = ContextWrapper(applicationContext).registerReceiver(null, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
-              //   //   batteryLevel = intent!!.getIntExtra(BatteryManager.EXTRA_LEVEL, -1) * 100 / intent.getIntExtra(BatteryManager.EXTRA_SCALE, -1)
-               
-              //   }
-              //   return batteryCargando
-              // }
+                return isCharging
+            }
+      
            
               private fun sendSms( phone: String, text: String): Boolean {
                 
         
                 val permissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS)
                 if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
-                  println(" Antes myMessage telefono:  "+phone)
-                  println("  Antes myMessage mensaje: "+text)
+                 
               myMessage(phone,text)
                   
                   return true

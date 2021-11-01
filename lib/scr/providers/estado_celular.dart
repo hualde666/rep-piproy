@@ -13,7 +13,7 @@ class EstadoProvider with ChangeNotifier {
   }
   Color _bateriaColor = Colors.green[900];
   int _nivelBateria = 100;
-  bool _cargando = false;
+  bool _cargandoBateria = false;
 
   get nivelBateria {
     return this._nivelBateria;
@@ -23,10 +23,14 @@ class EstadoProvider with ChangeNotifier {
     return this._bateriaColor;
   }
 
+  get cargandoBateria {
+    return this._cargandoBateria;
+  }
+
   actulizarDatos() async {
     AndroidChannel _androidChannel = AndroidChannel();
     final bateria = await _androidChannel.nivelBateria();
-    //_cargando = await _androidChannel.cargandoBateria();
+    final _cargando = await _androidChannel.cargandoBateria();
     if (bateria != _nivelBateria) {
       _nivelBateria = bateria;
       if (bateria > 50) {
@@ -39,6 +43,11 @@ class EstadoProvider with ChangeNotifier {
         }
       }
       notifyListeners();
+    } else {
+      if (_cargandoBateria != _cargando) {
+        _cargandoBateria = _cargando;
+        notifyListeners();
+      }
     }
   }
 }

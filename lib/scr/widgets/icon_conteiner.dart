@@ -92,6 +92,7 @@ class Pila extends StatefulWidget {
 class _PilaState extends State<Pila> {
   Color color;
   int nivelBateria;
+  bool cargando;
   @override
   void initState() {
     super.initState();
@@ -102,12 +103,13 @@ class _PilaState extends State<Pila> {
     final celProvider = Provider.of<EstadoProvider>(context);
     nivelBateria = celProvider.nivelBateria;
     color = celProvider.bateriaColor;
+    cargando = celProvider.cargandoBateria;
     return Center(
         child: Container(
             width: 70.0,
             height: 70.0,
             decoration: BoxDecoration(
-                color: color,
+                color: cargando ? Colors.blue[900] : color,
                 borderRadius: BorderRadius.circular(80),
                 border: Border.all(color: Colors.white, width: 2.0)),
             child: Center(
