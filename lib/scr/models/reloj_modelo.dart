@@ -28,6 +28,7 @@ class RelojModel {
     'Julio',
     'Agosto',
     'Septiembre',
+    'Octubre',
     'Noviembre',
     'Diciembre'
   ];

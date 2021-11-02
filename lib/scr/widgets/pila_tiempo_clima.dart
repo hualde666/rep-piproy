@@ -42,9 +42,6 @@ class _PilaTimpoClimaState extends State<PilaTimpoClima> {
   Widget build(BuildContext context) {
     final celProvider = Provider.of<EstadoProvider>(context);
     celProvider.actulizarDatos();
-    return
-        // Clima(),
-        Reloj();
-    //  NivelPila(),
+    return Reloj();
   }
 }
