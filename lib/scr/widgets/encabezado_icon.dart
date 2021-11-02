@@ -139,8 +139,11 @@ Widget encabezadoIcon(BuildContext context) {
         Container(
           height: 75,
           margin: EdgeInsets.only(right: 10),
-          child: conteinerIcon(context,
-              Icon(Icons.chat, size: 40.0, color: Colors.white), 'chat', null),
+          child: conteinerIcon(
+              context,
+              Icon(Icons.chat, size: 40.0, color: Colors.white),
+              'mensaje',
+              null),
         ),
         Text(
           'mensaje',

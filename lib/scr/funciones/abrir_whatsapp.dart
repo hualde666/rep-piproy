@@ -19,3 +19,13 @@ llamar(String telefono) async {
     throw 'Could not launch $url';
   }
 }
+
+mensaje() async {
+  String url = 'sms:';
+
+  if (await canLaunch(url)) {
+    await launch(url);
+  } else {
+    throw 'Could not launch $url';
+  }
+}

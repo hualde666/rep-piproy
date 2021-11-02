@@ -54,6 +54,9 @@ funcionIcon(BuildContext context, String tarea, Contact contacto) {
     case 'llamada':
       llamar(phone);
       break;
+    case 'mensaje':
+      mensaje();
+      break;
     case 'bateria':
       // Navigator.push(
       //   context,
