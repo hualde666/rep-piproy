@@ -20,8 +20,8 @@ llamar(String telefono) async {
   }
 }
 
-mensaje() async {
-  String url = 'sms:';
+mensaje(String phone) async {
+  String url = 'sms:' + phone;
 
   if (await canLaunch(url)) {
     await launch(url);
