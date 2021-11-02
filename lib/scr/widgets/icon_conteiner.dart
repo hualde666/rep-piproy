@@ -48,6 +48,9 @@ funcionIcon(BuildContext context, String tarea, Contact contacto) {
   }
   print(tarea);
   switch (tarea) {
+    case 'discado':
+      llamar("");
+      break;
     case 'llamada':
       llamar(phone);
       break;

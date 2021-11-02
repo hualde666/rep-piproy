@@ -12,6 +12,7 @@ abrirWhatsapp(String phone, String mensaje) async {
 
 llamar(String telefono) async {
   String url = 'tel:' + telefono;
+
   if (await canLaunch(url)) {
     await launch(url);
   } else {

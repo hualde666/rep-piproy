@@ -87,7 +87,7 @@ Widget _botonesContactos(BuildContext context, Contact contacto) {
           child: conteinerIcon(
               context,
               Icon(Icons.call, size: 50.0, color: Colors.white),
-              'llamada',
+              'discado',
               contacto),
         ),
         Text(

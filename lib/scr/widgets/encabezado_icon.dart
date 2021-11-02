@@ -31,8 +31,8 @@ Widget encabezadoIcon(BuildContext context) {
           margin: EdgeInsets.only(right: 10),
           child: conteinerIcon(
               context,
-              Icon(Icons.add_call, size: 40.0, color: Colors.white),
-              'llamada',
+              Icon(Icons.call, size: 40.0, color: Colors.white),
+              'discado',
               null),
         ),
         Text(
