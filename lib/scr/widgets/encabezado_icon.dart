@@ -22,25 +22,28 @@ Widget encabezadoIcon(BuildContext context) {
         )
       ],
     ),
-// linterna
+// lintern
     Column(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Container(
           height: 75,
           margin: EdgeInsets.only(right: 10),
           child: conteinerIcon(
               context,
-              Icon(Icons.filter_alt, size: 40.0, color: Colors.white),
-              'linterna',
+              Icon(Icons.add_call, size: 40.0, color: Colors.white),
+              'llamada',
               null),
         ),
         Text(
-          'linterna',
+          'telefono',
           style: TextStyle(color: Colors.white60),
         )
       ],
     ),
+
     Column(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Container(
           height: 75,
@@ -60,6 +63,7 @@ Widget encabezadoIcon(BuildContext context) {
       ],
     ),
     Column(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Container(
           height: 75,
@@ -74,23 +78,63 @@ Widget encabezadoIcon(BuildContext context) {
       ],
     ),
     Column(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Container(
           height: 75,
           margin: EdgeInsets.only(right: 10),
           child: conteinerIcon(
               context,
-              Icon(Icons.access_alarms, size: 40.0, color: Colors.white),
-              'alarma',
+              Icon(Icons.signal_cellular_alt_rounded,
+                  size: 40.0, color: Colors.white),
+              'señal',
               null),
         ),
         Text(
-          'alarma',
+          'señal',
           style: TextStyle(color: Colors.white60),
         )
       ],
     ),
     Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Container(
+          height: 75,
+          margin: EdgeInsets.only(right: 10),
+          child: conteinerIcon(
+              context,
+              Icon(Icons.gps_fixed, size: 40.0, color: Colors.white),
+              'gps',
+              null),
+        ),
+        Text(
+          'gps',
+          style: TextStyle(color: Colors.white60),
+        )
+      ],
+    ),
+
+    Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Container(
+          height: 75,
+          margin: EdgeInsets.only(right: 10),
+          child: conteinerIcon(
+              context,
+              Icon(Icons.filter_alt, size: 40.0, color: Colors.white),
+              'linterna',
+              null),
+        ),
+        Text(
+          'linterna',
+          style: TextStyle(color: Colors.white60),
+        )
+      ],
+    ),
+    Column(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Container(
           height: 75,
@@ -105,18 +149,19 @@ Widget encabezadoIcon(BuildContext context) {
       ],
     ),
     Column(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Container(
           height: 75,
           margin: EdgeInsets.only(right: 10),
           child: conteinerIcon(
               context,
-              Icon(Icons.add_call, size: 40.0, color: Colors.white),
-              'llamada',
+              Icon(Icons.access_alarms, size: 40.0, color: Colors.white),
+              'alarma',
               null),
         ),
         Text(
-          'telefono',
+          'alarma',
           style: TextStyle(color: Colors.white60),
         )
       ],

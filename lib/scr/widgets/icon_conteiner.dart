@@ -4,8 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'package:piproy/scr/funciones/abrir_whatsapp.dart';
 import 'package:piproy/scr/pages/linterna_page.dart';
-import 'package:piproy/scr/pages/pila_page.dart';
-import 'package:piproy/scr/pages/wifi_page.dart';
+
 import 'package:piproy/scr/providers/estado_celular.dart';
 import 'package:provider/provider.dart';
 
@@ -53,16 +52,16 @@ funcionIcon(BuildContext context, String tarea, Contact contacto) {
       llamar(phone);
       break;
     case 'bateria':
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => PilaPage()),
-      );
+      // Navigator.push(
+      //   context,
+      //   MaterialPageRoute(builder: (context) => PilaPage()),
+      // );
       break;
     case 'wifi':
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => WifiPage()),
-      );
+      // Navigator.push(
+      //   context,
+      //   MaterialPageRoute(builder: (context) => WifiPage()),
+      // );
       break;
     case 'linterna':
       Navigator.push(
@@ -80,10 +79,6 @@ funcionIcon(BuildContext context, String tarea, Contact contacto) {
       Navigator.pushNamed(context, 'mostrarContacto', arguments: contacto);
       break;
   }
-}
-
-llamar(String phone) async {
-  // bool res = await FlutterPhoneDirectCaller.callNumber(phone);
 }
 
 class Wifi extends StatefulWidget {
@@ -114,7 +109,6 @@ class _WifiState extends State<Wifi> {
 }
 
 class Pila extends StatefulWidget {
-  Icon icon;
   Pila(Icon icon);
   @override
   _PilaState createState() => _PilaState();
@@ -124,6 +118,7 @@ class _PilaState extends State<Pila> {
   Color color;
   int nivelBateria;
   bool cargando;
+  Icon icon;
 
   @override
   void initState() {
