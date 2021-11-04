@@ -26,6 +26,8 @@ import android.content.pm.PackageManager
 import android.net.ConnectivityManager
 import android.net.ConnectivityManager.NetworkCallback
 import 	android.net.NetworkCapabilities
+import 	android.location.LocationManager
+import android.hardware.camera2.CameraManager
 
 class MainActivity: FlutterActivity() {
     
@@ -62,6 +64,21 @@ class MainActivity: FlutterActivity() {
                     result.success(resultado)
     
                 }
+                if (call.method == "linterna") {
+                  val prender: Boolean= (call.argument("prender") as? Boolean) ?: false
+                  val resultado = prendeLinterna(prender)
+                  result.success(resultado)
+                }
+                if (call.method == "gps") {
+                  val resultado = getGps()
+                  result.success(resultado)
+  
+              }
+              if (call.method == "datos") {
+                val resultado = getDatos()
+                result.success(resultado)
+
+            }
                   if (call.method == "cargando") {
                     val resultado = getCargaBateria()
                     result.success(resultado)
@@ -152,7 +169,29 @@ class MainActivity: FlutterActivity() {
                 return false
               }
           }        
+          private fun getGps(): Boolean{
+            var locationManager =
+            context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+            if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+              return true
+            }
+              return false
+            
+        } 
+        private fun getDatos(): Boolean{
+              
+ 
+          return true
+        
+    } 
+    private fun prendeLinterna(prender: Boolean): Boolean{
+   var camManager:CameraManager =   getSystemService(Context.CAMERA_SERVICE) as CameraManager;
+  var  cameraId:String = camManager.getCameraIdList()[0]; // usualmente la camara delantera esta en la posicion 0
+      camManager.setTorchMode(cameraId, prender);
+ 
+      return true
     
+} 
               private fun sendSms( phone: String, text: String): Boolean {
                 
         

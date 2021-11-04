@@ -32,7 +32,6 @@ dependencies:
   # envio de correos o acceso paginas web
   url_launcher: ^6.0.9
   mailer: ^5.0.0
-  # envio sms
   # sendsms: ^1.0.3 
 
   # nivel bateria
@@ -52,9 +51,9 @@ dependencies:
   whatsapp_unilink: ^2.0.0
   audioplayers: ^0.20.1
   device_apps: ^2.1.1
- 
+  
   android_intent:
-  animated_splash_screen: ^1.1.0
+
   
   
 

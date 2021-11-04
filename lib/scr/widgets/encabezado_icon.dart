@@ -9,7 +9,6 @@ Widget encabezadoIcon(BuildContext context) {
       children: [
         Container(
           height: 75,
-          margin: EdgeInsets.only(left: 10, right: 10),
           child: conteinerIcon(
               context,
               Icon(Icons.engineering, size: 40.0, color: Colors.white),
@@ -23,12 +22,14 @@ Widget encabezadoIcon(BuildContext context) {
       ],
     ),
 // lintern
+    SizedBox(
+      width: 10,
+    ),
     Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Container(
           height: 75,
-          margin: EdgeInsets.only(right: 10),
           child: conteinerIcon(
               context,
               Icon(Icons.call, size: 40.0, color: Colors.white),
@@ -41,13 +42,14 @@ Widget encabezadoIcon(BuildContext context) {
         )
       ],
     ),
-
+    SizedBox(
+      width: 10,
+    ),
     Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Container(
           height: 75,
-          margin: EdgeInsets.only(right: 10),
           child: conteinerIcon(
               context,
               Icon(Icons.battery_std, size: 40.0, color: Colors.white),
@@ -62,12 +64,16 @@ Widget encabezadoIcon(BuildContext context) {
         )
       ],
     ),
+    SizedBox(
+      width: 10,
+    ),
+
     Column(
       mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Container(
           height: 75,
-          margin: EdgeInsets.only(right: 10),
           child: conteinerIcon(context,
               Icon(Icons.wifi, size: 40.0, color: Colors.white), 'wifi', null),
         ),
@@ -77,12 +83,14 @@ Widget encabezadoIcon(BuildContext context) {
         )
       ],
     ),
+    SizedBox(
+      width: 10,
+    ),
     Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Container(
           height: 75,
-          margin: EdgeInsets.only(right: 10),
           child: conteinerIcon(
               context,
               Icon(Icons.signal_cellular_alt_rounded,
@@ -91,20 +99,22 @@ Widget encabezadoIcon(BuildContext context) {
               null),
         ),
         Text(
-          'señal',
+          'linea',
           style: TextStyle(color: Colors.white60),
         )
       ],
+    ),
+    SizedBox(
+      width: 10,
     ),
     Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Container(
           height: 75,
-          margin: EdgeInsets.only(right: 10),
           child: conteinerIcon(
               context,
-              Icon(Icons.gps_fixed, size: 40.0, color: Colors.white),
+              Icon(Icons.gps_fixed_rounded, size: 40.0, color: Colors.white),
               'gps',
               null),
         ),
@@ -114,13 +124,14 @@ Widget encabezadoIcon(BuildContext context) {
         )
       ],
     ),
-
+    SizedBox(
+      width: 10,
+    ),
     Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Container(
           height: 75,
-          margin: EdgeInsets.only(right: 10),
           child: conteinerIcon(
               context,
               Icon(Icons.filter_alt, size: 40.0, color: Colors.white),
@@ -133,12 +144,14 @@ Widget encabezadoIcon(BuildContext context) {
         )
       ],
     ),
+    SizedBox(
+      width: 10,
+    ),
     Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Container(
           height: 75,
-          margin: EdgeInsets.only(right: 10),
           child: conteinerIcon(
               context,
               Icon(Icons.chat, size: 40.0, color: Colors.white),
@@ -151,12 +164,14 @@ Widget encabezadoIcon(BuildContext context) {
         )
       ],
     ),
+    SizedBox(
+      width: 10,
+    ),
     Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Container(
           height: 75,
-          margin: EdgeInsets.only(right: 10),
           child: conteinerIcon(
               context,
               Icon(Icons.access_alarms, size: 40.0, color: Colors.white),
@@ -172,7 +187,7 @@ Widget encabezadoIcon(BuildContext context) {
   ];
   return Container(
     height: 100,
-
+    margin: EdgeInsets.only(top: 2),
     width: double.infinity,
     //margin: //EdgeInsets.only(top: 55.0),
     child: ListView.builder(

@@ -144,7 +144,7 @@ Widget _botonesContactos(BuildContext context, Contact contacto) {
           ),
           child: conteinerIcon(
               context,
-              Icon(Icons.message, size: 50.0, color: Colors.white),
+              Icon(Icons.message_rounded, size: 50.0, color: Colors.white),
               'mensajeC',
               contacto),
         ),

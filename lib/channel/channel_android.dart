@@ -58,6 +58,40 @@ class AndroidChannel {
     }
   }
 
+  Future<bool> conectadoGps() async {
+    try {
+      final result = await _methodChannel.invokeMethod("gps");
+
+      return result;
+    } catch (e) {
+      print('ERROR: $e');
+      return false;
+    }
+  }
+
+  Future<bool> conectadoDatos() async {
+    try {
+      final result = await _methodChannel.invokeMethod("datos");
+
+      return result;
+    } catch (e) {
+      print('ERROR: $e');
+      return false;
+    }
+  }
+
+  Future<bool> onoffLinterna(bool prender) async {
+    try {
+      var parametros = {'prender': prender};
+      final result = await _methodChannel.invokeMethod("linterna", parametros);
+
+      return result;
+    } catch (e) {
+      print('ERROR: $e');
+      return false;
+    }
+  }
+
   Future<void> mandarSms(String phone, String mensaje) async {
     try {
       var parametros = {'phone': phone, 'mensaje': mensaje};
