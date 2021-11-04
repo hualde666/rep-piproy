@@ -48,7 +48,7 @@ Widget conteinerIcon(
     case 'linterna':
       prendida = celProvider.linterna;
       nuevoIcon =
-          prendida ? Icons.filter_alt_outlined : Icons.filter_alt_rounded;
+          prendida ? Icons.filter_alt_rounded : Icons.filter_alt_outlined;
 
       widget = dispLinterna(prendida, nuevoIcon);
       break;
@@ -105,11 +105,13 @@ funcionIcon(
       if (prendida) {
         Provider.of<EstadoProvider>(context, listen: false).swichLinterna =
             false;
+        _androidChannel.onoffLinterna(false);
       } else {
         Provider.of<EstadoProvider>(context, listen: false).swichLinterna =
             true;
+        _androidChannel.onoffLinterna(true);
       }
-      _androidChannel.onoffLinterna(prendida);
+
       break;
     case 'whatsapp':
       abrirWhatsapp(phone, '');
@@ -139,7 +141,7 @@ Widget dispositivo(bool activo, IconData icon) {
 }
 
 Widget dispLinterna(bool activo, IconData icon) {
-  final Color color = activo ? Color.fromRGBO(55, 57, 84, 1.0) : Colors.yellow;
+  final Color color = activo ? Colors.yellow : Color.fromRGBO(55, 57, 84, 1.0);
 
   return Center(
       child: Container(
