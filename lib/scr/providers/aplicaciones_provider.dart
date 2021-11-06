@@ -21,10 +21,6 @@ class AplicacionesProvider with ChangeNotifier {
   ];
   AplicacionesProvider._internal() {
     this.categoryApi['Todas'] = [];
-
-    // getListaApp();
-
-    // cargarCategorias();
   }
   agregarApiTipos(String tipo) {
     apitipos.add(tipo);
@@ -105,19 +101,19 @@ class AplicacionesProvider with ChangeNotifier {
     // _listaSeleccion = categoryApi[tipo];
   }
 
-  getListaApp() async {
-    // AndroidChannel _androidChannel = AndroidChannel();
-    //  final lista = await _androidChannel.listaApis();
-    final resp = await DeviceApps.getInstalledApplications(
-        includeAppIcons: true,
-        includeSystemApps: true,
-        onlyAppsWithLaunchIntent: true);
-    if (resp.isNotEmpty) {
-      categoryApi['Todas'].addAll(resp);
-    }
+  // getListaApp() async {
+  //   // AndroidChannel _androidChannel = AndroidChannel();
+  //   //  final lista = await _androidChannel.listaApis();
+  //   final resp = await DeviceApps.getInstalledApplications(
+  //       includeAppIcons: true,
+  //       includeSystemApps: true,
+  //       onlyAppsWithLaunchIntent: true);
+  //   if (resp.isNotEmpty) {
+  //     categoryApi['Todas'].addAll(resp);
+  //   }
 
-    print('Salgo de getListApi+${categoryApi['Todas']}');
-  }
+  //   print('Salgo de getListApi+${categoryApi['Todas']}');
+  // }
 
   eliminarTipos(String tipo) {
     apitipos.removeWhere((element) => element == tipo);
@@ -138,14 +134,14 @@ class AplicacionesProvider with ChangeNotifier {
           includeAppIcons: true,
           includeSystemApps: true,
           onlyAppsWithLaunchIntent: true);
-      if (resp1.isNotEmpty) {
+      if (resp1.isNotEmpty && categoryApi['Todas'].isEmpty) {
         categoryApi['Todas'].addAll(resp1);
       }
+
       final resp = await DbTiposAplicaciones.db.getAllRegistros();
 
       if (resp.isNotEmpty) {
         final resp2 = resp.map((s) => ApiTipos.fromJson(s)).toList();
-
         this._cargando = false;
         return resp2;
       }

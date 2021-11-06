@@ -28,6 +28,11 @@ class EstadoProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  set swichWifi(bool onoff) {
+    this._conexionWifi = onoff;
+    notifyListeners();
+  }
+
   get nivelBateria {
     return this._nivelBateria;
   }

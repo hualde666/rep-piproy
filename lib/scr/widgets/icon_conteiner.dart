@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:piproy/channel/channel_android.dart';
 
 import 'package:piproy/scr/funciones/abrir_whatsapp.dart';
+import 'package:piproy/scr/pages/gps_page.dart';
+import 'package:piproy/scr/pages/wifi_page.dart';
 
 import 'package:piproy/scr/providers/estado_celular.dart';
 import 'package:provider/provider.dart';
@@ -98,6 +100,22 @@ funcionIcon(
     case 'bateria':
       break;
     case 'wifi':
+      // prender y apagar)
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => WifiPage(
+                    context: context,
+                  )));
+      break;
+    case 'gps':
+      // prender y apagar
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => GpsPage(
+                    context: context,
+                  )));
       break;
     case 'linterna':
       AndroidChannel _androidChannel = AndroidChannel();

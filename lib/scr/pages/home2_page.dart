@@ -24,6 +24,7 @@ class Home2Page extends StatefulWidget {
 
 class _Home2PageState extends State<Home2Page> {
   // ScrollController _scrollController = ScrollController();
+  bool cargando = true;
 
   Application api;
   @override
@@ -41,6 +42,16 @@ class _Home2PageState extends State<Home2Page> {
   void scrollToTop() {
     //_scrollController.jumpTo(0.0);
   }
+  Future<List<String>> cargarMenu() async {
+    final apiProvider = Provider.of<AplicacionesProvider>(context);
+    if (cargando) {
+      cargando = false;
+      final List<ApiTipos> lista = await apiProvider.cargarCategorias();
+      apiProvider.ordenarListasMenu(lista);
+    }
+
+    return apiProvider.listaMenu;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +64,7 @@ class _Home2PageState extends State<Home2Page> {
       ),
       backgroundColor: Theme.of(context).primaryColor,
       body: FutureBuilder(
-          future: apiProvider.cargarCategorias(),
+          future: cargarMenu(),
           builder: (BuildContext context, AsyncSnapshot snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return Center(
@@ -61,9 +72,6 @@ class _Home2PageState extends State<Home2Page> {
               );
             } else {
               if (snapshot.hasData) {
-                final List<ApiTipos> lista = snapshot.data;
-                apiProvider.ordenarListasMenu(lista);
-
                 return detalle(context);
               } else {
                 return Container();

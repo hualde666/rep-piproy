@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:piproy/scr/definicion/thema_colores.dart';
 import 'package:piproy/scr/pages/api_grupos.dart';
-import 'package:piproy/scr/pages/api_listado.dart';
 
-import 'package:piproy/scr/pages/api_listado3.dart';
 import 'package:piproy/scr/pages/api_por_grupos.dart';
 import 'package:piproy/scr/pages/ayuda.dart';
 import 'package:piproy/scr/pages/configuracion_page.dart';
@@ -38,9 +36,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     DbTiposAplicaciones.db.database;
-    EstadoProvider estadoProvider = new EstadoProvider();
-    AplicacionesProvider aplicacionesProvider = new AplicacionesProvider();
-    ContactosProvider contactosProvider = new ContactosProvider();
+    // EstadoProvider estadoProvider = new EstadoProvider();
+    // AplicacionesProvider aplicacionesProvider = new AplicacionesProvider();
+    // ContactosProvider contactosProvider = new ContactosProvider();
 
     SystemChrome.setPreferredOrientations(
         [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
@@ -76,8 +74,6 @@ class MyApp extends StatelessWidget {
       'emergiMensaje': (_) => EmergenciaMensaje(),
       'configurar': (_) => ConfiguracionPage(),
       'ayuda': (_) => Ayuda(),
-      'apilista': (_) => ApiListaPage(),
-      'apilista3': (_) => ApiLista3Page(),
       'apigrupos': (_) => ApiGruposPage(),
       'grupo': (_) => ApiPorGrupoPage(),
       'splash': (_) => SplashPage(),

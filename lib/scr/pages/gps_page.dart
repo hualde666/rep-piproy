@@ -4,20 +4,20 @@ import 'package:piproy/scr/providers/estado_celular.dart';
 import 'package:piproy/scr/widgets/header_app.dart';
 import 'package:provider/provider.dart';
 
-class WifiPage extends StatelessWidget {
-  WifiPage({@required context});
+class GpsPage extends StatelessWidget {
+  GpsPage({@required context});
   BuildContext context;
   @override
   Widget build(BuildContext context) {
     final celProvider = Provider.of<EstadoProvider>(context);
-    bool conectadoWifi = celProvider.conexionWifi;
-    IconData icon = conectadoWifi ? Icons.wifi_rounded : Icons.wifi_off_rounded;
-    String titulo = conectadoWifi ? 'Wifi Conectado' : 'Wifi Desconectado';
-    String boton = conectadoWifi ? 'Apagar' : 'Prender';
-    Color color = conectadoWifi ? Colors.green[900] : Colors.red[900];
+    bool conectadoGps = celProvider.conexionGps;
+    IconData icon = conectadoGps ? Icons.gps_fixed : Icons.gps_off;
+    String titulo = conectadoGps ? 'Gps Conectado' : 'Gps Desconectado';
+    String boton = conectadoGps ? 'Apagar' : 'Prender';
+    Color color = conectadoGps ? Colors.green[900] : Colors.red[900];
     return SafeArea(
       child: Scaffold(
-        appBar: headerApp(context, 'Wifi', Text(''), 0.0),
+        appBar: headerApp(context, 'Gps', Text(''), 0.0),
         backgroundColor: Color.fromRGBO(55, 57, 84, 1.0),
         body: Center(
           child: Container(
@@ -63,7 +63,7 @@ class WifiPage extends StatelessWidget {
                     child: TextButton(
                       onPressed: () {
                         // AndroidChannel _androidChannel = AndroidChannel();
-                        // if (conectadoWifi) {
+                        // if (conectadoGps) {
                         //   _androidChannel.swichWifi(false);
                         // } else {
                         //   _androidChannel.swichWifi(true);
