@@ -149,7 +149,7 @@ class AplicacionesProvider with ChangeNotifier {
     return [];
   }
 
-  ordenarListasMenu(List resp2) {
+  ordenarListasMenu(List<ApiTipos> resp2) {
     for (var i = 0; i < resp2.length; i++) {
       if (resp2[i].tipo == 'MPC') {
         // es una opcion de Categori del  menu

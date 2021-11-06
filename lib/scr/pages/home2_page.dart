@@ -44,9 +44,8 @@ class _Home2PageState extends State<Home2Page> {
   }
   Future<List<String>> cargarMenu() async {
     final apiProvider = Provider.of<AplicacionesProvider>(context);
-    if (cargando) {
-      cargando = false;
-      final List<ApiTipos> lista = await apiProvider.cargarCategorias();
+    final List<ApiTipos> lista = await apiProvider.cargarCategorias();
+    if (apiProvider.listaMenu.isEmpty) {
       apiProvider.ordenarListasMenu(lista);
     }
 
@@ -55,7 +54,6 @@ class _Home2PageState extends State<Home2Page> {
 
   @override
   Widget build(BuildContext context) {
-    final apiProvider = Provider.of<AplicacionesProvider>(context);
     return SafeArea(
         child: Scaffold(
       appBar: PreferredSize(
@@ -72,7 +70,7 @@ class _Home2PageState extends State<Home2Page> {
               );
             } else {
               if (snapshot.hasData) {
-                return detalle(context);
+                return detalle(context, snapshot.data);
               } else {
                 return Container();
               }
@@ -91,9 +89,7 @@ class _Home2PageState extends State<Home2Page> {
     ));
   }
 
-  detalle(BuildContext context) {
-    final apiProvider = Provider.of<AplicacionesProvider>(context);
-    List<String> listaMenu = apiProvider.listaMenu;
+  detalle(BuildContext context, List<String> listaMenu) {
     List<Widget> listaOpciones = [
       SizedBox(height: 5.0),
       elementos(context, PilaTimpoClima(), 200, '', ''),
