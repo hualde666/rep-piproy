@@ -2,9 +2,9 @@ import 'package:url_launcher/url_launcher.dart';
 
 abrirWhatsapp(String phone, String mensaje) async {
   // FlutterOpenWhatsapp.sendSingleMessage(phone, mensaje);
-  var whatsappURl_android = "whatsapp://send?phone=" + phone + "";
-  if (await canLaunch(whatsappURl_android)) {
-    await launch(whatsappURl_android);
+  var whatsappURl = "whatsapp://send?phone=" + phone + "";
+  if (await canLaunch(whatsappURl)) {
+    await launch(whatsappURl);
   } else {
     throw 'Could not launch ';
   }
@@ -27,5 +27,15 @@ mensaje(String phone) async {
     await launch(url);
   } else {
     throw 'Could not launch $url';
+  }
+}
+
+abrirGoogle() async {
+  // FlutterOpenWhatsapp.sendSingleMessage(phone, mensaje);
+
+  if (await canLaunch('https://www.google.com/search?')) {
+    await launch('https://www.google.com/search?');
+  } else {
+    throw 'Could not launch ';
   }
 }

@@ -12,6 +12,7 @@ import 'package:piproy/scr/widgets/boton_rojo.dart';
 import 'package:piproy/scr/widgets/elemntos.dart';
 
 import 'package:piproy/scr/widgets/encabezado_icon.dart';
+import 'package:piproy/scr/widgets/google_busqueda.dart';
 import 'package:piproy/scr/widgets/pila_tiempo_clima.dart';
 import 'package:provider/provider.dart';
 
@@ -91,8 +92,11 @@ class _Home2PageState extends State<Home2Page> {
 
   detalle(BuildContext context, List<String> listaMenu) {
     List<Widget> listaOpciones = [
-      SizedBox(height: 5.0),
+      SizedBox(height: 10.0),
       elementos(context, PilaTimpoClima(), 200, '', ''),
+      SizedBox(height: 10),
+      googleBusqueda(context),
+      SizedBox(height: 10),
       elementos(
           context,
           Text('Contactos',
@@ -100,6 +104,7 @@ class _Home2PageState extends State<Home2Page> {
           100,
           'contactos',
           ''),
+      SizedBox(height: 10),
       elementos(
           context,
           Text('Aplicaciones',
@@ -107,6 +112,7 @@ class _Home2PageState extends State<Home2Page> {
           100,
           'apigrupos',
           ''),
+      SizedBox(height: 10),
     ];
     if (listaMenu.isNotEmpty) {
       for (var i = 0; i < listaMenu.length; i++) {
@@ -125,6 +131,7 @@ class _Home2PageState extends State<Home2Page> {
               .firstWhere((eApi) => eApi.appName == listaMenu[i].substring(3));
           listaOpciones.add(elementoApi2(context, api));
         }
+        listaOpciones.add(SizedBox(height: 10));
       }
     }
     listaOpciones.add(SizedBox(

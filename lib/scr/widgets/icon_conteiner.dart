@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:piproy/channel/channel_android.dart';
 
-import 'package:piproy/scr/funciones/abrir_whatsapp.dart';
+import 'package:piproy/scr/funciones/url_funciones.dart';
 import 'package:piproy/scr/pages/gps_page.dart';
 import 'package:piproy/scr/pages/wifi_page.dart';
 

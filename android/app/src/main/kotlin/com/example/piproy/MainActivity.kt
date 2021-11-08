@@ -28,7 +28,9 @@ import android.net.ConnectivityManager.NetworkCallback
 import 	android.net.NetworkCapabilities
 import 	android.location.LocationManager
 import android.hardware.camera2.CameraManager
-
+import 	android.net.wifi.WifiNetworkSuggestion
+import android.net.wifi.WifiManager
+import android.net.Uri
 class MainActivity: FlutterActivity() {
     
       private val CHANNEL = "app.piproy.channel/hualdemirene@gmail.com"
@@ -44,7 +46,7 @@ class MainActivity: FlutterActivity() {
                   if (call.method == "mandarsms") {
                     val phone: String = (call.argument("phone") as? String) ?: ""
                     val mensaje: String = (call.argument("mensaje") as? String) ?:""
-                   val relsultado = sendSms(phone,mensaje)
+                    sendSms(phone,mensaje)
                                 
                     //result.success(resultado)
                  
@@ -64,6 +66,17 @@ class MainActivity: FlutterActivity() {
                     result.success(resultado)
     
                 }
+                if (call.method == "onoffwifi") {
+                 // val prender: Boolean= (call.argument("prender") as? Boolean) ?: false
+                  val resultado = true
+                  result.success(resultado)
+  
+              }
+              if (call.method == "onoffgps") {
+                val prender: Boolean= (call.argument("prender") as? Boolean) ?: false
+                onoffGps(prender)
+
+            }
                 if (call.method == "linterna") {
                   val prender: Boolean= (call.argument("prender") as? Boolean) ?: false
                   val resultado = prendeLinterna(prender)
@@ -149,7 +162,8 @@ class MainActivity: FlutterActivity() {
             }
       
             private fun getWifi(): Boolean{
-              
+            
+
               val connectivityManager = this.getSystemService(android.content.Context.CONNECTIVITY_SERVICE)
                   as ConnectivityManager
 
@@ -162,22 +176,65 @@ class MainActivity: FlutterActivity() {
                   // activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) ||
                   //  activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) ||
             activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> true
+            
                     else -> false
                    }
                  }
              else {
                 return false
               }
-          }        
+          }    
+          private fun onoffWifi(): Boolean{
+         
+     
+
+          //  manager.startLocalOnlyHotspot() 
+        
+            //     @Override
+            //     public void onStopped() {
+            //         super.onStopped();
+            //         Log.d(TAG, "onStopped: ");
+            //     }
+        
+            //     @Override
+            //     public void onFailed(int reason) {
+            //         super.onFailed(reason);
+            //         Log.d(TAG, "onFailed: ");
+            //     }
+            // }, new Handler());
+         
+            return true
+          }    
           private fun getGps(): Boolean{
             var locationManager =
             context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
             if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+              
               return true
             }
               return false
             
         } 
+        private fun onoffGps(onoff: Boolean) {
+  
+
+          if(onoff){ //prender
+          val poke = Intent()
+          poke.setClassName("com.android.settings", "com.android.settings.widget.SettingsAppWidgetProvider"); 
+          poke.addCategory(Intent.CATEGORY_ALTERNATIVE);
+        
+          poke.setData(Uri.parse("3")); 
+          sendBroadcast(poke);
+      
+        }else{
+          val  poke =  Intent();
+          poke.setClassName("com.android.settings", "com.android.settings.widget.SettingsAppWidgetProvider");
+          poke.addCategory(Intent.CATEGORY_ALTERNATIVE);
+          poke.setData(Uri.parse("3")); 
+          sendBroadcast(poke);
+        }
+        
+      } 
         private fun getDatos(): Boolean{
               
  
@@ -192,7 +249,7 @@ class MainActivity: FlutterActivity() {
       return true
     
 } 
-              private fun sendSms( phone: String, text: String): Boolean {
+              private fun sendSms( phone: String, text: String) {
                 
         
                 val permissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS)
@@ -200,12 +257,12 @@ class MainActivity: FlutterActivity() {
                  
               myMessage(phone,text)
                   
-                  return true
+                 
 
                } else {
                   ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.SEND_SMS),
                   101)
-                  return false
+                  
                }
         
          
