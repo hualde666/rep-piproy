@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:piproy/scr/ayuda_widget/fab_ayuda.dart';
 import 'package:piproy/scr/models/api_tipos.dart';
 import 'package:piproy/scr/providers/aplicaciones_provider.dart';
+import 'package:piproy/scr/providers/contactos_provider.dart';
 import 'package:piproy/scr/providers/db_provider.dart';
 
 import 'package:piproy/scr/widgets/boton_exit.dart';
@@ -117,7 +118,7 @@ class _Home2PageState extends State<Home2Page> {
     if (listaMenu.isNotEmpty) {
       for (var i = 0; i < listaMenu.length; i++) {
         final String titulo = listaMenu[i].substring(3);
-        if (listaMenu[i].contains('MPC')) {
+        if (listaMenu[i].contains('MPC') || listaMenu[i].contains('MPG')) {
           listaOpciones.add(elementos(
               context,
               Text(titulo,
@@ -261,7 +262,7 @@ Future<dynamic> eliminarApi(BuildContext context, String tipo) {
             onPressed: () {
               /// elina api de pantalla
               Provider.of<AplicacionesProvider>(context, listen: false)
-                  .eliminarTipoMPC(tipo);
+                  .eliminarTipoMP(tipo);
 
               DbTiposAplicaciones.db
                   .deleteApi(tipo.substring(0, 3), tipo.substring(3));

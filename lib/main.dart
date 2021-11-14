@@ -6,6 +6,8 @@ import 'package:piproy/scr/pages/api_grupos.dart';
 import 'package:piproy/scr/pages/api_por_grupos.dart';
 import 'package:piproy/scr/pages/ayuda.dart';
 import 'package:piproy/scr/pages/configuracion_page.dart';
+import 'package:piproy/scr/pages/conta_grupos.dart';
+import 'package:piproy/scr/pages/contacts_por_grupo.dart';
 import 'package:piproy/scr/pages/editar_contacto.dart';
 import 'package:piproy/scr/pages/home_agrega_boton.dart';
 import 'package:piproy/scr/pages/mostrar_contacto.dart';
@@ -15,7 +17,6 @@ import 'package:piproy/scr/pages/mensaje_emergencia.dart';
 
 import 'package:piproy/scr/pages/botonrojo_page.dart';
 
-import 'package:piproy/scr/pages/contactos_page.dart';
 import 'package:piproy/scr/pages/emergi_contactos_page.dart';
 import 'package:piproy/scr/pages/seleccion_contactos_page.dart';
 import 'package:piproy/scr/pages/splash.dart';
@@ -38,8 +39,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     DbTiposAplicaciones.db.database;
     EstadoProvider estadoProvider = new EstadoProvider();
-    AplicacionesProvider aplicacionesProvider = new AplicacionesProvider();
     ContactosProvider contactosProvider = new ContactosProvider();
+    AplicacionesProvider aplicacionesProvider = new AplicacionesProvider();
 
     SystemChrome.setPreferredOrientations(
         [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
@@ -67,7 +68,7 @@ class MyApp extends StatelessWidget {
       'home': (_) => Home2Page(),
       'botonRojo': (_) => BotonRojoPage(),
       'resumenRojo': (_) => ResumenEnvioPage(),
-      'contactos': (_) => ContactosPage(),
+      'contactos': (_) => ContactsGruposPage(),
       'mostrarContacto': (_) => MostrarContacto(),
       'editarContacto': (_) => EditarContacto(),
       'emergiContactos': (_) => EmergenciaContactos(),
@@ -78,7 +79,8 @@ class MyApp extends StatelessWidget {
       'apigrupos': (_) => ApiGruposPage(),
       'grupo': (_) => ApiPorGrupoPage(),
       'splash': (_) => SplashPage(),
-      'agregaboton': (_) => AgregaBotonPage()
+      'agregaboton': (_) => AgregaBotonPage(),
+      'grupocontacto': (_) => ContactsPorGrupoPage()
     };
   }
 }

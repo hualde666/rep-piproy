@@ -9,9 +9,10 @@ class ContactosProvider {
     return _contactosProvider;
   }
   ContactosProvider._internal() {
-    _listaContactos = getcontactos();
+    _listaContactos = [];
+    getcontactos();
   }
-  Future<List<Contact>> _listaContactos;
+  List<Contact> _listaContactos;
   get listaContactos {
     return _listaContactos;
   }
@@ -22,17 +23,15 @@ class ContactosProvider {
     return _listaContactos;
   }
 
-  Future<List<Contact>> getcontactos() async {
+  getcontactos() async {
     // List<Contact> _lista = [];
     final resp = await Permission.contacts.request();
     print('resp: $resp');
     if (resp == PermissionStatus.granted) {
       List<Contact> _contactos = (await ContactsService.getContacts()).toList();
-
-      final _lista =
-          _contactos.where((contac) => contac.phones.isEmpty == false).toList();
-      return _lista;
+      _listaContactos.addAll(_contactos
+          .where((contac) => contac.phones.isEmpty == false)
+          .toList());
     }
-    return [];
   }
 }

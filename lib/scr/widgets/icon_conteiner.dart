@@ -66,7 +66,13 @@ Widget conteinerIcon(
                   : Theme.of(context).primaryColor,
               borderRadius: BorderRadius.circular(80),
               border: Border.all(color: Colors.white, width: 2.0)),
-          child: icon,
+          child:
+              //  (tarea == 'whatsapp')
+              //     ? Image(
+              //         image: AssetImage('assets/whatsapp.png'),
+              //       ) // fit: BoxFit.cover))
+              //     :
+              icon,
         ));
         break;
       }

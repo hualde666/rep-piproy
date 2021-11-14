@@ -1,3 +1,4 @@
+import 'package:contacts_service/contacts_service.dart';
 import 'package:device_apps/device_apps.dart';
 
 import 'package:flutter/material.dart';
@@ -16,38 +17,64 @@ class AplicacionesProvider with ChangeNotifier {
   String _tipoSeleccion = 'Todas';
   List<Application> _listaApp;
   List<Application> _listaSeleccion;
-  List<String> _apitipos = [
+  List<String> _apigrupos = [
     'Todas',
+  ];
+  Map<String, List<Application>> categoryApi = {};
+  List<String> listaMenu = [];
+  Map<String, List<String>> categoryContact = {};
+
+  List<String> _contactgrupos = [
+    'Todos',
   ];
   AplicacionesProvider._internal() {
     this.categoryApi['Todas'] = [];
+    this.categoryContact['Todos'] = [];
   }
-  agregarApiTipos(String tipo) {
-    apitipos.add(tipo);
-    categoryApi[tipo] = [];
+  agregarApiGrupo(String grupo) {
+    _apigrupos.add(grupo);
+    categoryApi[grupo] = [];
 
     // _tipoSeleccion = tipo;
-    apitipos.sort((a, b) {
+    _apigrupos.sort((a, b) {
       return a.toLowerCase().compareTo(b.toLowerCase());
     });
 
     notifyListeners();
   }
 
-  Map<String, List<Application>> categoryApi = {};
-  List<String> listaMenu = [];
+  agregarContactGrupo(String grupo) {
+    _contactgrupos.add(grupo);
+    categoryContact[grupo] = [];
+
+    // _tipoSeleccion = tipo;
+    _contactgrupos.sort((a, b) {
+      return a.toLowerCase().compareTo(b.toLowerCase());
+    });
+
+    notifyListeners();
+  }
 
   bool get cargando => this._cargando;
   get tipoSeleccion => this._tipoSeleccion;
-  List<String> get apitipos {
-    final lista = _apitipos;
+
+  List<String> get apigrupos {
+    final lista = _apigrupos;
+    //*** devuelvo todos menos MPC */
+    lista.remove('MPC');
+    return lista;
+  }
+
+  List<String> get contactgrupos {
+    final lista = _contactgrupos;
+    //*** devuelvo todos menos MPC */
     lista.remove('MPC');
     return lista;
   }
 
   List<String> get apitiposMenu {
     final List<String> lista = [];
-    lista.addAll(_apitipos.where((element) => element == 'MPC'));
+    lista.addAll(_apigrupos.where((element) => element == 'MPC'));
     lista.sort((a, b) {
       return a.toLowerCase().compareTo(b.toLowerCase());
     });
@@ -101,6 +128,23 @@ class AplicacionesProvider with ChangeNotifier {
     // _listaSeleccion = categoryApi[tipo];
   }
 
+  obtenerListaContactos() async {
+    String tipo = this._tipoSeleccion;
+
+    return this.categoryContact[tipo];
+    // _listaSeleccion = categoryApi[tipo];
+  }
+
+  agregarContacto(String grupo, Contact contacto) {
+    categoryContact[grupo].add(contacto.displayName);
+    notifyListeners();
+  }
+
+  eliminarContacto(String grupo, Contact contacto) {
+    categoryContact[grupo].remove(contacto.displayName);
+    notifyListeners();
+  }
+
   // getListaApp() async {
   //   // AndroidChannel _androidChannel = AndroidChannel();
   //   //  final lista = await _androidChannel.listaApis();
@@ -116,12 +160,18 @@ class AplicacionesProvider with ChangeNotifier {
   // }
 
   eliminarTipos(String tipo) {
-    apitipos.removeWhere((element) => element == tipo);
+    _apigrupos.removeWhere((element) => element == tipo);
     categoryApi.remove(tipo = tipo);
     notifyListeners();
   }
 
-  eliminarTipoMPC(String tipo) {
+  eliminarContactTipos(String grupo) {
+    _contactgrupos.removeWhere((element) => element == grupo);
+    categoryContact.remove(grupo = grupo);
+    notifyListeners();
+  }
+
+  eliminarTipoMP(String tipo) {
     listaMenu.remove(tipo);
     notifyListeners();
   }
@@ -130,6 +180,7 @@ class AplicacionesProvider with ChangeNotifier {
     // obtengo lista de api por categorias
 
     if (this._cargando) {
+      //******* obtengo Todas las app del celular */
       final resp1 = await DeviceApps.getInstalledApplications(
           includeAppIcons: true,
           includeSystemApps: true,
@@ -138,6 +189,7 @@ class AplicacionesProvider with ChangeNotifier {
         categoryApi['Todas'].addAll(resp1);
       }
 
+      //*******   obtener organizacion de apps y contactos */
       final resp = await DbTiposAplicaciones.db.getAllRegistros();
 
       if (resp.isNotEmpty) {
@@ -151,33 +203,95 @@ class AplicacionesProvider with ChangeNotifier {
 
   ordenarListasMenu(List<ApiTipos> resp2) {
     for (var i = 0; i < resp2.length; i++) {
-      if (resp2[i].tipo == 'MPC') {
-        // es una opcion de Categori del  menu
-        listaMenu.add('MPC' + resp2[i].nombreApi);
-      } else {
-        if (resp2[i].tipo == 'MPA') {
-          // es una opcion API del menu
-          listaMenu.add('MPA' + resp2[i].nombreApi);
-        } else {
-          // es una categoria
-          if (!_apitipos.contains(resp2[i].tipo)) {
-            _apitipos.add(resp2[i].tipo);
-            categoryApi[resp2[i].tipo] = [];
+      switch (resp2[i].grupo) {
+        case 'MPC':
+          {
+            // grupo app
+            listaMenu.add('MPC' + resp2[i].nombre);
+            break;
           }
-          ////// encontrar Api con nombreApi
-          ///
+        case 'MPA':
+          {
+            // app
+            listaMenu.add('MPA' + resp2[i].nombre);
+            break;
+          }
+        case 'MPG':
+          {
+            //grupo contacto
+            listaMenu.add('MPG' + resp2[i].nombre);
+            break;
+          }
+        case 'MPF':
+          {
+            // contacto
+            listaMenu.add('MPF' + resp2[i].nombre);
+            break;
+          }
+        default:
+          {
+            // grupo de api
+            if (resp2[i].tipo == "1") {
+              if (!_apigrupos.contains(resp2[i].grupo)) {
+                _apigrupos.add(resp2[i].grupo);
+                categoryApi[resp2[i].grupo] = [];
+              }
 
-          final String nombreApi = resp2[i].nombreApi;
-          if (nombreApi != "") {
-            final Application api = this
-                .categoryApi['Todas']
-                .firstWhere((element) => element.appName == nombreApi);
-            if (api != null) {
-              categoryApi[resp2[i].tipo].add(api);
+              final String nombreApi = resp2[i].nombre;
+              if (nombreApi != "") {
+                final Application api = this
+                    .categoryApi['Todas']
+                    .firstWhere((element) => element.appName == nombreApi);
+                if (api != null) {
+                  categoryApi[resp2[i].grupo].add(api);
+                }
+              }
             }
+
+            /// grupo de contactos
+            if (resp2[i].tipo == "2") {
+              if (!_contactgrupos.contains(resp2[i].grupo)) {
+                _contactgrupos.add(resp2[i].grupo);
+                categoryContact[resp2[i].grupo] = [];
+              }
+
+              final String nombre = resp2[i].nombre;
+              if (nombre != "") {
+                categoryContact[resp2[i].grupo].add(nombre);
+              }
+            }
+
+            break;
           }
-        }
       }
+
+      // if (resp2[i].grupo == 'MPC') {
+      //   // es una opcion de Categori del  menu
+      //   listaMenu.add('MPC' + resp2[i].nombre);
+      // } else {
+      //   if (resp2[i].grupo == 'MPA') {
+      //     // es una opcion API del menu
+      //     listaMenu.add('MPA' + resp2[i].nombre);
+      //   } else {
+      //     // es una categoria
+      //     if (!_apitipos.contains(resp2[i].grupo)) {
+      //       _apitipos.add(resp2[i].grupo);
+      //       categoryApi[resp2[i].grupo] = [];
+      //     }
+      //     ////// encontrar Api con nombreApi
+      //     ///
+
+      //     final String nombreApi = resp2[i].nombre;
+      //     if (nombreApi != "") {
+      //       final Application api = this
+      //           .categoryApi['Todas']
+      //           .firstWhere((element) => element.appName == nombreApi);
+      //       if (api != null) {
+      //         categoryApi[resp2[i].grupo].add(api);
+      //       }
+      //     }
+      //   }
+      //  }
     }
     //ordenar el menu alfabeticament
     //
@@ -187,15 +301,17 @@ class AplicacionesProvider with ChangeNotifier {
     });
     // ordenor tipos de categoria alfabeticamente
     //
-    apitipos.sort((a, b) {
+    _apigrupos.sort((a, b) {
       return a.toLowerCase().compareTo(b.toLowerCase());
     });
-
+    _contactgrupos.sort((a, b) {
+      return a.toLowerCase().compareTo(b.toLowerCase());
+    });
     // ordenar  alfabeticamente Todas las api por categoria
     //
-    for (var i = 0; i < apitipos.length; i++) {
-      if (categoryApi[apitipos[i]].isNotEmpty) {
-        categoryApi[apitipos[i]].sort((a, b) {
+    for (var i = 0; i < _apigrupos.length; i++) {
+      if (categoryApi[_apigrupos[i]].isNotEmpty) {
+        categoryApi[_apigrupos[i]].sort((a, b) {
           return a.appName.toLowerCase().compareTo(b.appName.toLowerCase());
         });
       }

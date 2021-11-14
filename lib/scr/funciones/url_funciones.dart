@@ -33,8 +33,8 @@ mensaje(String phone) async {
 abrirGoogle() async {
   // FlutterOpenWhatsapp.sendSingleMessage(phone, mensaje);
 
-  if (await canLaunch('https://www.google.com/search?')) {
-    await launch('https://www.google.com/search?');
+  if (await canLaunch('https://www.google.com')) {
+    await launch('https://www.google.com');
   } else {
     throw 'Could not launch ';
   }

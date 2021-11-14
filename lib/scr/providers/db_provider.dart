@@ -22,13 +22,14 @@ class DbTiposAplicaciones {
     Directory docmentsDirectory = await getApplicationDocumentsDirectory();
     final path = join(docmentsDirectory.path, 'Vitalfon.db');
 
-    return await openDatabase(path, version: 1, onOpen: (db) {},
+    return await openDatabase(path, version: 3, onOpen: (db) {},
         onCreate: (Database db, int version) async {
       await db.execute('''
       CREATE TABLE TiposApi(
         id INTEGER PRIMARY KEY,
-        nombreApi TEXT,
-        tipo TEXT
+        tipo TEXT,
+        nombre TEXT,
+        grupo TEXT
         
       )
       ''');
@@ -42,33 +43,34 @@ class DbTiposAplicaciones {
     return resp;
   }
 
-  Future<int> deleteApi(String tipo, String nombreApi) async {
+  Future<int> deleteApi(String grupo, String nombreApi) async {
     final db = await database;
 
     ///
     /// OJO: mejorar el query para que devuelva un solo reg
     ///
-    final resp = await db
-        .query('TiposApi', where: ' nombreApi= ?', whereArgs: [nombreApi]);
+    final resp =
+        await db.query('TiposApi', where: ' nombre= ?', whereArgs: [nombreApi]);
     final resp2 = resp.map((s) => ApiTipos.fromJson(s)).toList();
-    final row = resp2.firstWhere((element) => element.tipo == tipo);
+    final row = resp2.firstWhere((element) => element.grupo == grupo);
     final result =
         await db.delete('TiposApi', where: 'id=?', whereArgs: [row.id]);
 
     return result;
   }
 
-  Future<int> eliminarTipo(String tipo) async {
+  Future<int> eliminarGrupo(String tipo) async {
     final db = await database;
     final result =
-        await db.delete('TiposApi', where: 'tipo=?', whereArgs: [tipo]);
+        await db.delete('TiposApi', where: 'grupo=?', whereArgs: [tipo]);
     return result;
   }
 
-  Future<int> eliminarTipoMPC(String tipo) async {
+  Future<int> eliminarGrupoMP(String nombre) async {
     final db = await database;
     final result =
-        await db.delete('TiposApi', where: 'nombreApi=?', whereArgs: [tipo]);
+        await db.delete('TiposApi', where: 'grupo=?', whereArgs: [nombre]);
+
     return result;
   }
 

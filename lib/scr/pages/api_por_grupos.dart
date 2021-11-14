@@ -12,20 +12,20 @@ class ApiPorGrupoPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final apiProvider = Provider.of<AplicacionesProvider>(context);
-    final tipo = apiProvider.tipoSeleccion;
-    final lista = apiProvider.categoryApi[tipo];
+    final grupo = apiProvider.tipoSeleccion;
+    final lista = apiProvider.categoryApi[grupo];
     List<Widget> listaApi =
         List.generate(lista.length, (i) => ElementoApi(api: lista[i]));
     return SafeArea(
         child: Scaffold(
       backgroundColor: Theme.of(context).primaryColor,
-      appBar: headerApp(context, '$tipo', Text(''), 0.0),
+      appBar: headerApp(context, '$grupo', Text(''), 0.0),
       body: GridView.count(
         padding: EdgeInsets.only(bottom: 60),
         children: listaApi,
         crossAxisCount: 2,
       ),
-      floatingActionButton: tipo != 'Todas'
+      floatingActionButton: grupo != 'Todas'
           ? Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
@@ -67,7 +67,7 @@ class ElementoApi extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final apiProvider = Provider.of<AplicacionesProvider>(context);
-    final tipo = apiProvider.tipoSeleccion;
+    final grupo = apiProvider.tipoSeleccion;
     return GestureDetector(
       onTap: () {
         if (api.appName != "") {
@@ -76,8 +76,8 @@ class ElementoApi extends StatelessWidget {
       },
       onLongPress: () {
         // eliminar api?
-        if (tipo != 'Todas') {
-          eliminarApi(context, tipo);
+        if (grupo != 'Todas') {
+          eliminarApi(context, grupo);
         }
       },
       onDoubleTap: () => agregaMPA(context, api),
@@ -155,7 +155,7 @@ class ElementoApi extends StatelessWidget {
         TextButton(
           child: Text('Si', style: TextStyle(fontSize: 20.0)),
           onPressed: () {
-            final nuevo = new ApiTipos(tipo: 'MPA', nombreApi: api.appName);
+            final nuevo = new ApiTipos(grupo: 'MPA', nombre: api.appName);
             if (!apiProvider.listaMenu.contains(api.appName)) {
               /// actualizar lista MENU
               ///

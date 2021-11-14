@@ -51,9 +51,9 @@ dependencies:
   whatsapp_unilink: ^2.0.0
   audioplayers: ^0.20.1
   device_apps: ^2.1.1
-  
+ 
   android_intent:
-
+  
   
   
 
@@ -81,6 +81,7 @@ flutter:
      - audio_emergencia.mpeg
      - assets/vitalfon.png
      - assets/google.png
+     - assets/whatsapp.png
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 

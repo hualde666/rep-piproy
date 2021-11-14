@@ -18,7 +18,7 @@ class ApiSeleccionPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final apiProvider = Provider.of<AplicacionesProvider>(context);
-    final tipo = apiProvider.tipoSeleccion;
+    final grupo = apiProvider.tipoSeleccion;
     final listaTodas = apiProvider.categoryApi['Todas'];
     listaNueva.addAll(listaVieja);
     List<Widget> listaApi = List.generate(
@@ -31,7 +31,7 @@ class ApiSeleccionPage extends StatelessWidget {
               context,
               'Seleccion Apps para: ',
               Text(
-                '$tipo',
+                '$grupo',
                 style: TextStyle(color: Colors.white, fontSize: 20),
               ),
               35.0),
@@ -63,7 +63,7 @@ class ApiSeleccionPage extends StatelessWidget {
                       Provider.of<AplicacionesProvider>(context, listen: false)
                           .modiApiListaPorTipo(listaVieja[i]);
                       DbTiposAplicaciones.db
-                          .deleteApi(tipo, listaVieja[i].appName);
+                          .deleteApi(grupo, listaVieja[i].appName);
                     }
                   }
                   for (var i = 0; i < listaNueva.length; i++) {
@@ -72,7 +72,9 @@ class ApiSeleccionPage extends StatelessWidget {
                       Provider.of<AplicacionesProvider>(context, listen: false)
                           .modiApiListaPorTipo(listaNueva[i]);
                       final nuevo = new ApiTipos(
-                          tipo: tipo, nombreApi: listaNueva[i].appName);
+                          grupo: grupo,
+                          nombre: listaNueva[i].appName,
+                          tipo: "1");
                       DbTiposAplicaciones.db.nuevoTipo(nuevo);
                     }
                   }
@@ -101,8 +103,7 @@ class ApiSeleccionPage extends StatelessWidget {
         // agregar
         Provider.of<AplicacionesProvider>(context, listen: true)
             .modiApiListaPorTipo(listaNueva[i]);
-        final nuevo =
-            new ApiTipos(tipo: tipo, nombreApi: listaNueva[i].appName);
+        final nuevo = new ApiTipos(grupo: tipo, nombre: listaNueva[i].appName);
         DbTiposAplicaciones.db.nuevoTipo(nuevo);
       }
     }

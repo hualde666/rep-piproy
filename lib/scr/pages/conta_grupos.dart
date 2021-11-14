@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:piproy/scr/ayuda_widget/fab_ayuda.dart';
 import 'package:piproy/scr/models/api_tipos.dart';
+import 'package:piproy/scr/pages/contact_seleccion.dart';
+import 'package:piproy/scr/pages/contacts_por_grupo.dart';
+import 'package:piproy/scr/providers/contactos_provider.dart';
 
 import 'package:piproy/scr/providers/db_provider.dart';
 import 'package:piproy/scr/widgets/header_app.dart';
@@ -8,13 +11,14 @@ import 'package:provider/provider.dart';
 
 import 'package:piproy/scr/providers/aplicaciones_provider.dart';
 
-class ApiGruposPage extends StatelessWidget {
+class ContactsGruposPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final apiProvider = Provider.of<AplicacionesProvider>(context);
+
     return SafeArea(
         child: Scaffold(
-            appBar: headerApp(context, 'Grupos app', Text(''), 0.0),
+            appBar: headerApp(context, 'Grupos Contactos', Text(''), 0.0),
             resizeToAvoidBottomInset: false,
             backgroundColor: Theme.of(context).primaryColor,
             body: FutureBuilder(
@@ -25,7 +29,7 @@ class ApiGruposPage extends StatelessWidget {
                       child: CircularProgressIndicator(),
                     );
                   } else {
-                    final List<String> listaGrupos = apiProvider.apigrupos;
+                    final List<String> listaGrupos = apiProvider.contactgrupos;
 
                     // listaGrupos.add(' ');
                     return ListView.builder(
@@ -39,7 +43,7 @@ class ApiGruposPage extends StatelessWidget {
             floatingActionButton: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                BotonFlotante(pagina: 'grupoApi'),
+                BotonFlotante(pagina: 'grupoCont'),
                 FloatingActionButton.extended(
                     heroTag: "agregar",
                     icon: Icon(
@@ -53,8 +57,7 @@ class ApiGruposPage extends StatelessWidget {
                     ),
                     backgroundColor: Color.fromRGBO(249, 75, 11, 1),
                     onPressed: () {
-                      // SELECCION DE API POR TIPO
-                      //_seleccionApi(context, tipo);
+                      //Definir nuevo grupo
                       crearTipo(context);
                     }),
               ],
@@ -69,10 +72,13 @@ class ApiGruposPage extends StatelessWidget {
       onTap: () {
         Provider.of<AplicacionesProvider>(context, listen: false)
             .tipoSeleccion = grupo;
-        Navigator.pushNamed(context, 'grupo');
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => ContactsPorGrupoPage()),
+        );
       },
       onLongPress: () => eliminarTipo(context, grupo),
-      onDoubleTap: () => agregaMPC(context, grupo),
+      onDoubleTap: () => agregaMPG(context, grupo),
       child: Container(
         margin: EdgeInsets.symmetric(vertical: 3, horizontal: 4.0),
         height: 60,
@@ -113,7 +119,7 @@ class ApiGruposPage extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text('Crear grupo'),
+              Text('Crear grupo de Contacto'),
               SizedBox(
                 height: 20,
               ),
@@ -125,7 +131,7 @@ class ApiGruposPage extends StatelessWidget {
 
                   return valor.isNotEmpty ? null : "dato invalido";
                 },
-                decoration: InputDecoration(hintText: "nombre de categoria"),
+                decoration: InputDecoration(hintText: "nombre del grupo"),
               )
             ],
           ),
@@ -137,15 +143,15 @@ class ApiGruposPage extends StatelessWidget {
           onPressed: () {
             // no puede estar en blanco ni ya definido
             if (_tipoControle.value.text != "" &&
-                !apiProvider.apigrupos.contains(_tipoControle.value.text)) {
+                !apiProvider.contactgrupos.contains(_tipoControle.value.text)) {
               // agregar a BD
               String grupo = _tipoControle.value.text[0].toUpperCase();
               if (_tipoControle.value.text.length > 1) {
                 grupo = _tipoControle.value.text[0].toUpperCase() +
                     _tipoControle.value.text.substring(1);
               }
-              apiProvider.agregarApiGrupo(grupo);
-              final nuevo = new ApiTipos(grupo: grupo, nombre: "", tipo: "1");
+              apiProvider.agregarContactGrupo(grupo);
+              final nuevo = new ApiTipos(grupo: grupo, nombre: "", tipo: "2");
               DbTiposAplicaciones.db.nuevoTipo(nuevo);
             }
 
@@ -165,22 +171,22 @@ class ApiGruposPage extends StatelessWidget {
   ///
   ///************** ELIMINA CATEGORIA ************/
   ///
-  Future eliminarTipo(BuildContext context, String tipo) async {
-    if (tipo == 'Todas') {
+  Future eliminarTipo(BuildContext context, String grupo) async {
+    if (grupo == 'Todos') {
       return;
     }
     return await showDialog(
         context: context,
         builder: (context) {
-          return eliminarTipoForm(context, tipo);
+          return eliminarGrupoForm(context, grupo);
         });
   }
 
-  AlertDialog eliminarTipoForm(BuildContext context, String grupo) {
+  AlertDialog eliminarGrupoForm(BuildContext context, String grupo) {
     final apiProvider = Provider.of<AplicacionesProvider>(context);
     return AlertDialog(
       //title: Text('¿Desea ELIMINAR la categoria $tipo ?'),
-      content: Text('¿Desea ELIMINAR la categoria $grupo ?'),
+      content: Text('¿Desea ELIMINAR grupo de contacto $grupo ?'),
       actions: [
         TextButton(
           child: Text('Si', style: TextStyle(fontSize: 20)),
@@ -188,16 +194,16 @@ class ApiGruposPage extends StatelessWidget {
             // Eliminar de categoria
 
             Provider.of<AplicacionesProvider>(context, listen: false)
-                .eliminarTipos(grupo);
-            // eliminar  a BD
+                .eliminarContactTipos(grupo);
+            // eliminar  en la  BD
             DbTiposAplicaciones.db.eliminarGrupo(grupo);
 
             ///
             ///         ELIMNAR DEL MENU PRINCIPAL
 
-            if (apiProvider.listaMenu.contains('MPC' + grupo)) {
+            if (apiProvider.listaMenu.contains('MPG' + grupo)) {
               Provider.of<AplicacionesProvider>(context, listen: false)
-                  .eliminarTipoMP('MPC' + grupo);
+                  .eliminarTipoMP('MPG' + grupo);
               DbTiposAplicaciones.db.eliminarGrupoMP(grupo);
             }
 
@@ -217,16 +223,16 @@ class ApiGruposPage extends StatelessWidget {
     );
   }
 
-  Future agregaMPC(BuildContext context, String grupo) async {
+  Future agregaMPG(BuildContext context, String grupo) async {
     // grupo es el nombre de categoria a agregar al menu principal
     return await showDialog(
         context: context,
         builder: (context) {
-          return agregaMpcForm(context, grupo);
+          return agregaMpgForm(context, grupo);
         });
   }
 
-  AlertDialog agregaMpcForm(BuildContext context, String grupo) {
+  AlertDialog agregaMpgForm(BuildContext context, String grupo) {
     final apiProvider = Provider.of<AplicacionesProvider>(context);
     return AlertDialog(
       content:
@@ -235,12 +241,12 @@ class ApiGruposPage extends StatelessWidget {
         TextButton(
           child: Text('Si', style: TextStyle(fontSize: 20)),
           onPressed: () {
-            final nuevo = new ApiTipos(grupo: 'MPC', nombre: grupo);
-            if (!apiProvider.listaMenu.contains('MPC' + grupo)) {
+            final nuevo = new ApiTipos(grupo: 'MPG', nombre: grupo, tipo: "3");
+            if (!apiProvider.listaMenu.contains('MPG' + grupo)) {
               /// actualizar lista MENU
               ///
               Provider.of<AplicacionesProvider>(context, listen: false)
-                  .agregarMenu('MPC' + grupo);
+                  .agregarMenu('MPG' + grupo);
 
               DbTiposAplicaciones.db.nuevoTipo(nuevo);
             }

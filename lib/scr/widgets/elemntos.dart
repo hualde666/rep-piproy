@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:piproy/scr/providers/aplicaciones_provider.dart';
 import 'package:piproy/scr/providers/db_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:piproy/scr/pages/contacts_por_grupo.dart';
 
 Widget elementos(BuildContext context, Widget widget, double altura,
     String ruta, String tipo) {
@@ -18,12 +19,13 @@ Widget elementos(BuildContext context, Widget widget, double altura,
     ),
     onTap: () {
       if (ruta != '') {
+        Provider.of<AplicacionesProvider>(context, listen: false)
+            .tipoSeleccion = ruta;
         if (tipo.contains('MPC')) {
-          Provider.of<AplicacionesProvider>(context, listen: false)
-              .tipoSeleccion = ruta;
           Navigator.pushNamed(context, 'grupo');
         } else {
-          if (tipo.contains('MPA')) {
+          if (tipo.contains('MPG')) {
+            Navigator.pushNamed(context, 'grupocontacto');
           } else {
             Navigator.pushNamed(context, ruta);
           }
@@ -43,6 +45,8 @@ Widget elementos(BuildContext context, Widget widget, double altura,
   );
 }
 
+class ContactsPorGrupoPage {}
+
 Future<dynamic> eliminarApi(BuildContext context, String tipo) {
   final String titulo = tipo.substring(3);
   return showDialog(
@@ -57,7 +61,7 @@ Future<dynamic> eliminarApi(BuildContext context, String tipo) {
             onPressed: () {
               /// elina api de pantalla
               Provider.of<AplicacionesProvider>(context, listen: false)
-                  .eliminarTipoMPC(tipo);
+                  .eliminarTipoMP(tipo);
 
               DbTiposAplicaciones.db
                   .deleteApi(tipo.substring(0, 3), tipo.substring(3));

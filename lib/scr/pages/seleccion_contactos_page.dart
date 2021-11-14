@@ -18,7 +18,7 @@ class SeleccionContacto extends StatefulWidget {
 
 class _SeleccionContactoState extends State<SeleccionContacto> {
   bool cargando = true;
-  final listaSelectInfo = new ContactosProvider();
+  // final listaSelectInfo = new ContactosProvider();
   Future<List<Contact>> lista; // todos los contactos
   List<Contact> listaContactosFiltro;
   List<Contact> lista1;
@@ -28,19 +28,19 @@ class _SeleccionContactoState extends State<SeleccionContacto> {
   bool hayBusqueda = false;
   bool buscarIcon = true;
 
-  @override
-  void initState() {
-    super.initState();
+  // @override
+  // void initState() {
+  //   super.initState();
 
-    _searchController.addListener(filtrarContactos);
-    // cargarPrefs();
-  }
+  //   _searchController.addListener(filtrarContactos);
+  //   // cargarPrefs();
+  // }
 
-  @override
-  void dispose() {
-    _searchController.dispose();
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   _searchController.dispose();
+  //   super.dispose();
+  // }
 
   filtrarContactos() {
     List<Contact> _contactos = [];
@@ -83,14 +83,10 @@ class _SeleccionContactoState extends State<SeleccionContacto> {
     }
   }
 
-  Future<List<Contact>> cargarContactos() {
-    lista = listaSelectInfo.listaContactos;
-    return lista;
-  }
-
   @override
   Widget build(BuildContext context) {
-    ListaIdProvider listaIdProvider = Provider.of<ListaIdProvider>(context);
+    final listaIdProvider = Provider.of<ListaIdProvider>(context);
+    final contactosProvider = Provider.of<ContactosProvider>(context);
     listaIdContacto = listaIdProvider.listaIdContacto;
 
     return SafeArea(
@@ -98,21 +94,56 @@ class _SeleccionContactoState extends State<SeleccionContacto> {
         resizeToAvoidBottomInset: false,
         appBar: headerApp(context, 'Selección Contactos', busqueda(), 80.0),
         backgroundColor: Theme.of(context).primaryColor,
-        body: GestureDetector(
-            // el gesture es para la busqueda por nombre
-            onTap: () {
-              final FocusScopeNode focus = FocusScope.of(context);
-              if (!focus.hasPrimaryFocus && focus.hasFocus) {
-                FocusManager.instance.primaryFocus.unfocus();
+        // body: GestureDetector(
+        //     // el gesture es para la busqueda por nombre
+        //     onTap: () {
+        //       final FocusScopeNode focus = FocusScope.of(context);
+        //       if (!focus.hasPrimaryFocus && focus.hasFocus) {
+        //         FocusManager.instance.primaryFocus.unfocus();
+        //       }
+        //     },
+        //     onTapUp: (_) {
+        //       final FocusScopeNode focus = FocusScope.of(context);
+        //       if (!focus.hasPrimaryFocus && focus.hasFocus) {
+        //         FocusManager.instance.primaryFocus.unfocus();
+        //       }
+        //     },
+        //     child:
+        body: FutureBuilder(
+            future: contactosProvider.listaContactos,
+            builder: (BuildContext context, AsyncSnapshot snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              } else {
+                listaIdContacto.addAll(listaIdProvider.listaIdContacto);
+                if (cargando) {
+                  // lista1 = List.generate(
+                  //     snapshot.data.length, (i) => snapshot.data[i]);
+                  generarLista(snapshot.data);
+
+                  cargando = false;
+                }
+                if (hayBusqueda) {
+                  generarLista(listaContactosFiltro);
+                } else {
+                  generarLista(snapshot.data);
+                }
+
+                return Container(
+                  // height: alto,
+                  child: ListView.builder(
+                      padding: EdgeInsets.only(bottom: 50),
+                      itemCount: listaContactosCheck.length,
+                      itemBuilder: (context, i) {
+                        return ContactoWidget(
+                            context, listaContactosCheck[i], i);
+                      }),
+                );
               }
-            },
-            onTapUp: (_) {
-              final FocusScopeNode focus = FocusScope.of(context);
-              if (!focus.hasPrimaryFocus && focus.hasFocus) {
-                FocusManager.instance.primaryFocus.unfocus();
-              }
-            },
-            child: mostrarContactos(context)),
+            }),
+        //),
         floatingActionButtonLocation: FloatingActionButtonLocation.startDocked,
         floatingActionButton: BotonFlotante(pagina: 'selecContactos'),
       ),
@@ -158,73 +189,70 @@ class _SeleccionContactoState extends State<SeleccionContacto> {
     ]);
   }
 
-  mostrarContactos(BuildContext context) {
-    double alto = MediaQuery.of(context).size.height * 0.73;
-    bool hayBusqueda = _searchController.text.isNotEmpty;
-    final listaIdProvider = Provider.of<ListaIdProvider>(context);
+  // mostrarContactos(BuildContext context) {
+  //   double alto = MediaQuery.of(context).size.height * 0.73;
+  //   bool hayBusqueda = _searchController.text.isNotEmpty;
+  //   final listaIdProvider = Provider.of<ListaIdProvider>(context);
 
-    return FutureBuilder(
-        future: cargarContactos(),
-        builder: (BuildContext context, AsyncSnapshot snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          } else {
-            listaIdContacto = listaIdProvider.listaIdContacto;
-            if (cargando) {
-              lista1 =
-                  List.generate(snapshot.data.length, (i) => snapshot.data[i]);
-              generarLista(snapshot.data);
+  //   return FutureBuilder(
+  //       future: cargarContactos(),
+  //       builder: (BuildContext context, AsyncSnapshot snapshot) {
+  //         if (snapshot.connectionState == ConnectionState.waiting) {
+  //           return Center(
+  //             child: CircularProgressIndicator(),
+  //           );
+  //         } else {
+  //           listaIdContacto.addAll(listaIdProvider.listaIdContacto);
+  //           if (cargando) {
+  //             lista1 =
+  //                 List.generate(snapshot.data.length, (i) => snapshot.data[i]);
+  //             generarLista(snapshot.data);
 
-              cargando = false;
-            }
-            if (hayBusqueda) {
-              generarLista(listaContactosFiltro);
-            } else {
-              generarLista(snapshot.data);
-            }
+  //             cargando = false;
+  //           }
+  //           if (hayBusqueda) {
+  //             generarLista(listaContactosFiltro);
+  //           } else {
+  //             generarLista(snapshot.data);
+  //           }
 
-            return Container(
-              height: alto,
-              child: ListView.builder(
-                  padding: EdgeInsets.only(bottom: 50),
-                  itemCount: listaContactosCheck.length,
-                  itemBuilder: (context, i) {
-                    return ContactoWidget(context, listaContactosCheck[i], i);
-                  }),
-            );
-          }
-        });
-  }
+  //           return Container(
+  //             height: alto,
+  //             child: ListView.builder(
+  //                 padding: EdgeInsets.only(bottom: 50),
+  //                 itemCount: listaContactosCheck.length,
+  //                 itemBuilder: (context, i) {
+  //                   return ContactoWidget(context, listaContactosCheck[i], i);
+  //                 }),
+  //           );
+  //         }
+  //       });
+  // }
 }
 
-class ContactoWidget extends StatefulWidget {
+class ContactoWidget extends StatelessWidget {
   ContactoWidget(this.context, this.contacto, this.i);
   final ItemListaEmergencia contacto;
   final int i;
   final BuildContext context;
 
-  @override
-  _ContactoWidget createState() => _ContactoWidget();
-}
-
-class _ContactoWidget extends State<ContactoWidget> {
-  List<String> listaIdContacto;
+  // List<String> listaIdContacto;
 
   guardarLista() async {
+    ListaIdProvider listaIdProvider = Provider.of<ListaIdProvider>(context);
+
     SharedPreferences prefs = await SharedPreferences.getInstance();
     // genera primero una lista con solo los id de contactos que
     // es lo que se guarda
-    if (listaIdContacto != null) {
-      prefs.setStringList('listaE', listaIdContacto);
+    if (listaIdProvider.listaIdContacto != null) {
+      prefs.setStringList('listaE', listaIdProvider.listaIdContacto);
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    ListaIdProvider listaIdProvider = Provider.of<ListaIdProvider>(context);
-    listaIdContacto = listaIdProvider.listaIdContacto;
+    //ListaIdProvider listaIdProvider = Provider.of<ListaIdProvider>(context);
+    //listaIdContacto = listaIdProvider.listaIdContacto;
 
     return GestureDetector(
       onDoubleTap: () {
@@ -234,19 +262,18 @@ class _ContactoWidget extends State<ContactoWidget> {
         }
       },
       onTap: () {
-        if (!widget.contacto.check) {
-          // seleci
+        if (!contacto.check) {
           Provider.of<ListaIdProvider>(context, listen: false)
-              .sumarIdContacto(widget.contacto.idcontacto);
-          widget.contacto.check = true;
+              .sumarIdContacto(contacto.idcontacto);
+          contacto.check = true;
         } else {
           //_colorBorde = Color.fromRGBO(55, 57, 84, 0.8);
           Provider.of<ListaIdProvider>(context, listen: false)
-              .quitarIdContacto(widget.contacto.idcontacto);
-          widget.contacto.check = false;
+              .quitarIdContacto(contacto.idcontacto);
+          contacto.check = false;
         }
         guardarLista();
-        setState(() {});
+        // setState(() {});
       },
       child: Container(
         // color: widget.contacto.check_colorBorde,
@@ -254,14 +281,14 @@ class _ContactoWidget extends State<ContactoWidget> {
         height: 96.0,
         margin: EdgeInsets.symmetric(horizontal: 2.5, vertical: 1.0),
         decoration: BoxDecoration(
-            color: widget.contacto.check == true
+            color: contacto.check == true
                 ? Color.fromRGBO(55, 57, 84, 1)
                 : Colors.grey[600],
             borderRadius: BorderRadius.circular(20.0),
             border: Border.all(color: Colors.white)),
         child: Center(
           child: Text(
-            widget.contacto.nombre,
+            contacto.nombre,
             textAlign: TextAlign.center,
             style: TextStyle(
                 fontSize: 28.0,

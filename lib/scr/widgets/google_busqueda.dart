@@ -5,7 +5,7 @@ Widget googleBusqueda(BuildContext context) {
   return GestureDetector(
     child: Container(
       height: 60,
-      margin: EdgeInsets.symmetric(vertical: 1.5, horizontal: 3.0),
+      margin: EdgeInsets.symmetric(vertical: 1.5, horizontal: 5.0),
       alignment: Alignment.center,
       child: Row(
         children: [
@@ -13,8 +13,9 @@ Widget googleBusqueda(BuildContext context) {
             width: 20,
           ),
           Container(
-            child:
-                Image(image: AssetImage('assets/google.png'), fit: BoxFit.fill),
+            child: Center(
+                child: Image(
+                    image: AssetImage('assets/google.png'), fit: BoxFit.fill)),
             height: 50,
             width: 250,
             //color: Colors.red),
