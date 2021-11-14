@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:piproy/scr/providers/aplicaciones_provider.dart';
 import 'package:piproy/scr/providers/db_provider.dart';
 import 'package:provider/provider.dart';
-import 'package:piproy/scr/pages/contacts_por_grupo.dart';
 
 Widget elementos(BuildContext context, Widget widget, double altura,
     String ruta, String tipo) {

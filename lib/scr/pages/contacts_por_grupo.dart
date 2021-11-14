@@ -47,10 +47,9 @@ class ContactsPorGrupoPage extends StatelessWidget {
         child: Scaffold(
       backgroundColor: Theme.of(context).primaryColor,
       appBar: headerApp(context, '$grupo', Text(''), 0.0),
-      body: GridView.count(
+      body: ListView(
         padding: EdgeInsets.only(bottom: 60),
         children: listaContact,
-        crossAxisCount: 1,
       ),
       floatingActionButton: grupo != 'Todos'
           ? Row(
