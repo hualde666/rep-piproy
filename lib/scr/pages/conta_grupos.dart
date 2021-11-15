@@ -175,6 +175,9 @@ class ContactsGruposPage extends StatelessWidget {
     if (grupo == 'Todos') {
       return;
     }
+    if (grupo == 'Emergencia') {
+      return;
+    }
     return await showDialog(
         context: context,
         builder: (context) {

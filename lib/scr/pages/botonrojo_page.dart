@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:piproy/scr/ayuda_widget/fab_ayuda.dart';
 import 'package:piproy/scr/funciones/lista_selecion_contactos.dart';
 import 'package:piproy/scr/pages/envio_emergencia.dart';
+import 'package:piproy/scr/providers/aplicaciones_provider.dart';
 import 'package:piproy/scr/providers/contactos_provider.dart';
 import 'package:piproy/scr/widgets/boton_home.dart';
 import 'package:piproy/scr/widgets/boton_verde.dart';
+import 'package:provider/provider.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -20,9 +22,9 @@ class BotonRojoPage extends StatefulWidget {
 
 class _BotonRojoPageState extends State<BotonRojoPage> {
   final listaSelectInfo = new ContactosProvider();
-  List<String> listaIdContacto = [];
+  List<Contact> listaIdContacto = [];
 
-  List<ItemListaEmergencia> listaE = [];
+  List<Contact> listaE = [];
   String mensaje;
 
   List<Contact> listaContactos = [];
@@ -34,17 +36,17 @@ class _BotonRojoPageState extends State<BotonRojoPage> {
     cargarPrefs();
   }
 
-  Future cargarPrefs() async {
+  cargarPrefs() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    listaIdContacto = prefs.getStringList('listaE');
-    if (listaIdContacto == null) {
-      listaIdContacto = [];
-      hayLista = false;
-    } else {
-      if (listaIdContacto.length == 0) {
-        hayLista = false;
-      }
-    }
+    // listaIdContacto = prefs.getStringList('listaE');
+    // if (listaIdContacto == null) {
+    //   listaIdContacto = [];
+    //   hayLista = false;
+    // } else {
+    //   if (listaIdContacto.length == 0) {
+    //     hayLista = false;
+    //   }
+    // }
     // Obtengo datos del mensaje y numeros de telefonos
 
     mensaje = prefs.getString('mensajeE');
@@ -54,31 +56,33 @@ class _BotonRojoPageState extends State<BotonRojoPage> {
     return;
   }
 
-  Future<List<Contact>> cargarContactos() async {
-    return await listaSelectInfo.listaContactos;
+  generarLista(List<String> listaNombre, List<Contact> listaContactos) {
+    List<Contact> listaGrupo = [];
+
+    if (listaNombre.isNotEmpty) {
+      for (int i = 0; i < listaNombre.length; i++) {
+        final contacto = listaContactos
+            .firstWhere((element) => element.displayName == listaNombre[i]);
+        listaGrupo.add(contacto);
+      }
+    }
+
+    return listaGrupo;
   }
 
   @override
   Widget build(BuildContext context) {
+    final apiProvider = Provider.of<AplicacionesProvider>(context);
+    final contactosProvaide = new ContactosProvider();
+    listaContactos.addAll((generarLista(
+        apiProvider.categoryContact['Emergencia'],
+        contactosProvaide.listaContactos)));
     return SafeArea(
       child: Scaffold(
         appBar: headerEmergencia(context),
-        body: FutureBuilder(
-            future: cargarContactos(),
-            builder: (BuildContext context, AsyncSnapshot snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return Center(
-                  child: CircularProgressIndicator(),
-                );
-              } else {
-                if (hayLista) {
-                  listaE = generaListaE(snapshot.data, listaIdContacto);
-                }
-                return hayLista
-                    ? conListaEmergenia(context, listaE, mensaje)
-                    : sinListaEmergenia(context);
-              }
-            }),
+        body: listaContactos.isNotEmpty
+            ? conListaEmergenia(context, listaContactos)
+            : sinListaEmergenia(context),
         floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
         floatingActionButton: BotonFlotante(pagina: 'botonRojo'),
       ),
@@ -115,8 +119,7 @@ Widget headerEmergencia(BuildContext context) {
   );
 }
 
-conListaEmergenia(
-    BuildContext context, List<ItemListaEmergencia> listaE, String mensaje) {
+conListaEmergenia(BuildContext context, List<Contact> listaE) {
   return Center(
     child: Container(
       height: 500.0,
@@ -153,7 +156,6 @@ conListaEmergenia(
                   MaterialPageRoute(
                       builder: (context) => ResumenEnvioPage(
                             listaE: listaE,
-                            mensaje: mensaje,
                           )));
             },
             child: Container(

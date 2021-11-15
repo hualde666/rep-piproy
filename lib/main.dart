@@ -17,8 +17,6 @@ import 'package:piproy/scr/pages/mensaje_emergencia.dart';
 
 import 'package:piproy/scr/pages/botonrojo_page.dart';
 
-import 'package:piproy/scr/pages/emergi_contactos_page.dart';
-import 'package:piproy/scr/pages/seleccion_contactos_page.dart';
 import 'package:piproy/scr/pages/splash.dart';
 //import 'package:piproy/scr/pages/splash.dart';
 import 'package:piproy/scr/providers/aplicaciones_provider.dart';
@@ -71,8 +69,6 @@ class MyApp extends StatelessWidget {
       'contactos': (_) => ContactsGruposPage(),
       'mostrarContacto': (_) => MostrarContacto(),
       'editarContacto': (_) => EditarContacto(),
-      'emergiContactos': (_) => EmergenciaContactos(),
-      'selecContactos': (_) => SeleccionContacto(),
       'emergiMensaje': (_) => EmergenciaMensaje(),
       'configurar': (_) => ConfiguracionPage(),
       'ayuda': (_) => Ayuda(),

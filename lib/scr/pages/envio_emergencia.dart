@@ -1,20 +1,22 @@
+import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';
 
 import 'package:geolocator/geolocator.dart';
 import 'package:piproy/channel/channel_android.dart';
-import 'package:piproy/scr/models/items_lista_contactos.dart';
+
 import 'package:piproy/scr/widgets/boton_home.dart';
 
 import 'package:piproy/scr/widgets/boton_rojo_back.dart';
 import 'package:piproy/scr/widgets/boton_verde.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ResumenEnvioPage extends StatelessWidget {
-  final List<ItemListaEmergencia> listaE;
+  final List<Contact> listaE;
   final String mensaje;
   ResumenEnvioPage({this.listaE, this.mensaje});
   @override
   Widget build(BuildContext context) {
-    mandarSMS(listaE, mensaje);
+    mandarSMS(listaE);
     return SafeArea(
       child: Scaffold(
           //  backgroundColor: Color.fromRGBO(55, 57, 84, 1.0),
@@ -33,36 +35,36 @@ class ResumenEnvioPage extends StatelessWidget {
                       Divider(
                         height: 12,
                       ),
-                      listaE[i].check
-                          ? Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                  Text(
-                                    listaE[i].nombre,
-                                    style: TextStyle(
-                                        color: Colors.green, fontSize: 30),
-                                  ),
-                                  Container(
-                                      alignment: Alignment.centerRight,
-                                      child: Text(
-                                        'Mensaje Enviado',
-                                        style: TextStyle(fontSize: 20),
-                                      ))
-                                ])
-                          : Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                  Text(
-                                    listaE[i].nombre,
-                                    style: TextStyle(
-                                        color: Colors.red, fontSize: 30),
-                                  ),
-                                  Container(
-                                    alignment: Alignment.centerRight,
-                                    child: Text('Mensaje No Enviado',
-                                        style: TextStyle(fontSize: 20)),
-                                  )
-                                ]),
+
+                      Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              listaE[i].displayName,
+                              style:
+                                  TextStyle(color: Colors.green, fontSize: 30),
+                            ),
+                            Container(
+                                alignment: Alignment.centerRight,
+                                child: Text(
+                                  'Mensaje Enviado',
+                                  style: TextStyle(fontSize: 20),
+                                ))
+                          ])
+                      // : Column(
+                      //     crossAxisAlignment: CrossAxisAlignment.start,
+                      //     children: [
+                      //         Text(
+                      //           listaE[i].nombre,
+                      //           style: TextStyle(
+                      //               color: Colors.red, fontSize: 30),
+                      //         ),
+                      //         Container(
+                      //           alignment: Alignment.centerRight,
+                      //           child: Text('Mensaje No Enviado',
+                      //               style: TextStyle(fontSize: 20)),
+                      //         )
+                      //       ]),
                     ],
                   ),
                 );
@@ -138,15 +140,25 @@ Future _geoLocal() async {
 
 placemarkFromCoordinates(latitude, longitude) {}
 
-Future<void> mandarSMS(List<ItemListaEmergencia> listaE, String mensaje) async {
+Future<void> mandarSMS(List<Contact> listaE) async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  String mensaje = prefs.getString('mensajeE');
+  String pos2 = "";
+  if (mensaje == null) {
+    mensaje = "Necesito ayuda !!";
+  }
   AndroidChannel _androidChannel = AndroidChannel();
-  final pos = await _geoLocal();
-  //final dir = await _getAddressFromLatLng(pos); // direcion en texto.
 
-  final lat = pos.latitude;
-  final lng = pos.longitude;
-  final pos2 = ' https://maps.google.com/?q=$lat,$lng';
+  ///  preguntar si GPS prendido
+  bool gpson = await _androidChannel.conectadoGps();
+  if (gpson) {
+    final pos = await _geoLocal();
+    //final dir = await _getAddressFromLatLng(pos); // direcion en texto.
 
+    final lat = pos.latitude;
+    final lng = pos.longitude;
+    final pos2 = ' https://maps.google.com/?q=$lat,$lng';
+  }
   // final resp = await Sendsms.onGetPermission();
   // if (resp.hashCode != null) {
   //   print('Permisos: ${resp.hashCode}');
@@ -154,7 +166,7 @@ Future<void> mandarSMS(List<ItemListaEmergencia> listaE, String mensaje) async {
   //   // generar lita de telefonos
 
   for (var contacto in listaE) {
-    String _phone = contacto.phone;
+    String _phone = contacto.phones.elementAt(0).value;
 
     /// ENVIAR MENSAJE
 
@@ -163,7 +175,9 @@ Future<void> mandarSMS(List<ItemListaEmergencia> listaE, String mensaje) async {
 
     //final resp1 = await _androidChannel.mandarSms(_phone, dir);
     // final resp2 =
-    await _androidChannel.mandarSms(_phone, pos2);
+    if (gpson) {
+      await _androidChannel.mandarSms(_phone, pos2);
+    }
     // print('Respuesta: $respE');
     // if (respE. ) {
     //   contacto.check = false;

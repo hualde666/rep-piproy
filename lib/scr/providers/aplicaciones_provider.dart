@@ -264,34 +264,6 @@ class AplicacionesProvider with ChangeNotifier {
             break;
           }
       }
-
-      // if (resp2[i].grupo == 'MPC') {
-      //   // es una opcion de Categori del  menu
-      //   listaMenu.add('MPC' + resp2[i].nombre);
-      // } else {
-      //   if (resp2[i].grupo == 'MPA') {
-      //     // es una opcion API del menu
-      //     listaMenu.add('MPA' + resp2[i].nombre);
-      //   } else {
-      //     // es una categoria
-      //     if (!_apitipos.contains(resp2[i].grupo)) {
-      //       _apitipos.add(resp2[i].grupo);
-      //       categoryApi[resp2[i].grupo] = [];
-      //     }
-      //     ////// encontrar Api con nombreApi
-      //     ///
-
-      //     final String nombreApi = resp2[i].nombre;
-      //     if (nombreApi != "") {
-      //       final Application api = this
-      //           .categoryApi['Todas']
-      //           .firstWhere((element) => element.appName == nombreApi);
-      //       if (api != null) {
-      //         categoryApi[resp2[i].grupo].add(api);
-      //       }
-      //     }
-      //   }
-      //  }
     }
     //ordenar el menu alfabeticament
     //
