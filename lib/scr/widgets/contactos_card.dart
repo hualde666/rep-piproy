@@ -1,6 +1,8 @@
 import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:piproy/scr/providers/aplicaciones_provider.dart';
+import 'package:piproy/scr/providers/contactos_provider.dart';
 import 'package:piproy/scr/providers/db_provider.dart';
 import 'package:piproy/scr/widgets/icon_conteiner.dart';
 import 'package:provider/provider.dart';
@@ -76,12 +78,9 @@ class _TarjetaContacto2 extends State<TarjetaContacto2> {
               // Navigator.pushNamed(context, 'editarContacto', arguments: contacto);
             },
             onLongPress: () {
-              if (grupo != 'Todos') {
+              if (grupo != 'Emergencia') {
                 // ELIMINAR CONTACTO DEL GRUPO
-                eliminarContactoGrupo(
-                    context, grupo, widget.contacto.displayName);
-              } else {
-                // eliminar contacto del CELULAR
+                eliminarContactoGrupo(context, grupo, widget.contacto);
               }
             },
             onDoubleTap: () {
@@ -91,26 +90,36 @@ class _TarjetaContacto2 extends State<TarjetaContacto2> {
   }
 
   Future<dynamic> eliminarContactoGrupo(
-          BuildContext context, String grupo, String nombre) =>
+          BuildContext context, String grupo, Contact contacto) =>
       showDialog(
         context: context,
         builder: (context) => AlertDialog(
-          title: Text(nombre,
+          title: Text(contacto.displayName,
               style: TextStyle(
                 fontSize: 20,
               )),
-          content: Text('¿Desea eliminar este contacto del grupo $grupo ?'),
+          content: grupo == 'Todos'
+              ? Text('¿Desea eliminar este contacto  del CELULAR ?')
+              : Text('¿Desea eliminar este contacto del grupo $grupo ?'),
           // shape: CircleBorder(),
           elevation: 14.0,
           actionsPadding: EdgeInsets.symmetric(horizontal: 30.0),
           actions: [
             TextButton(
                 onPressed: () {
+                  if (grupo == 'Todos') {
+                    _eliminarContacto(contacto);
+                    final contactosProvider = new ContactosProvider();
+                    contactosProvider.borrarDeListaContacto(contacto);
+                  }
+
                   /// elina api de pantalla
                   Provider.of<AplicacionesProvider>(context, listen: false)
-                      .eliminarContacto(grupo, nombre);
-                  DbTiposAplicaciones.db
-                      .deleteApi(grupo, nombre); //elimina api de BD
+                      .eliminarContacto(grupo, contacto.displayName);
+                  if (grupo != 'Todos') {
+                    DbTiposAplicaciones.db.deleteApi(
+                        grupo, contacto.displayName); //elimina api de BD
+                  }
 
                   Navigator.pop(context);
                 },
@@ -124,6 +133,16 @@ class _TarjetaContacto2 extends State<TarjetaContacto2> {
           ],
         ),
       );
+}
+
+_eliminarContacto(Contact contacto) async {
+  final resp = await Permission.contacts.request();
+
+  if (resp == PermissionStatus.granted) {
+    await ContactsService.deleteContact(contacto);
+  }
+
+  return;
 }
 
 Widget _botonesContactos(BuildContext context, Contact contacto) {

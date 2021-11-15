@@ -17,6 +17,10 @@ class ContactosProvider {
     return _listaContactos;
   }
 
+  borrarDeListaContacto(Contact contacto) {
+    _listaContactos.remove(contacto);
+  }
+
 // elimina id de la lista de id conctactos
 
   obtenerlistaContactos() {

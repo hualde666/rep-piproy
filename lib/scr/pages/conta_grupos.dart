@@ -81,7 +81,7 @@ class ContactsGruposPage extends StatelessWidget {
       onDoubleTap: () => agregaMPG(context, grupo),
       child: Container(
         margin: EdgeInsets.symmetric(vertical: 3, horizontal: 4.0),
-        height: 60,
+        height: 70,
         decoration: BoxDecoration(
             color: Theme.of(context).primaryColor,
             borderRadius: BorderRadius.circular(20.0),
