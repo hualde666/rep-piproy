@@ -58,7 +58,7 @@ class _EmergenciaContactos extends State<EmergenciaContactos> {
     return SafeArea(
       child: Scaffold(
         appBar: headerApp(context, 'Contactos de Emergencia', Text(''), 0.0),
-        body: pantallaInicial(context),
+        // body: pantallaInicial(context),
         floatingActionButtonLocation: FloatingActionButtonLocation.startDocked,
         floatingActionButton: botonesFab(),
       ),

@@ -43,14 +43,14 @@ class DbTiposAplicaciones {
     return resp;
   }
 
-  Future<int> deleteApi(String grupo, String nombreApi) async {
+  Future<int> deleteApi(String grupo, String nombre) async {
     final db = await database;
 
     ///
     /// OJO: mejorar el query para que devuelva un solo reg
     ///
     final resp =
-        await db.query('TiposApi', where: ' nombre= ?', whereArgs: [nombreApi]);
+        await db.query('TiposApi', where: ' nombre= ?', whereArgs: [nombre]);
     final resp2 = resp.map((s) => ApiTipos.fromJson(s)).toList();
     final row = resp2.firstWhere((element) => element.grupo == grupo);
     final result =

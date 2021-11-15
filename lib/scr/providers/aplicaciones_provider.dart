@@ -140,8 +140,8 @@ class AplicacionesProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  eliminarContacto(String grupo, Contact contacto) {
-    categoryContact[grupo].remove(contacto.displayName);
+  eliminarContacto(String grupo, String nombre) {
+    categoryContact[grupo].remove(nombre);
     notifyListeners();
   }
 

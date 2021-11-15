@@ -1,11 +1,15 @@
 import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';
+import 'package:piproy/scr/providers/aplicaciones_provider.dart';
+import 'package:piproy/scr/providers/db_provider.dart';
 import 'package:piproy/scr/widgets/icon_conteiner.dart';
+import 'package:provider/provider.dart';
 
 class TarjetaContacto2 extends StatefulWidget {
   TarjetaContacto2(this.context, this.contacto);
   final BuildContext context;
   final Contact contacto;
+
   @override
   _TarjetaContacto2 createState() => _TarjetaContacto2();
 }
@@ -21,6 +25,10 @@ class _TarjetaContacto2 extends State<TarjetaContacto2> {
 
   @override
   Widget build(BuildContext context) {
+    final apiProvider = Provider.of<AplicacionesProvider>(context);
+
+    final grupo = apiProvider.tipoSeleccion;
+
     return oneTap
         ? GestureDetector(
             child: Container(
@@ -67,8 +75,55 @@ class _TarjetaContacto2 extends State<TarjetaContacto2> {
               setState(() {});
               // Navigator.pushNamed(context, 'editarContacto', arguments: contacto);
             },
+            onLongPress: () {
+              if (grupo != 'Todos') {
+                // ELIMINAR CONTACTO DEL GRUPO
+                eliminarContactoGrupo(
+                    context, grupo, widget.contacto.displayName);
+              } else {
+                // eliminar contacto del CELULAR
+              }
+            },
+            onDoubleTap: () {
+              //enviar a contacto al menu principal
+            },
           );
   }
+
+  Future<dynamic> eliminarContactoGrupo(
+          BuildContext context, String grupo, String nombre) =>
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text(nombre,
+              style: TextStyle(
+                fontSize: 20,
+              )),
+          content: Text('¿Desea eliminar este contacto del grupo $grupo ?'),
+          // shape: CircleBorder(),
+          elevation: 14.0,
+          actionsPadding: EdgeInsets.symmetric(horizontal: 30.0),
+          actions: [
+            TextButton(
+                onPressed: () {
+                  /// elina api de pantalla
+                  Provider.of<AplicacionesProvider>(context, listen: false)
+                      .eliminarContacto(grupo, nombre);
+                  DbTiposAplicaciones.db
+                      .deleteApi(grupo, nombre); //elimina api de BD
+
+                  Navigator.pop(context);
+                },
+                child: Text('Si', style: TextStyle(fontSize: 20.0))),
+            TextButton(
+                autofocus: true,
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: Text('No', style: TextStyle(fontSize: 20.0)))
+          ],
+        ),
+      );
 }
 
 Widget _botonesContactos(BuildContext context, Contact contacto) {

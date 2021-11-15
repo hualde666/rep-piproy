@@ -92,11 +92,9 @@ class _ContactsPorGrupoPageState extends State<ContactsPorGrupoPage> {
       backgroundColor: Theme.of(context).primaryColor,
       appBar: PreferredSize(
           preferredSize: Size.fromHeight(222.0), // here the desired height
-          child:
-              // buscar ? titulo() :
-              busqueda(context)),
+          child: busqueda(context)),
       body: ListView(
-        padding: EdgeInsets.only(bottom: 60),
+        padding: EdgeInsets.only(bottom: 68),
         children: listaContact,
       ),
       resizeToAvoidBottomInset: false,

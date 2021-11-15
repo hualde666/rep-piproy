@@ -6,12 +6,36 @@ import 'package:piproy/scr/providers/aplicaciones_provider.dart';
 import 'package:piproy/scr/providers/contactos_provider.dart';
 
 import 'package:piproy/scr/providers/db_provider.dart';
-import 'package:piproy/scr/widgets/header_app.dart';
+
+import 'package:piproy/scr/widgets/tres_botones_header.dart';
 import 'package:provider/provider.dart';
 
-class SelectContactsPage extends StatelessWidget {
+class SelectContactsPage extends StatefulWidget {
+  @override
+  State<SelectContactsPage> createState() => _SelectContactsPageState();
+}
+
+class _SelectContactsPageState extends State<SelectContactsPage> {
+  List<Contact> listaGrupo = [];
+  bool hayBusqueda = false;
+  bool buscar = false;
+  TextEditingController _searchController = TextEditingController();
+  List<Contact> listaContactosFiltro;
+  @override
+  void initState() {
+    super.initState();
+
+    _searchController.addListener(filtrarContactos);
+  }
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
+
   generarLista(List<String> listaNombre, List<Contact> listaContactos) {
-    List<Contact> listaGrupo = [];
+    listaGrupo = [];
     if (listaNombre.isNotEmpty) {
       for (int i = 0; i < listaNombre.length; i++) {
         final contacto = listaContactos
@@ -23,18 +47,43 @@ class SelectContactsPage extends StatelessWidget {
     return listaGrupo;
   }
 
+  filtrarContactos() {
+    final contactosProvaide = new ContactosProvider();
+    List<Contact> _contactos = [];
+
+    _contactos.addAll(contactosProvaide.listaContactos);
+    if (_searchController.text.isNotEmpty) {
+      _contactos.retainWhere((contacto) {
+        String busquedaMinuscula = _searchController.text.toLowerCase();
+        String nombreMinuscula = contacto.displayName.toLowerCase();
+        return nombreMinuscula.contains(busquedaMinuscula);
+      });
+      setState(() {
+        listaContactosFiltro = _contactos;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final apiProvider = Provider.of<AplicacionesProvider>(context);
     final contactosProvaide = new ContactosProvider();
     final grupo = apiProvider.tipoSeleccion;
-    final listaGrupo = generarLista(
-        apiProvider.categoryContact[grupo], contactosProvaide.listaContactos);
+    // final listaGrupo = generarLista(
+    //     apiProvider.categoryContact[grupo], contactosProvaide.listaContactos);
 
-    final List<Contact> listaTodos = contactosProvaide.listaContactos;
+    final List<Contact> listaTodos = [];
+    bool hayBusqueda = _searchController.text.isNotEmpty;
+    if (hayBusqueda) {
+      listaTodos.addAll(listaContactosFiltro);
+    } else {
+      listaTodos.addAll(contactosProvaide.listaContactos);
+    }
     return SafeArea(
         child: Scaffold(
-      appBar: headerApp(context, 'Contactos', Text(''), 0.0),
+      appBar: PreferredSize(
+          preferredSize: Size.fromHeight(222.0), // here the desired height
+          child: busqueda(context)),
       resizeToAvoidBottomInset: false,
       backgroundColor: Theme.of(context).primaryColor,
       body: ListView.builder(
@@ -46,8 +95,68 @@ class SelectContactsPage extends StatelessWidget {
                 apiProvider: apiProvider,
                 grupo: grupo);
           }),
+      floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
       floatingActionButton: BotonFlotante(pagina: 'selecCont'),
     ));
+  }
+
+  Widget busqueda(BuildContext context) {
+    return AppBar(
+      backgroundColor: Color.fromRGBO(55, 57, 84, 1.0),
+      automaticallyImplyLeading: false,
+      flexibleSpace: Container(
+        margin: EdgeInsets.only(top: 10, left: 5.0, right: 5.0),
+        height: 242.0,
+        child: Column(
+          // crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            tresBotonesHeader(context),
+            Divider(
+              height: 1,
+            ),
+            Text(
+              'Seleccion de Contactos',
+              style: TextStyle(color: Colors.white, fontSize: 20),
+            ),
+            TextField(
+              style:
+                  TextStyle(fontSize: 25.0, color: Colors.white54, height: 1.0),
+              keyboardType: TextInputType.text,
+              controller: _searchController,
+              // autofocus: true,
+              decoration: InputDecoration(
+                border: OutlineInputBorder(
+                    //borderSide: BorderSide(color: Colors.amber),
+                    borderRadius: BorderRadius.all(Radius.circular(25.0))),
+                labelStyle: TextStyle(color: Colors.white38, fontSize: 20),
+                labelText: 'Buscar Contacto :',
+                suffixIcon: _searchController.text.isNotEmpty
+                    ? IconButton(
+                        onPressed: () {
+                          setState(() {
+                            _searchController.clear();
+                            buscar = true;
+                          });
+                        },
+                        icon: Icon(
+                          Icons.clear,
+                          color: Colors.white,
+                          size: 30,
+                        ))
+                    : Icon(
+                        Icons.search,
+                        color: Colors.white,
+                        size: 30,
+                      ),
+                focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.white),
+                    borderRadius: BorderRadius.all(Radius.circular(25.0))),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
 
@@ -92,7 +201,7 @@ class _ContactoState extends State<Contacto> {
             .contains(widget.contactoSelec.displayName)) {
           //eliminar
           Provider.of<AplicacionesProvider>(context, listen: false)
-              .eliminarContacto(widget.grupo, widget.contactoSelec);
+              .eliminarContacto(widget.grupo, widget.contactoSelec.displayName);
 
           DbTiposAplicaciones.db
               .deleteApi(widget.grupo, widget.contactoSelec.displayName);
