@@ -78,10 +78,10 @@ class _TarjetaContacto2 extends State<TarjetaContacto2> {
               // Navigator.pushNamed(context, 'editarContacto', arguments: contacto);
             },
             onLongPress: () {
-              if (grupo != 'Emergencia') {
-                // ELIMINAR CONTACTO DEL GRUPO
-                eliminarContactoGrupo(context, grupo, widget.contacto);
-              }
+              // if (grupo != 'Emergencia') {
+              // ELIMINAR CONTACTO DEL GRUPO
+              eliminarContactoGrupo(context, grupo, widget.contacto);
+              // }
             },
             onDoubleTap: () {
               //enviar a contacto al menu principal
