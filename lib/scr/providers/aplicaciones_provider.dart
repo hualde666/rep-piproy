@@ -191,6 +191,8 @@ class AplicacionesProvider with ChangeNotifier {
 
       //*******   obtener organizacion de apps y contactos */
       final resp = await DbTiposAplicaciones.db.getAllRegistros();
+      print('lista de BD:');
+      print(resp);
 
       if (resp.isNotEmpty) {
         final resp2 = resp.map((s) => ApiTipos.fromJson(s)).toList();
