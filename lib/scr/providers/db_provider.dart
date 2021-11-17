@@ -54,15 +54,15 @@ class DbTiposAplicaciones {
     final resp2 = resp.map((s) => ApiTipos.fromJson(s)).toList();
     final row = resp2.firstWhere((element) => element.grupo == grupo);
     final result =
-        await db.delete('TiposApi', where: 'id=?', whereArgs: [row.id]);
+        await db.delete('MenuGrupos', where: 'id=?', whereArgs: [row.id]);
 
     return result;
   }
 
-  Future<int> eliminarGrupo(String tipo) async {
+  Future<int> eliminarGrupo(String grupo) async {
     final db = await database;
     final result =
-        await db.delete('MenuGrupos', where: 'grupo=?', whereArgs: [tipo]);
+        await db.delete('MenuGrupos', where: 'grupo=?', whereArgs: [grupo]);
     return result;
   }
 
