@@ -22,7 +22,7 @@ class DbTiposAplicaciones {
     Directory docmentsDirectory = await getApplicationDocumentsDirectory();
     final path = join(docmentsDirectory.path, 'Vitalfon.db');
 
-    return await openDatabase(path, version: 3, onOpen: (db) {},
+    return await openDatabase(path, version: 4, onOpen: (db) {},
         onCreate: (Database db, int version) async {
       await db.execute('''
       CREATE TABLE TiposApi(
