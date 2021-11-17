@@ -22,10 +22,10 @@ class DbTiposAplicaciones {
     Directory docmentsDirectory = await getApplicationDocumentsDirectory();
     final path = join(docmentsDirectory.path, 'Vitalfon.db');
 
-    return await openDatabase(path, version: 4, onOpen: (db) {},
+    return await openDatabase(path, version: 1, onOpen: (db) {},
         onCreate: (Database db, int version) async {
       await db.execute('''
-      CREATE TABLE TiposApi(
+      CREATE TABLE MenuGrupos(
         id INTEGER PRIMARY KEY,
         tipo TEXT,
         nombre TEXT,
@@ -38,7 +38,7 @@ class DbTiposAplicaciones {
 
   Future<int> nuevoTipo(ApiTipos nuevo) async {
     final db = await database;
-    final resp = await db.insert('TiposApi', nuevo.toJson());
+    final resp = await db.insert('MenuGrupos', nuevo.toJson());
 
     return resp;
   }
@@ -50,7 +50,7 @@ class DbTiposAplicaciones {
     /// OJO: mejorar el query para que devuelva un solo reg
     ///
     final resp =
-        await db.query('TiposApi', where: ' nombre= ?', whereArgs: [nombre]);
+        await db.query('MenuGrupos', where: ' nombre= ?', whereArgs: [nombre]);
     final resp2 = resp.map((s) => ApiTipos.fromJson(s)).toList();
     final row = resp2.firstWhere((element) => element.grupo == grupo);
     final result =
@@ -62,21 +62,21 @@ class DbTiposAplicaciones {
   Future<int> eliminarGrupo(String tipo) async {
     final db = await database;
     final result =
-        await db.delete('TiposApi', where: 'grupo=?', whereArgs: [tipo]);
+        await db.delete('MenuGrupos', where: 'grupo=?', whereArgs: [tipo]);
     return result;
   }
 
   Future<int> eliminarGrupoMP(String nombre) async {
     final db = await database;
     final result =
-        await db.delete('TiposApi', where: 'grupo=?', whereArgs: [nombre]);
+        await db.delete('MenuGrupos', where: 'grupo=?', whereArgs: [nombre]);
 
     return result;
   }
 
   Future<List<Map<String, Object>>> getAllRegistros() async {
     final db = await database;
-    final resp = await db.query('TiposApi');
+    final resp = await db.query('MenuGrupos');
 
     return resp;
   }
