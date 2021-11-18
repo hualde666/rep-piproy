@@ -20,7 +20,7 @@ class DbTiposAplicaciones {
 
   Future<Database> initDB() async {
     Directory docmentsDirectory = await getApplicationDocumentsDirectory();
-    final path = join(docmentsDirectory.path, 'Vitalfon.db');
+    final path = join(docmentsDirectory.path, 'Vitalfon1.db');
 
     return await openDatabase(path, version: 1, onOpen: (db) {},
         onCreate: (Database db, int version) async {
