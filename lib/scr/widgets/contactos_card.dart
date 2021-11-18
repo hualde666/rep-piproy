@@ -116,10 +116,9 @@ class _TarjetaContacto2 extends State<TarjetaContacto2> {
                   /// elina api de pantalla
                   Provider.of<AplicacionesProvider>(context, listen: false)
                       .eliminarContacto(grupo, contacto.displayName);
-                  if (grupo != 'Todos') {
-                    DbTiposAplicaciones.db.deleteApi(
-                        grupo, contacto.displayName); //elimina api de BD
-                  }
+
+                  DbTiposAplicaciones.db.deleteApi(
+                      grupo, contacto.displayName); //elimina api de BD
 
                   Navigator.pop(context);
                 },
