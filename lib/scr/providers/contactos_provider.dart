@@ -13,6 +13,7 @@ class ContactosProvider {
     getcontactos();
   }
   List<Contact> _listaContactos;
+
   get listaContactos {
     return _listaContactos;
   }
@@ -22,10 +23,6 @@ class ContactosProvider {
   }
 
 // elimina id de la lista de id conctactos
-
-  obtenerlistaContactos() {
-    return _listaContactos;
-  }
 
   getcontactos() async {
     // List<Contact> _lista = [];

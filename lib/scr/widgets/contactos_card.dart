@@ -107,18 +107,18 @@ class _TarjetaContacto2 extends State<TarjetaContacto2> {
           actions: [
             TextButton(
                 onPressed: () {
-                  if (grupo == 'Todos') {
-                    _eliminarContacto(contacto);
-                    final contactosProvider = new ContactosProvider();
-                    contactosProvider.borrarDeListaContacto(contacto);
-                  }
-
-                  /// elina api de pantalla
+                  /// elina contacto de pantalla
                   Provider.of<AplicacionesProvider>(context, listen: false)
                       .eliminarContacto(grupo, contacto.displayName);
 
                   DbTiposAplicaciones.db.deleteApi(
                       grupo, contacto.displayName); //elimina api de BD
+                  // elimino contacto del celular
+                  if (grupo == 'Todos') {
+                    _eliminarContacto(contacto);
+                    final contactosProvider = new ContactosProvider();
+                    contactosProvider.borrarDeListaContacto(contacto);
+                  }
 
                   Navigator.pop(context);
                 },
