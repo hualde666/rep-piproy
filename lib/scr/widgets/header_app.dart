@@ -11,17 +11,17 @@ Widget headerApp(
       //decoration: BoxDecoration(border: Border.all(color: Colors.black)),
       padding: EdgeInsets.only(top: 5),
       color: Color.fromRGBO(55, 57, 84, 1.0),
-      height: 150 + alto,
+      height: 155 + alto,
       width: double.infinity,
       child: Column(
         children: [
           tresBotonesHeader(context),
           SizedBox(
-            height: 10,
+            height: 5,
           ),
           Text(titulo.toUpperCase(),
               overflow: TextOverflow.ellipsis,
-              style: TextStyle(color: Colors.white, fontSize: 20)),
+              style: TextStyle(color: Colors.white, fontSize: 25)),
           alto > 0
               ? Column(
                   children: [

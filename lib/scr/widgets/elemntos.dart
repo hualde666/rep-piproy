@@ -12,7 +12,9 @@ Widget elementos(BuildContext context, Widget widget, double altura,
       alignment: Alignment.center,
       child: widget,
       decoration: BoxDecoration(
-          color: Theme.of(context).primaryColor,
+          color: ruta == 'contactos' || tipo.contains('MPG')
+              ? Colors.green
+              : Theme.of(context).primaryColor,
           borderRadius: BorderRadius.circular(20.0),
           border: Border.all(color: Colors.white)),
     ),

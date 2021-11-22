@@ -84,7 +84,7 @@ class ApiGruposPage extends StatelessWidget {
           child: Text(
             grupo,
             overflow: TextOverflow.ellipsis,
-            style: TextStyle(color: Colors.white, fontSize: 30),
+            style: TextStyle(color: Colors.white, fontSize: 40),
           ),
         ),
       ),

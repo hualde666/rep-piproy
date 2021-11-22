@@ -13,10 +13,10 @@ class PilaTimpoClima extends StatefulWidget {
 
 class _PilaTimpoClimaState extends State<PilaTimpoClima> {
   Timer startTimeout([int milliseconds]) {
-    final timeout = Duration(seconds: 60);
-    final ms = Duration(milliseconds: 1);
+    final timeout = Duration(seconds: 2);
+    final ms = Duration(milliseconds: 1000);
     var duration = milliseconds == null ? timeout : ms * milliseconds;
-    return Timer(duration, _actualizaHora);
+    return Timer(timeout, _actualizaHora);
   }
 
   @override
@@ -28,15 +28,18 @@ class _PilaTimpoClimaState extends State<PilaTimpoClima> {
   }
 
   void _actualizaHora() {
-    setState(() {
-      startTimeout(3000);
-    });
+    if (mounted) {
+      setState(() {
+        startTimeout();
+      });
+    }
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   Timer(Duration(microseconds: 1), () {});
+  //   super.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {

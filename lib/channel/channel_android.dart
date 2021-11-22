@@ -2,8 +2,16 @@ import 'dart:async';
 import 'package:flutter/services.dart';
 
 class AndroidChannel {
-  final MethodChannel _methodChannel =
-      MethodChannel("app.piproy.channel/hualdemirene@gmail.com");
+  static final AndroidChannel _canal = AndroidChannel._internal();
+
+  factory AndroidChannel() {
+    return _canal;
+  }
+  MethodChannel _methodChannel;
+
+  AndroidChannel._internal() {
+    _methodChannel = MethodChannel("app.piproy.channel/hualdemirene@gmail.com");
+  }
 
   Future<void> pedirVersion() async {
     try {
@@ -14,16 +22,16 @@ class AndroidChannel {
     }
   }
 
-  Future<void> listaApis() async {
-    print('Entre a listaApis');
-    try {
-      final result = await _methodChannel.invokeMethod("aplicaciones");
-      print('Respuesta : $result');
-      return result;
-    } catch (e) {
-      print('ERROR: $e');
-    }
-  }
+  // Future<void> listaApis() async {
+  //   print('Entre a listaApis');
+  //   try {
+  //     final result = await _methodChannel.invokeMethod("aplicaciones");
+  //     print('Respuesta : $result');
+  //     return result;
+  //   } catch (e) {
+  //     print('ERROR: $e');
+  //   }
+  // }
 
   Future<int> nivelBateria() async {
     try {

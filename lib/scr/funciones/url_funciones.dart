@@ -5,8 +5,9 @@ abrirWhatsapp(String phone, String mensaje) async {
   var whatsappURl = "whatsapp://send?phone=" + phone + "";
   if (await canLaunch(whatsappURl)) {
     await launch(whatsappURl);
-  } else {
-    throw 'Could not launch ';
+    // } else {
+    //   throw 'Could not launch ';
+    // }
   }
 }
 
@@ -15,8 +16,9 @@ llamar(String telefono) async {
 
   if (await canLaunch(url)) {
     await launch(url);
-  } else {
-    throw 'Could not launch $url';
+    // } else {
+    //   throw 'Could not launch $url';
+    // }
   }
 }
 
@@ -25,8 +27,9 @@ mensaje(String phone) async {
 
   if (await canLaunch(url)) {
     await launch(url);
-  } else {
-    throw 'Could not launch $url';
+    // } else {
+    //   throw 'Could not launch $url';
+    // }
   }
 }
 
@@ -35,7 +38,6 @@ abrirGoogle() async {
 
   if (await canLaunch('https://www.google.com')) {
     await launch('https://www.google.com');
-  } else {
-    throw 'Could not launch ';
+    // } }
   }
 }

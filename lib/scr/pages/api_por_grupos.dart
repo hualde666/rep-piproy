@@ -21,7 +21,7 @@ class ApiPorGrupoPage extends StatelessWidget {
       backgroundColor: Theme.of(context).primaryColor,
       appBar: headerApp(context, '$grupo', Text(''), 0.0),
       body: GridView.count(
-        padding: EdgeInsets.only(bottom: 60),
+        padding: EdgeInsets.only(bottom: 60, left: 1, right: 1),
         children: listaApi,
         crossAxisCount: 2,
       ),
@@ -82,7 +82,12 @@ class ElementoApi extends StatelessWidget {
       },
       onDoubleTap: () => agregaMPA(context, api),
       child: Container(
-        color: Theme.of(context).primaryColor,
+        margin: EdgeInsets.symmetric(horizontal: 3, vertical: 3),
+        decoration: BoxDecoration(
+            color: Theme.of(context).primaryColor,
+            borderRadius: BorderRadius.circular(15.0),
+            border: Border.all(color: Colors.white, width: 1.0)),
+        // color: Theme.of(context).primaryColor,
         child: Column(
           children: [
             SizedBox(
@@ -93,12 +98,16 @@ class ElementoApi extends StatelessWidget {
               width: 100,
             ),
             SizedBox(
-              width: 20,
+              width: 30,
             ),
-            Text(
-              api.appName,
-              textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 20, color: Colors.white),
+            Container(
+              height: 60,
+              width: 150,
+              child: Text(
+                api.appName,
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 25, color: Colors.white),
+              ),
             ),
           ],
         ),

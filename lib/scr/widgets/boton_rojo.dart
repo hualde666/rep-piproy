@@ -4,6 +4,9 @@ Widget botonRojoHeader(BuildContext context) {
   return GestureDetector(
     onTap: () => Navigator.pushNamed(context, 'botonRojo'),
     child: Container(
+      // child: Center(
+      //     child: Text('EMERGENCIA',
+      //         style: TextStyle(color: Colors.white, fontSize: 25))),
       child:
           Image(image: AssetImage('assets/boton_rojo.png'), fit: BoxFit.cover),
       height: 100,

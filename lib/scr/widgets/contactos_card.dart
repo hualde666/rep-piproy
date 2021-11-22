@@ -35,7 +35,7 @@ class _TarjetaContacto2 extends State<TarjetaContacto2> {
         ? GestureDetector(
             child: Container(
               height: 225,
-              margin: EdgeInsets.symmetric(horizontal: 2.5, vertical: 2.0),
+              margin: EdgeInsets.symmetric(horizontal: 4, vertical: 2.0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
@@ -63,7 +63,8 @@ class _TarjetaContacto2 extends State<TarjetaContacto2> {
         : GestureDetector(
             child: Container(
               height: 100,
-              margin: EdgeInsets.symmetric(horizontal: 2.5, vertical: 2.0),
+
+              margin: EdgeInsets.symmetric(horizontal: 4, vertical: 2.0),
               child:
                   //_avatar(contacto),
                   _nombreContacto(context, widget.contacto),
@@ -300,7 +301,7 @@ Widget _nombreContacto(BuildContext context, Contact contacto) {
   return Container(
       height: 90,
       decoration: BoxDecoration(
-        color: Theme.of(context).primaryColor,
+        color: Theme.of(context).primaryColor, //Colors.green[700],
         borderRadius: BorderRadius.circular(20.0),
       ),
       //border: Border.all()),

@@ -43,18 +43,6 @@ class AplicacionesProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  agregarContactGrupo(String grupo) {
-    _contactgrupos.add(grupo);
-    categoryContact[grupo] = [];
-
-    // _tipoSeleccion = tipo;
-    _contactgrupos.sort((a, b) {
-      return a.toLowerCase().compareTo(b.toLowerCase());
-    });
-
-    notifyListeners();
-  }
-
   bool get cargando => this._cargando;
   get tipoSeleccion => this._tipoSeleccion;
 
@@ -95,6 +83,63 @@ class AplicacionesProvider with ChangeNotifier {
     return this._listaSeleccion;
   }
 
+  obtenerListaSeleccion() async {
+    String tipo = this._tipoSeleccion;
+
+    return this.categoryApi[tipo];
+    // _listaSeleccion = categoryApi[tipo];
+  }
+
+//*************************************** CONTACTOS */
+//************************************************* */
+  obtenerListaContactos() async {
+    String tipo = this._tipoSeleccion;
+
+    return this.categoryContact[tipo];
+    // _listaSeleccion = categoryApi[tipo];
+  }
+
+  //******************************* */
+  // agrega grupo contacto
+  agregarContactGrupo(String grupo) {
+    _contactgrupos.add(grupo);
+    categoryContact[grupo] = [];
+
+    // _tipoSeleccion = tipo;
+    _contactgrupos.sort((a, b) {
+      return a.toLowerCase().compareTo(b.toLowerCase());
+    });
+
+    notifyListeners();
+  }
+
+  //******************************* */
+  // agrega contacto a grupo
+  agregarContacto(String grupo, Contact contacto) {
+    categoryContact[grupo].add(contacto.displayName);
+    notifyListeners();
+  }
+
+  //******************************* */
+  // elimina contacto de grupo
+  eliminarContacto(String grupo, String nombre) {
+    categoryContact[grupo].remove(nombre);
+    notifyListeners();
+  }
+
+  //******************************* */
+  // elimina de grupo contacto
+  eliminarContactTipos(String grupo) {
+    _contactgrupos.removeWhere((element) => element == grupo);
+    categoryContact.remove(grupo = grupo);
+    notifyListeners();
+  }
+
+  //*************************************** APLICACIONES */
+  //**************************************************** */
+
+  //******************************* */
+  // agrega  y elimina app en grupo
   modiApiListaPorTipo(Application api) {
     if (!this.categoryApi[_tipoSeleccion].contains(api)) {
       this.categoryApi[_tipoSeleccion].add(api);
@@ -108,6 +153,16 @@ class AplicacionesProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  //******************************* */
+  // elimina de grupo app
+  eliminarTipos(String tipo) {
+    _apigrupos.removeWhere((element) => element == tipo);
+    categoryApi.remove(tipo = tipo);
+    notifyListeners();
+  }
+
+  //******************************* */
+  // agrega elemnto al menu principal
   agregarMenu(String tipo) {
     listaMenu.add(tipo);
     listaMenu.sort((a, b) {
@@ -116,63 +171,18 @@ class AplicacionesProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  eliminar(Application api) {
-    this.categoryApi[_tipoSeleccion].remove(api);
-    notifyListeners();
-  }
-
-  obtenerListaSeleccion() async {
-    String tipo = this._tipoSeleccion;
-
-    return this.categoryApi[tipo];
-    // _listaSeleccion = categoryApi[tipo];
-  }
-
-  obtenerListaContactos() async {
-    String tipo = this._tipoSeleccion;
-
-    return this.categoryContact[tipo];
-    // _listaSeleccion = categoryApi[tipo];
-  }
-
-  agregarContacto(String grupo, Contact contacto) {
-    categoryContact[grupo].add(contacto.displayName);
-    notifyListeners();
-  }
-
-  eliminarContacto(String grupo, String nombre) {
-    categoryContact[grupo].remove(nombre);
-    notifyListeners();
-  }
-
-  // getListaApp() async {
-  //   // AndroidChannel _androidChannel = AndroidChannel();
-  //   //  final lista = await _androidChannel.listaApis();
-  //   final resp = await DeviceApps.getInstalledApplications(
-  //       includeAppIcons: true,
-  //       includeSystemApps: true,
-  //       onlyAppsWithLaunchIntent: true);
-  //   if (resp.isNotEmpty) {
-  //     categoryApi['Todas'].addAll(resp);
-  //   }
-
-  //   print('Salgo de getListApi+${categoryApi['Todas']}');
-  // }
-
-  eliminarTipos(String tipo) {
-    _apigrupos.removeWhere((element) => element == tipo);
-    categoryApi.remove(tipo = tipo);
-    notifyListeners();
-  }
-
-  eliminarContactTipos(String grupo) {
-    _contactgrupos.removeWhere((element) => element == grupo);
-    categoryContact.remove(grupo = grupo);
-    notifyListeners();
-  }
+  //******************************* */
+  // elimina de elemento de menu principal
 
   eliminarTipoMP(String tipo) {
     listaMenu.remove(tipo);
+    notifyListeners();
+  }
+
+  //******************************* */
+  // elimina elemnto al menu principal
+  eliminar(Application api) {
+    this.categoryApi[_tipoSeleccion].remove(api);
     notifyListeners();
   }
 

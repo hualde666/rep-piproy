@@ -51,6 +51,13 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
+        builder: (BuildContext context, Widget child) {
+          final MediaQueryData data = MediaQuery.of(context);
+          return MediaQuery(
+            data: data.copyWith(textScaleFactor: 1),
+            child: child,
+          );
+        },
         title: 'Proyecto',
         theme: themaApi(),
         // home: SplashPage(),

@@ -11,6 +11,7 @@ class EstadoProvider with ChangeNotifier {
     actulizarDatos();
     return;
   }
+  AndroidChannel _androidChannel = AndroidChannel();
   Color _bateriaColor = Colors.green[900];
   Color _colorWifi = Colors.red[900];
   int _nivelBateria = 100;
@@ -62,7 +63,6 @@ class EstadoProvider with ChangeNotifier {
   }
 
   actulizarDatos() async {
-    AndroidChannel _androidChannel = AndroidChannel();
     final bateria = await _androidChannel.nivelBateria();
     final _cargando = await _androidChannel.cargandoBateria();
     final _wifi = await _androidChannel.conectadoWifi();

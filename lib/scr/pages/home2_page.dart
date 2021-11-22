@@ -101,7 +101,7 @@ class _Home2PageState extends State<Home2Page> {
       elementos(
           context,
           Text('Contactos',
-              style: TextStyle(color: Colors.white, fontSize: 35.0)),
+              style: TextStyle(color: Colors.white, fontSize: 40.0)),
           100,
           'contactos',
           ''),
@@ -109,7 +109,7 @@ class _Home2PageState extends State<Home2Page> {
       elementos(
           context,
           Text('Aplicaciones',
-              style: TextStyle(color: Colors.white, fontSize: 35.0)),
+              style: TextStyle(color: Colors.white, fontSize: 40.0)),
           100,
           'apigrupos',
           ''),
@@ -122,7 +122,7 @@ class _Home2PageState extends State<Home2Page> {
           listaOpciones.add(elementos(
               context,
               Text(titulo,
-                  style: TextStyle(color: Colors.white, fontSize: 35.0)),
+                  style: TextStyle(color: Colors.white, fontSize: 40.0)),
               100,
               titulo,
               listaMenu[i]));
@@ -219,7 +219,7 @@ Widget elementoApi2(BuildContext context, Application api) {
       eliminarApi(context, 'MPA' + api.appName);
     },
     child: Container(
-      margin: EdgeInsets.symmetric(vertical: 1.5, horizontal: 3.0),
+      margin: EdgeInsets.symmetric(vertical: 1.5, horizontal: 4.0),
       decoration: BoxDecoration(
           color: Theme.of(context).primaryColor,
           borderRadius: BorderRadius.circular(20.0),
@@ -240,7 +240,7 @@ Widget elementoApi2(BuildContext context, Application api) {
           Text(
             api.appName,
             textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 30, color: Colors.white),
+            style: TextStyle(fontSize: 35, color: Colors.white),
           ),
         ],
       ),

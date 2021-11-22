@@ -3,7 +3,7 @@ import 'package:piproy/channel/channel_android.dart';
 import 'package:piproy/scr/providers/estado_celular.dart';
 import 'package:piproy/scr/widgets/header_app.dart';
 import 'package:provider/provider.dart';
-import 'package:location/location.dart' as loc;
+import 'package:geolocator/geolocator.dart';
 
 class GpsPage extends StatelessWidget {
   GpsPage({@required context});
@@ -63,12 +63,12 @@ class GpsPage extends StatelessWidget {
                   child: Center(
                     child: TextButton(
                       onPressed: () {
-                        AndroidChannel _androidChannel = AndroidChannel();
-                        if (conectadoGps) {
-                          _androidChannel.swichWifi(false);
-                        } else {
-                          _androidChannel.swichWifi(true);
-                        }
+                        //AndroidChannel _androidChannel = AndroidChannel();
+                        // if (conectadoGps) {
+                        //   onoffGps(false);
+                        // } else {
+                        //   onoffGps(true);
+                        // }
                       },
                       child: Text(
                         boton,
@@ -90,11 +90,6 @@ class GpsPage extends StatelessWidget {
   }
 }
 
-Future onoffGps(bool bool) async {
-  loc.Location location =
-      loc.Location(); //explicit reference to the Location class
-
-  if (!await location.serviceEnabled()) {
-    location.requestService();
-  }
+Future onoffGps(bool onoff) async {
+  await Geolocator.openAppSettings();
 }

@@ -56,14 +56,22 @@ class MainActivity: FlutterActivity() {
                     result.success(resultado)
                  
                   }
-                  if (call.method == "aplicaciones") {
-                    // val resultado = getListaApi()
-                    // result.success(resultado)
+                  // if (call.method == "aplicaciones") {
+                  //   // val resultado = getListaApi()
+                  //   // result.success(resultado)
                  
-                  }
+                  // }
                   if (call.method == "wifi") {
-                    val resultado = getWifi()
-                    result.success(resultado)
+                    
+                    val res:Boolean = getWifi()
+                    // if (res== true){
+                      result.success(res)
+  
+                    // }
+                    // else
+                    // {
+                    //   result.success(0)
+                    // }
     
                 }
                 if (call.method == "onoffwifi") {
@@ -98,7 +106,7 @@ class MainActivity: FlutterActivity() {
     
                 }
                   if (call.method == "bateria") {
-                    
+                   
                     val batteryLevel = getNivelBateria()
             
                     if (batteryLevel != -1) {
@@ -110,11 +118,11 @@ class MainActivity: FlutterActivity() {
                     }
                   }
                  
-                  else{
+                  // else{
         
-                  
-                    result.notImplemented()
-                  }
+                  // println("**** NO IMPLEMENTADO ****")
+                  //   result.notImplemented()
+                  // }
         
                 }
               }
@@ -140,11 +148,13 @@ class MainActivity: FlutterActivity() {
                 if (VERSION.SDK_INT >= VERSION_CODES.LOLLIPOP) {
                   val batteryManager = getSystemService(Context.BATTERY_SERVICE) as BatteryManager
                   batteryLevel = batteryManager.getIntProperty(BatteryManager.BATTERY_PROPERTY_CAPACITY)
+             
                 } else {
                   val intent = ContextWrapper(applicationContext).registerReceiver(null, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
                   batteryLevel = intent!!.getIntExtra(BatteryManager.EXTRA_LEVEL, -1) * 100 / intent.getIntExtra(BatteryManager.EXTRA_SCALE, -1)
-               
+            
                 }
+            
                 return batteryLevel
               }
               private fun getCargaBateria(): Boolean{
@@ -163,6 +173,7 @@ class MainActivity: FlutterActivity() {
       
             private fun getWifi(): Boolean{
             
+     
 
               val connectivityManager = this.getSystemService(android.content.Context.CONNECTIVITY_SERVICE)
                   as ConnectivityManager

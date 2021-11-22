@@ -10,6 +10,16 @@ Widget botonHomeHeader(BuildContext context) {
       }
     },
     child: Container(
+      // child: Center(
+      //     child: Text('INICIO',
+      //         style: TextStyle(color: Colors.white, fontSize: 25))),
+
+      // decoration: BoxDecoration(
+      //   color: Colors.amber[400],
+      //   borderRadius: BorderRadius.circular(15.0),
+      // ),
+      //  border:
+      //   Border.all( width: 3.0)),
       child:
           Image(image: AssetImage('assets/boton_home.png'), fit: BoxFit.cover),
       height: 100,
