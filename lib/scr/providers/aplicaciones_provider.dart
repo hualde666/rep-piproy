@@ -31,6 +31,7 @@ class AplicacionesProvider with ChangeNotifier {
     this.categoryApi['Todas'] = [];
     this.categoryContact['Todos'] = [];
   }
+
   agregarApiGrupo(String grupo) {
     _apigrupos.add(grupo);
     categoryApi[grupo] = [];
@@ -124,6 +125,16 @@ class AplicacionesProvider with ChangeNotifier {
   // elimina contacto de grupo
   eliminarContacto(String grupo, String nombre) {
     categoryContact[grupo].remove(nombre);
+    notifyListeners();
+  }
+
+  modificarContacto(String nombreviejo, String nombrenuevo) {
+    for (var i = 0; i < categoryContact.length; i++) {
+      if (categoryContact[i].contains(nombreviejo)) {
+        categoryContact[i].remove(nombreviejo);
+        categoryContact[i].add(nombrenuevo);
+      }
+    }
     notifyListeners();
   }
 
@@ -257,11 +268,13 @@ class AplicacionesProvider with ChangeNotifier {
 
               final String nombreApi = resp2[i].nombre;
               if (nombreApi != "") {
-                final Application api = this
-                    .categoryApi['Todas']
-                    .firstWhere((element) => element.appName == nombreApi);
+                final Application api = this.categoryApi['Todas'].firstWhere(
+                    (element) => element.appName == nombreApi,
+                    orElse: () => null);
                 if (api != null) {
-                  categoryApi[resp2[i].grupo].add(api);
+                  if (!categoryApi[resp2[i].grupo].contains(api)) {
+                    categoryApi[resp2[i].grupo].add(api);
+                  }
                 }
               }
             }
@@ -275,7 +288,9 @@ class AplicacionesProvider with ChangeNotifier {
 
               final String nombre = resp2[i].nombre;
               if (nombre != "") {
-                categoryContact[resp2[i].grupo].add(nombre);
+                if (!categoryContact[resp2[i].grupo].contains(nombre)) {
+                  categoryContact[resp2[i].grupo].add(nombre);
+                }
               }
             }
 

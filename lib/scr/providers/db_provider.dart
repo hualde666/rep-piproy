@@ -59,6 +59,13 @@ class DbTiposAplicaciones {
     return result;
   }
 
+  Future modificarNombre(String nombreViejo, String nombreNuevo) async {
+    final db = await database;
+
+    await db.rawUpdate('UPDATE Test SET nombre = ?,  WHERE nombre = ?',
+        [nombreNuevo, nombreViejo]);
+  }
+
   Future<int> eliminarGrupo(String grupo) async {
     final db = await database;
     final result =

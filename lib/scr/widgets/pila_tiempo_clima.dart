@@ -14,8 +14,8 @@ class PilaTimpoClima extends StatefulWidget {
 class _PilaTimpoClimaState extends State<PilaTimpoClima> {
   Timer startTimeout([int milliseconds]) {
     final timeout = Duration(seconds: 2);
-    final ms = Duration(milliseconds: 1000);
-    var duration = milliseconds == null ? timeout : ms * milliseconds;
+    //final ms = Duration(milliseconds: 1000);
+    //var duration = milliseconds == null ? timeout : ms * milliseconds;
     return Timer(timeout, _actualizaHora);
   }
 

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:piproy/scr/ayuda_widget/fab_ayuda.dart';
 import 'package:piproy/scr/models/api_tipos.dart';
 import 'package:piproy/scr/providers/aplicaciones_provider.dart';
-import 'package:piproy/scr/providers/contactos_provider.dart';
+
 import 'package:piproy/scr/providers/db_provider.dart';
 
 import 'package:piproy/scr/widgets/boton_exit.dart';
@@ -57,38 +57,38 @@ class _Home2PageState extends State<Home2Page> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-        child: Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(220.0),
-        child: AppBar(flexibleSpace: encabezadoApp(context, 'Proyecto PI')),
-      ),
-      backgroundColor: Theme.of(context).primaryColor,
-      body: FutureBuilder(
-          future: cargarMenu(),
-          builder: (BuildContext context, AsyncSnapshot snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(
-                child: CircularProgressIndicator(),
-              );
-            } else {
-              if (snapshot.hasData) {
-                return detalle(context, snapshot.data);
+      child: Scaffold(
+        appBar: PreferredSize(
+          preferredSize: Size.fromHeight(220.0),
+          child: AppBar(flexibleSpace: encabezadoApp(context, 'Proyecto PI')),
+        ),
+        backgroundColor: Theme.of(context).primaryColor,
+        body: FutureBuilder(
+            future: cargarMenu(),
+            builder: (BuildContext context, AsyncSnapshot snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
               } else {
-                return Container();
+                if (snapshot.hasData) {
+                  return detalle(context, snapshot.data);
+                } else {
+                  return Container();
+                }
               }
-            }
-          }),
-      floatingActionButton: Container(
-        margin: EdgeInsets.only(left: 25),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            BotonFlotante(pagina: 'home'),
-          ],
-          // bottomNavigationBar: BottonBarNavegador(),
+            }),
+        floatingActionButton: Container(
+          margin: EdgeInsets.only(left: 25),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              BotonFlotante(pagina: 'home'),
+            ],
+          ),
         ),
       ),
-    ));
+    );
   }
 
   detalle(BuildContext context, List<String> listaMenu) {
@@ -128,9 +128,12 @@ class _Home2PageState extends State<Home2Page> {
               listaMenu[i]));
         } else {
           final apiProvider = Provider.of<AplicacionesProvider>(context);
-          final Application api = apiProvider.categoryApi['Todas']
-              .firstWhere((eApi) => eApi.appName == listaMenu[i].substring(3));
-          listaOpciones.add(elementoApi2(context, api));
+          final Application api = apiProvider.categoryApi['Todas'].firstWhere(
+              (eApi) => eApi.appName == listaMenu[i].substring(3),
+              orElse: () => null);
+          if (api != null) {
+            listaOpciones.add(elementoApi2(context, api));
+          }
         }
         listaOpciones.add(SizedBox(height: 10));
       }

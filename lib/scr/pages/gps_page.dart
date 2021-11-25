@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:piproy/channel/channel_android.dart';
+//import 'package:piproy/channel/channel_android.dart';
 import 'package:piproy/scr/providers/estado_celular.dart';
 import 'package:piproy/scr/widgets/header_app.dart';
 import 'package:provider/provider.dart';
 import 'package:geolocator/geolocator.dart';
 
 class GpsPage extends StatelessWidget {
-  GpsPage({@required context});
-  BuildContext context;
+  // GpsPage({@required context});
+  //BuildContext context;
   @override
   Widget build(BuildContext context) {
     final celProvider = Provider.of<EstadoProvider>(context);

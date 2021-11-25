@@ -12,30 +12,32 @@ class ApiGruposPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final apiProvider = Provider.of<AplicacionesProvider>(context);
+    final List<String> listaGrupos = apiProvider.apigrupos;
     return SafeArea(
         child: Scaffold(
             appBar: headerApp(context, 'Grupos app', Text(''), 0.0),
             resizeToAvoidBottomInset: false,
             backgroundColor: Theme.of(context).primaryColor,
-            body: FutureBuilder(
-                future: apiProvider.cargarCategorias(),
-                builder: (BuildContext context, AsyncSnapshot snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  } else {
-                    final List<String> listaGrupos = apiProvider.apigrupos;
+            body:
+                //  FutureBuilder(
+                //     future: apiProvider.cargarCategorias(),
+                //     builder: (BuildContext context, AsyncSnapshot snapshot) {
+                //       if (snapshot.connectionState == ConnectionState.waiting) {
+                //         return Center(
+                //           child: CircularProgressIndicator(),
+                //         );
+                //       } else {
 
-                    // listaGrupos.add(' ');
-                    return ListView.builder(
-                        padding: EdgeInsets.only(bottom: 65),
-                        itemCount: listaGrupos.length,
-                        itemBuilder: (context, i) {
-                          return grupo(context, listaGrupos[i]);
-                        });
-                  }
-                }),
+                //         // listaGrupos.add(' ');
+                //         return
+                ListView.builder(
+                    padding: EdgeInsets.only(bottom: 65),
+                    itemCount: listaGrupos.length,
+                    itemBuilder: (context, i) {
+                      return grupo(context, listaGrupos[i]);
+                    }),
+            //   }
+            // }),
             floatingActionButton: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [

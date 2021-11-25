@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:piproy/scr/ayuda_widget/fab_ayuda.dart';
 import 'package:piproy/scr/models/api_tipos.dart';
-import 'package:piproy/scr/pages/contact_seleccion.dart';
+
 import 'package:piproy/scr/pages/contacts_por_grupo.dart';
-import 'package:piproy/scr/providers/contactos_provider.dart';
 
 import 'package:piproy/scr/providers/db_provider.dart';
 import 'package:piproy/scr/widgets/header_app.dart';
@@ -15,31 +14,33 @@ class ContactsGruposPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final apiProvider = Provider.of<AplicacionesProvider>(context);
-
+    final List<String> listaGrupos = apiProvider.contactgrupos;
     return SafeArea(
         child: Scaffold(
             appBar: headerApp(context, 'Grupos Contactos', Text(''), 0.0),
             resizeToAvoidBottomInset: false,
             backgroundColor: Theme.of(context).primaryColor,
-            body: FutureBuilder(
-                future: apiProvider.cargarCategorias(),
-                builder: (BuildContext context, AsyncSnapshot snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  } else {
-                    final List<String> listaGrupos = apiProvider.contactgrupos;
+            body:
+                //  FutureBuilder(
+                //     future: apiProvider.cargarCategorias(),
+                //     builder: (BuildContext context, AsyncSnapshot snapshot) {
+                //       if (snapshot.connectionState == ConnectionState.waiting) {
+                //         return Center(
+                //           child: CircularProgressIndicator(),
+                //         );
+                //       } else {
+                //         final List<String> listaGrupos = apiProvider.contactgrupos;
 
-                    // listaGrupos.add(' ');
-                    return ListView.builder(
-                        padding: EdgeInsets.only(bottom: 65),
-                        itemCount: listaGrupos.length,
-                        itemBuilder: (context, i) {
-                          return grupo(context, listaGrupos[i]);
-                        });
-                  }
-                }),
+                // listaGrupos.add(' ');
+                //return
+                ListView.builder(
+                    padding: EdgeInsets.only(bottom: 65),
+                    itemCount: listaGrupos.length,
+                    itemBuilder: (context, i) {
+                      return grupo(context, listaGrupos[i]);
+                    }),
+            //    }
+            //    }),
             floatingActionButton: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
@@ -90,7 +91,7 @@ class ContactsGruposPage extends StatelessWidget {
           child: Text(
             grupo,
             overflow: TextOverflow.ellipsis,
-            style: TextStyle(color: Colors.white, fontSize: 30),
+            style: TextStyle(color: Colors.white, fontSize: 40),
           ),
         ),
       ),

@@ -108,20 +108,12 @@ funcionIcon(
     case 'wifi':
       // prender y apagar)
       Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => WifiPage(
-                    context: context,
-                  )));
+          context, MaterialPageRoute(builder: (context) => WifiPage()));
       break;
     case 'gps':
       // prender y apagar
       Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => GpsPage(
-                    context: context,
-                  )));
+          context, MaterialPageRoute(builder: (context) => GpsPage()));
       break;
     case 'linterna':
       AndroidChannel _androidChannel = AndroidChannel();

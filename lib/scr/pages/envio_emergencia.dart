@@ -157,7 +157,7 @@ Future<void> mandarSMS(List<Contact> listaE) async {
 
     final lat = pos.latitude;
     final lng = pos.longitude;
-    final pos2 = ' https://maps.google.com/?q=$lat,$lng';
+    pos2 = ' https://maps.google.com/?q=$lat,$lng';
   }
   // final resp = await Sendsms.onGetPermission();
   // if (resp.hashCode != null) {

@@ -26,7 +26,10 @@ class ConfiguracionPage extends StatelessWidget {
             ListTile(
                 leading: Icon(Icons.contact_phone,
                     size: 35.0, color: Theme.of(context).primaryColor),
-                title: Text('Agregar o eliminar contactos de emergencia'),
+                title: Text(
+                  'Agregar o eliminar contactos de emergencia',
+                  style: TextStyle(fontSize: 20),
+                ),
                 onTap: () {
                   //Navigator.pop(context);
                   // Navigator.pushNamed(context, 'emergiContactos');
@@ -55,7 +58,8 @@ class ConfiguracionPage extends StatelessWidget {
                 size: 40.0,
                 color: Theme.of(context).primaryColor,
               ),
-              title: Text('Redactar mensaje de emergencia'),
+              title: Text('Redactar mensaje de emergencia',
+                  style: TextStyle(fontSize: 20)),
               onTap: () {
                 Navigator.pushNamed(context, 'emergiMensaje');
               },

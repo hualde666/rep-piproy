@@ -38,9 +38,12 @@ class _SelectContactsPageState extends State<SelectContactsPage> {
     listaGrupo = [];
     if (listaNombre.isNotEmpty) {
       for (int i = 0; i < listaNombre.length; i++) {
-        final contacto = listaContactos
-            .firstWhere((element) => element.displayName == listaNombre[i]);
-        listaGrupo.add(contacto);
+        final contacto = listaContactos.firstWhere(
+            (element) => element.displayName == listaNombre[i],
+            orElse: () => null);
+        if (contacto != null) {
+          listaGrupo.add(contacto);
+        }
       }
     }
 
@@ -87,7 +90,7 @@ class _SelectContactsPageState extends State<SelectContactsPage> {
       resizeToAvoidBottomInset: false,
       backgroundColor: Theme.of(context).primaryColor,
       body: ListView.builder(
-          padding: EdgeInsets.only(bottom: 65),
+          padding: EdgeInsets.only(bottom: 250),
           itemCount: listaTodos.length,
           itemBuilder: (context, i) {
             return Contacto(

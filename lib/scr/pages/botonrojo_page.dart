@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:piproy/scr/ayuda_widget/fab_ayuda.dart';
-import 'package:piproy/scr/funciones/lista_selecion_contactos.dart';
+
 import 'package:piproy/scr/pages/envio_emergencia.dart';
 import 'package:piproy/scr/providers/aplicaciones_provider.dart';
 import 'package:piproy/scr/providers/contactos_provider.dart';
@@ -12,7 +12,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:contacts_service/contacts_service.dart';
 
-import 'package:piproy/scr/models/items_lista_contactos.dart';
 import 'package:audioplayers/audioplayers.dart';
 
 class BotonRojoPage extends StatefulWidget {
@@ -61,9 +60,12 @@ class _BotonRojoPageState extends State<BotonRojoPage> {
 
     if (listaNombre.isNotEmpty) {
       for (int i = 0; i < listaNombre.length; i++) {
-        final contacto = listaContactos
-            .firstWhere((element) => element.displayName == listaNombre[i]);
-        listaGrupo.add(contacto);
+        final contacto = listaContactos.firstWhere(
+            (element) => element.displayName == listaNombre[i],
+            orElse: () => null);
+        if (contacto != null) {
+          listaGrupo.add(contacto);
+        }
       }
     }
 

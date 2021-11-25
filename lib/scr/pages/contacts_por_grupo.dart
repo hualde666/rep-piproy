@@ -41,9 +41,12 @@ class _ContactsPorGrupoPageState extends State<ContactsPorGrupoPage> {
     listaGrupo = [];
     if (listaNombre.isNotEmpty) {
       for (int i = 0; i < listaNombre.length; i++) {
-        final contacto = listaContactos
-            .firstWhere((element) => element.displayName == listaNombre[i]);
-        listaGrupo.add(contacto);
+        final contacto = listaContactos.firstWhere(
+            (element) => element.displayName == listaNombre[i],
+            orElse: () => null);
+        if (contacto != null) {
+          listaGrupo.add(contacto);
+        }
       }
     }
 

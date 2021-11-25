@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:contacts_service/contacts_service.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:piproy/scr/ayuda_widget/fab_ayuda.dart';
+
 import 'package:piproy/scr/ui/input_decoration.dart';
 import 'package:piproy/scr/widgets/header_app.dart';
 
@@ -9,6 +10,7 @@ class EditarContacto extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Contact _contact = ModalRoute.of(context).settings.arguments;
+    final Contact _contactViejo = _contact;
     return SafeArea(
       child: Scaffold(
         appBar: headerApp(context, 'Contacto', Text(''), 0.0),
@@ -32,7 +34,17 @@ class EditarContacto extends StatelessWidget {
               ),
               backgroundColor: Color.fromRGBO(249, 75, 11, 1),
               onPressed: () {
-                // _guardarContacto(_contact);
+                _guardarContacto(_contact);
+                if (_contactViejo.displayName != _contact.displayName) {
+                  //******* cambio en las lista el nombre */
+                  // Provider.of<AplicacionesProvider>(context, listen: false)
+                  //     .modificarContacto(
+                  //         _contactViejo.displayName, _contact.displayName);
+
+                  // // cambio en la BD
+                  // DbTiposAplicaciones.db.modificarNombre(
+                  //     _contactViejo.displayName, _contact.displayName);
+                }
               },
             ),
           ],
@@ -46,7 +58,7 @@ Future _guardarContacto(Contact contacto) async {
   final resp = await Permission.contacts.request();
 
   if (resp == PermissionStatus.granted) {
-    await ContactsService.updateContact(contacto);
+    //await ContactsService.updateContact(contacto);
   }
   return;
 }
