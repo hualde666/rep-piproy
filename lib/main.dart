@@ -48,6 +48,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => new EstadoProvider()),
         ChangeNotifierProvider(create: (_) => new ListaIdProvider()),
         ChangeNotifierProvider(create: (_) => new AplicacionesProvider()),
+        ChangeNotifierProvider(create: (_) => new ContactosProvider()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -74,8 +75,7 @@ class MyApp extends StatelessWidget {
       'botonRojo': (_) => BotonRojoPage(),
       'resumenRojo': (_) => ResumenEnvioPage(),
       'contactos': (_) => ContactsGruposPage(),
-      'mostrarContacto': (_) => MostrarContacto(),
-      'editarContacto': (_) => EditarContacto(),
+      //'mostrarContacto': (_) => MostrarContacto(),
       'emergiMensaje': (_) => EmergenciaMensaje(),
       'configurar': (_) => ConfiguracionPage(),
       'ayuda': (_) => Ayuda(),

@@ -54,7 +54,7 @@ class ContactsGruposPage extends StatelessWidget {
                     ),
                     label: Text(
                       'agregar',
-                      style: TextStyle(fontSize: 15, color: Colors.white),
+                      style: TextStyle(fontSize: 20, color: Colors.white),
                     ),
                     backgroundColor: Color.fromRGBO(249, 75, 11, 1),
                     onPressed: () {
@@ -151,7 +151,7 @@ class ContactsGruposPage extends StatelessWidget {
                 grupo = _tipoControle.value.text[0].toUpperCase() +
                     _tipoControle.value.text.substring(1);
               }
-              apiProvider.agregarContactGrupo(grupo);
+              apiProvider.agregarGrupoContact(grupo);
               final nuevo = new ApiTipos(grupo: grupo, nombre: "", tipo: "2");
               DbTiposAplicaciones.db.nuevoTipo(nuevo);
             }

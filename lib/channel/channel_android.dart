@@ -15,10 +15,10 @@ class AndroidChannel {
 
   Future<void> pedirVersion() async {
     try {
-      final result = await _methodChannel.invokeMethod("version");
-      print('Respuesta : $result');
+      await _methodChannel.invokeMethod("version");
+      //print('Respuesta : $result');
     } catch (e) {
-      print('ERROR: $e');
+      // print('ERROR: $e');
     }
   }
 
@@ -39,7 +39,7 @@ class AndroidChannel {
 
       return result;
     } catch (e) {
-      print('ERROR: $e');
+      // print('ERROR: $e');
       return e;
     }
   }
@@ -50,7 +50,7 @@ class AndroidChannel {
 
       return result;
     } catch (e) {
-      print('ERROR: $e');
+      // print('ERROR: $e');
       return e;
     }
   }
@@ -61,7 +61,7 @@ class AndroidChannel {
 
       return result;
     } catch (e) {
-      print('ERROR: $e');
+      //print('ERROR: $e');
       return false;
     }
   }
@@ -72,7 +72,7 @@ class AndroidChannel {
 
       return result;
     } catch (e) {
-      print('ERROR: $e');
+      //print('ERROR: $e');
       return false;
     }
   }
@@ -83,7 +83,7 @@ class AndroidChannel {
 
       return result;
     } catch (e) {
-      print('ERROR: $e');
+      // print('ERROR: $e');
       return false;
     }
   }
@@ -94,7 +94,7 @@ class AndroidChannel {
 
       return result;
     } catch (e) {
-      print('ERROR: $e');
+      // print('ERROR: $e');
       return false;
     }
   }
@@ -105,7 +105,7 @@ class AndroidChannel {
 
       return result;
     } catch (e) {
-      print('ERROR: $e');
+      // print('ERROR: $e');
       return false;
     }
   }
@@ -117,7 +117,7 @@ class AndroidChannel {
 
       return result;
     } catch (e) {
-      print('ERROR: $e');
+      //print('ERROR: $e');
       return false;
     }
   }

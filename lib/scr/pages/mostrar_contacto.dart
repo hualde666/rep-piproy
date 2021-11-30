@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:contacts_service/contacts_service.dart';
 import 'package:piproy/scr/ayuda_widget/fab_ayuda.dart';
+import 'package:piproy/scr/pages/editar_contacto.dart';
+import 'package:piproy/scr/providers/contactos_provider.dart';
 import 'package:piproy/scr/widgets/header_app.dart';
+import 'package:provider/provider.dart';
 
 class MostrarContacto extends StatefulWidget {
   @override
@@ -11,12 +14,13 @@ class MostrarContacto extends StatefulWidget {
 class _MostrarContactoState extends State<MostrarContacto> {
   @override
   Widget build(BuildContext context) {
-    final Contact _contact = ModalRoute.of(context).settings.arguments;
+    final contactosProvider = Provider.of<ContactosProvider>(context);
+    final contacto = contactosProvider.contacto;
     return SafeArea(
       child: Scaffold(
         appBar: headerApp(context, '', Text(''), 0.0),
         backgroundColor: Color.fromRGBO(55, 57, 84, 1.0),
-        body: fichaContacto(_contact),
+        body: fichaContacto(contacto),
         floatingActionButton: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
@@ -34,8 +38,9 @@ class _MostrarContactoState extends State<MostrarContacto> {
               ),
               backgroundColor: Color.fromRGBO(249, 75, 11, 1),
               onPressed: () {
-                Navigator.pushNamed(context, 'editarContacto',
-                    arguments: _contact);
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => EditarContacto()));
+
                 setState(() {});
               },
             ),

@@ -47,13 +47,13 @@ class ApiSeleccionPage extends StatelessWidget {
               FloatingActionButton.extended(
                 heroTag: "guardar",
                 icon: Icon(
-                  Icons.add,
+                  Icons.save,
                   size: 40,
                   color: Colors.white,
                 ),
                 label: Text(
                   'guardar',
-                  style: TextStyle(fontSize: 15, color: Colors.white),
+                  style: TextStyle(fontSize: 20, color: Colors.white),
                 ),
                 backgroundColor: Color.fromRGBO(249, 75, 11, 1),
                 onPressed: () {

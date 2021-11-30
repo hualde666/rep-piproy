@@ -1,7 +1,8 @@
+import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:contacts_service/contacts_service.dart';
 
-class ContactosProvider {
+class ContactosProvider with ChangeNotifier {
   static final ContactosProvider _contactosProvider =
       ContactosProvider._internal();
 
@@ -13,6 +14,16 @@ class ContactosProvider {
     getcontactos();
   }
   List<Contact> _listaContactos;
+  Contact _contacto;
+  get contacto {
+    return _contacto;
+  }
+
+  set contacto(Contact nuevoContacto) {
+    this._contacto = nuevoContacto;
+
+    notifyListeners();
+  }
 
   get listaContactos {
     return _listaContactos;

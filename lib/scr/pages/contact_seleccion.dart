@@ -84,23 +84,43 @@ class _SelectContactsPageState extends State<SelectContactsPage> {
     }
     return SafeArea(
         child: Scaffold(
-      appBar: PreferredSize(
-          preferredSize: Size.fromHeight(222.0), // here the desired height
-          child: busqueda(context)),
-      resizeToAvoidBottomInset: false,
-      backgroundColor: Theme.of(context).primaryColor,
-      body: ListView.builder(
-          padding: EdgeInsets.only(bottom: 250),
-          itemCount: listaTodos.length,
-          itemBuilder: (context, i) {
-            return Contacto(
-                contactoSelec: listaTodos[i],
-                apiProvider: apiProvider,
-                grupo: grupo);
-          }),
-      floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
-      floatingActionButton: BotonFlotante(pagina: 'selecCont'),
-    ));
+            appBar: PreferredSize(
+                preferredSize:
+                    Size.fromHeight(222.0), // here the desired height
+                child: busqueda(context)),
+            resizeToAvoidBottomInset: false,
+            backgroundColor: Theme.of(context).primaryColor,
+            body: ListView.builder(
+                padding: EdgeInsets.only(bottom: 250),
+                itemCount: listaTodos.length,
+                itemBuilder: (context, i) {
+                  return Contacto(
+                      contactoSelec: listaTodos[i],
+                      apiProvider: apiProvider,
+                      grupo: grupo);
+                }),
+            floatingActionButtonLocation:
+                FloatingActionButtonLocation.startFloat,
+            floatingActionButton: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  BotonFlotante(pagina: 'selecCont'),
+                  FloatingActionButton.extended(
+                      heroTag: "guardar",
+                      icon: Icon(
+                        Icons.save,
+                        size: 40,
+                        color: Colors.white,
+                      ),
+                      label: Text(
+                        'guardar',
+                        style: TextStyle(fontSize: 20, color: Colors.white),
+                      ),
+                      backgroundColor: Color.fromRGBO(249, 75, 11, 1),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      })
+                ])));
   }
 
   Widget busqueda(BuildContext context) {

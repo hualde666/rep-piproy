@@ -5,7 +5,9 @@ import 'package:piproy/channel/channel_android.dart';
 
 import 'package:piproy/scr/funciones/url_funciones.dart';
 import 'package:piproy/scr/pages/gps_page.dart';
+import 'package:piproy/scr/pages/mostrar_contacto.dart';
 import 'package:piproy/scr/pages/wifi_page.dart';
+import 'package:piproy/scr/providers/contactos_provider.dart';
 
 import 'package:piproy/scr/providers/estado_celular.dart';
 import 'package:provider/provider.dart';
@@ -89,12 +91,16 @@ funcionIcon(
   if (contacto != null) {
     phone = contacto.phones.elementAt(0).value;
   }
-  print(tarea);
+
   switch (tarea) {
     case 'discado':
+
+      ///  *** llamada desde menu horizontal
       llamar("");
       break;
     case 'llamada':
+
+      /// *** llamada desde el contacto
       llamar(phone);
       break;
     case 'mensaje':
@@ -136,7 +142,11 @@ funcionIcon(
       Navigator.pushNamed(context, 'configurar');
       break;
     case 'editar':
-      Navigator.pushNamed(context, 'mostrarContacto', arguments: contacto);
+      Provider.of<ContactosProvider>(context, listen: false).contacto =
+          contacto;
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => MostrarContacto()));
+
       break;
   }
 }

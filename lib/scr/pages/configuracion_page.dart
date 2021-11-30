@@ -37,7 +37,7 @@ class ConfiguracionPage extends StatelessWidget {
 
                   if (!apiProvider.contactgrupos.contains(grupo)) {
                     Provider.of<AplicacionesProvider>(context, listen: false)
-                        .agregarContactGrupo(grupo);
+                        .agregarGrupoContact(grupo);
                     final nuevo =
                         new ApiTipos(grupo: grupo, nombre: "", tipo: "2");
                     DbTiposAplicaciones.db.nuevoTipo(nuevo);

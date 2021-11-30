@@ -102,7 +102,7 @@ class AplicacionesProvider with ChangeNotifier {
 
   //******************************* */
   // agrega grupo contacto
-  agregarContactGrupo(String grupo) {
+  agregarGrupoContact(String grupo) {
     _contactgrupos.add(grupo);
     categoryContact[grupo] = [];
 
@@ -129,13 +129,26 @@ class AplicacionesProvider with ChangeNotifier {
   }
 
   modificarContacto(String nombreviejo, String nombrenuevo) {
-    for (var i = 0; i < categoryContact.length; i++) {
-      if (categoryContact[i].contains(nombreviejo)) {
-        categoryContact[i].remove(nombreviejo);
-        categoryContact[i].add(nombrenuevo);
+    print(categoryContact);
+    for (var i = 0; i < _contactgrupos.length; i++) {
+      String grupo = _contactgrupos[i];
+
+      if (categoryContact[grupo].contains(nombreviejo)) {
+        categoryContact[grupo].remove(nombreviejo);
+        categoryContact[grupo].add(nombrenuevo);
+        ordenerGrupoContacto(grupo);
       }
     }
+
     notifyListeners();
+  }
+
+  ordenerGrupoContacto(String grupo) {
+    if (categoryContact[grupo].isNotEmpty) {
+      categoryContact[grupo].sort((a, b) {
+        return a.toLowerCase().compareTo(b.toLowerCase());
+      });
+    }
   }
 
   //******************************* */
@@ -312,6 +325,17 @@ class AplicacionesProvider with ChangeNotifier {
     _contactgrupos.sort((a, b) {
       return a.toLowerCase().compareTo(b.toLowerCase());
     });
+
+    //**** ordenar los los grupos de contacto */
+    for (var i = 0; i < _contactgrupos.length; i++) {
+      String grupo = _contactgrupos[i];
+      if (categoryContact[grupo].isNotEmpty) {
+        categoryContact[grupo].sort((a, b) {
+          return a.toLowerCase().compareTo(b.toLowerCase());
+        });
+      }
+    }
+
     // ordenar  alfabeticamente Todas las api por categoria
     //
     for (var i = 0; i < _apigrupos.length; i++) {

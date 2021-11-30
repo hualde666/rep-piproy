@@ -2,20 +2,30 @@ import 'package:flutter/material.dart';
 import 'package:contacts_service/contacts_service.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:piproy/scr/ayuda_widget/fab_ayuda.dart';
+import 'package:piproy/scr/providers/aplicaciones_provider.dart';
+import 'package:piproy/scr/providers/contactos_provider.dart';
+import 'package:piproy/scr/providers/db_provider.dart';
 
 import 'package:piproy/scr/ui/input_decoration.dart';
 import 'package:piproy/scr/widgets/header_app.dart';
+import 'package:provider/provider.dart';
 
-class EditarContacto extends StatelessWidget {
+class EditarContacto extends StatefulWidget {
+  @override
+  State<EditarContacto> createState() => _EditarContactoState();
+}
+
+class _EditarContactoState extends State<EditarContacto> {
   @override
   Widget build(BuildContext context) {
-    final Contact _contact = ModalRoute.of(context).settings.arguments;
-    final Contact _contactViejo = _contact;
+    final contactosProvider = Provider.of<ContactosProvider>(context);
+    final contacto = contactosProvider.contacto;
+    final String _contactViejo = contacto.displayName;
     return SafeArea(
       child: Scaffold(
         appBar: headerApp(context, 'Contacto', Text(''), 0.0),
         backgroundColor: Color.fromRGBO(55, 57, 84, 1.0),
-        body: FormContacto(_contact),
+        body: formContacto(context, contacto),
         resizeToAvoidBottomInset: false,
         floatingActionButton: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -30,21 +40,21 @@ class EditarContacto extends StatelessWidget {
               ),
               label: Text(
                 'guardar',
-                style: TextStyle(fontSize: 15, color: Colors.white),
+                style: TextStyle(fontSize: 20, color: Colors.white),
               ),
               backgroundColor: Color.fromRGBO(249, 75, 11, 1),
               onPressed: () {
-                _guardarContacto(_contact);
-                if (_contactViejo.displayName != _contact.displayName) {
-                  //******* cambio en las lista el nombre */
-                  // Provider.of<AplicacionesProvider>(context, listen: false)
-                  //     .modificarContacto(
-                  //         _contactViejo.displayName, _contact.displayName);
+                _guardarContacto(contacto);
+                Provider.of<ContactosProvider>(context, listen: false)
+                    .contacto = contacto;
+                // ******* cambio en las lista el nombre */
+                Provider.of<AplicacionesProvider>(context, listen: false)
+                    .modificarContacto(_contactViejo, contacto.displayName);
 
-                  // // cambio en la BD
-                  // DbTiposAplicaciones.db.modificarNombre(
-                  //     _contactViejo.displayName, _contact.displayName);
-                }
+                // cambio en la BD
+                DbTiposAplicaciones.db
+                    .modificarNombre(_contactViejo, contacto.displayName);
+                Navigator.pop(context);
               },
             ),
           ],
@@ -58,46 +68,49 @@ Future _guardarContacto(Contact contacto) async {
   final resp = await Permission.contacts.request();
 
   if (resp == PermissionStatus.granted) {
-    //await ContactsService.updateContact(contacto);
+    // no me funciona updtateContact por tanto:
+    // lo borro ****
+    await ContactsService.deleteContact(contacto);
+    // y lo agrego ***
+
+    contacto.identifier = "";
+    await ContactsService.addContact(contacto);
   }
   return;
 }
 
-class FormContacto extends StatelessWidget {
-  FormContacto(this.contact);
-  final Contact contact;
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-        child: Form(
-            autovalidateMode:
-                AutovalidateMode.onUserInteraction, // validacion campo a campo
-            child: Column(
-              children: [
-                TextFormField(
-                  initialValue: this.contact.givenName,
+Widget formContacto(BuildContext context, Contact contact) {
+  return Container(
+      child: Form(
+          autovalidateMode:
+              AutovalidateMode.onUserInteraction, // validacion campo a campo
+          child: Column(
+            children: [
+              TextFormField(
+                  initialValue: contact.givenName,
                   autocorrect: false,
                   textCapitalization: TextCapitalization.words,
                   textAlign: TextAlign.center,
                   style: TextStyle(fontSize: 25, color: Colors.white),
                   decoration: InputDecorations.authInputDecoration(
                       labelText: 'Nombre:'),
-                  onChanged: (value) => this.contact.givenName = value,
-                ),
-                SizedBox(
-                  height: 30,
-                ),
-                TextFormField(
+                  onChanged: (value) => {
+                        contact.givenName = value,
+                      }),
+              SizedBox(
+                height: 30,
+              ),
+              TextFormField(
                   autocorrect: false,
                   textCapitalization: TextCapitalization.words,
                   style: TextStyle(fontSize: 25, color: Colors.white),
                   textAlign: TextAlign.center,
-                  initialValue: this.contact.familyName,
+                  initialValue: contact.familyName,
                   decoration: InputDecorations.authInputDecoration(
                       labelText: 'Apellido:'),
-                  onChanged: (value) => this.contact.familyName = value,
-                ),
-              ],
-            )));
-  }
+                  onChanged: (value) => {
+                        contact.familyName = value,
+                      }),
+            ],
+          )));
 }
