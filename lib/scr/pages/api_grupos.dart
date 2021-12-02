@@ -103,51 +103,65 @@ class ApiGruposPage extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text('Crear grupo'),
+              Text('Crear grupo',
+                  style: TextStyle(
+                    fontSize: 30,
+                  )),
               SizedBox(
-                height: 20,
+                height: 10,
               ),
               TextFormField(
                 textCapitalization: TextCapitalization.words,
+                style: TextStyle(
+                  fontSize: 25,
+                ),
                 controller: _tipoControle,
                 validator: (valor) {
                   // validar que no exite ya
 
                   return valor.isNotEmpty ? null : "dato invalido";
                 },
-                decoration: InputDecoration(hintText: "nombre de categoria"),
+                decoration: InputDecoration(hintText: "nombre del grupo"),
               )
             ],
           ),
         ),
       ),
+      actionsAlignment: MainAxisAlignment.spaceAround,
       actions: [
-        TextButton(
-          child: Text('Si', style: TextStyle(fontSize: 20.0)),
-          onPressed: () {
-            // no puede estar en blanco ni ya definido
-            if (_tipoControle.value.text != "" &&
-                !apiProvider.apigrupos.contains(_tipoControle.value.text)) {
-              // agregar a BD
-              String grupo = _tipoControle.value.text[0].toUpperCase();
-              if (_tipoControle.value.text.length > 1) {
-                grupo = _tipoControle.value.text[0].toUpperCase() +
-                    _tipoControle.value.text.substring(1);
+        ElevatedButton(
+            onPressed: () {
+              if (_tipoControle.value.text != "" &&
+                  !apiProvider.apigrupos.contains(_tipoControle.value.text)) {
+                // agregar a BD
+                String grupo = _tipoControle.value.text[0].toUpperCase();
+                if (_tipoControle.value.text.length > 1) {
+                  grupo = _tipoControle.value.text[0].toUpperCase() +
+                      _tipoControle.value.text.substring(1);
+                }
+                apiProvider.agregarApiGrupo(grupo);
+                final nuevo = new ApiTipos(grupo: grupo, nombre: "", tipo: "1");
+                DbTiposAplicaciones.db.nuevoTipo(nuevo);
               }
-              apiProvider.agregarApiGrupo(grupo);
-              final nuevo = new ApiTipos(grupo: grupo, nombre: "", tipo: "1");
-              DbTiposAplicaciones.db.nuevoTipo(nuevo);
-            }
 
-            Navigator.of(context).pop();
-          },
-        ),
-        TextButton(
-          child: Text('No', style: TextStyle(fontSize: 20.0)),
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-        ),
+              Navigator.of(context).pop();
+            },
+            style: ElevatedButton.styleFrom(
+                primary: Color.fromRGBO(249, 75, 11, 1)),
+            child: Text(
+              'Si',
+              style: TextStyle(fontSize: 25, color: Colors.white),
+            )),
+        ElevatedButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            style: ElevatedButton.styleFrom(
+                primary: Color.fromRGBO(249, 75, 11, 1)),
+            child: Text(
+              'No',
+              style: TextStyle(fontSize: 25, color: Colors.white),
+            )),
       ],
     );
   }
@@ -169,40 +183,56 @@ class ApiGruposPage extends StatelessWidget {
   AlertDialog eliminarTipoForm(BuildContext context, String grupo) {
     final apiProvider = Provider.of<AplicacionesProvider>(context);
     return AlertDialog(
-      //title: Text('¿Desea ELIMINAR la categoria $tipo ?'),
-      content: Text('¿Desea ELIMINAR la categoria $grupo ?'),
-      actions: [
-        TextButton(
-          child: Text('Si', style: TextStyle(fontSize: 20)),
-          onPressed: () {
-            // Eliminar de categoria
-
-            Provider.of<AplicacionesProvider>(context, listen: false)
-                .eliminarTipos(grupo);
-            // eliminar  a BD
-            DbTiposAplicaciones.db.eliminarGrupo(grupo);
-
-            ///
-            ///         ELIMNAR DEL MENU PRINCIPAL
-
-            if (apiProvider.listaMenu.contains('MPC' + grupo)) {
-              Provider.of<AplicacionesProvider>(context, listen: false)
-                  .eliminarTipoMP('MPC' + grupo);
-              DbTiposAplicaciones.db.eliminarGrupoMP(grupo);
-            }
-
-            Navigator.of(context).pop();
-          },
+      title: Text(
+        ' Eliminar Grupo',
+        style: TextStyle(
+          fontSize: 30,
         ),
-        TextButton(
-          child: Text(
-            'No',
-            style: TextStyle(fontSize: 20),
-          ),
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-        )
+      ),
+      content: Text(
+        '¿Desea ELIMINAR el grupo $grupo ?',
+        style: TextStyle(
+          fontSize: 25,
+        ),
+      ),
+      actionsAlignment: MainAxisAlignment.spaceAround,
+      actions: [
+        ElevatedButton(
+            onPressed: () {
+              // Eliminar de categoria
+
+              Provider.of<AplicacionesProvider>(context, listen: false)
+                  .eliminarTipos(grupo);
+              // eliminar  a BD
+              DbTiposAplicaciones.db.eliminarGrupo(grupo);
+
+              ///
+              ///         ELIMNAR DEL MENU PRINCIPAL
+
+              if (apiProvider.listaMenu.contains('MPC' + grupo)) {
+                Provider.of<AplicacionesProvider>(context, listen: false)
+                    .eliminarTipoMP('MPC' + grupo);
+                DbTiposAplicaciones.db.eliminarGrupoMP(grupo);
+              }
+
+              Navigator.of(context).pop();
+            },
+            style: ElevatedButton.styleFrom(
+                primary: Color.fromRGBO(249, 75, 11, 1)),
+            child: Text(
+              'Si',
+              style: TextStyle(fontSize: 25, color: Colors.white),
+            )),
+        ElevatedButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            style: ElevatedButton.styleFrom(
+                primary: Color.fromRGBO(249, 75, 11, 1)),
+            child: Text(
+              'No',
+              style: TextStyle(fontSize: 25, color: Colors.white),
+            )),
       ],
     );
   }
@@ -219,31 +249,66 @@ class ApiGruposPage extends StatelessWidget {
   AlertDialog agregaMpcForm(BuildContext context, String grupo) {
     final apiProvider = Provider.of<AplicacionesProvider>(context);
     return AlertDialog(
-      content:
-          Text('¿Desea crear  acceso directo de $grupo  en menu principal?'),
+      title: Text('Copiar grupo al Menu Inicio',
+          style: TextStyle(
+            fontSize: 25,
+          )),
+      content: Text('¿Desea copiar  $grupo  al  menu principal?',
+          style: TextStyle(
+            fontSize: 25,
+          )),
+      actionsAlignment: MainAxisAlignment.spaceAround,
       actions: [
-        TextButton(
-          child: Text('Si', style: TextStyle(fontSize: 20)),
-          onPressed: () {
-            final nuevo = new ApiTipos(grupo: 'MPC', nombre: grupo);
-            if (!apiProvider.listaMenu.contains('MPC' + grupo)) {
-              /// actualizar lista MENU
-              ///
-              Provider.of<AplicacionesProvider>(context, listen: false)
-                  .agregarMenu('MPC' + grupo);
+        ElevatedButton(
+            onPressed: () {
+              final nuevo = new ApiTipos(grupo: 'MPC', nombre: grupo);
+              if (!apiProvider.listaMenu.contains('MPC' + grupo)) {
+                /// actualizar lista MENU
+                ///
+                Provider.of<AplicacionesProvider>(context, listen: false)
+                    .agregarMenu('MPC' + grupo);
 
-              DbTiposAplicaciones.db.nuevoTipo(nuevo);
-            }
+                DbTiposAplicaciones.db.nuevoTipo(nuevo);
+              }
 
-            Navigator.of(context).pop();
-          },
-        ),
-        TextButton(
-          child: Text('No', style: TextStyle(fontSize: 20)),
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-        ),
+              Navigator.of(context).pop();
+            },
+            style: ElevatedButton.styleFrom(
+                primary: Color.fromRGBO(249, 75, 11, 1)),
+            child: Text(
+              'Si',
+              style: TextStyle(fontSize: 25, color: Colors.white),
+            )),
+        ElevatedButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            style: ElevatedButton.styleFrom(
+                primary: Color.fromRGBO(249, 75, 11, 1)),
+            child: const Text('NO',
+                style: TextStyle(fontSize: 25, color: Colors.white))),
+        // TextButton(
+        //   child: Text('Si', style: TextStyle(fontSize: 20)),
+        //   onPressed: () {
+        //     final nuevo = new ApiTipos(grupo: 'MPC', nombre: grupo);
+        //     if (!apiProvider.listaMenu.contains('MPC' + grupo)) {
+        //       /// actualizar lista MENU
+        //       ///
+        //       Provider.of<AplicacionesProvider>(context, listen: false)
+        //           .agregarMenu('MPC' + grupo);
+
+        //       DbTiposAplicaciones.db.nuevoTipo(nuevo);
+        //     }
+
+        //     Navigator.of(context).pop();
+        //   },
+        // ),
+        // TextButton(
+        //   child: Text('No', style: TextStyle(fontSize: 20)),
+        //   onPressed: () {
+        //     Navigator.of(context).pop();
+        //   },
+        // ),
       ],
     );
   }

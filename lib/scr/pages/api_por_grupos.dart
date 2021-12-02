@@ -121,16 +121,17 @@ class ElementoApi extends StatelessWidget {
         builder: (context) => AlertDialog(
           title: Text(' ${api.appName}',
               style: TextStyle(
-                fontSize: 20,
+                fontSize: 30,
               )),
-          content: Text('¿Desea eliminar este aplicación de categoría $tipo ?'),
-          // shape: CircleBorder(),
-          elevation: 14.0,
-          actionsPadding: EdgeInsets.symmetric(horizontal: 30.0),
+          content: Text('¿Desea eliminar esta aplicación del grupo $tipo ?',
+              style: TextStyle(
+                fontSize: 25,
+              )),
+          actionsAlignment: MainAxisAlignment.spaceAround,
           actions: [
-            TextButton(
+            ElevatedButton(
                 onPressed: () {
-                  /// elina api de pantalla
+                  //  / elina api de pantalla
                   Provider.of<AplicacionesProvider>(context, listen: false)
                       .eliminar(api);
                   DbTiposAplicaciones.db
@@ -138,13 +139,20 @@ class ElementoApi extends StatelessWidget {
 
                   Navigator.pop(context);
                 },
-                child: Text('Si', style: TextStyle(fontSize: 20.0))),
-            TextButton(
-                autofocus: true,
+                style: ElevatedButton.styleFrom(
+                    primary: Color.fromRGBO(249, 75, 11, 1)),
+                child: Text(
+                  'Si',
+                  style: TextStyle(fontSize: 25, color: Colors.white),
+                )),
+            ElevatedButton(
                 onPressed: () {
                   Navigator.pop(context);
                 },
-                child: Text('No', style: TextStyle(fontSize: 20.0)))
+                style: ElevatedButton.styleFrom(
+                    primary: Color.fromRGBO(249, 75, 11, 1)),
+                child: const Text('NO',
+                    style: TextStyle(fontSize: 25, color: Colors.white))),
           ],
         ),
       );
