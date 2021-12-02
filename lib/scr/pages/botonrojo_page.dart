@@ -75,10 +75,17 @@ class _BotonRojoPageState extends State<BotonRojoPage> {
   @override
   Widget build(BuildContext context) {
     final apiProvider = Provider.of<AplicacionesProvider>(context);
-    final contactosProvaide = new ContactosProvider();
-    listaContactos.addAll((generarLista(
-        apiProvider.categoryContact['Emergencia'],
-        contactosProvaide.listaContactos)));
+    final contactosProvaide = Provider.of<ContactosProvider>(context);
+    if (apiProvider.contactgrupos.contains('Emergencia')) {
+      if (apiProvider.categoryContact['Emergencia'].isNotEmpty) {
+        //*** con los nombres de la lista de contactos genero lista con los datos de cada contacto */
+        listaContactos = [];
+        listaContactos.addAll((generarLista(
+            apiProvider.categoryContact['Emergencia'],
+            contactosProvaide.listaContactos)));
+      }
+    }
+
     return SafeArea(
       child: Scaffold(
         appBar: headerEmergencia(context),

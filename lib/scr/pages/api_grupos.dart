@@ -287,28 +287,6 @@ class ApiGruposPage extends StatelessWidget {
                 primary: Color.fromRGBO(249, 75, 11, 1)),
             child: const Text('NO',
                 style: TextStyle(fontSize: 25, color: Colors.white))),
-        // TextButton(
-        //   child: Text('Si', style: TextStyle(fontSize: 20)),
-        //   onPressed: () {
-        //     final nuevo = new ApiTipos(grupo: 'MPC', nombre: grupo);
-        //     if (!apiProvider.listaMenu.contains('MPC' + grupo)) {
-        //       /// actualizar lista MENU
-        //       ///
-        //       Provider.of<AplicacionesProvider>(context, listen: false)
-        //           .agregarMenu('MPC' + grupo);
-
-        //       DbTiposAplicaciones.db.nuevoTipo(nuevo);
-        //     }
-
-        //     Navigator.of(context).pop();
-        //   },
-        // ),
-        // TextButton(
-        //   child: Text('No', style: TextStyle(fontSize: 20)),
-        //   onPressed: () {
-        //     Navigator.of(context).pop();
-        //   },
-        // ),
       ],
     );
   }

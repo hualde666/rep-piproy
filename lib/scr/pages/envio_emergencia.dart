@@ -171,13 +171,12 @@ Future<void> mandarSMS(List<Contact> listaE) async {
     /// ENVIAR MENSAJE
 
     // final respE =
-    await _androidChannel.mandarSms(_phone, mensaje);
+    await _androidChannel.mandarSms(_phone, mensaje + pos2);
+    //  await _androidChannel.mandarSms(_phone, mensaje);
 
     //final resp1 = await _androidChannel.mandarSms(_phone, dir);
     // final resp2 =
-    if (gpson) {
-      await _androidChannel.mandarSms(_phone, pos2);
-    }
+
     // print('Respuesta: $respE');
     // if (respE. ) {
     //   contacto.check = false;
