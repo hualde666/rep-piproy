@@ -18,24 +18,12 @@ class ApiGruposPage extends StatelessWidget {
             appBar: headerApp(context, 'Grupos app', Text(''), 0.0),
             resizeToAvoidBottomInset: false,
             backgroundColor: Theme.of(context).primaryColor,
-            body:
-                //  FutureBuilder(
-                //     future: apiProvider.cargarCategorias(),
-                //     builder: (BuildContext context, AsyncSnapshot snapshot) {
-                //       if (snapshot.connectionState == ConnectionState.waiting) {
-                //         return Center(
-                //           child: CircularProgressIndicator(),
-                //         );
-                //       } else {
-
-                //         // listaGrupos.add(' ');
-                //         return
-                ListView.builder(
-                    padding: EdgeInsets.only(bottom: 65),
-                    itemCount: listaGrupos.length,
-                    itemBuilder: (context, i) {
-                      return grupo(context, listaGrupos[i]);
-                    }),
+            body: ListView.builder(
+                padding: EdgeInsets.only(bottom: 65),
+                itemCount: listaGrupos.length,
+                itemBuilder: (context, i) {
+                  return grupo(context, listaGrupos[i]);
+                }),
             //   }
             // }),
             floatingActionButton: Row(
@@ -51,7 +39,7 @@ class ApiGruposPage extends StatelessWidget {
                     ),
                     label: Text(
                       'agregar',
-                      style: TextStyle(fontSize: 15, color: Colors.white),
+                      style: TextStyle(fontSize: 20, color: Colors.white),
                     ),
                     backgroundColor: Color.fromRGBO(249, 75, 11, 1),
                     onPressed: () {

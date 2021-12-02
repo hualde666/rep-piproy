@@ -1,7 +1,9 @@
+import 'package:device_apps/device_apps.dart';
 import 'package:flutter/material.dart';
 import 'package:contacts_service/contacts_service.dart';
 import 'package:piproy/scr/ayuda_widget/fab_ayuda.dart';
 import 'package:piproy/scr/pages/editar_contacto.dart';
+import 'package:piproy/scr/providers/aplicaciones_provider.dart';
 import 'package:piproy/scr/providers/contactos_provider.dart';
 import 'package:piproy/scr/widgets/header_app.dart';
 import 'package:provider/provider.dart';
@@ -38,10 +40,18 @@ class _MostrarContactoState extends State<MostrarContacto> {
               ),
               backgroundColor: Color.fromRGBO(249, 75, 11, 1),
               onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => EditarContacto()));
-
-                setState(() {});
+                // Navigator.push(context,
+                //     MaterialPageRoute(builder: (context) => EditarContacto()));
+                final apiProvider =
+                    Provider.of<AplicacionesProvider>(context, listen: false);
+                final listaApi = apiProvider.categoryApi['Todas'];
+                final Application api = listaApi.firstWhere(
+                    (element) =>
+                        element.packageName == 'com.google.android.contacts',
+                    orElse: null);
+                if (api != null) {
+                  api.openApp();
+                }
               },
             ),
           ],

@@ -1,5 +1,8 @@
+import 'package:device_apps/device_apps.dart';
 import 'package:flutter/material.dart';
-import 'package:piproy/scr/funciones/url_funciones.dart';
+
+import 'package:piproy/scr/providers/aplicaciones_provider.dart';
+import 'package:provider/provider.dart';
 
 Widget googleBusqueda(BuildContext context) {
   return GestureDetector(
@@ -36,7 +39,17 @@ Widget googleBusqueda(BuildContext context) {
           border: Border.all(color: Colors.white)),
     ),
     onTap: () {
-      abrirGoogle();
+      final apiProvider =
+          Provider.of<AplicacionesProvider>(context, listen: false);
+      final listaApi = apiProvider.categoryApi['Todas'];
+      final Application api = listaApi.firstWhere(
+          (element) =>
+              element.packageName == 'com.google.android.googlequicksearchbox',
+          orElse: null);
+      if (api != null) {
+        api.openApp();
+      }
+      //***abrirGoogle();
     },
   );
 }

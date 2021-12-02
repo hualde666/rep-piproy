@@ -1,4 +1,5 @@
 import 'package:contacts_service/contacts_service.dart';
+import 'package:device_apps/device_apps.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:piproy/channel/channel_android.dart';
@@ -7,6 +8,7 @@ import 'package:piproy/scr/funciones/url_funciones.dart';
 import 'package:piproy/scr/pages/gps_page.dart';
 import 'package:piproy/scr/pages/mostrar_contacto.dart';
 import 'package:piproy/scr/pages/wifi_page.dart';
+import 'package:piproy/scr/providers/aplicaciones_provider.dart';
 import 'package:piproy/scr/providers/contactos_provider.dart';
 
 import 'package:piproy/scr/providers/estado_celular.dart';
@@ -147,6 +149,17 @@ funcionIcon(
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => MostrarContacto()));
 
+      break;
+    case 'alarma':
+      final apiProvider =
+          Provider.of<AplicacionesProvider>(context, listen: false);
+      final listaApi = apiProvider.categoryApi['Todas'];
+      final Application api = listaApi.firstWhere(
+          (element) => element.packageName == 'com.android.deskclock',
+          orElse: null);
+      if (api != null) {
+        api.openApp();
+      }
       break;
   }
 }

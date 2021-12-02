@@ -19,9 +19,10 @@ class ApiPorGrupoPage extends StatelessWidget {
     return SafeArea(
         child: Scaffold(
       backgroundColor: Theme.of(context).primaryColor,
+      //****** editar nombre del grupo */
       appBar: headerApp(context, '$grupo', Text(''), 0.0),
       body: GridView.count(
-        padding: EdgeInsets.only(bottom: 60, left: 1, right: 1),
+        padding: EdgeInsets.only(bottom: 70, left: 1, right: 1),
         children: listaApi,
         crossAxisCount: 2,
       ),

@@ -19,7 +19,7 @@ class _EditarContactoState extends State<EditarContacto> {
   @override
   Widget build(BuildContext context) {
     final contactosProvider = Provider.of<ContactosProvider>(context);
-    final contacto = contactosProvider.contacto;
+    final Contact contacto = contactosProvider.contacto;
     final String _contactViejo = contacto.displayName;
     return SafeArea(
       child: Scaffold(
@@ -32,31 +32,34 @@ class _EditarContactoState extends State<EditarContacto> {
           children: [
             BotonFlotante(pagina: 'editarContacto'),
             FloatingActionButton.extended(
-              heroTag: "guardar",
-              icon: Icon(
-                Icons.save,
-                size: 40,
-                color: Colors.white,
-              ),
-              label: Text(
-                'guardar',
-                style: TextStyle(fontSize: 20, color: Colors.white),
-              ),
-              backgroundColor: Color.fromRGBO(249, 75, 11, 1),
-              onPressed: () {
-                _guardarContacto(contacto);
-                Provider.of<ContactosProvider>(context, listen: false)
-                    .contacto = contacto;
-                // ******* cambio en las lista el nombre */
-                Provider.of<AplicacionesProvider>(context, listen: false)
-                    .modificarContacto(_contactViejo, contacto.displayName);
+                heroTag: "guardar",
+                icon: Icon(
+                  Icons.save,
+                  size: 40,
+                  color: Colors.white,
+                ),
+                label: Text(
+                  'guardar',
+                  style: TextStyle(fontSize: 20, color: Colors.white),
+                ),
+                backgroundColor: Color.fromRGBO(249, 75, 11, 1),
+                onPressed: () {
+                  // final String nuevodisplay = contacto.
+                  //   _guardarContacto(contacto);
 
-                // cambio en la BD
-                DbTiposAplicaciones.db
-                    .modificarNombre(_contactViejo, contacto.displayName);
-                Navigator.pop(context);
-              },
-            ),
+                  //   // ******* cambio en las lista el nombre */
+                  //   String nuevoDisplay =
+                  //       contacto.givenName + " " + contacto.familyName;
+                  //   Provider.of<AplicacionesProvider>(context, listen: false)
+                  //       .modificarContacto(_contactViejo, nuevoDisplay);
+
+                  //   // cambio en la BD
+                  //   DbTiposAplicaciones.db
+                  //       .modificarNombre(_contactViejo, nuevoDisplay);
+                  //   Provider.of<ContactosProvider>(context, listen: false)
+                  //       .contacto = contacto;
+                  //   Navigator.pop(context);
+                }),
           ],
         ),
       ),
