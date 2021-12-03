@@ -37,16 +37,7 @@ class _BotonRojoPageState extends State<BotonRojoPage> {
 
   cargarPrefs() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    // listaIdContacto = prefs.getStringList('listaE');
-    // if (listaIdContacto == null) {
-    //   listaIdContacto = [];
-    //   hayLista = false;
-    // } else {
-    //   if (listaIdContacto.length == 0) {
-    //     hayLista = false;
-    //   }
-    // }
-    // Obtengo datos del mensaje y numeros de telefonos
+  
 
     mensaje = prefs.getString('mensajeE');
     if (mensaje == null) {

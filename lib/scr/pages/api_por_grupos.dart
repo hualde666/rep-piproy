@@ -83,6 +83,7 @@ class ElementoApi extends StatelessWidget {
       },
       onDoubleTap: () => agregaMPA(context, api),
       child: Container(
+        // height: 200,
         margin: EdgeInsets.symmetric(horizontal: 3, vertical: 3),
         decoration: BoxDecoration(
             color: Theme.of(context).primaryColor,
@@ -101,13 +102,22 @@ class ElementoApi extends StatelessWidget {
             SizedBox(
               width: 30,
             ),
+            // Container(
+            //   height: 60,
+            //   width: 150,
+            //   child: Text(
+            //     api.appName,
+            //     textAlign: TextAlign.center,
+            //     style: TextStyle(fontSize: 25, color: Colors.white),
+            //   ),
+            // ),
             Container(
               height: 60,
               width: 150,
               child: Text(
-                api.appName,
+                api.packageName,
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 25, color: Colors.white),
+                style: TextStyle(fontSize: 15, color: Colors.white),
               ),
             ),
           ],
