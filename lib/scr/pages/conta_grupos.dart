@@ -20,27 +20,12 @@ class ContactsGruposPage extends StatelessWidget {
             appBar: headerApp(context, 'Grupos Contactos', Text(''), 0.0),
             resizeToAvoidBottomInset: false,
             backgroundColor: Theme.of(context).primaryColor,
-            body:
-                //  FutureBuilder(
-                //     future: apiProvider.cargarCategorias(),
-                //     builder: (BuildContext context, AsyncSnapshot snapshot) {
-                //       if (snapshot.connectionState == ConnectionState.waiting) {
-                //         return Center(
-                //           child: CircularProgressIndicator(),
-                //         );
-                //       } else {
-                //         final List<String> listaGrupos = apiProvider.contactgrupos;
-
-                // listaGrupos.add(' ');
-                //return
-                ListView.builder(
-                    padding: EdgeInsets.only(bottom: 65),
-                    itemCount: listaGrupos.length,
-                    itemBuilder: (context, i) {
-                      return grupo(context, listaGrupos[i]);
-                    }),
-            //    }
-            //    }),
+            body: ListView.builder(
+                padding: EdgeInsets.only(bottom: 65),
+                itemCount: listaGrupos.length,
+                itemBuilder: (context, i) {
+                  return grupo(context, listaGrupos[i]);
+                }),
             floatingActionButton: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
@@ -116,16 +101,23 @@ class ContactsGruposPage extends StatelessWidget {
     return AlertDialog(
       content: Form(
         child: Container(
-          height: 100,
+          height: 140,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text('Crear grupo de Contacto'),
+              Text('Crear grupo de Contacto',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 30,
+                  )),
               SizedBox(
-                height: 20,
+                height: 10,
               ),
               TextFormField(
                 textCapitalization: TextCapitalization.words,
+                style: TextStyle(
+                  fontSize: 25,
+                ),
                 controller: _tipoControle,
                 validator: (valor) {
                   // validar que no exite ya
@@ -138,33 +130,43 @@ class ContactsGruposPage extends StatelessWidget {
           ),
         ),
       ),
+      actionsAlignment: MainAxisAlignment.spaceAround,
       actions: [
-        TextButton(
-          child: Text('Si', style: TextStyle(fontSize: 20.0)),
-          onPressed: () {
-            // no puede estar en blanco ni ya definido
-            if (_tipoControle.value.text != "" &&
-                !apiProvider.contactgrupos.contains(_tipoControle.value.text)) {
-              // agregar a BD
-              String grupo = _tipoControle.value.text[0].toUpperCase();
-              if (_tipoControle.value.text.length > 1) {
-                grupo = _tipoControle.value.text[0].toUpperCase() +
-                    _tipoControle.value.text.substring(1);
+        ElevatedButton(
+            onPressed: () {
+              // no puede estar en blanco ni ya definido
+              if (_tipoControle.value.text != "" &&
+                  !apiProvider.contactgrupos
+                      .contains(_tipoControle.value.text)) {
+                // agregar a BD
+                String grupo = _tipoControle.value.text[0].toUpperCase();
+                if (_tipoControle.value.text.length > 1) {
+                  grupo = _tipoControle.value.text[0].toUpperCase() +
+                      _tipoControle.value.text.substring(1);
+                }
+                apiProvider.agregarGrupoContact(grupo);
+                final nuevo = new ApiTipos(grupo: grupo, nombre: "", tipo: "2");
+                DbTiposAplicaciones.db.nuevoTipo(nuevo);
               }
-              apiProvider.agregarGrupoContact(grupo);
-              final nuevo = new ApiTipos(grupo: grupo, nombre: "", tipo: "2");
-              DbTiposAplicaciones.db.nuevoTipo(nuevo);
-            }
 
-            Navigator.of(context).pop();
-          },
-        ),
-        TextButton(
-          child: Text('No', style: TextStyle(fontSize: 20.0)),
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-        ),
+              Navigator.of(context).pop();
+            },
+            style: ElevatedButton.styleFrom(
+                primary: Color.fromRGBO(249, 75, 11, 1)),
+            child: Text(
+              'Si',
+              style: TextStyle(fontSize: 25, color: Colors.white),
+            )),
+        ElevatedButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            style: ElevatedButton.styleFrom(
+                primary: Color.fromRGBO(249, 75, 11, 1)),
+            child: Text(
+              'No',
+              style: TextStyle(fontSize: 25, color: Colors.white),
+            )),
       ],
     );
   }
@@ -189,40 +191,56 @@ class ContactsGruposPage extends StatelessWidget {
   AlertDialog eliminarGrupoForm(BuildContext context, String grupo) {
     final apiProvider = Provider.of<AplicacionesProvider>(context);
     return AlertDialog(
-      //title: Text('¿Desea ELIMINAR la categoria $tipo ?'),
-      content: Text('¿Desea ELIMINAR grupo de contacto $grupo ?'),
-      actions: [
-        TextButton(
-          child: Text('Si', style: TextStyle(fontSize: 20)),
-          onPressed: () {
-            // Eliminar de categoria
-
-            Provider.of<AplicacionesProvider>(context, listen: false)
-                .eliminarContactTipos(grupo);
-            // eliminar  en la  BD
-            DbTiposAplicaciones.db.eliminarGrupo(grupo);
-
-            ///
-            ///         ELIMNAR DEL MENU PRINCIPAL
-
-            if (apiProvider.listaMenu.contains('MPG' + grupo)) {
-              Provider.of<AplicacionesProvider>(context, listen: false)
-                  .eliminarTipoMP('MPG' + grupo);
-              DbTiposAplicaciones.db.eliminarGrupoMP(grupo);
-            }
-
-            Navigator.of(context).pop();
-          },
+      title: Text(
+        ' Eliminar Grupo',
+        textAlign: TextAlign.center,
+        style: TextStyle(
+          fontSize: 30,
         ),
-        TextButton(
-          child: Text(
-            'No',
-            style: TextStyle(fontSize: 20),
-          ),
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-        )
+      ),
+      content: Text('¿Desea ELIMINAR grupo de contacto $grupo ?',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontSize: 25,
+          )),
+      actionsAlignment: MainAxisAlignment.spaceAround,
+      actions: [
+        ElevatedButton(
+            onPressed: () {
+              // Eliminar de categoria
+
+              Provider.of<AplicacionesProvider>(context, listen: false)
+                  .eliminarContactTipos(grupo);
+              // eliminar  en la  BD
+              DbTiposAplicaciones.db.eliminarGrupo(grupo);
+
+              ///
+              ///         ELIMNAR DEL MENU PRINCIPAL
+
+              if (apiProvider.listaMenu.contains('MPG' + grupo)) {
+                Provider.of<AplicacionesProvider>(context, listen: false)
+                    .eliminarTipoMP('MPG' + grupo);
+                DbTiposAplicaciones.db.eliminarGrupoMP(grupo);
+              }
+
+              Navigator.of(context).pop();
+            },
+            style: ElevatedButton.styleFrom(
+                primary: Color.fromRGBO(249, 75, 11, 1)),
+            child: Text(
+              'Si',
+              style: TextStyle(fontSize: 25, color: Colors.white),
+            )),
+        ElevatedButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            style: ElevatedButton.styleFrom(
+                primary: Color.fromRGBO(249, 75, 11, 1)),
+            child: Text(
+              'No',
+              style: TextStyle(fontSize: 25, color: Colors.white),
+            )),
       ],
     );
   }
@@ -240,30 +258,42 @@ class ContactsGruposPage extends StatelessWidget {
     final apiProvider = Provider.of<AplicacionesProvider>(context);
     return AlertDialog(
       content:
-          Text('¿Desea crear  acceso directo de $grupo  en menu principal?'),
+          Text('¿Desea crear  acceso directo de $grupo  en menu principal?',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 25,
+              )),
+      actionsAlignment: MainAxisAlignment.spaceAround,
       actions: [
-        TextButton(
-          child: Text('Si', style: TextStyle(fontSize: 20)),
-          onPressed: () {
-            final nuevo = new ApiTipos(grupo: 'MPG', nombre: grupo, tipo: "3");
-            if (!apiProvider.listaMenu.contains('MPG' + grupo)) {
-              /// actualizar lista MENU
-              ///
-              Provider.of<AplicacionesProvider>(context, listen: false)
-                  .agregarMenu('MPG' + grupo);
+        ElevatedButton(
+            onPressed: () {
+              final nuevo =
+                  new ApiTipos(grupo: 'MPG', nombre: grupo, tipo: "3");
+              if (!apiProvider.listaMenu.contains('MPG' + grupo)) {
+                /// actualizar lista MENU
+                ///
+                Provider.of<AplicacionesProvider>(context, listen: false)
+                    .agregarMenu('MPG' + grupo);
 
-              DbTiposAplicaciones.db.nuevoTipo(nuevo);
-            }
+                DbTiposAplicaciones.db.nuevoTipo(nuevo);
+              }
 
-            Navigator.of(context).pop();
-          },
-        ),
-        TextButton(
-          child: Text('No', style: TextStyle(fontSize: 20)),
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-        ),
+              Navigator.of(context).pop();
+            },
+            style: ElevatedButton.styleFrom(
+                primary: Color.fromRGBO(249, 75, 11, 1)),
+            child: Text(
+              'Si',
+              style: TextStyle(fontSize: 25, color: Colors.white),
+            )),
+        ElevatedButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            style: ElevatedButton.styleFrom(
+                primary: Color.fromRGBO(249, 75, 11, 1)),
+            child: const Text('NO',
+                style: TextStyle(fontSize: 25, color: Colors.white))),
       ],
     );
   }

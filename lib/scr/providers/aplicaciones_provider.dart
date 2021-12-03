@@ -188,11 +188,13 @@ class AplicacionesProvider with ChangeNotifier {
   //******************************* */
   // agrega elemnto al menu principal
   agregarMenu(String tipo) {
-    listaMenu.add(tipo);
-    listaMenu.sort((a, b) {
-      return a.toLowerCase().compareTo(b.toLowerCase());
-    });
-    notifyListeners();
+    if (!listaMenu.contains(tipo)) {
+      listaMenu.add(tipo);
+      listaMenu.sort((a, b) {
+        return a.toLowerCase().compareTo(b.toLowerCase());
+      });
+      notifyListeners();
+    }
   }
 
   //******************************* */

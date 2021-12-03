@@ -55,30 +55,71 @@ class ApiGruposPage extends StatelessWidget {
     BuildContext context,
     String grupo,
   ) {
-    return GestureDetector(
-      onTap: () {
-        Provider.of<AplicacionesProvider>(context, listen: false)
-            .tipoSeleccion = grupo;
-        Navigator.pushNamed(context, 'grupo');
-      },
-      onLongPress: () => eliminarTipo(context, grupo),
-      onDoubleTap: () => agregaMPC(context, grupo),
-      child: Container(
-        margin: EdgeInsets.symmetric(vertical: 3, horizontal: 4.0),
-        height: 60,
-        decoration: BoxDecoration(
-            color: Theme.of(context).primaryColor,
-            borderRadius: BorderRadius.circular(20.0),
-            border: Border.all(color: Colors.white)),
-        child: Center(
-          child: Text(
-            grupo,
-            overflow: TextOverflow.ellipsis,
-            style: TextStyle(color: Colors.white, fontSize: 40),
-          ),
-        ),
-      ),
-    );
+    return
+        //  GestureDetector(
+        //   onTap: () {
+        //     Provider.of<AplicacionesProvider>(context, listen: false)
+        //         .tipoSeleccion = grupo;
+        //     Navigator.pushNamed(context, 'grupo');
+        //   },
+        //   onLongPress: () => eliminarTipo(context, grupo),
+        //   onDoubleTap: () => agregaMPC(context, grupo),
+        Container(
+            margin: EdgeInsets.symmetric(vertical: 3, horizontal: 4.0),
+            height: 60,
+            decoration: BoxDecoration(
+                color: Theme.of(context).primaryColor,
+                borderRadius: BorderRadius.circular(20.0),
+                border: Border.all(color: Colors.white)),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                GestureDetector(
+                  onTap: () => agregaMPC(context, grupo),
+                  child: Container(
+                    width: 15,
+                    height: 30,
+                    child: Center(
+                      child: Icon(
+                        Icons.arrow_back,
+                        size: 20,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    Provider.of<AplicacionesProvider>(context, listen: false)
+                        .tipoSeleccion = grupo;
+                    Navigator.pushNamed(context, 'grupo');
+                  },
+                  child: Container(
+                    width: 280,
+                    color: Theme.of(context).primaryColor,
+                    child: Center(
+                      child: Text(
+                        grupo,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(color: Colors.white, fontSize: 40),
+                      ),
+                    ),
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () => eliminarTipo(context, grupo),
+                  child: Container(
+                    width: 15,
+                    height: 30,
+                    child: Icon(
+                      Icons.close,
+                      size: 20,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ],
+            ));
   }
 
   ///
@@ -104,6 +145,7 @@ class ApiGruposPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text('Crear grupo',
+                  textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 30,
                   )),
@@ -185,12 +227,14 @@ class ApiGruposPage extends StatelessWidget {
     return AlertDialog(
       title: Text(
         ' Eliminar Grupo',
+        textAlign: TextAlign.center,
         style: TextStyle(
           fontSize: 30,
         ),
       ),
       content: Text(
         '¿Desea ELIMINAR el grupo $grupo ?',
+        textAlign: TextAlign.center,
         style: TextStyle(
           fontSize: 25,
         ),
@@ -250,10 +294,12 @@ class ApiGruposPage extends StatelessWidget {
     final apiProvider = Provider.of<AplicacionesProvider>(context);
     return AlertDialog(
       title: Text('Copiar grupo al Menu Inicio',
+          textAlign: TextAlign.center,
           style: TextStyle(
             fontSize: 25,
           )),
       content: Text('¿Desea copiar  $grupo  al  menu principal?',
+          textAlign: TextAlign.center,
           style: TextStyle(
             fontSize: 25,
           )),

@@ -34,31 +34,27 @@ Widget elementos(BuildContext context, Widget widget, double altura,
       }
     },
     onLongPress: () {
-      /// preguntar??
       eliminarApi(context, tipo);
-      // if (tipo.contains('MPC')) {
-      //   final String categoria = tipo.substring(3);
-      //   Provider.of<AplicacionesProvider>(context, listen: false)
-      //       .eliminarTipoMPC(tipo);
-      //   DbTiposAplicaciones.db.eliminarTipoMPC(categoria);
-      // }
     },
   );
 }
-
-class ContactsPorGrupoPage {}
 
 Future<dynamic> eliminarApi(BuildContext context, String tipo) {
   final String titulo = tipo.substring(3);
   return showDialog(
     context: context,
     builder: (context) => AlertDialog(
-      content: Text('¿Desea eliminar $titulo  del menú ?'),
+      content: Text('¿Desea eliminar $titulo  del menú principa?',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontSize: 25,
+          )),
       // shape: CircleBorder(),
       elevation: 14.0,
       actionsPadding: EdgeInsets.symmetric(horizontal: 30.0),
+      actionsAlignment: MainAxisAlignment.spaceAround,
       actions: [
-        TextButton(
+        ElevatedButton(
             onPressed: () {
               /// elina api de pantalla
               Provider.of<AplicacionesProvider>(context, listen: false)
@@ -71,13 +67,40 @@ Future<dynamic> eliminarApi(BuildContext context, String tipo) {
 
               Navigator.pop(context);
             },
-            child: Text('Si', style: TextStyle(fontSize: 20.0))),
-        TextButton(
-            autofocus: true,
+            style: ElevatedButton.styleFrom(
+                primary: Color.fromRGBO(249, 75, 11, 1)),
+            child: Text(
+              'Si',
+              style: TextStyle(fontSize: 25, color: Colors.white),
+            )),
+        ElevatedButton(
             onPressed: () {
               Navigator.pop(context);
             },
-            child: Text('No', style: TextStyle(fontSize: 20.0))),
+            style: ElevatedButton.styleFrom(
+                primary: Color.fromRGBO(249, 75, 11, 1)),
+            child: const Text('NO',
+                style: TextStyle(fontSize: 25, color: Colors.white))),
+        // TextButton(
+        //     onPressed: () {
+        //       /// elina api de pantalla
+        //       Provider.of<AplicacionesProvider>(context, listen: false)
+        //           .eliminarTipoMP(tipo);
+
+        //       DbTiposAplicaciones.db
+        //           .deleteApi(tipo.substring(0, 3), tipo.substring(3));
+
+        //       //elimina api de BD
+
+        //       Navigator.pop(context);
+        //     },
+        //     child: Text('Si', style: TextStyle(fontSize: 20.0))),
+        // TextButton(
+        //     autofocus: true,
+        //     onPressed: () {
+        //       Navigator.pop(context);
+        //     },
+        //     child: Text('No', style: TextStyle(fontSize: 20.0))),
       ],
     ),
   );

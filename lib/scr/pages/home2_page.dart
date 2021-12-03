@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'package:piproy/scr/ayuda_widget/fab_ayuda.dart';
 import 'package:piproy/scr/models/api_tipos.dart';
+import 'package:piproy/scr/pages/presentacion_page.dart';
 import 'package:piproy/scr/providers/aplicaciones_provider.dart';
 
 import 'package:piproy/scr/providers/db_provider.dart';
@@ -97,6 +98,10 @@ class _Home2PageState extends State<Home2Page> {
       elementos(context, PilaTimpoClima(), 200, '', ''),
       SizedBox(height: 10),
       googleBusqueda(context),
+      SizedBox(height: 10),
+      videoPresentacion(context),
+      SizedBox(height: 10),
+      siulacionInstalacioncion(context),
       SizedBox(height: 10),
       elementos(
           context,
@@ -256,12 +261,17 @@ Future<dynamic> eliminarApi(BuildContext context, String tipo) {
   return showDialog(
     context: context,
     builder: (context) => AlertDialog(
-      content: Text('¿Desea eliminar $titulo  del menú ?'),
+      content: Text('¿Desea eliminar $titulo  del menú principal?',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontSize: 25,
+          )),
       // shape: CircleBorder(),
       elevation: 14.0,
       actionsPadding: EdgeInsets.symmetric(horizontal: 30.0),
+      actionsAlignment: MainAxisAlignment.spaceAround,
       actions: [
-        TextButton(
+        ElevatedButton(
             onPressed: () {
               /// elina api de pantalla
               Provider.of<AplicacionesProvider>(context, listen: false)
@@ -274,14 +284,61 @@ Future<dynamic> eliminarApi(BuildContext context, String tipo) {
 
               Navigator.pop(context);
             },
-            child: Text('Si', style: TextStyle(fontSize: 20.0))),
-        TextButton(
-            autofocus: true,
+            style: ElevatedButton.styleFrom(
+                primary: Color.fromRGBO(249, 75, 11, 1)),
+            child: Text(
+              'Si',
+              style: TextStyle(fontSize: 25, color: Colors.white),
+            )),
+        ElevatedButton(
             onPressed: () {
               Navigator.pop(context);
             },
-            child: Text('No', style: TextStyle(fontSize: 20.0))),
+            style: ElevatedButton.styleFrom(
+                primary: Color.fromRGBO(249, 75, 11, 1)),
+            child: const Text('NO',
+                style: TextStyle(fontSize: 25, color: Colors.white))),
       ],
     ),
   );
+}
+
+Widget videoPresentacion(BuildContext context) {
+  return GestureDetector(
+      child: Container(
+        height: 100,
+        margin: EdgeInsets.symmetric(vertical: 1.5, horizontal: 5.0),
+        alignment: Alignment.center,
+        child: Text('Video Presentación',
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 35, color: Colors.white)),
+        decoration: BoxDecoration(
+            color: Colors.blue,
+            borderRadius: BorderRadius.circular(20.0),
+            border: Border.all(color: Colors.white)),
+      ),
+      onTap: () {
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => VideoPlayerScreen()));
+      });
+}
+
+Widget siulacionInstalacioncion(BuildContext context) {
+  return GestureDetector(
+      child: Container(
+        height: 100,
+        margin: EdgeInsets.symmetric(vertical: 1.5, horizontal: 5.0),
+        alignment: Alignment.center,
+        child: Text('Simulacion Instalación',
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 35, color: Colors.white)),
+        decoration: BoxDecoration(
+            color: Colors.red,
+            borderRadius: BorderRadius.circular(20.0),
+            border: Border.all(color: Colors.white)),
+      ),
+      onTap: () {}
+      //***abrirGoogle();
+
+      );
 }

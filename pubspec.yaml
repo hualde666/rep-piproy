@@ -53,7 +53,7 @@ dependencies:
   device_apps: ^2.1.1
  
   android_intent:
-  
+  video_player:
   
   
 
@@ -83,6 +83,7 @@ flutter:
      - assets/google.png
      - assets/whatsapp.png
      - assets/ui.jpg
+     - assets/presentacion.mp4
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 

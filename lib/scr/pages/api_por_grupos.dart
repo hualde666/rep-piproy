@@ -69,60 +69,113 @@ class ElementoApi extends StatelessWidget {
   Widget build(BuildContext context) {
     final apiProvider = Provider.of<AplicacionesProvider>(context);
     final grupo = apiProvider.tipoSeleccion;
-    return GestureDetector(
-      onTap: () {
-        if (api.appName != "") {
-          api.openApp();
-        }
-      },
-      onLongPress: () {
-        // eliminar api?
-        if (grupo != 'Todas') {
-          eliminarApi(context, grupo);
-        }
-      },
-      onDoubleTap: () => agregaMPA(context, api),
-      child: Container(
-        // height: 200,
-        margin: EdgeInsets.symmetric(horizontal: 3, vertical: 3),
-        decoration: BoxDecoration(
-            color: Theme.of(context).primaryColor,
-            borderRadius: BorderRadius.circular(15.0),
-            border: Border.all(color: Colors.white, width: 1.0)),
-        // color: Theme.of(context).primaryColor,
-        child: Column(
-          children: [
-            SizedBox(
-              height: 10,
-            ),
-            Image.memory(
-              (api as ApplicationWithIcon).icon,
-              width: 100,
-            ),
-            SizedBox(
-              width: 30,
-            ),
-            // Container(
-            //   height: 60,
-            //   width: 150,
-            //   child: Text(
-            //     api.appName,
-            //     textAlign: TextAlign.center,
-            //     style: TextStyle(fontSize: 25, color: Colors.white),
-            //   ),
-            // ),
-            Container(
-              height: 60,
-              width: 150,
-              child: Text(
-                api.packageName,
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 15, color: Colors.white),
+    return
+        // GestureDetector(
+        //   onTap: () {
+        //     if (api.appName != "") {
+        //       api.openApp();
+        //     }
+        //   },
+        //   onLongPress: () {
+        //     // eliminar api?
+        //     if (grupo != 'Todas') {
+        //       eliminarApi(context, grupo);
+        //     }
+        //   },
+        //   onDoubleTap: () => agregaMPA(context, api),
+        //   child:
+        Container(
+      // height: 200,
+      // color: Color.fromRGBO(                    249, 75, 11, 0.7),
+      margin: EdgeInsets.symmetric(horizontal: 3, vertical: 3),
+      decoration: BoxDecoration(
+          color: Theme.of(context).primaryColor,
+          borderRadius: BorderRadius.circular(15.0),
+          border: Border.all(color: Colors.white, width: 1.0)),
+      // color: Theme.of(context).primaryColor,
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              GestureDetector(
+                onTap: () {
+                  agregaMPA(context, api);
+                },
+                child: Container(
+                  width: 30,
+                  height: 30,
+                  child: Center(
+                    child: Icon(
+                      Icons.arrow_back,
+                      size: 20,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  if (grupo != 'Todas') {
+                    eliminarApi(context, grupo);
+                  }
+                },
+                child: Container(
+                  width: 30,
+                  height: 30,
+                  child: Center(
+                    child: Icon(
+                      Icons.close,
+                      size: 20,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          GestureDetector(
+            onTap: () {
+              if (api.appName != "") {
+                api.openApp();
+              }
+            },
+            child: Container(
+              child: Column(
+                children: [
+                  Image.memory(
+                    (api as ApplicationWithIcon).icon,
+                    width: 90,
+                  ),
+                  SizedBox(
+                    width: 5,
+                  ),
+                  Container(
+                    height: 50,
+                    width: 150,
+                    child: Text(
+                      api.appName,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 20, color: Colors.white),
+                    ),
+                  ),
+                ],
               ),
             ),
-          ],
-        ),
+          )
+
+          // Container(
+          //   height: 60,
+          //   width: 150,
+          //   child: Text(
+          //     api.packageName,
+          //     textAlign: TextAlign.center,
+          //     style: TextStyle(fontSize: 15, color: Colors.white),
+          //   ),
+          // ),
+        ],
       ),
+      //   ),
     );
   }
 
@@ -130,10 +183,12 @@ class ElementoApi extends StatelessWidget {
         context: context,
         builder: (context) => AlertDialog(
           title: Text(' ${api.appName}',
+              textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 30,
               )),
           content: Text('¿Desea eliminar esta aplicación del grupo $tipo ?',
+              textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 25,
               )),
@@ -178,30 +233,42 @@ class ElementoApi extends StatelessWidget {
     final apiProvider = Provider.of<AplicacionesProvider>(context);
     return AlertDialog(
       // title: Text('¿Desea crear acceso directo a ${api.appName}?'),
-      content: Text('¿Desea crear acceso directo a ${api.appName}?'),
+      content: Text(
+          '¿Desea crear acceso directo a ${api.appName} en memu principal?',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontSize: 25,
+          )),
+      actionsAlignment: MainAxisAlignment.spaceAround,
       actions: [
-        TextButton(
-          child: Text('Si', style: TextStyle(fontSize: 20.0)),
-          onPressed: () {
-            final nuevo = new ApiTipos(grupo: 'MPA', nombre: api.appName);
-            if (!apiProvider.listaMenu.contains(api.appName)) {
-              /// actualizar lista MENU
-              ///
-              Provider.of<AplicacionesProvider>(context, listen: false)
-                  .agregarMenu('MPA' + api.appName);
+        ElevatedButton(
+            onPressed: () {
+              final nuevo = new ApiTipos(grupo: 'MPA', nombre: api.appName);
+              if (!apiProvider.listaMenu.contains('MPA' + api.appName)) {
+                /// actualizar lista MENU
+                ///
+                Provider.of<AplicacionesProvider>(context, listen: false)
+                    .agregarMenu('MPA' + api.appName);
 
-              DbTiposAplicaciones.db.nuevoTipo(nuevo);
-            }
+                DbTiposAplicaciones.db.nuevoTipo(nuevo);
+              }
 
-            Navigator.of(context).pop();
-          },
-        ),
-        TextButton(
-          child: Text('No', style: TextStyle(fontSize: 20.0)),
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-        ),
+              Navigator.of(context).pop();
+            },
+            style: ElevatedButton.styleFrom(
+                primary: Color.fromRGBO(249, 75, 11, 1)),
+            child: Text(
+              'Si',
+              style: TextStyle(fontSize: 25, color: Colors.white),
+            )),
+        ElevatedButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            style: ElevatedButton.styleFrom(
+                primary: Color.fromRGBO(249, 75, 11, 1)),
+            child: const Text('NO',
+                style: TextStyle(fontSize: 25, color: Colors.white))),
       ],
     );
   }
