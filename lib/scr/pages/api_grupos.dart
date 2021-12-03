@@ -83,7 +83,7 @@ class ApiGruposPage extends StatelessWidget {
                       child: Icon(
                         Icons.arrow_back,
                         size: 20,
-                        color: Colors.white,
+                        color: Colors.blue,
                       ),
                     ),
                   ),
@@ -114,7 +114,7 @@ class ApiGruposPage extends StatelessWidget {
                     child: Icon(
                       Icons.close,
                       size: 20,
-                      color: Colors.white,
+                      color: Colors.red,
                     ),
                   ),
                 ),

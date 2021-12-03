@@ -109,7 +109,7 @@ class ElementoApi extends StatelessWidget {
                     child: Icon(
                       Icons.arrow_back,
                       size: 20,
-                      color: Colors.white,
+                      color: Colors.blue,
                     ),
                   ),
                 ),
@@ -127,7 +127,7 @@ class ElementoApi extends StatelessWidget {
                     child: Icon(
                       Icons.close,
                       size: 20,
-                      color: Colors.white,
+                      color: Colors.red,
                     ),
                   ),
                 ),
