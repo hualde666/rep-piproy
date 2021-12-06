@@ -19,7 +19,7 @@ class ContactsGruposPage extends StatelessWidget {
         child: Scaffold(
             appBar: headerApp(context, 'Grupos Contactos', Text(''), 0.0),
             resizeToAvoidBottomInset: false,
-            backgroundColor: Theme.of(context).primaryColor,
+            // backgroundColor: Theme.of(context).primaryColor,
             body: ListView.builder(
                 padding: EdgeInsets.only(bottom: 65),
                 itemCount: listaGrupos.length,
@@ -34,14 +34,10 @@ class ContactsGruposPage extends StatelessWidget {
                     heroTag: "agregar",
                     icon: Icon(
                       Icons.add,
-                      size: 40,
-                      color: Colors.white,
                     ),
                     label: Text(
                       'agregar',
-                      style: TextStyle(fontSize: 20, color: Colors.white),
                     ),
-                    backgroundColor: Color.fromRGBO(249, 75, 11, 1),
                     onPressed: () {
                       //Definir nuevo grupo
                       crearTipo(context);
@@ -76,7 +72,7 @@ class ContactsGruposPage extends StatelessWidget {
           child: Text(
             grupo,
             overflow: TextOverflow.ellipsis,
-            style: TextStyle(color: Colors.white, fontSize: 40),
+            style: TextStyle(fontSize: 40),
           ),
         ),
       ),

@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:contacts_service/contacts_service.dart';
-import 'package:permission_handler/permission_handler.dart';
+
 import 'package:piproy/scr/ayuda_widget/fab_ayuda.dart';
-import 'package:piproy/scr/providers/aplicaciones_provider.dart';
+
 import 'package:piproy/scr/providers/contactos_provider.dart';
-import 'package:piproy/scr/providers/db_provider.dart';
 
 import 'package:piproy/scr/ui/input_decoration.dart';
 import 'package:piproy/scr/widgets/header_app.dart';
@@ -20,7 +19,7 @@ class _EditarContactoState extends State<EditarContacto> {
   Widget build(BuildContext context) {
     final contactosProvider = Provider.of<ContactosProvider>(context);
     final Contact contacto = contactosProvider.contacto;
-    final String _contactViejo = contacto.displayName;
+
     return SafeArea(
       child: Scaffold(
         appBar: headerApp(context, 'Contacto', Text(''), 0.0),
@@ -35,12 +34,9 @@ class _EditarContactoState extends State<EditarContacto> {
                 heroTag: "guardar",
                 icon: Icon(
                   Icons.save,
-                  size: 40,
-                  color: Colors.white,
                 ),
                 label: Text(
                   'guardar',
-                  style: TextStyle(fontSize: 20, color: Colors.white),
                 ),
                 backgroundColor: Color.fromRGBO(249, 75, 11, 1),
                 onPressed: () {
@@ -67,20 +63,20 @@ class _EditarContactoState extends State<EditarContacto> {
   }
 }
 
-Future _guardarContacto(Contact contacto) async {
-  final resp = await Permission.contacts.request();
+// Future _guardarContacto(Contact contacto) async {
+//   final resp = await Permission.contacts.request();
 
-  if (resp == PermissionStatus.granted) {
-    // no me funciona updtateContact por tanto:
-    // lo borro ****
-    await ContactsService.deleteContact(contacto);
-    // y lo agrego ***
+//   if (resp == PermissionStatus.granted) {
+//     // no me funciona updtateContact por tanto:
+//     // lo borro ****
+//     await ContactsService.deleteContact(contacto);
+//     // y lo agrego ***
 
-    contacto.identifier = "";
-    await ContactsService.addContact(contacto);
-  }
-  return;
-}
+//     contacto.identifier = "";
+//     await ContactsService.addContact(contacto);
+//   }
+//   return;
+// }
 
 Widget formContacto(BuildContext context, Contact contact) {
   return Container(

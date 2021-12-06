@@ -48,14 +48,10 @@ class ApiSeleccionPage extends StatelessWidget {
                 heroTag: "guardar",
                 icon: Icon(
                   Icons.save,
-                  size: 40,
-                  color: Colors.white,
                 ),
                 label: Text(
                   'guardar',
-                  style: TextStyle(fontSize: 20, color: Colors.white),
                 ),
-                backgroundColor: Color.fromRGBO(249, 75, 11, 1),
                 onPressed: () {
                   for (var i = 0; i < listaVieja.length; i++) {
                     if (!listaNueva.contains(listaVieja[i])) {

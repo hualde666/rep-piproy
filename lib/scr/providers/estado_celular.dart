@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:piproy/channel/channel_android.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class EstadoProvider with ChangeNotifier {
   static final EstadoProvider _estadosProvider = EstadoProvider._internal();
@@ -8,6 +9,7 @@ class EstadoProvider with ChangeNotifier {
     return _estadosProvider;
   }
   EstadoProvider._internal() {
+    cargarPrefPaleta();
     actulizarDatos();
     return;
   }
@@ -20,6 +22,16 @@ class EstadoProvider with ChangeNotifier {
   bool _conexionDatos = false;
   bool _conexionGps = false;
   bool _linterna = false;
+  String _paleta = "1";
+  get paleta {
+    return this._paleta;
+  }
+
+  set paleta(String nuevaPaleta) {
+    this._paleta = nuevaPaleta;
+    notifyListeners();
+  }
+
   get linterna {
     return this._linterna;
   }
@@ -60,6 +72,14 @@ class EstadoProvider with ChangeNotifier {
 
   get conexionGps {
     return this._conexionGps;
+  }
+
+  cargarPrefPaleta() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    _paleta = prefs.getString('paleta');
+    if (_paleta == null) {
+      _paleta = "1";
+    }
   }
 
   actulizarDatos() async {

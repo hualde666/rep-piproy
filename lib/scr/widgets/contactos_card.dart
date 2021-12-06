@@ -49,10 +49,10 @@ class _TarjetaContacto2 extends State<TarjetaContacto2> {
                 ],
               ),
               decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: Theme.of(context).scaffoldBackgroundColor,
                   borderRadius: BorderRadius.circular(15.0),
                   border: Border.all(
-                      color: Theme.of(context).primaryColor, width: 3.0)),
+                      color: Theme.of(context).primaryColor, width: 1.0)),
             ),
             onTap: () {
               oneTap = !oneTap;
@@ -160,7 +160,10 @@ Widget _botonesContactos(BuildContext context, Contact contacto) {
           ),
           child: conteinerIcon(
               context,
-              Icon(Icons.call, size: 50.0, color: Colors.white),
+              Icon(
+                Icons.call,
+                size: 50.0,
+              ),
               'llamada',
               contacto),
         ),
@@ -216,11 +219,8 @@ Widget _botonesContactos(BuildContext context, Contact contacto) {
             borderRadius: BorderRadius.circular(80),
             color: Colors.black,
           ),
-          child: conteinerIcon(
-              context,
-              Icon(Icons.message_rounded, size: 50.0, color: Colors.white),
-              'mensajeC',
-              contacto),
+          child: conteinerIcon(context, Icon(Icons.message_rounded, size: 50.0),
+              'mensajeC', contacto),
         ),
         Text(
           'Mensajes',
@@ -246,7 +246,6 @@ Widget _botonesContactos(BuildContext context, Contact contacto) {
               Icon(
                 Icons.edit,
                 size: 50.0,
-                color: Colors.white,
               ),
               'editar',
               contacto),
@@ -257,31 +256,31 @@ Widget _botonesContactos(BuildContext context, Contact contacto) {
         )
       ],
     ),
-    SizedBox(
-      width: 10,
-    ),
-    Column(
-      children: [
-        Container(
-          height: 75,
-          width: 75,
-          margin: EdgeInsets.only(top: 10),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(80),
-            color: Colors.black,
-          ),
-          child: conteinerIcon(
-              context,
-              Icon(Icons.video_call, size: 50.0, color: Colors.white),
-              'video',
-              null),
-        ),
-        Text(
-          ' Video',
-          style: TextStyle(fontSize: 15),
-        )
-      ],
-    ),
+    // SizedBox(
+    //   width: 10,
+    // ),
+    // Column(
+    //   children: [
+    //     Container(
+    //       height: 75,
+    //       width: 75,
+    //       margin: EdgeInsets.only(top: 10),
+    //       decoration: BoxDecoration(
+    //         borderRadius: BorderRadius.circular(80),
+    //         color: Colors.black,
+    //       ),
+    //       child: conteinerIcon(
+    //           context,
+    //           Icon(Icons.video_call, size: 50.0),
+    //           'video',
+    //           null),
+    //     ),
+    //     Text(
+    //       ' Video',
+    //       style: TextStyle(fontSize: 15),
+    //     )
+    //   ],
+    // ),
   ];
 
   return Container(
@@ -320,7 +319,6 @@ Widget _nombreContacto(BuildContext context, Contact contacto) {
               overflow: TextOverflow.ellipsis,
               textAlign: TextAlign.center,
               style: TextStyle(
-                color: Colors.white,
                 fontSize: 30.0,
               ),
             ),

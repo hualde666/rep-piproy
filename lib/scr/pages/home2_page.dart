@@ -61,9 +61,9 @@ class _Home2PageState extends State<Home2Page> {
       child: Scaffold(
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(220.0),
-          child: AppBar(flexibleSpace: encabezadoApp(context, 'Proyecto PI')),
+          child: encabezadoApp(context, 'Proyecto PI'),
         ),
-        backgroundColor: Theme.of(context).primaryColor,
+        // backgroundColor: Theme.of(context).primaryColor,
         body: FutureBuilder(
             future: cargarMenu(),
             builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -99,25 +99,11 @@ class _Home2PageState extends State<Home2Page> {
       SizedBox(height: 10),
       googleBusqueda(context),
       SizedBox(height: 10),
-      videoPresentacion(context),
+      elementos(context, Text('Contactos', style: TextStyle(fontSize: 40.0)),
+          100, 'contactos', ''),
       SizedBox(height: 10),
-      siulacionInstalacioncion(context),
-      SizedBox(height: 10),
-      elementos(
-          context,
-          Text('Contactos',
-              style: TextStyle(color: Colors.white, fontSize: 40.0)),
-          100,
-          'contactos',
-          ''),
-      SizedBox(height: 10),
-      elementos(
-          context,
-          Text('Aplicaciones',
-              style: TextStyle(color: Colors.white, fontSize: 40.0)),
-          100,
-          'apigrupos',
-          ''),
+      elementos(context, Text('Aplicaciones', style: TextStyle(fontSize: 40.0)),
+          100, 'apigrupos', ''),
       SizedBox(height: 10),
     ];
     if (listaMenu.isNotEmpty) {
@@ -126,8 +112,7 @@ class _Home2PageState extends State<Home2Page> {
         if (listaMenu[i].contains('MPC') || listaMenu[i].contains('MPG')) {
           listaOpciones.add(elementos(
               context,
-              Text(titulo,
-                  style: TextStyle(color: Colors.white, fontSize: 40.0)),
+              Text(titulo, style: TextStyle(fontSize: 40.0)),
               100,
               titulo,
               listaMenu[i]));
@@ -155,47 +140,60 @@ class _Home2PageState extends State<Home2Page> {
   }
 
   encabezadoApp(BuildContext context, String titulo) {
-    return AppBar(
-      //elevation: 1.0,
-      automaticallyImplyLeading: true,
-      flexibleSpace: Container(
-        height: 220,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Divider(
-              height: 10,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+    return Container(
+      height: 220,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Divider(
+            height: 10,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
 
-              children: [
-                botonExit(context),
-                botonRojoHeader(context),
-                GestureDetector(
-                  onTap: () {
-                    scrollToTop();
-                    //            mScrollView.scrollBy(10, 10);
-                  },
-                  child: Container(
-                    child: Image(
-                        image: AssetImage('assets/boton_home.png'),
-                        fit: BoxFit.cover),
-                    height: 100,
-                    width: 100,
-                    //color: Colors.red),
-                  ),
-                )
-              ], // Hora(context)],
-            ),
-            Divider(
-              height: 2,
-            ),
-            encabezadoIcon(context),
-          ],
-        ),
-        color: Color.fromRGBO(55, 57, 84, 1.0),
+            children: [
+              botonExit(context),
+              botonRojoHeader(context),
+              GestureDetector(
+                onTap: () {
+                  scrollToTop();
+                  //            mScrollView.scrollBy(10, 10);
+                },
+                child: Container(
+                  child: Image(
+                      image: AssetImage('assets/boton_home.png'),
+                      fit: BoxFit.cover),
+                  height: 100,
+                  width: 100,
+                  //color: Colors.red),
+                ),
+              )
+            ], // Hora(context)],
+          ),
+          Divider(
+            height: 2,
+          ),
+          encabezadoIcon(context),
+        ],
       ),
+      decoration: new BoxDecoration(
+          gradient: LinearGradient(
+              colors: [
+            Theme.of(context).primaryColor,
+
+            Colors.white,
+            Theme.of(context).scaffoldBackgroundColor,
+            //Color.fromRGBO(55, 57, 84, 1.0)
+          ],
+              stops: [
+            0.2,
+            0.5,
+            0.8
+          ],
+              begin: FractionalOffset.topCenter,
+              end: FractionalOffset.bottomCenter)),
+      // color: Color.fromRGBO(55, 57, 84, 1.0),
+      //  ),
     );
   }
 }
@@ -248,7 +246,9 @@ Widget elementoApi2(BuildContext context, Application api) {
           Text(
             api.appName,
             textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 35, color: Colors.white),
+            style: TextStyle(
+              fontSize: 35,
+            ),
           ),
         ],
       ),
@@ -284,61 +284,13 @@ Future<dynamic> eliminarApi(BuildContext context, String tipo) {
 
               Navigator.pop(context);
             },
-            style: ElevatedButton.styleFrom(
-                primary: Color.fromRGBO(249, 75, 11, 1)),
-            child: Text(
-              'Si',
-              style: TextStyle(fontSize: 25, color: Colors.white),
-            )),
+            child: Text('Si')),
         ElevatedButton(
             onPressed: () {
               Navigator.pop(context);
             },
-            style: ElevatedButton.styleFrom(
-                primary: Color.fromRGBO(249, 75, 11, 1)),
-            child: const Text('NO',
-                style: TextStyle(fontSize: 25, color: Colors.white))),
+            child: Text('NO')),
       ],
     ),
   );
-}
-
-Widget videoPresentacion(BuildContext context) {
-  return GestureDetector(
-      child: Container(
-        height: 100,
-        margin: EdgeInsets.symmetric(vertical: 1.5, horizontal: 5.0),
-        alignment: Alignment.center,
-        child: Text('Video Presentación',
-            textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 35, color: Colors.white)),
-        decoration: BoxDecoration(
-            color: Colors.blue,
-            borderRadius: BorderRadius.circular(20.0),
-            border: Border.all(color: Colors.white)),
-      ),
-      onTap: () {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => VideoPlayerScreen()));
-      });
-}
-
-Widget siulacionInstalacioncion(BuildContext context) {
-  return GestureDetector(
-      child: Container(
-        height: 100,
-        margin: EdgeInsets.symmetric(vertical: 1.5, horizontal: 5.0),
-        alignment: Alignment.center,
-        child: Text('Simulacion Instalación',
-            textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 35, color: Colors.white)),
-        decoration: BoxDecoration(
-            color: Colors.red,
-            borderRadius: BorderRadius.circular(20.0),
-            border: Border.all(color: Colors.white)),
-      ),
-      onTap: () {}
-      //***abrirGoogle();
-
-      );
 }

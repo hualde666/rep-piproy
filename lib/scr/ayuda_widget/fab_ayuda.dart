@@ -13,10 +13,9 @@ import 'package:flutter/material.dart';
 //       backgroundColor: Color.fromRGBO(0, 0, 0, 0.0),
 //       icon: Icon(
 //         Icons.help,
-//         color: Colors.white,
-//         size: 40,
+//
 //       ),
-//       label: Text('ayuda', style: TextStyle(fontSize: 15, color: Colors.white)),
+//       label: Text('ayuda')),
 //       onPressed: () {
 //         Navigator.pushNamed(context, 'ayuda', arguments: pagina);
 //       },
@@ -33,7 +32,7 @@ class BotonFlotante extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       child: Container(
-        width: 135,
+        width: 140,
         margin: EdgeInsets.only(left: 2),
         decoration: BoxDecoration(
           color: Colors.black26,
@@ -44,10 +43,11 @@ class BotonFlotante extends StatelessWidget {
           children: [
             Icon(
               Icons.help,
-              color: Colors.white,
-              size: 40,
             ),
-            Text(' ayuda', style: TextStyle(fontSize: 20, color: Colors.white)),
+            Text(
+              ' ayuda',
+              style: TextStyle(fontSize: 20, color: Colors.white),
+            ),
           ],
         ),
         //color: Color.fromRGBO(0, 0, 0, 0.0),

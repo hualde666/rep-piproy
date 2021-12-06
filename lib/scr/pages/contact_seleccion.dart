@@ -89,7 +89,6 @@ class _SelectContactsPageState extends State<SelectContactsPage> {
                     Size.fromHeight(222.0), // here the desired height
                 child: busqueda(context)),
             resizeToAvoidBottomInset: false,
-            backgroundColor: Theme.of(context).primaryColor,
             body: ListView.builder(
                 padding: EdgeInsets.only(bottom: 250),
                 itemCount: listaTodos.length,
@@ -109,14 +108,10 @@ class _SelectContactsPageState extends State<SelectContactsPage> {
                       heroTag: "guardar",
                       icon: Icon(
                         Icons.save,
-                        size: 40,
-                        color: Colors.white,
                       ),
                       label: Text(
                         'guardar',
-                        style: TextStyle(fontSize: 20, color: Colors.white),
                       ),
-                      backgroundColor: Color.fromRGBO(249, 75, 11, 1),
                       onPressed: () {
                         Navigator.pop(context);
                       })

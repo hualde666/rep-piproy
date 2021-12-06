@@ -38,7 +38,7 @@ class ContactosProvider with ChangeNotifier {
   getcontactos() async {
     // List<Contact> _lista = [];
     final resp = await Permission.contacts.request();
-    print('resp: $resp');
+
     if (resp == PermissionStatus.granted) {
       List<Contact> _contactos = (await ContactsService.getContacts()).toList();
       _listaContactos.addAll(_contactos

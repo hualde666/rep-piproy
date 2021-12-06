@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -12,7 +14,7 @@ Widget botonExit(BuildContext context) {
             width: 100,
             height: 100,
             child: Center(
-              child: Text('¿Desea salir de PiProy ?',
+              child: Text('¿ Desea salir de Vitalfon ?',
                   textAlign: TextAlign.center,
                   style: TextStyle(fontSize: 28, color: Colors.white)),
             ),
@@ -25,7 +27,9 @@ Widget botonExit(BuildContext context) {
           actions: [
             TextButton(
                 onPressed: () {
+                  // se sale con flecha menu inferior
                   SystemNavigator.pop();
+
                   // exit(0);
                   //Navigator.pop(context);
                 },

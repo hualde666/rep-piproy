@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:piproy/scr/widgets/header_app.dart';
+
 import 'package:video_player/video_player.dart';
 
 class VideoPlayerScreen extends StatefulWidget {

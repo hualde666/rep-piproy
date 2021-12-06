@@ -8,9 +8,9 @@ import 'package:piproy/scr/pages/ayuda.dart';
 import 'package:piproy/scr/pages/configuracion_page.dart';
 import 'package:piproy/scr/pages/conta_grupos.dart';
 import 'package:piproy/scr/pages/contacts_por_grupo.dart';
-import 'package:piproy/scr/pages/editar_contacto.dart';
+
 import 'package:piproy/scr/pages/home_agrega_boton.dart';
-import 'package:piproy/scr/pages/mostrar_contacto.dart';
+
 import 'package:piproy/scr/pages/envio_emergencia.dart';
 import 'package:piproy/scr/pages/home2_page.dart';
 import 'package:piproy/scr/pages/mensaje_emergencia.dart';
@@ -27,18 +27,39 @@ import 'package:piproy/scr/providers/lista_id_provider.dart';
 
 import 'package:provider/provider.dart';
 import 'package:piproy/scr/providers/db_provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  String paleta;
+  @override
+  void initState() {
+    super.initState();
+    cargarPrefPaleta();
+  }
+
+  cargarPrefPaleta() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    paleta = prefs.getString('paleta');
+    if (paleta == null) {
+      paleta = "1";
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     DbTiposAplicaciones.db.database;
     EstadoProvider estadoProvider = new EstadoProvider();
     ContactosProvider contactosProvider = new ContactosProvider();
-    AplicacionesProvider aplicacionesProvider = new AplicacionesProvider();
+    // AplicacionesProvider aplicacionesProvider = new AplicacionesProvider();
 
     SystemChrome.setPreferredOrientations(
         [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
@@ -60,7 +81,7 @@ class MyApp extends StatelessWidget {
           );
         },
         title: 'Proyecto',
-        theme: themaApi(),
+        theme: themaApi("1"),
         // home: SplashPage(),
 
         initialRoute: 'home',

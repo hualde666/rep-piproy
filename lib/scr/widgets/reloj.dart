@@ -18,17 +18,19 @@ class Reloj extends StatelessWidget {
         children: [
           Text('${reloj.dias[reloj.diaweek - 1]} ',
               style: TextStyle(
-                  fontSize: 50,
-                  //fontWeight: FontWeight.bold,
-                  color: Colors.white)),
+                fontSize: 50,
+                //fontWeight: FontWeight.bold,
+              )),
           Text('${reloj.shora} : ${reloj.sminutos}  ${reloj.ampm}',
               style: TextStyle(
-                  fontSize: 60,
-                  // fontWeight: FontWeight.bold,
-                  color: Colors.white)),
+                fontSize: 60,
+                // fontWeight: FontWeight.bold,
+              )),
           Text(
             '${reloj.dia} ${reloj.meses[reloj.mes - 1]} ${reloj.year}',
-            style: TextStyle(fontSize: 35, color: Colors.white),
+            style: TextStyle(
+              fontSize: 35,
+            ),
           ),
         ],
       ),

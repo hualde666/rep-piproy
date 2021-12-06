@@ -67,20 +67,16 @@ Future<dynamic> eliminarApi(BuildContext context, String tipo) {
 
               Navigator.pop(context);
             },
-            style: ElevatedButton.styleFrom(
-                primary: Color.fromRGBO(249, 75, 11, 1)),
             child: Text(
               'Si',
-              style: TextStyle(fontSize: 25, color: Colors.white),
             )),
         ElevatedButton(
             onPressed: () {
               Navigator.pop(context);
             },
-            style: ElevatedButton.styleFrom(
-                primary: Color.fromRGBO(249, 75, 11, 1)),
-            child: const Text('NO',
-                style: TextStyle(fontSize: 25, color: Colors.white))),
+            child: Text(
+              'NO',
+            )),
         // TextButton(
         //     onPressed: () {
         //       /// elina api de pantalla

@@ -89,13 +89,10 @@ class _ContactsPorGrupoPageState extends State<ContactsPorGrupoPage> {
 
     List<Widget> listaContact = List.generate(
         listaGrupo.length, (i) => TarjetaContacto2(context, listaGrupo[i]));
-    final alto = grupo == 'Todos' ? 222.0 : 160.0;
+
     return SafeArea(
         child: Scaffold(
-      backgroundColor: Theme.of(context).primaryColor,
-      appBar: PreferredSize(
-          preferredSize: Size.fromHeight(alto), // here the desired height
-          child: busqueda(context)),
+      appBar: busqueda(context),
       body: ListView(
         padding: EdgeInsets.only(bottom: 68),
         children: listaContact,
@@ -110,14 +107,10 @@ class _ContactsPorGrupoPageState extends State<ContactsPorGrupoPage> {
                   heroTag: "agregar",
                   icon: Icon(
                     Icons.add,
-                    size: 40,
-                    color: Colors.white,
                   ),
                   label: Text(
                     'agregar',
-                    style: TextStyle(fontSize: 20, color: Colors.white),
                   ),
-                  backgroundColor: Color.fromRGBO(249, 75, 11, 1),
                   onPressed: () {
                     // SELECCION DE contactos POR TIPO
                     Navigator.push(
@@ -136,67 +129,93 @@ class _ContactsPorGrupoPageState extends State<ContactsPorGrupoPage> {
     final apiProvider = Provider.of<AplicacionesProvider>(context);
 
     final grupo = apiProvider.tipoSeleccion;
-    final alto = grupo == 'Todos' ? 242.0 : 180.0;
-    return AppBar(
-      backgroundColor: Color.fromRGBO(55, 57, 84, 1.0),
-      automaticallyImplyLeading: false,
-      flexibleSpace: Container(
-        margin: EdgeInsets.only(top: 10, left: 5.0, right: 5.0),
-        height: alto,
-        child: Column(
-          // crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            tresBotonesHeader(context),
-            Divider(
-              height: 1,
-            ),
-            Text(
-              grupo,
-              style: TextStyle(color: Colors.white, fontSize: 30),
-            ),
-            grupo == 'Todos'
-                ? TextField(
-                    style: TextStyle(
-                        fontSize: 25.0, color: Colors.white54, height: 1.0),
-                    keyboardType: TextInputType.text,
-                    controller: _searchController,
-                    // autofocus: true,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                          //borderSide: BorderSide(color: Colors.amber),
-                          borderRadius:
-                              BorderRadius.all(Radius.circular(25.0))),
-                      labelStyle:
-                          TextStyle(color: Colors.white38, fontSize: 20),
-                      labelText: 'Buscar Contacto :',
-                      suffixIcon: _searchController.text.isNotEmpty
-                          ? IconButton(
-                              onPressed: () {
-                                setState(() {
-                                  _searchController.clear();
-                                  buscar = true;
-                                });
-                              },
-                              icon: Icon(
-                                Icons.clear,
+    final alto = grupo == 'Todos' ? 210.0 : 150.0;
+    // return AppBar(
+    //   //backgroundColor: Color.fromRGBO(55, 57, 84, 1.0),
+    //   automaticallyImplyLeading: false,
+    //   flexibleSpace:
+    return PreferredSize(
+        preferredSize: Size.fromHeight(180.0 + alto),
+
+        // here the desired height
+        child: Container(
+          decoration: new BoxDecoration(
+              gradient: LinearGradient(
+                  colors: [
+                Theme.of(context).primaryColor,
+
+                Colors.white,
+                Theme.of(context).scaffoldBackgroundColor,
+                // Colors.white,
+                // Colors.orange,
+                // Color.fromRGBO(55, 57, 84, 1.0)
+              ],
+                  stops: [
+                0.2,
+                0.5,
+                0.7
+              ],
+                  begin: FractionalOffset.topCenter,
+                  end: FractionalOffset.bottomCenter)),
+          // margin: EdgeInsets.only(top: 10, left: 5.0, right: 5.0),
+          height: alto,
+          child: Column(
+            // crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SizedBox(
+                height: 10,
+              ),
+              tresBotonesHeader(context),
+              Divider(
+                height: 1,
+              ),
+              Text(
+                grupo,
+                style: TextStyle(color: Colors.white, fontSize: 30),
+              ),
+              grupo == 'Todos'
+                  ? TextField(
+                      style: TextStyle(
+                          fontSize: 25.0, color: Colors.white54, height: 1.0),
+                      keyboardType: TextInputType.text,
+                      controller: _searchController,
+                      // autofocus: true,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                            //borderSide: BorderSide(color: Colors.amber),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(25.0))),
+                        labelStyle:
+                            TextStyle(color: Colors.white38, fontSize: 20),
+                        labelText: 'Buscar Contacto :',
+                        suffixIcon: _searchController.text.isNotEmpty
+                            ? IconButton(
+                                onPressed: () {
+                                  setState(() {
+                                    _searchController.clear();
+                                    buscar = true;
+                                  });
+                                },
+                                icon: Icon(
+                                  Icons.clear,
+                                  color: Colors.white,
+                                  size: 30,
+                                ))
+                            : Icon(
+                                Icons.search,
                                 color: Colors.white,
                                 size: 30,
-                              ))
-                          : Icon(
-                              Icons.search,
-                              color: Colors.white,
-                              size: 30,
-                            ),
-                      focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.white),
-                          borderRadius:
-                              BorderRadius.all(Radius.circular(25.0))),
-                    ),
-                  )
-                : SizedBox(),
-          ],
-        ),
-      ),
-    );
+                              ),
+                        focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.white),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(25.0))),
+                      ),
+                    )
+                  : SizedBox(),
+            ],
+          ),
+          // ),
+        ));
   }
 }

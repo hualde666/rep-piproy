@@ -18,7 +18,7 @@ class ApiPorGrupoPage extends StatelessWidget {
         List.generate(lista.length, (i) => ElementoApi(api: lista[i]));
     return SafeArea(
         child: Scaffold(
-      backgroundColor: Theme.of(context).primaryColor,
+      //  backgroundColor: Theme.of(context).primaryColor,
       //****** editar nombre del grupo */
       appBar: headerApp(context, '$grupo', Text(''), 0.0),
       body: GridView.count(
@@ -35,14 +35,11 @@ class ApiPorGrupoPage extends StatelessWidget {
                   heroTag: "agregar",
                   icon: Icon(
                     Icons.add,
-                    size: 40,
-                    color: Colors.white,
                   ),
                   label: Text(
                     'agregar',
-                    style: TextStyle(fontSize: 20, color: Colors.white),
                   ),
-                  backgroundColor: Color.fromRGBO(249, 75, 11, 1),
+                  // backgroundColor: Color.fromRGBO(249, 75, 11, 1),
                   onPressed: () {
                     // SELECCION DE API POR TIPO
                     //_seleccionApi(context, tipo);
@@ -156,7 +153,7 @@ class ElementoApi extends StatelessWidget {
                     child: Text(
                       api.appName,
                       textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 20, color: Colors.white),
+                      style: TextStyle(fontSize: 20),
                     ),
                   ),
                 ],
@@ -204,20 +201,16 @@ class ElementoApi extends StatelessWidget {
 
                   Navigator.pop(context);
                 },
-                style: ElevatedButton.styleFrom(
-                    primary: Color.fromRGBO(249, 75, 11, 1)),
                 child: Text(
                   'Si',
-                  style: TextStyle(fontSize: 25, color: Colors.white),
                 )),
             ElevatedButton(
                 onPressed: () {
                   Navigator.pop(context);
                 },
-                style: ElevatedButton.styleFrom(
-                    primary: Color.fromRGBO(249, 75, 11, 1)),
-                child: const Text('NO',
-                    style: TextStyle(fontSize: 25, color: Colors.white))),
+                child: Text(
+                  'NO',
+                )),
           ],
         ),
       );
@@ -255,20 +248,12 @@ class ElementoApi extends StatelessWidget {
 
               Navigator.of(context).pop();
             },
-            style: ElevatedButton.styleFrom(
-                primary: Color.fromRGBO(249, 75, 11, 1)),
-            child: Text(
-              'Si',
-              style: TextStyle(fontSize: 25, color: Colors.white),
-            )),
+            child: Text('Si')),
         ElevatedButton(
             onPressed: () {
               Navigator.pop(context);
             },
-            style: ElevatedButton.styleFrom(
-                primary: Color.fromRGBO(249, 75, 11, 1)),
-            child: const Text('NO',
-                style: TextStyle(fontSize: 25, color: Colors.white))),
+            child: Text('NO')),
       ],
     );
   }

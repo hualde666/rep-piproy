@@ -7,19 +7,19 @@ class SplashPage extends StatefulWidget {
 
 class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
   //late  Animation<double> movingTop;
-  AnimationController _controller;
+  // AnimationController _controller;
   @override
   void initState() {
     super.initState();
 
-    _controller = AnimationController(
-        duration: const Duration(milliseconds: 2000), vsync: this);
+    // _controller = AnimationController(
+    //     duration: const Duration(milliseconds: 2000), vsync: this);
     // _navegarHome();
   }
 
   @override
   Widget build(BuildContext context) {
-    final timeDilation = 10.0;
+    // final timeDilation = 10.0;
     return Scaffold(
         appBar: AppBar(
           title: const Text('Staggered Animation'),

@@ -2,7 +2,7 @@ import 'package:device_apps/device_apps.dart';
 import 'package:flutter/material.dart';
 import 'package:contacts_service/contacts_service.dart';
 import 'package:piproy/scr/ayuda_widget/fab_ayuda.dart';
-import 'package:piproy/scr/pages/editar_contacto.dart';
+
 import 'package:piproy/scr/providers/aplicaciones_provider.dart';
 import 'package:piproy/scr/providers/contactos_provider.dart';
 import 'package:piproy/scr/widgets/header_app.dart';
@@ -21,7 +21,6 @@ class _MostrarContactoState extends State<MostrarContacto> {
     return SafeArea(
       child: Scaffold(
         appBar: headerApp(context, '', Text(''), 0.0),
-        backgroundColor: Color.fromRGBO(55, 57, 84, 1.0),
         body: fichaContacto(contacto),
         floatingActionButton: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -31,14 +30,10 @@ class _MostrarContactoState extends State<MostrarContacto> {
               heroTag: "editar",
               icon: Icon(
                 Icons.edit,
-                size: 40,
-                color: Colors.white,
               ),
               label: Text(
                 'editar',
-                style: TextStyle(fontSize: 15, color: Colors.white),
               ),
-              backgroundColor: Color.fromRGBO(249, 75, 11, 1),
               onPressed: () {
                 // Navigator.push(context,
                 //     MaterialPageRoute(builder: (context) => EditarContacto()));

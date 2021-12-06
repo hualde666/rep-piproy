@@ -11,7 +11,10 @@ Widget encabezadoIcon(BuildContext context) {
           height: 75,
           child: conteinerIcon(
               context,
-              Icon(Icons.engineering, size: 40.0, color: Colors.white),
+              Icon(
+                Icons.engineering,
+                size: 40.0,
+              ),
               'configurar',
               null),
         ),
@@ -32,7 +35,10 @@ Widget encabezadoIcon(BuildContext context) {
           height: 75,
           child: conteinerIcon(
               context,
-              Icon(Icons.call, size: 40.0, color: Colors.white),
+              Icon(
+                Icons.call,
+                size: 40.0,
+              ),
               'discado',
               null),
         ),
@@ -52,7 +58,10 @@ Widget encabezadoIcon(BuildContext context) {
           height: 75,
           child: conteinerIcon(
               context,
-              Icon(Icons.battery_std, size: 40.0, color: Colors.white),
+              Icon(
+                Icons.battery_std,
+                size: 40.0,
+              ),
               'bateria',
               null),
         ),
@@ -74,8 +83,14 @@ Widget encabezadoIcon(BuildContext context) {
       children: [
         Container(
           height: 75,
-          child: conteinerIcon(context,
-              Icon(Icons.wifi, size: 40.0, color: Colors.white), 'wifi', null),
+          child: conteinerIcon(
+              context,
+              Icon(
+                Icons.wifi,
+                size: 40.0,
+              ),
+              'wifi',
+              null),
         ),
         Text(
           'wifi',
@@ -93,8 +108,10 @@ Widget encabezadoIcon(BuildContext context) {
           height: 75,
           child: conteinerIcon(
               context,
-              Icon(Icons.signal_cellular_alt_rounded,
-                  size: 40.0, color: Colors.white),
+              Icon(
+                Icons.signal_cellular_alt_rounded,
+                size: 40.0,
+              ),
               'señal',
               null),
         ),
@@ -114,7 +131,10 @@ Widget encabezadoIcon(BuildContext context) {
           height: 75,
           child: conteinerIcon(
               context,
-              Icon(Icons.gps_fixed_rounded, size: 40.0, color: Colors.white),
+              Icon(
+                Icons.gps_fixed_rounded,
+                size: 40.0,
+              ),
               'gps',
               null),
         ),
@@ -134,7 +154,10 @@ Widget encabezadoIcon(BuildContext context) {
           height: 75,
           child: conteinerIcon(
               context,
-              Icon(Icons.filter_alt, size: 40.0, color: Colors.white),
+              Icon(
+                Icons.filter_alt,
+                size: 40.0,
+              ),
               'linterna',
               null),
         ),
@@ -154,7 +177,10 @@ Widget encabezadoIcon(BuildContext context) {
           height: 75,
           child: conteinerIcon(
               context,
-              Icon(Icons.chat, size: 40.0, color: Colors.white),
+              Icon(
+                Icons.chat,
+                size: 40.0,
+              ),
               'mensaje',
               null),
         ),
@@ -174,7 +200,10 @@ Widget encabezadoIcon(BuildContext context) {
           height: 75,
           child: conteinerIcon(
               context,
-              Icon(Icons.access_alarms, size: 40.0, color: Colors.white),
+              Icon(
+                Icons.access_alarms,
+                size: 40.0,
+              ),
               'alarma',
               null),
         ),

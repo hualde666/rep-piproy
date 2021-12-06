@@ -17,7 +17,7 @@ class ApiGruposPage extends StatelessWidget {
         child: Scaffold(
             appBar: headerApp(context, 'Grupos app', Text(''), 0.0),
             resizeToAvoidBottomInset: false,
-            backgroundColor: Theme.of(context).primaryColor,
+            //  backgroundColor: Theme.of(context).primaryColor,
             body: ListView.builder(
                 padding: EdgeInsets.only(bottom: 65),
                 itemCount: listaGrupos.length,
@@ -34,14 +34,10 @@ class ApiGruposPage extends StatelessWidget {
                     heroTag: "agregar",
                     icon: Icon(
                       Icons.add,
-                      size: 40,
-                      color: Colors.white,
                     ),
                     label: Text(
                       'agregar',
-                      style: TextStyle(fontSize: 20, color: Colors.white),
                     ),
-                    backgroundColor: Color.fromRGBO(249, 75, 11, 1),
                     onPressed: () {
                       // SELECCION DE API POR TIPO
                       //_seleccionApi(context, tipo);
@@ -101,7 +97,7 @@ class ApiGruposPage extends StatelessWidget {
                       child: Text(
                         grupo,
                         overflow: TextOverflow.ellipsis,
-                        style: TextStyle(color: Colors.white, fontSize: 40),
+                        style: TextStyle(fontSize: 40),
                       ),
                     ),
                   ),
@@ -188,21 +184,15 @@ class ApiGruposPage extends StatelessWidget {
 
               Navigator.of(context).pop();
             },
-            style: ElevatedButton.styleFrom(
-                primary: Color.fromRGBO(249, 75, 11, 1)),
             child: Text(
               'Si',
-              style: TextStyle(fontSize: 25, color: Colors.white),
             )),
         ElevatedButton(
             onPressed: () {
               Navigator.of(context).pop();
             },
-            style: ElevatedButton.styleFrom(
-                primary: Color.fromRGBO(249, 75, 11, 1)),
             child: Text(
               'No',
-              style: TextStyle(fontSize: 25, color: Colors.white),
             )),
       ],
     );
@@ -261,21 +251,15 @@ class ApiGruposPage extends StatelessWidget {
 
               Navigator.of(context).pop();
             },
-            style: ElevatedButton.styleFrom(
-                primary: Color.fromRGBO(249, 75, 11, 1)),
             child: Text(
               'Si',
-              style: TextStyle(fontSize: 25, color: Colors.white),
             )),
         ElevatedButton(
             onPressed: () {
               Navigator.of(context).pop();
             },
-            style: ElevatedButton.styleFrom(
-                primary: Color.fromRGBO(249, 75, 11, 1)),
             child: Text(
               'No',
-              style: TextStyle(fontSize: 25, color: Colors.white),
             )),
       ],
     );
@@ -319,20 +303,14 @@ class ApiGruposPage extends StatelessWidget {
 
               Navigator.of(context).pop();
             },
-            style: ElevatedButton.styleFrom(
-                primary: Color.fromRGBO(249, 75, 11, 1)),
             child: Text(
               'Si',
-              style: TextStyle(fontSize: 25, color: Colors.white),
             )),
         ElevatedButton(
             onPressed: () {
               Navigator.pop(context);
             },
-            style: ElevatedButton.styleFrom(
-                primary: Color.fromRGBO(249, 75, 11, 1)),
-            child: const Text('NO',
-                style: TextStyle(fontSize: 25, color: Colors.white))),
+            child: Text('NO')),
       ],
     );
   }
