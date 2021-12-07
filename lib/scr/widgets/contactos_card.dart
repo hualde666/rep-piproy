@@ -51,8 +51,7 @@ class _TarjetaContacto2 extends State<TarjetaContacto2> {
               decoration: BoxDecoration(
                   color: Theme.of(context).scaffoldBackgroundColor,
                   borderRadius: BorderRadius.circular(15.0),
-                  border: Border.all(
-                      color: Theme.of(context).primaryColor, width: 1.0)),
+                  border: Border.all(color: Colors.white, width: 1.0)),
             ),
             onTap: () {
               oneTap = !oneTap;

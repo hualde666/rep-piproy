@@ -6,6 +6,7 @@ Widget encabezadoIcon(BuildContext context) {
   //final bool isOn = false;
   final List<Widget> _listaWidget = [
     Column(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Container(
           height: 75,
@@ -220,7 +221,7 @@ Widget encabezadoIcon(BuildContext context) {
     width: double.infinity,
     //margin: //EdgeInsets.only(top: 55.0),
     child: ListView.builder(
-      controller: PageController(viewportFraction: 0.1),
+      controller: PageController(initialPage: 1, viewportFraction: 0.5),
       scrollDirection: Axis.horizontal,
       itemCount: _listaWidget.length,
       itemBuilder: (context, i) => _listaWidget[i],

@@ -33,26 +33,18 @@ void main() {
   runApp(MyApp());
 }
 
-class MyApp extends StatefulWidget {
-  @override
-  State<MyApp> createState() => _MyAppState();
-}
+class MyApp extends StatelessWidget {
+//   @override
+//   State<MyApp> createState() => _MyAppState();
+// }
 
-class _MyAppState extends State<MyApp> {
-  String paleta;
-  @override
-  void initState() {
-    super.initState();
-    cargarPrefPaleta();
-  }
-
-  cargarPrefPaleta() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    paleta = prefs.getString('paleta');
-    if (paleta == null) {
-      paleta = "1";
-    }
-  }
+// class _MyAppState extends State<MyApp> {
+//   String paleta;
+//   @override
+//   void initState() {
+//     super.initState();
+//     //cargarPrefPaleta();
+//   }
 
   @override
   Widget build(BuildContext context) {
@@ -65,29 +57,32 @@ class _MyAppState extends State<MyApp> {
         [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
 
     return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (_) => new EstadoProvider()),
-        ChangeNotifierProvider(create: (_) => new ListaIdProvider()),
-        ChangeNotifierProvider(create: (_) => new AplicacionesProvider()),
-        ChangeNotifierProvider(create: (_) => new ContactosProvider()),
-      ],
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        builder: (BuildContext context, Widget child) {
-          final MediaQueryData data = MediaQuery.of(context);
-          return MediaQuery(
-            data: data.copyWith(textScaleFactor: 1),
-            child: child,
-          );
-        },
-        title: 'Proyecto',
-        theme: themaApi("1"),
-        // home: SplashPage(),
+        providers: [
+          ChangeNotifierProvider(create: (_) => new EstadoProvider()),
+          ChangeNotifierProvider(create: (_) => new ListaIdProvider()),
+          ChangeNotifierProvider(create: (_) => new AplicacionesProvider()),
+          ChangeNotifierProvider(create: (_) => new ContactosProvider()),
+        ],
+        child: Consumer<EstadoProvider>(builder: (context, appInfo, _) {
+          String colorKey = appInfo.paleta;
 
-        initialRoute: 'home',
-        routes: rutasApp,
-      ),
-    );
+          return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            builder: (BuildContext context, Widget child) {
+              final MediaQueryData data = MediaQuery.of(context);
+              return MediaQuery(
+                data: data.copyWith(textScaleFactor: 1),
+                child: child,
+              );
+            },
+            title: 'Proyecto',
+            theme: themaApi(colorKey),
+            // home: SplashPage(),
+
+            initialRoute: 'home',
+            routes: rutasApp,
+          );
+        }));
   }
 
   Map<String, WidgetBuilder> get rutasApp {

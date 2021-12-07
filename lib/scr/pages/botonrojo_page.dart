@@ -37,7 +37,6 @@ class _BotonRojoPageState extends State<BotonRojoPage> {
 
   cargarPrefs() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-  
 
     mensaje = prefs.getString('mensajeE');
     if (mensaje == null) {
@@ -96,7 +95,22 @@ Widget headerEmergencia(BuildContext context) {
     // here the desired height
     child: Container(
       padding: EdgeInsets.only(top: 35),
-      color: Color.fromRGBO(55, 57, 84, 1.0),
+      decoration: new BoxDecoration(
+          gradient: LinearGradient(
+              colors: [
+            Theme.of(context).primaryColor,
+
+            Colors.white,
+            Theme.of(context).scaffoldBackgroundColor,
+            //Color.fromRGBO(55, 57, 84, 1.0)
+          ],
+              stops: [
+            0.2,
+            0.5,
+            0.8
+          ],
+              begin: FractionalOffset.topCenter,
+              end: FractionalOffset.bottomCenter)),
       height: 170,
       child: Column(
         children: [
@@ -176,7 +190,7 @@ conListaEmergenia(BuildContext context, List<Contact> listaE) {
                 child: Text('Enviar',
                     style: TextStyle(
                       fontSize: 50.0,
-                      color: Theme.of(context).primaryColor,
+                      color: Colors.black,
                     )
                     // Theme.of(context).primaryColor),
                     ),

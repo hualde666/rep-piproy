@@ -18,7 +18,7 @@ class Ayuda extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         appBar: headerApp(context, 'Ayuda', Text(''), 0.0),
-        //backgroundColor: Color.fromRGBO(55, 57, 84, 1.0),
+        // backgroundColor: Colors.white,
         body: PaginaAyuda(pagina: pagina),
       ),
     );

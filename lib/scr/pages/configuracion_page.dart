@@ -212,13 +212,13 @@ class ConfiguracionPage extends StatelessWidget {
                 controller: _tipoControle,
                 validator: (valor) {
                   // validar que no exite ya
-                  List opciones = ['1', '2', '3'];
+                  List opciones = ['1', '2', '3', '4'];
 
                   return opciones.contains(_tipoControle.value.text)
                       ? null
                       : "dato invalido";
                 },
-                decoration: InputDecoration(hintText: " 1, 2 o 3"),
+                decoration: InputDecoration(hintText: " 1, 2 , 3 o 4"),
               )
             ],
           ),
@@ -228,7 +228,7 @@ class ConfiguracionPage extends StatelessWidget {
       actions: [
         ElevatedButton(
             onPressed: () {
-              List<String> opciones = ['1', '2', '3'];
+              List<String> opciones = ['1', '2', '3', '4'];
               String paletaNueva = _tipoControle.value.text;
               if (opciones.contains(paletaNueva)) {
                 if (paletaNueva != paletaVieja) {

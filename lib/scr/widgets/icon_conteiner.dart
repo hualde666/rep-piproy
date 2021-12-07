@@ -56,7 +56,7 @@ Widget conteinerIcon(
       nuevoIcon =
           prendida ? Icons.filter_alt_rounded : Icons.filter_alt_outlined;
 
-      widget = dispLinterna(prendida, nuevoIcon);
+      widget = dispLinterna(context, prendida, nuevoIcon);
       break;
     default:
       {
@@ -179,8 +179,8 @@ Widget dispositivo(bool activo, IconData icon) {
   ));
 }
 
-Widget dispLinterna(bool activo, IconData icon) {
-  final Color color = activo ? Colors.yellow : Color.fromRGBO(55, 57, 84, 1.0);
+Widget dispLinterna(BuildContext context, bool activo, IconData icon) {
+  final Color color = activo ? Colors.yellow : Theme.of(context).primaryColor;
 
   return Center(
       child: Container(

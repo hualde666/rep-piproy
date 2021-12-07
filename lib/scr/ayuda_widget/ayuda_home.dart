@@ -24,7 +24,7 @@ class AyudaHome extends StatelessWidget {
       Container(
         child: Center(
             child: Text('Pantalla Inicial',
-                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold))),
+                style: TextStyle(fontSize: 30, color: Colors.white))),
       ),
       SizedBox(
         height: 10,
@@ -55,7 +55,7 @@ class AyudaHome extends StatelessWidget {
                     child: Text(
                       'Boton de Salida:',
                       textAlign: TextAlign.left,
-                      style: TextStyle(fontSize: 20),
+                      style: TextStyle(fontSize: 20, color: Colors.white),
                     ),
                   ),
                 ),
