@@ -23,51 +23,47 @@ class ResumenEnvioPage extends StatelessWidget {
           appBar: headerResumen(context),
           body: Container(
             height: 500,
-            color: Colors.white,
+            // color: Colors.white,
             margin: EdgeInsets.symmetric(horizontal: 10, vertical: 50),
             child: ListView.builder(
               itemCount: listaE.length,
               itemBuilder: (context, i) {
                 return Container(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Divider(
-                        height: 12,
-                      ),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20.0),
+                        border: Border.all(color: Colors.white)),
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            listaE[i].displayName,
+                            style: TextStyle(fontSize: 35),
+                          ),
+                          Container(
+                              child: Text(
+                            'Mensaje Enviado',
+                            style: TextStyle(fontSize: 20),
+                          )),
+                          SizedBox(
+                            height: 5,
+                          )
+                        ])
+                    // : Column(
+                    //     crossAxisAlignment: CrossAxisAlignment.start,
+                    //     children: [
+                    //         Text(
+                    //           listaE[i].nombre,
+                    //           style: TextStyle(
+                    //               color: Colors.red, fontSize: 30),
+                    //         ),
+                    //         Container(
+                    //           alignment: Alignment.centerRight,
+                    //           child: Text('Mensaje No Enviado',
+                    //               style: TextStyle(fontSize: 20)),
+                    //         )
+                    //       ]),
 
-                      Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              listaE[i].displayName,
-                              style:
-                                  TextStyle(color: Colors.green, fontSize: 30),
-                            ),
-                            Container(
-                                alignment: Alignment.centerRight,
-                                child: Text(
-                                  'Mensaje Enviado',
-                                  style: TextStyle(fontSize: 20),
-                                ))
-                          ])
-                      // : Column(
-                      //     crossAxisAlignment: CrossAxisAlignment.start,
-                      //     children: [
-                      //         Text(
-                      //           listaE[i].nombre,
-                      //           style: TextStyle(
-                      //               color: Colors.red, fontSize: 30),
-                      //         ),
-                      //         Container(
-                      //           alignment: Alignment.centerRight,
-                      //           child: Text('Mensaje No Enviado',
-                      //               style: TextStyle(fontSize: 20)),
-                      //         )
-                      //       ]),
-                    ],
-                  ),
-                );
+                    );
               },
             ),
           )),
@@ -80,9 +76,24 @@ Widget headerResumen(BuildContext context) {
     preferredSize: Size.fromHeight(200.0),
     // here the desired height
     child: Container(
-      padding: EdgeInsets.only(top: 35),
-      color: Color.fromRGBO(55, 57, 84, 1.0),
-      height: 170,
+      padding: EdgeInsets.only(top: 5),
+      decoration: new BoxDecoration(
+          gradient: LinearGradient(
+              colors: [
+            Theme.of(context).primaryColor,
+
+            Colors.white,
+            Theme.of(context).scaffoldBackgroundColor,
+            //Color.fromRGBO(55, 57, 84, 1.0)
+          ],
+              stops: [
+            0.2,
+            0.5,
+            0.8
+          ],
+              begin: FractionalOffset.topCenter,
+              end: FractionalOffset.bottomCenter)),
+      height: 150,
       child: Column(
         children: [
           Row(
@@ -93,8 +104,10 @@ Widget headerResumen(BuildContext context) {
               botonHomeHeader(context),
             ],
           ),
-          Text('Resumen de Mensaje',
-              style: TextStyle(color: Colors.white, fontSize: 20)),
+          SizedBox(
+            height: 10,
+          ),
+          Text('Resumen de Mensaje', style: TextStyle(fontSize: 30)),
         ],
       ),
     ),

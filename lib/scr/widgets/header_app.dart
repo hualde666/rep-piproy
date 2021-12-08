@@ -48,7 +48,7 @@ Widget headerApp(
               ? Column(
                   children: [
                     SizedBox(
-                      height: 10,
+                      height: 3,
                     ),
                     otroWidget,
                   ],

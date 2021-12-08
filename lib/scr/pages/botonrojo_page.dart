@@ -82,8 +82,8 @@ class _BotonRojoPageState extends State<BotonRojoPage> {
         body: listaContactos.isNotEmpty
             ? conListaEmergenia(context, listaContactos)
             : sinListaEmergenia(context),
-        floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
-        floatingActionButton: BotonFlotante(pagina: 'botonRojo'),
+        // floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
+        // floatingActionButton: BotonFlotante(pagina: 'botonRojo'),
       ),
     );
   }
@@ -94,7 +94,7 @@ Widget headerEmergencia(BuildContext context) {
     preferredSize: Size.fromHeight(200.0),
     // here the desired height
     child: Container(
-      padding: EdgeInsets.only(top: 35),
+      padding: EdgeInsets.only(top: 5),
       decoration: new BoxDecoration(
           gradient: LinearGradient(
               colors: [
@@ -111,7 +111,7 @@ Widget headerEmergencia(BuildContext context) {
           ],
               begin: FractionalOffset.topCenter,
               end: FractionalOffset.bottomCenter)),
-      height: 170,
+      height: 150,
       child: Column(
         children: [
           Row(
@@ -125,8 +125,11 @@ Widget headerEmergencia(BuildContext context) {
               botonHomeHeader(context),
             ],
           ),
+          SizedBox(
+            height: 10,
+          ),
           Text('Alerta de Emergencia',
-              style: TextStyle(color: Colors.white, fontSize: 20)),
+              style: TextStyle(color: Colors.white, fontSize: 30)),
         ],
       ),
     ),
@@ -151,12 +154,15 @@ conListaEmergenia(BuildContext context, List<Contact> listaE) {
               fontSize: 40.0,
             ),
           ),
-          Text(
-            'Enviar mensaje a mis contactos de emergencia',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 30.0,
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 25),
+            child: Text(
+              'Enviar mensaje a mis contactos de emergencia',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 30.0,
+              ),
             ),
           ),
           GestureDetector(

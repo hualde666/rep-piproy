@@ -15,36 +15,36 @@ class ApiGruposPage extends StatelessWidget {
     final List<String> listaGrupos = apiProvider.apigrupos;
     return SafeArea(
         child: Scaffold(
-            appBar: headerApp(context, 'Grupos app', Text(''), 0.0),
-            resizeToAvoidBottomInset: false,
-            //  backgroundColor: Theme.of(context).primaryColor,
-            body: ListView.builder(
-                padding: EdgeInsets.only(bottom: 65),
-                itemCount: listaGrupos.length,
-                itemBuilder: (context, i) {
-                  return grupo(context, listaGrupos[i]);
-                }),
-            //   }
-            // }),
-            floatingActionButton: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                BotonFlotante(pagina: 'grupoApi'),
-                FloatingActionButton.extended(
-                    heroTag: "agregar",
-                    icon: Icon(
-                      Icons.add,
-                    ),
-                    label: Text(
-                      'agregar',
-                    ),
-                    onPressed: () {
-                      // SELECCION DE API POR TIPO
-                      //_seleccionApi(context, tipo);
-                      crearTipo(context);
-                    }),
-              ],
-            )));
+      appBar: headerApp(context, 'Grupos app', Text(''), 0.0),
+      resizeToAvoidBottomInset: false,
+      //  backgroundColor: Theme.of(context).primaryColor,
+      body: Container(
+        padding: EdgeInsets.only(bottom: 55),
+        child: ListView.builder(
+            padding: EdgeInsets.only(bottom: 65),
+            itemCount: listaGrupos.length,
+            itemBuilder: (context, i) {
+              return grupo(context, listaGrupos[i]);
+            }),
+      ),
+
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton:
+          //BotonFlotante(pagina: 'grupoApi'),
+          FloatingActionButton.extended(
+              heroTag: "agregar",
+              icon: Icon(
+                Icons.add,
+              ),
+              label: Text(
+                'agregar',
+              ),
+              onPressed: () {
+                // SELECCION DE API POR TIPO
+                //_seleccionApi(context, tipo);
+                crearTipo(context);
+              }),
+    ));
   }
 
   Widget grupo(
@@ -71,18 +71,27 @@ class ApiGruposPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 GestureDetector(
-                  onTap: () => agregaMPC(context, grupo),
-                  child: Container(
-                    width: 15,
-                    height: 30,
-                    child: Center(
-                      child: Icon(
-                        Icons.arrow_back,
-                        size: 20,
-                        color: Colors.blue,
-                      ),
-                    ),
-                  ),
+                  onTap: () {
+                    if (grupo != 'Todas') {
+                      agregaMPC(context, grupo);
+                    }
+                  },
+                  child: grupo != 'Todas'
+                      ? Container(
+                          width: 30,
+                          height: 30,
+                          child: Center(
+                            child: Icon(
+                              Icons.arrow_back,
+                              size: 20,
+                              color: Colors.blue,
+                            ),
+                          ),
+                        )
+                      : Container(
+                          width: 30,
+                          height: 30,
+                        ),
                 ),
                 GestureDetector(
                   onTap: () {
@@ -103,16 +112,25 @@ class ApiGruposPage extends StatelessWidget {
                   ),
                 ),
                 GestureDetector(
-                  onTap: () => eliminarTipo(context, grupo),
-                  child: Container(
-                    width: 15,
-                    height: 30,
-                    child: Icon(
-                      Icons.close,
-                      size: 20,
-                      color: Colors.red,
-                    ),
-                  ),
+                  onTap: () {
+                    if (grupo != 'Todas') {
+                      eliminarTipo(context, grupo);
+                    }
+                  },
+                  child: grupo != 'Todas'
+                      ? Container(
+                          width: 30,
+                          height: 30,
+                          child: Icon(
+                            Icons.close,
+                            size: 20,
+                            color: Colors.red,
+                          ),
+                        )
+                      : Container(
+                          height: 30,
+                          width: 30,
+                        ),
                 ),
               ],
             ));

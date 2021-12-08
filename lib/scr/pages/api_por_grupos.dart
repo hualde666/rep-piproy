@@ -21,38 +21,38 @@ class ApiPorGrupoPage extends StatelessWidget {
       //  backgroundColor: Theme.of(context).primaryColor,
       //****** editar nombre del grupo */
       appBar: headerApp(context, '$grupo', Text(''), 0.0),
-      body: GridView.count(
-        padding: EdgeInsets.only(bottom: 70, left: 1, right: 1),
-        children: listaApi,
-        crossAxisCount: 2,
+      body: Container(
+        padding: EdgeInsets.only(bottom: 55),
+        child: GridView.count(
+          padding: EdgeInsets.only(bottom: 70, left: 1, right: 1),
+          children: listaApi,
+          crossAxisCount: 2,
+        ),
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: grupo != 'Todas'
-          ? Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                BotonFlotante(pagina: 'tipoApi'),
-                FloatingActionButton.extended(
-                  heroTag: "agregar",
-                  icon: Icon(
-                    Icons.add,
-                  ),
-                  label: Text(
-                    'agregar',
-                  ),
-                  // backgroundColor: Color.fromRGBO(249, 75, 11, 1),
-                  onPressed: () {
-                    // SELECCION DE API POR TIPO
-                    //_seleccionApi(context, tipo);
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => ApiSeleccionPage(
-                                context: context,
-                                listaVieja: apiProvider
-                                    .categoryApi[apiProvider.tipoSeleccion])));
-                  },
-                ),
-              ],
+          ?
+          // BotonFlotante(pagina: 'tipoApi'),
+          FloatingActionButton.extended(
+              heroTag: "agregar",
+              icon: Icon(
+                Icons.add,
+              ),
+              label: Text(
+                'agregar',
+              ),
+              // backgroundColor: Color.fromRGBO(249, 75, 11, 1),
+              onPressed: () {
+                // SELECCION DE API POR TIPO
+                //_seleccionApi(context, tipo);
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ApiSeleccionPage(
+                            context: context,
+                            listaVieja: apiProvider
+                                .categoryApi[apiProvider.tipoSeleccion])));
+              },
             )
           : null,
     ));
@@ -66,30 +66,13 @@ class ElementoApi extends StatelessWidget {
   Widget build(BuildContext context) {
     final apiProvider = Provider.of<AplicacionesProvider>(context);
     final grupo = apiProvider.tipoSeleccion;
-    return
-        // GestureDetector(
-        //   onTap: () {
-        //     if (api.appName != "") {
-        //       api.openApp();
-        //     }
-        //   },
-        //   onLongPress: () {
-        //     // eliminar api?
-        //     if (grupo != 'Todas') {
-        //       eliminarApi(context, grupo);
-        //     }
-        //   },
-        //   onDoubleTap: () => agregaMPA(context, api),
-        //   child:
-        Container(
-      // height: 200,
-      // color: Color.fromRGBO(                    249, 75, 11, 0.7),
+    return Container(
       margin: EdgeInsets.symmetric(horizontal: 3, vertical: 3),
       decoration: BoxDecoration(
           color: Theme.of(context).primaryColor,
           borderRadius: BorderRadius.circular(15.0),
           border: Border.all(color: Colors.white, width: 1.0)),
-      // color: Theme.of(context).primaryColor,
+
       child: Column(
         children: [
           Row(
@@ -97,19 +80,26 @@ class ElementoApi extends StatelessWidget {
             children: [
               GestureDetector(
                 onTap: () {
-                  agregaMPA(context, api);
+                  if (grupo != 'Todas') {
+                    agregaMPA(context, api);
+                  }
                 },
-                child: Container(
-                  width: 30,
-                  height: 30,
-                  child: Center(
-                    child: Icon(
-                      Icons.arrow_back,
-                      size: 20,
-                      color: Colors.blue,
-                    ),
-                  ),
-                ),
+                child: grupo != 'Todas'
+                    ? Container(
+                        width: 30,
+                        height: 30,
+                        child: Center(
+                          child: Icon(
+                            Icons.arrow_back,
+                            size: 20,
+                            color: Colors.blue,
+                          ),
+                        ),
+                      )
+                    : Container(
+                        width: 30,
+                        height: 30,
+                      ),
               ),
               GestureDetector(
                 onTap: () {
@@ -117,17 +107,22 @@ class ElementoApi extends StatelessWidget {
                     eliminarApi(context, grupo);
                   }
                 },
-                child: Container(
-                  width: 30,
-                  height: 30,
-                  child: Center(
-                    child: Icon(
-                      Icons.close,
-                      size: 20,
-                      color: Colors.red,
-                    ),
-                  ),
-                ),
+                child: grupo != 'Todas'
+                    ? Container(
+                        width: 30,
+                        height: 30,
+                        child: Center(
+                          child: Icon(
+                            Icons.close,
+                            size: 20,
+                            color: Colors.red,
+                          ),
+                        ),
+                      )
+                    : Container(
+                        width: 30,
+                        height: 30,
+                      ),
               ),
             ],
           ),

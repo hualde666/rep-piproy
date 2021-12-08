@@ -27,58 +27,57 @@ class ApiSeleccionPage extends StatelessWidget {
             listaNueva: listaNueva, context: context, api: listaTodas[i]));
     return SafeArea(
       child: Scaffold(
-          appBar: headerApp(
-              context,
-              'Seleccion Apps para: ',
-              Text(
-                '$grupo',
-                style: TextStyle(color: Colors.white, fontSize: 20),
-              ),
-              35.0),
-          resizeToAvoidBottomInset: false,
-          body: ListView(
+        appBar: headerApp(
+            context,
+            'Seleccion Apps para: ',
+            Text(
+              '$grupo',
+              style: TextStyle(color: Colors.white, fontSize: 30),
+            ),
+            40.0),
+        resizeToAvoidBottomInset: false,
+        body: Container(
+          // padding: EdgeInsets.only(bottom: 70),
+          padding: EdgeInsets.only(bottom: 60, left: 1, right: 1),
+          child: GridView.count(
+            crossAxisCount: 2,
             children: listaApi,
           ),
-          // floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
-          floatingActionButton: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              BotonFlotante(pagina: 'selecApi'),
-              FloatingActionButton.extended(
-                heroTag: "guardar",
-                icon: Icon(
-                  Icons.save,
-                ),
-                label: Text(
-                  'guardar',
-                ),
-                onPressed: () {
-                  for (var i = 0; i < listaVieja.length; i++) {
-                    if (!listaNueva.contains(listaVieja[i])) {
-                      // eliminar
-                      Provider.of<AplicacionesProvider>(context, listen: false)
-                          .modiApiListaPorTipo(listaVieja[i]);
-                      DbTiposAplicaciones.db
-                          .deleteApi(grupo, listaVieja[i].appName);
-                    }
-                  }
-                  for (var i = 0; i < listaNueva.length; i++) {
-                    if (!listaVieja.contains(listaNueva[i])) {
-                      // agregar
-                      Provider.of<AplicacionesProvider>(context, listen: false)
-                          .modiApiListaPorTipo(listaNueva[i]);
-                      final nuevo = new ApiTipos(
-                          grupo: grupo,
-                          nombre: listaNueva[i].appName,
-                          tipo: "1");
-                      DbTiposAplicaciones.db.nuevoTipo(nuevo);
-                    }
-                  }
-                  Navigator.pop(context);
-                },
-              ),
-            ],
-          )),
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        floatingActionButton:
+            //BotonFlotante(pagina: 'selecApi'),
+            FloatingActionButton.extended(
+          heroTag: "guardar",
+          icon: Icon(
+            Icons.save,
+          ),
+          label: Text(
+            'guardar',
+          ),
+          onPressed: () {
+            for (var i = 0; i < listaVieja.length; i++) {
+              if (!listaNueva.contains(listaVieja[i])) {
+                // eliminar
+                Provider.of<AplicacionesProvider>(context, listen: false)
+                    .modiApiListaPorTipo(listaVieja[i]);
+                DbTiposAplicaciones.db.deleteApi(grupo, listaVieja[i].appName);
+              }
+            }
+            for (var i = 0; i < listaNueva.length; i++) {
+              if (!listaVieja.contains(listaNueva[i])) {
+                // agregar
+                Provider.of<AplicacionesProvider>(context, listen: false)
+                    .modiApiListaPorTipo(listaNueva[i]);
+                final nuevo = new ApiTipos(
+                    grupo: grupo, nombre: listaNueva[i].appName, tipo: "1");
+                DbTiposAplicaciones.db.nuevoTipo(nuevo);
+              }
+            }
+            Navigator.pop(context);
+          },
+        ),
+      ),
     );
   }
 
@@ -147,28 +146,32 @@ class _WidgetApiState extends State<WidgetApi> {
         }
       },
       child: Container(
-        color: color,
+        // width: 120,
+        // height: 50,
+        margin: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+        decoration: BoxDecoration(
+            color: color,
+            borderRadius: BorderRadius.circular(20.0),
+            border: Border.all(color: Colors.white)),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            SizedBox(
-              width: 10,
-            ),
             Image.memory(
               (widget.api as ApplicationWithIcon).icon,
               width: 100,
             ),
             SizedBox(
-              width: 20,
+              width: 10,
             ),
-            Text(
-              widget.api.appName,
-              textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 20, color: Colors.white),
+            Container(
+              height: 50,
+              width: 150,
+              child: Text(
+                widget.api.appName,
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 20, color: Colors.white),
+              ),
             ),
-            Divider(
-              height: 2,
-              color: Colors.white,
-            )
           ],
         ),
       ),

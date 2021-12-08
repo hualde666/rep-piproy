@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:piproy/scr/widgets/icon_conteiner.dart';
@@ -221,7 +222,8 @@ Widget encabezadoIcon(BuildContext context) {
     width: double.infinity,
     //margin: //EdgeInsets.only(top: 55.0),
     child: ListView.builder(
-      controller: PageController(initialPage: 1, viewportFraction: 0.5),
+      padding: EdgeInsets.only(left: 10),
+      // controller: PageController(initialPage: 1, viewportFraction: 0.5),
       scrollDirection: Axis.horizontal,
       itemCount: _listaWidget.length,
       itemBuilder: (context, i) => _listaWidget[i],
