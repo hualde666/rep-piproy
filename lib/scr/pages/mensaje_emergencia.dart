@@ -52,8 +52,7 @@ class _EmergenciaMensajeState extends State<EmergenciaMensaje> {
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: false,
-        appBar: headerApp(
-            context, 'Modificar Mensaje de Emergencia', Text(''), 0.0),
+        appBar: headerApp(context, 'Modificar', Text(''), 0.0),
         body: Center(
           child: GestureDetector(
             onTap: () {
@@ -87,16 +86,19 @@ class _EmergenciaMensajeState extends State<EmergenciaMensaje> {
                           FocusManager.instance.primaryFocus.unfocus();
                         }
                       },
-
-                      style: TextStyle(fontSize: 25.0),
+                      // maxLength: 1,
+                      style: TextStyle(fontSize: 25.0, color: Colors.white),
                       // autofocus: true,
                       maxLines: null,
                       keyboardType: TextInputType.text,
                       controller: _textController,
                       decoration: InputDecoration(
+                        labelStyle:
+                            TextStyle(fontSize: 20, color: Colors.white),
                         // hintText: _mensaje,
                         labelText: 'Mensaje de Emergencia:',
-                        border: OutlineInputBorder(),
+                        border: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.white)),
                       ),
                     ),
                   ),
@@ -106,9 +108,7 @@ class _EmergenciaMensajeState extends State<EmergenciaMensaje> {
                   Container(
                     child: Text(
                       'Redacte el mensaje que desea enviar a sus contactos de emergencia en caso de un incidente.',
-                      style: TextStyle(
-                        fontSize: 20,
-                      ),
+                      style: TextStyle(fontSize: 20, color: Colors.white),
                       textAlign: TextAlign.center,
                     ),
                   ),
@@ -117,8 +117,8 @@ class _EmergenciaMensajeState extends State<EmergenciaMensaje> {
             ),
           ),
         ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
-        floatingActionButton: BotonFlotante(pagina: 'emergiMensaje'),
+        // floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
+        // floatingActionButton: BotonFlotante(pagina: 'emergiMensaje'),
         // bottomNavigationBar: BottonBarNavegador(),
         // floatingActionButton: FloatingActionButton.extended(
         // icon: Icon(Icons.check_circle, color: Colors.white, size: 40),

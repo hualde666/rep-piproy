@@ -172,32 +172,159 @@ class ConfiguracionPage extends StatelessWidget {
     return AlertDialog(
       content: Form(
         child: Container(
-          height: 400,
+          height: 450,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Column(
                 children: [
-                  Text('Seleccione un color:',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 25,
-                      )),
-                  Text('1.- ',
+                  Text('Seleccione una opción:',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: 20,
                       )),
-                  Text('2.- ',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 20,
-                      )),
-                  Text('3.- ',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 20,
-                      )),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text('1.- ',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 20,
+                          )),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Container(
+                          height: 50,
+                          width: 100,
+                          color: Colors.grey[700],
+                          child: Center(
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  color: Color.fromRGBO(55, 57, 84, 1.0),
+                                  borderRadius: BorderRadius.circular(15.0),
+                                  border: Border.all(
+                                      color: Colors.white, width: 1.0)),
+                              child: Center(
+                                  child: Text(
+                                'ABC',
+                                style: TextStyle(color: Colors.white),
+                              )),
+                              height: 30,
+                              width: 60,
+                            ),
+                          ))
+                    ],
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text('2.- ',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 20,
+                          )),
+                      SizedBox(
+                        width: 5,
+                      ),
+                      Container(
+                          height: 50,
+                          width: 100,
+                          color: Color.fromRGBO(220, 118, 51, 1),
+                          child: Center(
+                              child: Container(
+                            decoration: BoxDecoration(
+                                color: Color.fromRGBO(55, 57, 84, 1.0),
+                                borderRadius: BorderRadius.circular(15.0),
+                                border: Border.all(
+                                    color: Colors.white, width: 1.0)),
+                            child: Center(
+                                child: Text(
+                              'ABC',
+                              style: TextStyle(color: Colors.white),
+                            )),
+                            height: 30,
+                            width: 60,
+                          ))),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text('3.- ',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 20,
+                          )),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Container(
+                          height: 50,
+                          width: 100,
+                          color: Colors.teal[700],
+                          child: Center(
+                              child: Container(
+                            height: 30,
+                            width: 60,
+                            decoration: BoxDecoration(
+                                color: Colors.teal[700],
+                                borderRadius: BorderRadius.circular(15.0),
+                                border: Border.all(
+                                    color: Colors.white, width: 1.0)),
+                            child: Center(
+                                child: Text(
+                              'ABC',
+                              style: TextStyle(color: Colors.white),
+                            )),
+                          )))
+                    ],
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text('4.- ',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 20,
+                          )),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Container(
+                          height: 50,
+                          width: 100,
+                          color: Colors.black,
+                          child: Center(
+                            child: Container(
+                              height: 30,
+                              width: 60,
+                              decoration: BoxDecoration(
+                                  color: Colors.green[300],
+                                  borderRadius: BorderRadius.circular(15.0),
+                                  border: Border.all(
+                                      color: Colors.white, width: 1.0)),
+                              child: Center(
+                                  child: Text(
+                                'ABC',
+                                style: TextStyle(color: Colors.black),
+                              )),
+                            ),
+                          ))
+                    ],
+                  ),
                 ],
               ),
               SizedBox(
@@ -207,7 +334,7 @@ class ConfiguracionPage extends StatelessWidget {
                 keyboardType: TextInputType.number,
                 textCapitalization: TextCapitalization.words,
                 style: TextStyle(
-                  fontSize: 25,
+                  fontSize: 20,
                 ),
                 controller: _tipoControle,
                 validator: (valor) {
@@ -218,7 +345,7 @@ class ConfiguracionPage extends StatelessWidget {
                       ? null
                       : "dato invalido";
                 },
-                decoration: InputDecoration(hintText: " 1, 2 , 3 o 4"),
+                // decoration: InputDecoration(hintText: " 1, 2 , 3 o 4"),
               )
             ],
           ),

@@ -170,9 +170,9 @@ class _Home2PageState extends State<Home2Page> {
               )
             ], // Hora(context)],
           ),
-          Divider(
-            height: 2,
-          ),
+          // Divider(
+          //   height: 2,
+          // ),
           encabezadoIcon(context),
         ],
       ),

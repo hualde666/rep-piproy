@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:piproy/scr/providers/estado_celular.dart';
-import 'package:provider/provider.dart';
 
 ThemeData themaApi(String color) {
   //final celProvider = Provider.of<EstadoProvider>(context);

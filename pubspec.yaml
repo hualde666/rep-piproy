@@ -40,7 +40,7 @@ dependencies:
   geocoding: ^2.0.0
   geolocator: ^7.0.3
   location:
-  camera:
+  
   sqflite: ^2.0.0+4
   path_provider: ^2.0.2
   permission_handler: ^8.1.6
