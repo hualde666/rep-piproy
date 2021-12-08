@@ -7,7 +7,7 @@ class AgregaBotonPage extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
           backgroundColor: Theme.of(context).primaryColor,
-          appBar: headerApp(context, 'Crea Opcion', Text(''), 0.0),
+          appBar: headerApp(context, 'Crea Opcion', Text(''), 0.0, true),
           body: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,

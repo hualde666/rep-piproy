@@ -13,8 +13,8 @@ Widget botonBackHeader(BuildContext context) {
       //   color: Colors.green[400],
       //   borderRadius: BorderRadius.circular(15.0),
       // ),
-      height: 100,
-      width: 100,
+      height: 80,
+      width: 80,
       //color: Colors.red),
     ),
   );

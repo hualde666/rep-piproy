@@ -128,7 +128,7 @@ class _SelectContactsPageState extends State<SelectContactsPage> {
         child: Column(
           // crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            tresBotonesHeader(context),
+            tresBotonesHeader(context, true),
             Divider(
               height: 1,
             ),

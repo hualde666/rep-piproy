@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
 
-Widget botonRojoHeader(BuildContext context) {
+Widget botonRojoHeader(BuildContext context, bool activo) {
   return GestureDetector(
-    onTap: () => Navigator.pushNamed(context, 'botonRojo'),
+    onTap: () {
+      if (activo) {
+        Navigator.pushNamed(context, 'botonRojo');
+      }
+    },
     child: Container(
       // child: Center(
       //     child: Text('EMERGENCIA',
       //         style: TextStyle(color: Colors.white, fontSize: 25))),
       child:
           Image(image: AssetImage('assets/boton_rojo.png'), fit: BoxFit.cover),
-      height: 100,
-      width: 100,
+      height: 90,
+      width: 90,
       // decoration:
       //     BoxDecoration(borderRadius: BorderRadius.circular(100.0), boxShadow: [
       //   BoxShadow(

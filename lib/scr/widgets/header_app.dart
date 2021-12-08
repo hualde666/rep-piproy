@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:piproy/scr/widgets/tres_botones_header.dart';
 
-Widget headerApp(
-    BuildContext context, String titulo, Widget otroWidget, double alto) {
+Widget headerApp(BuildContext context, String titulo, Widget otroWidget,
+    double alto, bool conrojo) {
   return PreferredSize(
     preferredSize: Size.fromHeight(180.0 + alto),
 
@@ -23,13 +23,13 @@ Widget headerApp(
           ],
               stops: [
             0.2,
-            0.5,
+            0.4,
             0.7
           ],
               begin: FractionalOffset.topCenter,
               end: FractionalOffset.bottomCenter)),
       //color: Color.fromRGBO(55, 57, 84, 1.0),
-      height: 155 + alto,
+      height: 180 + alto,
       width: double.infinity,
 
       child: Column(
@@ -37,7 +37,7 @@ Widget headerApp(
           SizedBox(
             height: 10,
           ),
-          tresBotonesHeader(context),
+          tresBotonesHeader(context, conrojo),
           SizedBox(
             height: 10,
           ),

@@ -52,7 +52,7 @@ class _EmergenciaMensajeState extends State<EmergenciaMensaje> {
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: false,
-        appBar: headerApp(context, 'Modificar', Text(''), 0.0),
+        appBar: headerApp(context, 'Modificar', Text(''), 0.0, true),
         body: Center(
           child: GestureDetector(
             onTap: () {

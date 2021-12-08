@@ -15,7 +15,7 @@ class WifiPage extends StatelessWidget {
     Color color = conectadoWifi ? Colors.green[900] : Colors.red[900];
     return SafeArea(
       child: Scaffold(
-        appBar: headerApp(context, 'Wifi', Text(''), 0.0),
+        appBar: headerApp(context, 'Wifi', Text(''), 0.0, true),
         backgroundColor: Color.fromRGBO(55, 57, 84, 1.0),
         body: Center(
           child: Container(

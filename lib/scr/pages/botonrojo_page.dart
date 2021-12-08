@@ -6,6 +6,7 @@ import 'package:piproy/scr/providers/aplicaciones_provider.dart';
 import 'package:piproy/scr/providers/contactos_provider.dart';
 import 'package:piproy/scr/widgets/boton_home.dart';
 import 'package:piproy/scr/widgets/boton_verde.dart';
+import 'package:piproy/scr/widgets/header_app.dart';
 import 'package:provider/provider.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
@@ -78,7 +79,8 @@ class _BotonRojoPageState extends State<BotonRojoPage> {
 
     return SafeArea(
       child: Scaffold(
-        appBar: headerEmergencia(context),
+        appBar: headerApp(context, 'Emergencia', Text(''), 0.0, false),
+        //appBar: headerEmergencia(context),
         body: listaContactos.isNotEmpty
             ? conListaEmergenia(context, listaContactos)
             : sinListaEmergenia(context),

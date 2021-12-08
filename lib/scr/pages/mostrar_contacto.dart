@@ -20,7 +20,7 @@ class _MostrarContactoState extends State<MostrarContacto> {
     final contacto = contactosProvider.contacto;
     return SafeArea(
       child: Scaffold(
-        appBar: headerApp(context, '', Text(''), 0.0),
+        appBar: headerApp(context, '', Text(''), 0.0, true),
         body: fichaContacto(contacto),
         floatingActionButton: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,

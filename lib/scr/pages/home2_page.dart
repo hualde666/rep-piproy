@@ -79,15 +79,14 @@ class _Home2PageState extends State<Home2Page> {
                 }
               }
             }),
-        floatingActionButton: Container(
-          margin: EdgeInsets.only(left: 25),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              BotonFlotante(pagina: 'home'),
-            ],
-          ),
-        ),
+        // floatingActionButton: Container(
+        //   margin: EdgeInsets.only(left: 25),
+        //   child: Row(
+        //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        //     children: [
+        //       BotonFlotante(pagina: 'home'),
+        //     ],
+        //   ),
       ),
     );
   }
@@ -153,7 +152,7 @@ class _Home2PageState extends State<Home2Page> {
 
             children: [
               botonExit(context),
-              botonRojoHeader(context),
+              botonRojoHeader(context, true),
               GestureDetector(
                 onTap: () {
                   scrollToTop();

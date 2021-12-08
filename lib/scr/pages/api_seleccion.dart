@@ -34,7 +34,8 @@ class ApiSeleccionPage extends StatelessWidget {
               '$grupo',
               style: TextStyle(color: Colors.white, fontSize: 30),
             ),
-            40.0),
+            40.0,
+            true),
         resizeToAvoidBottomInset: false,
         body: Container(
           // padding: EdgeInsets.only(bottom: 70),

@@ -93,33 +93,33 @@ class _ContactsPorGrupoPageState extends State<ContactsPorGrupoPage> {
     return SafeArea(
         child: Scaffold(
       appBar: busqueda(context),
-      body: ListView(
-        padding: EdgeInsets.only(bottom: 68),
-        children: listaContact,
+      body: Container(
+        padding: EdgeInsets.only(bottom: 50),
+        child: ListView(
+          padding: EdgeInsets.only(bottom: 68),
+          children: listaContact,
+        ),
       ),
       resizeToAvoidBottomInset: false,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: grupo != 'Todos'
-          ? Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                BotonFlotante(pagina: 'grupoContact'),
-                FloatingActionButton.extended(
-                  heroTag: "agregar",
-                  icon: Icon(
-                    Icons.add,
-                  ),
-                  label: Text(
-                    'agregar',
-                  ),
-                  onPressed: () {
-                    // SELECCION DE contactos POR TIPO
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => SelectContactsPage()));
-                  },
-                ),
-              ],
+          ?
+          // BotonFlotante(pagina: 'grupoContact'),
+          FloatingActionButton.extended(
+              heroTag: "agregar",
+              icon: Icon(
+                Icons.add,
+              ),
+              label: Text(
+                'agregar',
+              ),
+              onPressed: () {
+                // SELECCION DE contactos POR TIPO
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => SelectContactsPage()));
+              },
             )
           : null,
     ));
@@ -129,17 +129,17 @@ class _ContactsPorGrupoPageState extends State<ContactsPorGrupoPage> {
     final apiProvider = Provider.of<AplicacionesProvider>(context);
 
     final grupo = apiProvider.tipoSeleccion;
-    final alto = grupo == 'Todos' ? 210.0 : 150.0;
+    final alto = grupo == 'Todos' ? 240.0 : 175.0;
     // return AppBar(
     //   //backgroundColor: Color.fromRGBO(55, 57, 84, 1.0),
     //   automaticallyImplyLeading: false,
     //   flexibleSpace:
     return PreferredSize(
-        preferredSize: Size.fromHeight(180.0 + alto),
+        preferredSize: Size.fromHeight(200.0 + alto),
 
         // here the desired height
         child: Container(
-          decoration: new BoxDecoration(
+          decoration: BoxDecoration(
               gradient: LinearGradient(
                   colors: [
                 Theme.of(context).primaryColor,
@@ -152,7 +152,7 @@ class _ContactsPorGrupoPageState extends State<ContactsPorGrupoPage> {
               ],
                   stops: [
                 0.2,
-                0.5,
+                0.4,
                 0.7
               ],
                   begin: FractionalOffset.topCenter,
@@ -165,10 +165,7 @@ class _ContactsPorGrupoPageState extends State<ContactsPorGrupoPage> {
               SizedBox(
                 height: 10,
               ),
-              tresBotonesHeader(context),
-              Divider(
-                height: 1,
-              ),
+              tresBotonesHeader(context, false),
               Text(
                 grupo,
                 style: TextStyle(color: Colors.white, fontSize: 30),

@@ -17,33 +17,32 @@ class ContactsGruposPage extends StatelessWidget {
     final List<String> listaGrupos = apiProvider.contactgrupos;
     return SafeArea(
         child: Scaffold(
-            appBar: headerApp(context, 'Grupos Contactos', Text(''), 0.0),
-            resizeToAvoidBottomInset: false,
-            // backgroundColor: Theme.of(context).primaryColor,
-            body: ListView.builder(
-                padding: EdgeInsets.only(bottom: 65),
-                itemCount: listaGrupos.length,
-                itemBuilder: (context, i) {
-                  return grupo(context, listaGrupos[i]);
-                }),
-            floatingActionButton: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                BotonFlotante(pagina: 'grupoCont'),
-                FloatingActionButton.extended(
-                    heroTag: "agregar",
-                    icon: Icon(
-                      Icons.add,
-                    ),
-                    label: Text(
-                      'agregar',
-                    ),
-                    onPressed: () {
-                      //Definir nuevo grupo
-                      crearTipo(context);
-                    }),
-              ],
-            )));
+      appBar: headerApp(context, 'Grupos Contactos', Text(''), 0.0, true),
+      resizeToAvoidBottomInset: false,
+      // backgroundColor: Theme.of(context).primaryColor,
+      body: Container(
+        padding: EdgeInsets.only(bottom: 50),
+        child: ListView.builder(
+            padding: EdgeInsets.only(bottom: 65),
+            itemCount: listaGrupos.length,
+            itemBuilder: (context, i) {
+              return grupo(context, listaGrupos[i]);
+            }),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: FloatingActionButton.extended(
+          heroTag: "agregar",
+          icon: Icon(
+            Icons.add,
+          ),
+          label: Text(
+            'agregar',
+          ),
+          onPressed: () {
+            //Definir nuevo grupo
+            crearTipo(context);
+          }),
+    ));
   }
 
   Widget grupo(

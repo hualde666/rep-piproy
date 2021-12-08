@@ -21,7 +21,7 @@ encabezadoApp3(BuildContext context, String titulo) {
 
             children: [
               botonExit(context),
-              botonRojoHeader(context),
+              botonRojoHeader(context, true),
               botonHomeHeader(context)
             ], // Hora(context)],
           ),
