@@ -23,33 +23,20 @@ import 'package:piproy/scr/providers/aplicaciones_provider.dart';
 import 'package:piproy/scr/providers/contactos_provider.dart';
 
 import 'package:piproy/scr/providers/estado_celular.dart';
-import 'package:piproy/scr/providers/lista_id_provider.dart';
+//import 'package:piproy/scr/providers/lista_id_provider.dart';
 
 import 'package:provider/provider.dart';
 import 'package:piproy/scr/providers/db_provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-//   @override
-//   State<MyApp> createState() => _MyAppState();
-// }
-
-// class _MyAppState extends State<MyApp> {
-//   String paleta;
-//   @override
-//   void initState() {
-//     super.initState();
-//     //cargarPrefPaleta();
-//   }
-
   @override
   Widget build(BuildContext context) {
     DbTiposAplicaciones.db.database;
-    EstadoProvider estadoProvider = new EstadoProvider();
+    // EstadoProvider estadoProvider = new EstadoProvider();
     ContactosProvider contactosProvider = new ContactosProvider();
     // AplicacionesProvider aplicacionesProvider = new AplicacionesProvider();
 
@@ -58,10 +45,9 @@ class MyApp extends StatelessWidget {
 
     return MultiProvider(
         providers: [
-          ChangeNotifierProvider(create: (_) => new EstadoProvider()),
-          ChangeNotifierProvider(create: (_) => new ListaIdProvider()),
-          ChangeNotifierProvider(create: (_) => new AplicacionesProvider()),
           ChangeNotifierProvider(create: (_) => new ContactosProvider()),
+          ChangeNotifierProvider(create: (_) => new EstadoProvider()),
+          ChangeNotifierProvider(create: (_) => new AplicacionesProvider()),
         ],
         child: Consumer<EstadoProvider>(builder: (context, appInfo, _) {
           String colorKey = appInfo.paleta;

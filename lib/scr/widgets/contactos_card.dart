@@ -83,9 +83,9 @@ class _TarjetaContacto2 extends State<TarjetaContacto2> {
               eliminarContactoGrupo(context, grupo, widget.contacto);
               // }
             },
-            onDoubleTap: () {
-              //enviar a contacto al menu principal
-            },
+            // onDoubleTap: () {
+            //   //enviar a contacto al menu principal
+            // },
           );
   }
 
@@ -145,7 +145,6 @@ _eliminarContacto(Contact contacto) async {
 }
 
 Widget _botonesContactos(BuildContext context, Contact contacto) {
-  print('');
   final List<Widget> _listaWidget = [
     Column(
       children: [

@@ -1,9 +1,8 @@
 import 'package:device_apps/device_apps.dart';
 import 'package:flutter/material.dart';
 
-import 'package:piproy/scr/ayuda_widget/fab_ayuda.dart';
 import 'package:piproy/scr/models/api_tipos.dart';
-import 'package:piproy/scr/pages/presentacion_page.dart';
+
 import 'package:piproy/scr/providers/aplicaciones_provider.dart';
 
 import 'package:piproy/scr/providers/db_provider.dart';
@@ -11,6 +10,7 @@ import 'package:piproy/scr/providers/db_provider.dart';
 import 'package:piproy/scr/widgets/boton_exit.dart';
 
 import 'package:piproy/scr/widgets/boton_rojo.dart';
+
 import 'package:piproy/scr/widgets/elemntos.dart';
 
 import 'package:piproy/scr/widgets/encabezado_icon.dart';
@@ -36,9 +36,7 @@ class _Home2PageState extends State<Home2Page> {
 
     //  _scrollController = ScrollController()
     //    ..addListener(() {
-    setState(() {
-      //  _topScroll = true;
-    });
+
     //    });
   }
 
@@ -60,7 +58,7 @@ class _Home2PageState extends State<Home2Page> {
     return SafeArea(
       child: Scaffold(
         appBar: PreferredSize(
-          preferredSize: Size.fromHeight(220.0),
+          preferredSize: Size.fromHeight(240.0),
           child: encabezadoApp(context, 'Proyecto PI'),
         ),
         // backgroundColor: Theme.of(context).primaryColor,
@@ -140,38 +138,69 @@ class _Home2PageState extends State<Home2Page> {
 
   encabezadoApp(BuildContext context, String titulo) {
     return Container(
-      height: 220,
+      height: 240,
+      padding: EdgeInsets.only(left: 5, top: 5),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Divider(
-            height: 10,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+          Container(
+            //color: Colors.blue,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
 
-            children: [
-              botonExit(context),
-              botonRojoHeader(context, true),
-              GestureDetector(
-                onTap: () {
-                  scrollToTop();
-                  //            mScrollView.scrollBy(10, 10);
-                },
-                child: Container(
-                  child: Image(
-                      image: AssetImage('assets/boton_home.png'),
-                      fit: BoxFit.cover),
-                  height: 100,
-                  width: 100,
-                  //color: Colors.red),
-                ),
-              )
-            ], // Hora(context)],
+              children: [
+                botonRojoHeader(context, true),
+                SizedBox(width: 10),
+                Container(
+                    child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    botonExit(context),
+                    SizedBox(
+                      height: 15,
+                    ),
+                    Text(
+                      'Vitalfon',
+                      style: TextStyle(color: Colors.black, fontSize: 45),
+                    )
+                  ],
+                )),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Container(
+                        width: 90,
+                        height: 40,
+                        decoration: BoxDecoration(
+                            color: Colors.black38,
+                            borderRadius: BorderRadius.circular(20.0),
+                            border: Border.all(color: Colors.white30)),
+                        margin: EdgeInsets.only(right: 5),
+                        child: Center(
+                          child: Text(
+                            'ayuda',
+                            style: TextStyle(fontSize: 18, color: Colors.white),
+                          ),
+                        )),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    Container(
+                      height: 70,
+                      width: 60,
+                    )
+                    //  botonBackHeader(context)
+                  ],
+                )
+              ], // Ho
+              // mainAxisAlignment: MainAxisAlignment.spaceAround,
+              // children: [
+              //   botonBackHeader(context),
+              //   botonRojoHeader(context),
+              //   botonHomeHeader(context),
+              // ],
+            ),
           ),
-          // Divider(
-          //   height: 2,
-          // ),
           encabezadoIcon(context),
         ],
       ),
@@ -186,8 +215,8 @@ class _Home2PageState extends State<Home2Page> {
           ],
               stops: [
             0.2,
-            0.5,
-            0.8
+            0.4,
+            0.9
           ],
               begin: FractionalOffset.topCenter,
               end: FractionalOffset.bottomCenter)),

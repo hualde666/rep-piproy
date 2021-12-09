@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:piproy/scr/ayuda_widget/fab_ayuda.dart';
+
 import 'package:piproy/scr/definicion/thema_colores.dart';
 import 'package:piproy/scr/models/api_tipos.dart';
 import 'package:piproy/scr/pages/contacts_por_grupo.dart';
@@ -151,8 +151,8 @@ class ConfiguracionPage extends StatelessWidget {
             ),
           ],
         ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
-        floatingActionButton: BotonFlotante(pagina: 'configurar'),
+        // floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
+        // floatingActionButton: BotonFlotante(pagina: 'configurar'),
       ),
     );
   }
@@ -172,7 +172,7 @@ class ConfiguracionPage extends StatelessWidget {
     return AlertDialog(
       content: Form(
         child: Container(
-          height: 450,
+          height: 300,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -220,7 +220,7 @@ class ConfiguracionPage extends StatelessWidget {
                     ],
                   ),
                   SizedBox(
-                    height: 10,
+                    height: 5,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -328,13 +328,13 @@ class ConfiguracionPage extends StatelessWidget {
                 ],
               ),
               SizedBox(
-                height: 10,
+                height: 2,
               ),
               TextFormField(
                 keyboardType: TextInputType.number,
                 textCapitalization: TextCapitalization.words,
                 style: TextStyle(
-                  fontSize: 20,
+                  fontSize: 15,
                 ),
                 controller: _tipoControle,
                 validator: (valor) {

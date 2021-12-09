@@ -1,7 +1,6 @@
 import 'package:contacts_service/contacts_service.dart';
 
 import 'package:flutter/material.dart';
-import 'package:piproy/scr/ayuda_widget/fab_ayuda.dart';
 
 import 'package:piproy/scr/pages/contact_seleccion.dart';
 import 'package:piproy/scr/providers/aplicaciones_provider.dart';
@@ -165,7 +164,7 @@ class _ContactsPorGrupoPageState extends State<ContactsPorGrupoPage> {
               SizedBox(
                 height: 10,
               ),
-              tresBotonesHeader(context, false),
+              tresBotonesHeader(context, true),
               Text(
                 grupo,
                 style: TextStyle(color: Colors.white, fontSize: 30),

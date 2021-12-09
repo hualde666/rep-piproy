@@ -93,7 +93,7 @@ class AplicacionesProvider with ChangeNotifier {
 
 //*************************************** CONTACTOS */
 //************************************************* */
-  obtenerListaContactos() async {
+  obtenerListaContactos() {
     String tipo = this._tipoSeleccion;
 
     return this.categoryContact[tipo];
@@ -129,7 +129,6 @@ class AplicacionesProvider with ChangeNotifier {
   }
 
   modificarContacto(String nombreviejo, String nombrenuevo) {
-    print(categoryContact);
     for (var i = 0; i < _contactgrupos.length; i++) {
       String grupo = _contactgrupos[i];
 
@@ -227,14 +226,6 @@ class AplicacionesProvider with ChangeNotifier {
 
       //*******   obtener organizacion de apps y contactos */
       final resp = await DbTiposAplicaciones.db.getAllRegistros();
-      print(
-          '*******************************************************************************');
-      print('lista de BD:');
-      print(
-          '*******************************************************************************');
-      print(resp);
-      print(
-          '*******************************************************************************');
 
       if (resp.isNotEmpty) {
         final resp2 = resp.map((s) => ApiTipos.fromJson(s)).toList();
@@ -331,10 +322,12 @@ class AplicacionesProvider with ChangeNotifier {
     //**** ordenar los los grupos de contacto */
     for (var i = 0; i < _contactgrupos.length; i++) {
       String grupo = _contactgrupos[i];
-      if (categoryContact[grupo].isNotEmpty) {
-        categoryContact[grupo].sort((a, b) {
-          return a.toLowerCase().compareTo(b.toLowerCase());
-        });
+      if (grupo != 'Todos') {
+        if (categoryContact[grupo].isNotEmpty) {
+          categoryContact[grupo].sort((a, b) {
+            return a.toLowerCase().compareTo(b.toLowerCase());
+          });
+        }
       }
     }
 

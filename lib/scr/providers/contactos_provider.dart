@@ -12,6 +12,7 @@ class ContactosProvider with ChangeNotifier {
   ContactosProvider._internal() {
     _listaContactos = [];
     getcontactos();
+    notifyListeners();
   }
   List<Contact> _listaContactos;
   Contact _contacto;

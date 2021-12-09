@@ -62,13 +62,11 @@ class DbTiposAplicaciones {
   Future modificarNombre(String nombreViejo, String nombreNuevo) async {
     final db = await database;
 
-    int count = await db.rawUpdate('''
+    await db.rawUpdate('''
     UPDATE MenuGrupos 
     SET nombre = ? 
     WHERE nombre = ?
     ''', [nombreNuevo, nombreViejo]);
-
-    print(count);
   }
 
   Future<int> eliminarGrupo(String grupo) async {

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:piproy/scr/ayuda_widget/fab_ayuda.dart';
 
 import 'package:piproy/scr/pages/envio_emergencia.dart';
 import 'package:piproy/scr/providers/aplicaciones_provider.dart';
@@ -141,7 +140,7 @@ Widget headerEmergencia(BuildContext context) {
 conListaEmergenia(BuildContext context, List<Contact> listaE) {
   return Center(
     child: Container(
-      height: 500.0,
+      height: 400.0,
       margin: EdgeInsets.symmetric(horizontal: 10.0),
       alignment: Alignment.center,
       child: Column(

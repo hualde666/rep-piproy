@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:piproy/scr/ayuda_widget/fab_ayuda.dart';
+
 import 'package:piproy/scr/models/api_tipos.dart';
 
 import 'package:piproy/scr/pages/contacts_por_grupo.dart';
@@ -49,33 +49,91 @@ class ContactsGruposPage extends StatelessWidget {
     BuildContext context,
     String grupo,
   ) {
-    return GestureDetector(
-      onTap: () {
-        Provider.of<AplicacionesProvider>(context, listen: false)
-            .tipoSeleccion = grupo;
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => ContactsPorGrupoPage()),
-        );
-      },
-      onLongPress: () => eliminarTipo(context, grupo),
-      onDoubleTap: () => agregaMPG(context, grupo),
-      child: Container(
+    // return GestureDetector(
+    //   onTap: () {
+    //     Provider.of<AplicacionesProvider>(context, listen: false)
+    //         .tipoSeleccion = grupo;
+    //     Navigator.push(
+    //       context,
+    //       MaterialPageRoute(builder: (context) => ContactsPorGrupoPage()),
+    //     );
+    //   },
+    //   onLongPress: () => eliminarTipo(context, grupo),
+    //   onDoubleTap: () => agregaMPG(context, grupo),
+    //   child:
+    return Container(
         margin: EdgeInsets.symmetric(vertical: 3, horizontal: 4.0),
         height: 70,
         decoration: BoxDecoration(
             color: Theme.of(context).primaryColor,
             borderRadius: BorderRadius.circular(20.0),
             border: Border.all(color: Colors.white)),
-        child: Center(
-          child: Text(
-            grupo,
-            overflow: TextOverflow.ellipsis,
-            style: TextStyle(fontSize: 40),
+        child: Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
+          GestureDetector(
+            onTap: () {
+              if (grupo != 'Todos') {
+                agregaMPG(context, grupo);
+              }
+            },
+            child: grupo != 'Todos'
+                ? Container(
+                    width: 30,
+                    height: 30,
+                    child: Center(
+                      child: Icon(
+                        Icons.arrow_back,
+                        size: 20,
+                        color: Colors.blue,
+                      ),
+                    ),
+                  )
+                : Container(
+                    width: 30,
+                    height: 30,
+                  ),
           ),
-        ),
-      ),
-    );
+          GestureDetector(
+            onTap: () {
+              Provider.of<AplicacionesProvider>(context, listen: false)
+                  .tipoSeleccion = grupo;
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => ContactsPorGrupoPage()),
+              );
+            },
+            child: Container(
+              width: 280,
+              child: Center(
+                child: Text(
+                  grupo,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(fontSize: 40),
+                ),
+              ),
+            ),
+          ),
+          GestureDetector(
+            onTap: () {
+              if (grupo != 'Todos') {
+                eliminarTipo(context, grupo);
+              }
+            },
+            child: grupo != 'Todos'
+                ? Container(
+                    width: 30,
+                    height: 30,
+                    child: Icon(
+                      Icons.close,
+                      size: 20,
+                      color: Colors.red,
+                    ),
+                  )
+                : Container(
+                    height: 30,
+                    width: 30,
+                  ),
+          ),
+        ]));
   }
 
   ///

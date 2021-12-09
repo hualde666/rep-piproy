@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 ThemeData themaApi(String color) {
   //final celProvider = Provider.of<EstadoProvider>(context);
   //final color = "1"; // celProvider.paleta;
+  ThemeData tema;
   switch (color) {
     case '1':
-      return ThemeData(
+      tema = ThemeData(
         primaryColor: Color.fromRGBO(55, 57, 84, 1.0),
         scaffoldBackgroundColor:
             Colors.grey[700], //  Color.fromRGBO(55, 57, 84, 1.0),
@@ -33,7 +34,7 @@ ThemeData themaApi(String color) {
       );
       break;
     case '2':
-      return ThemeData(
+      tema = ThemeData(
         primaryColor:
             Color.fromRGBO(55, 57, 84, 1), //Color.fromRGBO(55, 57, 84, 1.0),
         // primaryTextTheme: TextTheme(bodyText1: TextStyle(color: Colors.black)),
@@ -62,7 +63,7 @@ ThemeData themaApi(String color) {
       );
       break;
     case '3':
-      return ThemeData(
+      tema = ThemeData(
         primaryColor: Colors.teal[700], //Color.fromRGBO(55, 57, 84, 1.0),
         // primaryTextTheme: TextTheme(bodyText1: TextStyle(color: Colors.black)),
         scaffoldBackgroundColor: Colors.teal[700],
@@ -90,7 +91,7 @@ ThemeData themaApi(String color) {
       );
       break;
     case '4':
-      return ThemeData(
+      tema = ThemeData(
         primaryColor: Colors.green[300], // Color.fromRGBO(55, 57, 84, 1.0),
 
         scaffoldBackgroundColor: Colors.black,
@@ -120,4 +121,5 @@ ThemeData themaApi(String color) {
       );
       break;
   }
+  return tema;
 }

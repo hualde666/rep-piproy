@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -67,8 +65,8 @@ Widget botonExit(BuildContext context) {
       child: Container(
         child: Image(
             image: AssetImage('assets/boton_exit.png'), fit: BoxFit.cover),
-        height: 100,
-        width: 100,
+        height: 60,
+        width: 60,
       ),
     ),
   );

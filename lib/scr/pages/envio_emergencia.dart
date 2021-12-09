@@ -4,10 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:piproy/channel/channel_android.dart';
 
-import 'package:piproy/scr/widgets/boton_home.dart';
-
-import 'package:piproy/scr/widgets/boton_rojo_back.dart';
-import 'package:piproy/scr/widgets/boton_verde.dart';
+import 'package:piproy/scr/widgets/tres_botones_header.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ResumenEnvioPage extends StatelessWidget {
@@ -96,17 +93,7 @@ Widget headerResumen(BuildContext context) {
       height: 150,
       child: Column(
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              botonBackHeader(context),
-              botonRojoBack(context),
-              botonHomeHeader(context),
-            ],
-          ),
-          SizedBox(
-            height: 10,
-          ),
+          tresBotonesHeader(context, true),
           Text('Resumen de Mensaje', style: TextStyle(fontSize: 30)),
         ],
       ),
