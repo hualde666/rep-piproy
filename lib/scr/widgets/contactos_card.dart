@@ -43,7 +43,7 @@ class _TarjetaContacto2 extends State<TarjetaContacto2> {
                   SizedBox(
                     height: 10,
                   ),
-                  _nombreContacto(context, widget.contacto),
+                  _nombreContacto(context, widget.contacto, grupo),
 
                   _botonesContactos(context, widget.contacto),
                 ],
@@ -66,7 +66,7 @@ class _TarjetaContacto2 extends State<TarjetaContacto2> {
               margin: EdgeInsets.symmetric(horizontal: 4, vertical: 2.0),
               child:
                   //_avatar(contacto),
-                  _nombreContacto(context, widget.contacto),
+                  _nombreContacto(context, widget.contacto, grupo),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20.0),
                   border: Border.all(color: Colors.white)),
@@ -77,61 +77,84 @@ class _TarjetaContacto2 extends State<TarjetaContacto2> {
               setState(() {});
               // Navigator.pushNamed(context, 'editarContacto', arguments: contacto);
             },
-            onLongPress: () {
-              // if (grupo != 'Emergencia') {
-              // ELIMINAR CONTACTO DEL GRUPO
-              eliminarContactoGrupo(context, grupo, widget.contacto);
-              // }
-            },
-            // onDoubleTap: () {
-            //   //enviar a contacto al menu principal
-            // },
           );
   }
 
-  Future<dynamic> eliminarContactoGrupo(
-          BuildContext context, String grupo, Contact contacto) =>
-      showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-          title: Text(contacto.displayName,
-              style: TextStyle(
-                fontSize: 20,
-              )),
-          content: grupo == 'Todos'
-              ? Text('¿Desea eliminar este contacto  del CELULAR ?')
-              : Text('¿Desea eliminar este contacto del grupo $grupo ?'),
-          // shape: CircleBorder(),
-          elevation: 14.0,
-          actionsPadding: EdgeInsets.symmetric(horizontal: 30.0),
-          actions: [
-            TextButton(
-                onPressed: () {
-                  /// elina contacto de pantalla
-                  Provider.of<AplicacionesProvider>(context, listen: false)
-                      .eliminarContacto(grupo, contacto.displayName);
+  // Future<dynamic> eliminarContactoGrupo(
+  //         BuildContext context, String grupo, Contact contacto) =>
+  //     showDialog(
+  //       context: context,
+  //       builder: (context) => AlertDialog(
+  //         title: Text(contacto.displayName,
+  //             style: TextStyle(
+  //               fontSize: 30,
+  //             )),
+  //         content: grupo == 'Todos'
+  //             ? Text('¿Desea eliminar este contacto  del CELULAR ?')
+  //             : Text('¿Desea eliminar este contacto del grupo $grupo llll ?',
+  //                 textAlign: TextAlign.center,
+  //                 style: TextStyle(
+  //                   fontSize: 25,
+  //                 )),
+  //         // shape: CircleBorder(),
+  //         //elevation: 14.0,
+  //         actionsPadding: EdgeInsets.symmetric(horizontal: 30.0),
+  //         actions: [
+  //           ElevatedButton(
+  //               onPressed: () {
+  //                 /// elina contacto de pantalla
+  //                 Provider.of<AplicacionesProvider>(context, listen: false)
+  //                     .eliminarContacto(grupo, contacto.displayName);
 
-                  DbTiposAplicaciones.db.deleteApi(
-                      grupo, contacto.displayName); //elimina api de BD
-                  // elimino contacto del celular
-                  if (grupo == 'Todos') {
-                    _eliminarContacto(contacto);
-                    final contactosProvider = new ContactosProvider();
-                    contactosProvider.borrarDeListaContacto(contacto);
-                  }
+  //                 DbTiposAplicaciones.db.deleteApi(
+  //                     grupo, contacto.displayName); //elimina api de BD
+  //                 // elimino contacto del celular
+  //                 if (grupo == 'Todos') {
+  //                   _eliminarContacto(contacto);
+  //                   final contactosProvider = new ContactosProvider();
+  //                   contactosProvider.borrarDeListaContacto(contacto);
+  //                 }
 
-                  Navigator.pop(context);
-                },
-                child: Text('Si', style: TextStyle(fontSize: 20.0))),
-            TextButton(
-                autofocus: true,
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                child: Text('No', style: TextStyle(fontSize: 20.0)))
-          ],
-        ),
-      );
+  //                 Navigator.pop(context);
+  //               },
+  //               child: Text(
+  //                 'Si',
+  //               )),
+  //           ElevatedButton(
+  //               onPressed: () {
+  //                 Navigator.pop(context);
+  //               },
+  //               child: Text(
+  //                 'NO',
+  //               )),
+
+  //           // TextButton(
+  //           //     onPressed: () {
+  //           //       /// elina contacto de pantalla
+  //           //       Provider.of<AplicacionesProvider>(context, listen: false)
+  //           //           .eliminarContacto(grupo, contacto.displayName);
+
+  //           //       DbTiposAplicaciones.db.deleteApi(
+  //           //           grupo, contacto.displayName); //elimina api de BD
+  //           //       // elimino contacto del celular
+  //           //       if (grupo == 'Todos') {
+  //           //         _eliminarContacto(contacto);
+  //           //         final contactosProvider = new ContactosProvider();
+  //           //         contactosProvider.borrarDeListaContacto(contacto);
+  //           //       }
+
+  //           //       Navigator.pop(context);
+  //           //     },
+  //           //     child: Text('Si', style: TextStyle(fontSize: 20.0))),
+  //           // TextButton(
+  //           //     autofocus: true,
+  //           //     onPressed: () {
+  //           //       Navigator.pop(context);
+  //           //     },
+  //           //     child: Text('No', style: TextStyle(fontSize: 20.0)))
+  //         ],
+  //       ),
+  //     );
 }
 
 _eliminarContacto(Contact contacto) async {
@@ -154,45 +177,14 @@ Widget _botonesContactos(BuildContext context, Contact contacto) {
           margin: EdgeInsets.only(top: 10),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(80),
-            color: Colors.black,
+            //color: Colors.black,
           ),
           child: conteinerIcon(
               context,
               Icon(
                 Icons.call,
                 size: 50.0,
-              ),
-              'llamada',
-              contacto),
-        ),
-        Text(
-          'Llamar',
-          style: TextStyle(fontSize: 15),
-        )
-      ],
-    ),
-    SizedBox(
-      width: 10,
-    ),
-    SizedBox(
-      width: 10,
-    ),
-    Column(
-      children: [
-        Container(
-          height: 75,
-          width: 75,
-          margin: EdgeInsets.only(top: 10),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(80),
-            color: Colors.black,
-          ),
-          child: conteinerIcon(
-              context,
-              Icon(
-                Icons.call,
-                size: 50.0,
-                color: Colors.white,
+                // color: Colors.white,
               ),
               'whatsapp',
               contacto),
@@ -215,7 +207,36 @@ Widget _botonesContactos(BuildContext context, Contact contacto) {
           margin: EdgeInsets.only(top: 10),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(80),
-            color: Colors.black,
+            //    color: Colors.black,
+          ),
+          child: conteinerIcon(
+              context,
+              Icon(
+                Icons.call,
+                size: 50.0,
+              ),
+              'llamada',
+              contacto),
+        ),
+        Text(
+          'Llamar',
+          style: TextStyle(fontSize: 15),
+        )
+      ],
+    ),
+    SizedBox(
+      width: 10,
+    ),
+
+    Column(
+      children: [
+        Container(
+          height: 75,
+          width: 75,
+          margin: EdgeInsets.only(top: 10),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(80),
+            // color: Colors.black,
           ),
           child: conteinerIcon(context, Icon(Icons.message_rounded, size: 50.0),
               'mensajeC', contacto),
@@ -237,19 +258,19 @@ Widget _botonesContactos(BuildContext context, Contact contacto) {
           margin: EdgeInsets.only(top: 10),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(80),
-            color: Colors.black,
+            // color: Colors.black,
           ),
           child: conteinerIcon(
               context,
               Icon(
-                Icons.edit,
+                Icons.search,
                 size: 50.0,
               ),
               'editar',
               contacto),
         ),
         Text(
-          'Editar',
+          'Datos',
           style: TextStyle(fontSize: 15),
         )
       ],
@@ -283,10 +304,12 @@ Widget _botonesContactos(BuildContext context, Contact contacto) {
 
   return Container(
     height: 115.0,
-    margin: EdgeInsets.only(bottom: 2.0, left: 5.0),
-    width: double.infinity,
+    //  margin: EdgeInsets.only(bottom: 2.0, left: 5.0),
+    width: 330,
+    // width: double.infinity,
+
     child: ListView.builder(
-      controller: PageController(viewportFraction: 0.1),
+      // controller: PageController(viewportFraction: 0.1),
       scrollDirection: Axis.horizontal,
       itemCount: _listaWidget.length,
       itemBuilder: (context, i) => _listaWidget[i],
@@ -294,7 +317,60 @@ Widget _botonesContactos(BuildContext context, Contact contacto) {
   );
 }
 
-Widget _nombreContacto(BuildContext context, Contact contacto) {
+Widget _nombreContacto(BuildContext context, Contact contacto, String grupo) {
+  Future<dynamic> eliminarContactoGrupo(
+          BuildContext context, String grupo, Contact contacto) =>
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text(contacto.displayName,
+              style: TextStyle(
+                fontSize: 30,
+              )),
+          content: grupo == 'Todos'
+              ? Text('¿Desea eliminar este contacto  del CELULAR ?')
+              : Text('¿Desea eliminar este contacto del grupo $grupo ?',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 25,
+                  )),
+          //                 style: TextStyle(
+          //                   fontSize: 25,
+          //                 )),
+          // shape: CircleBorder(),
+          elevation: 14.0,
+          actionsPadding: EdgeInsets.symmetric(horizontal: 30.0),
+          actions: [
+            ElevatedButton(
+                onPressed: () {
+                  /// elina contacto de pantalla
+                  Provider.of<AplicacionesProvider>(context, listen: false)
+                      .eliminarContacto(grupo, contacto.displayName);
+
+                  DbTiposAplicaciones.db.deleteApi(
+                      grupo, contacto.displayName); //elimina api de BD
+                  // elimino contacto del celular
+                  if (grupo == 'Todos') {
+                    _eliminarContacto(contacto);
+                    final contactosProvider = new ContactosProvider();
+                    contactosProvider.borrarDeListaContacto(contacto);
+                  }
+
+                  Navigator.pop(context);
+                },
+                child: Text(
+                  'Si',
+                )),
+            ElevatedButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: Text(
+                  'NO',
+                )),
+          ],
+        ),
+      );
   return Container(
       height: 90,
       decoration: BoxDecoration(
@@ -308,10 +384,22 @@ Widget _nombreContacto(BuildContext context, Contact contacto) {
       child:
           // _avatar(context, contacto),
 
-          Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+          Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Center(
+          GestureDetector(
+              onTap: () {},
+              child: Container(
+                width: 30,
+                height: 30,
+                child: Icon(
+                  Icons.arrow_back,
+                  size: 30,
+                  color: Colors.blue,
+                ),
+              )),
+          Container(
+            width: MediaQuery.of(context).size.width - 80,
             child: Text(
               contacto.displayName,
               overflow: TextOverflow.ellipsis,
@@ -321,6 +409,20 @@ Widget _nombreContacto(BuildContext context, Contact contacto) {
               ),
             ),
           ),
+
+          GestureDetector(
+              onTap: () {
+                eliminarContactoGrupo(context, grupo, contacto);
+              },
+              child: Container(
+                width: 30,
+                height: 30,
+                child: Icon(
+                  Icons.close,
+                  size: 30,
+                  color: Colors.red,
+                ),
+              )),
 
           // Text(
           //   contacto.phones.elementAt(0).value,

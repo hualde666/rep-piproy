@@ -5,12 +5,35 @@ import 'package:provider/provider.dart';
 
 Widget elementos(BuildContext context, Widget widget, double altura,
     String ruta, String tipo) {
+  bool eliminable = tipo != '' ? true : false;
   return GestureDetector(
     child: Container(
       height: altura,
       margin: EdgeInsets.symmetric(vertical: 1.5, horizontal: 3.0),
       alignment: Alignment.center,
-      child: widget,
+      child: eliminable
+          ? Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+              Container(
+                width: 30,
+                height: 30,
+              ),
+              widget,
+              GestureDetector(
+                  onTap: () {
+                    eliminarApi(context, tipo);
+                  },
+                  child: Container(
+                      width: 30,
+                      height: 30,
+                      child: Center(
+                        child: Icon(
+                          Icons.close,
+                          size: 20,
+                          color: Colors.red,
+                        ),
+                      ))),
+            ])
+          : widget,
       decoration: BoxDecoration(
           color: ruta == 'contactos' || tipo.contains('MPG')
               ? Colors.green
@@ -33,9 +56,9 @@ Widget elementos(BuildContext context, Widget widget, double altura,
         }
       }
     },
-    onLongPress: () {
-      eliminarApi(context, tipo);
-    },
+    // onLongPress: () {
+    //   eliminarApi(context, tipo);
+    // },
   );
 }
 

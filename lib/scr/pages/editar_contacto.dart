@@ -22,7 +22,8 @@ class _EditarContactoState extends State<EditarContacto> {
 
     return SafeArea(
       child: Scaffold(
-        appBar: headerApp(context, 'Contacto', Text(''), 0.0, true),
+        appBar: headerApp(
+            context, 'Contacto', Text(''), 0.0, true, 'EditarContacto'),
         backgroundColor: Color.fromRGBO(55, 57, 84, 1.0),
         body: formContacto(context, contacto),
         resizeToAvoidBottomInset: false,

@@ -18,7 +18,8 @@ class ConfiguracionPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: headerApp(context, 'Configuración', Text(''), 0.0, true),
+        appBar: headerApp(
+            context, 'Configuración', Text(''), 0.0, true, 'configurar'),
 
         // title: Text('Configuración'),
 

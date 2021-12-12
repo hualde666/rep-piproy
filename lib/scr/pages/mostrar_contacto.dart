@@ -1,7 +1,6 @@
 import 'package:device_apps/device_apps.dart';
 import 'package:flutter/material.dart';
 import 'package:contacts_service/contacts_service.dart';
-import 'package:piproy/scr/ayuda_widget/fab_ayuda.dart';
 
 import 'package:piproy/scr/providers/aplicaciones_provider.dart';
 import 'package:piproy/scr/providers/contactos_provider.dart';
@@ -20,36 +19,31 @@ class _MostrarContactoState extends State<MostrarContacto> {
     final contacto = contactosProvider.contacto;
     return SafeArea(
       child: Scaffold(
-        appBar: headerApp(context, '', Text(''), 0.0, true),
+        appBar: headerApp(context, '', Text(''), 0.0, true, 'mostrarcontacto'),
         body: fichaContacto(contacto),
-        floatingActionButton: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            BotonFlotante(pagina: 'mostrarContacto'),
-            FloatingActionButton.extended(
-              heroTag: "editar",
-              icon: Icon(
-                Icons.edit,
-              ),
-              label: Text(
-                'editar',
-              ),
-              onPressed: () {
-                // Navigator.push(context,
-                //     MaterialPageRoute(builder: (context) => EditarContacto()));
-                final apiProvider =
-                    Provider.of<AplicacionesProvider>(context, listen: false);
-                final listaApi = apiProvider.categoryApi['Todas'];
-                final Application api = listaApi.firstWhere(
-                    (element) =>
-                        element.packageName == 'com.google.android.contacts',
-                    orElse: null);
-                if (api != null) {
-                  api.openApp();
-                }
-              },
-            ),
-          ],
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        floatingActionButton: FloatingActionButton.extended(
+          heroTag: "editar",
+          icon: Icon(
+            Icons.edit,
+          ),
+          label: Text(
+            'editar',
+          ),
+          onPressed: () {
+            // Navigator.push(context,
+            //     MaterialPageRoute(builder: (context) => EditarContacto()));
+            final apiProvider =
+                Provider.of<AplicacionesProvider>(context, listen: false);
+            final listaApi = apiProvider.categoryApi['Todas'];
+            final Application api = listaApi.firstWhere(
+                (element) =>
+                    element.packageName == 'com.google.android.contacts',
+                orElse: null);
+            if (api != null) {
+              api.openApp();
+            }
+          },
         ),
       ),
     );
@@ -101,7 +95,7 @@ class _MostrarContactoState extends State<MostrarContacto> {
         height: 170,
         margin: EdgeInsets.symmetric(horizontal: 5),
         decoration: BoxDecoration(
-            color: Color.fromRGBO(55, 57, 84, 1.0),
+            color: Theme.of(context).primaryColor,
             borderRadius: BorderRadius.circular(20.0),
             border: Border.all(color: Colors.white)),
         child: Column(
@@ -136,7 +130,7 @@ class _MostrarContactoState extends State<MostrarContacto> {
         if (i == 0) {
           lista.add(dato('Teléfonos:', phone));
         } else {
-          lista.add(dato(' ', phone));
+          lista.add(dato('          ', phone));
         }
       }
     }
@@ -174,14 +168,14 @@ class _MostrarContactoState extends State<MostrarContacto> {
       children: [
         Container(
           height: 20,
-          color: Color.fromRGBO(55, 57, 84, 1.0),
+          // color: Color.fromRGBO(55, 57, 84, 1.0),
           child: Text('$titulo  ',
               textAlign: TextAlign.center,
               style: TextStyle(color: Colors.white, fontSize: 15)),
         ),
         Container(
           height: altoContainer,
-          color: Color.fromRGBO(55, 57, 84, 1.0),
+          //color:Theme.of(context).primaryColor,
           child: campo != null
               ? Center(
                   child: Text(' $campo',

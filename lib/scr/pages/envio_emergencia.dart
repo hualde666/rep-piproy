@@ -90,10 +90,10 @@ Widget headerResumen(BuildContext context) {
           ],
               begin: FractionalOffset.topCenter,
               end: FractionalOffset.bottomCenter)),
-      height: 150,
+      height: 200,
       child: Column(
         children: [
-          tresBotonesHeader(context, true),
+          tresBotonesHeader(context, true, 'ResumenEnvio'),
           Text('Resumen de Mensaje', style: TextStyle(fontSize: 30)),
         ],
       ),

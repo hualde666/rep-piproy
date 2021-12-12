@@ -131,7 +131,7 @@ class _ContactosPageState extends State<ContactosPage> {
         child: Column(
           // crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            tresBotonesHeader(context, true),
+            tresBotonesHeader(context, true, 'ContactosPage'),
             Divider(
               height: 10,
             ),

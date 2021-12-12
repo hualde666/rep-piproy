@@ -11,7 +11,8 @@ class PilaPage extends StatelessWidget {
     final color = celProvider.bateriaColor;
     return SafeArea(
       child: Scaffold(
-        appBar: headerApp(context, 'Nivel Bateria', Text(''), 0.0, true),
+        appBar:
+            headerApp(context, 'Nivel Bateria', Text(''), 0.0, true, 'pila'),
         backgroundColor: color,
         body: _mostrarPila(nivelBateria),
       ),

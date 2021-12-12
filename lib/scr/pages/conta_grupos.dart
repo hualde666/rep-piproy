@@ -17,13 +17,14 @@ class ContactsGruposPage extends StatelessWidget {
     final List<String> listaGrupos = apiProvider.contactgrupos;
     return SafeArea(
         child: Scaffold(
-      appBar: headerApp(context, 'Grupos Contactos', Text(''), 0.0, true),
+      appBar: headerApp(
+          context, 'Grupos Contactos', Text(''), 0.0, true, 'ContactoGrupos'),
       resizeToAvoidBottomInset: false,
       // backgroundColor: Theme.of(context).primaryColor,
       body: Container(
-        padding: EdgeInsets.only(bottom: 50),
+        padding: EdgeInsets.only(bottom: 40),
         child: ListView.builder(
-            padding: EdgeInsets.only(bottom: 65),
+            padding: EdgeInsets.only(bottom: 100),
             itemCount: listaGrupos.length,
             itemBuilder: (context, i) {
               return grupo(context, listaGrupos[i]);
@@ -82,7 +83,7 @@ class ContactsGruposPage extends StatelessWidget {
                     child: Center(
                       child: Icon(
                         Icons.arrow_back,
-                        size: 20,
+                        size: 30,
                         color: Colors.blue,
                       ),
                     ),
@@ -118,13 +119,13 @@ class ContactsGruposPage extends StatelessWidget {
                 eliminarTipo(context, grupo);
               }
             },
-            child: grupo != 'Todos'
+            child: (grupo != 'Todos' && grupo != 'Emergencia')
                 ? Container(
                     width: 30,
                     height: 30,
                     child: Icon(
                       Icons.close,
-                      size: 20,
+                      size: 30,
                       color: Colors.red,
                     ),
                   )

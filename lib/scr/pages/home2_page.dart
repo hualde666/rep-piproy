@@ -1,5 +1,6 @@
 import 'package:device_apps/device_apps.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'package:piproy/scr/models/api_tipos.dart';
 
@@ -10,6 +11,7 @@ import 'package:piproy/scr/providers/db_provider.dart';
 import 'package:piproy/scr/widgets/boton_exit.dart';
 
 import 'package:piproy/scr/widgets/boton_rojo.dart';
+import 'package:piproy/scr/widgets/boton_verde.dart';
 
 import 'package:piproy/scr/widgets/elemntos.dart';
 
@@ -96,16 +98,12 @@ class _Home2PageState extends State<Home2Page> {
       SizedBox(height: 10),
       googleBusqueda(context),
       SizedBox(height: 10),
-      elementos(context, Text('Contactos', style: TextStyle(fontSize: 40.0)),
-          100, 'contactos', ''),
-      SizedBox(height: 10),
-      elementos(context, Text('Aplicaciones', style: TextStyle(fontSize: 40.0)),
-          100, 'apigrupos', ''),
-      SizedBox(height: 10),
     ];
     if (listaMenu.isNotEmpty) {
       for (var i = 0; i < listaMenu.length; i++) {
         final String titulo = listaMenu[i].substring(3);
+        //********************************************************** */
+        //***** es un grupo API => MPG o un grupo de CONTACTO => MPC */
         if (listaMenu[i].contains('MPC') || listaMenu[i].contains('MPG')) {
           listaOpciones.add(elementos(
               context,
@@ -114,6 +112,8 @@ class _Home2PageState extends State<Home2Page> {
               titulo,
               listaMenu[i]));
         } else {
+          //******************************************************* */
+          //********************* por hora es una Api   MPA            */
           final apiProvider = Provider.of<AplicacionesProvider>(context);
           final Application api = apiProvider.categoryApi['Todas'].firstWhere(
               (eApi) => eApi.appName == listaMenu[i].substring(3),
@@ -125,6 +125,20 @@ class _Home2PageState extends State<Home2Page> {
         listaOpciones.add(SizedBox(height: 10));
       }
     }
+    listaOpciones.add(elementos(
+        context,
+        Text('Contactos', style: TextStyle(fontSize: 40.0)),
+        100,
+        'contactos',
+        ''));
+    listaOpciones.add(SizedBox(height: 10));
+    listaOpciones.add(elementos(
+        context,
+        Text('Aplicaciones', style: TextStyle(fontSize: 40.0)),
+        100,
+        'apigrupos',
+        ''));
+
     listaOpciones.add(SizedBox(
       height: 70,
     ));
@@ -141,34 +155,116 @@ class _Home2PageState extends State<Home2Page> {
       height: 240,
       padding: EdgeInsets.only(left: 5, top: 5),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Container(
-            //color: Colors.blue,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+              Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        showDialog(
+                            context: context,
+                            builder: (context) => AlertDialog(
+                                  backgroundColor: Colors.red[900],
+                                  title: Container(
+                                    width: 100,
+                                    height: 100,
+                                    child: Center(
+                                      child: Text('¿ Desea salir de Vitalfon ?',
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                              fontSize: 28,
+                                              color: Colors.white)),
+                                    ),
+                                  ),
 
-              children: [
-                botonRojoHeader(context, true),
-                SizedBox(width: 10),
-                Container(
-                    child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    botonExit(context),
-                    SizedBox(
-                      height: 15,
+                                  //shape: CircleBorder(),
+                                  elevation: 14.0,
+                                  actionsPadding:
+                                      EdgeInsets.symmetric(horizontal: 15.0),
+                                  //actionsAlignment: MainAxisAlignment.spaceAround,
+                                  actions: [
+                                    TextButton(
+                                        onPressed: () {
+                                          // se sale con flecha menu inferior
+                                          SystemNavigator.pop();
+
+                                          // exit(0);
+                                          //Navigator.pop(context);
+                                        },
+                                        child: ClipOval(
+                                          child: Container(
+                                            height: 80,
+                                            width: 80,
+                                            color: Colors.black38,
+                                            child: Center(
+                                              child: Text('Si',
+                                                  style: TextStyle(
+                                                      fontSize: 25.0,
+                                                      color: Colors.white)),
+                                            ),
+                                          ),
+                                        )),
+                                    TextButton(
+                                        autofocus: true,
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                        },
+                                        child: ClipOval(
+                                            child: Container(
+                                                height: 80,
+                                                width: 80,
+                                                color: Colors.black38,
+                                                child: Center(
+                                                    child: Text('No',
+                                                        style: TextStyle(
+                                                            fontSize: 25.0,
+                                                            color: Colors
+                                                                .white))))))
+                                  ],
+                                ));
+                      },
+                      child: Container(
+                          width: 90,
+                          height: 40,
+                          decoration: BoxDecoration(
+                              color: Colors.black38,
+                              borderRadius: BorderRadius.circular(20.0),
+                              border: Border.all(color: Colors.white30)),
+                          margin: EdgeInsets.only(right: 5),
+                          child: Center(
+                            child: Text(
+                              'SALIDA',
+                              style:
+                                  TextStyle(fontSize: 18, color: Colors.white),
+                            ),
+                          )),
                     ),
-                    Text(
-                      'Vitalfon',
-                      style: TextStyle(color: Colors.black, fontSize: 45),
-                    )
-                  ],
-                )),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Container(
+                    SizedBox(
+                      height: 3,
+                    ),
+                    botonRojoHeader(context, true),
+                  ]),
+              Container(
+                // height: 200,
+                margin: EdgeInsets.only(top: 50),
+                child: Center(
+                  child: Text(
+                    'Vitalfon',
+                    style: TextStyle(
+                        color: Theme.of(context).primaryColor, fontSize: 45),
+                  ),
+                ),
+              ),
+              Column(
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(context, 'ayuda', arguments: 'home');
+                    },
+                    child: Container(
                         width: 90,
                         height: 40,
                         decoration: BoxDecoration(
@@ -178,32 +274,57 @@ class _Home2PageState extends State<Home2Page> {
                         margin: EdgeInsets.only(right: 5),
                         child: Center(
                           child: Text(
-                            'ayuda',
+                            'AYUDA',
                             style: TextStyle(fontSize: 18, color: Colors.white),
                           ),
                         )),
-                    SizedBox(
-                      height: 5,
-                    ),
-                    Container(
-                      height: 70,
-                      width: 60,
-                    )
-                    //  botonBackHeader(context)
-                  ],
-                )
-              ], // Ho
-              // mainAxisAlignment: MainAxisAlignment.spaceAround,
-              // children: [
-              //   botonBackHeader(context),
-              //   botonRojoHeader(context),
-              //   botonHomeHeader(context),
-              // ],
-            ),
-          ),
-          encabezadoIcon(context),
-        ],
-      ),
+                  ),
+                  SizedBox(
+                    height: 3,
+                  ),
+                  Container(
+                    height: 90,
+                    width: 90,
+                  )
+                ],
+              ),
+            ]),
+            encabezadoIcon(context),
+          ]),
+      //
+      // SizedBox(height: 3),
+      // Container(
+      //     child: Row(
+      //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      //   children: [
+
+      //     // botonHomeHeader(context),
+      //     SizedBox(
+      //       height: 10,
+      //     ),
+      //     Container(
+      //       //  width: 250,
+      //       child: Center(
+      //         child: Text(
+      //           'Vitalfon',
+      //           style: TextStyle(
+      //               color: Theme.of(context).primaryColor, fontSize: 45),
+      //         ),
+      //       ),
+      //     ),
+      //     // botonBackHeader(context)
+      //   ],
+      // )),
+      // Ho
+      // mainAxisAlignment: MainAxisAlignment.spaceAround,
+      // children: [
+      //   botonBackHeader(context),
+      //   botonRojoHeader(context),
+      //   botonHomeHeader(context),
+      // ],
+
+      // encabezadoIcon(context),
+
       decoration: new BoxDecoration(
           gradient: LinearGradient(
               colors: [
@@ -248,10 +369,6 @@ Widget elementoApi2(BuildContext context, Application api) {
         api.openApp();
       }
     },
-    onLongPress: () {
-      // eliminar del Menu principal
-      eliminarApi(context, 'MPA' + api.appName);
-    },
     child: Container(
       margin: EdgeInsets.symmetric(vertical: 1.5, horizontal: 4.0),
       decoration: BoxDecoration(
@@ -264,9 +381,33 @@ Widget elementoApi2(BuildContext context, Application api) {
           SizedBox(
             height: 10,
           ),
-          Image.memory(
-            (api as ApplicationWithIcon).icon,
-            width: 100,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                width: 30,
+                height: 30,
+              ),
+              Image.memory(
+                (api as ApplicationWithIcon).icon,
+                width: 100,
+              ),
+              GestureDetector(
+                  onTap: () {
+                    eliminarApi(context, 'MPA' + api.appName);
+                  },
+                  child: Container(
+                    width: 30,
+                    height: 30,
+                    child: Center(
+                      child: Icon(
+                        Icons.close,
+                        size: 20,
+                        color: Colors.red,
+                      ),
+                    ),
+                  )),
+            ],
           ),
           SizedBox(
             width: 20,

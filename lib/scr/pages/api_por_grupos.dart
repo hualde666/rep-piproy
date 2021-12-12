@@ -20,7 +20,7 @@ class ApiPorGrupoPage extends StatelessWidget {
         child: Scaffold(
       //  backgroundColor: Theme.of(context).primaryColor,
       //****** editar nombre del grupo */
-      appBar: headerApp(context, '$grupo', Text(''), 0.0, true),
+      appBar: headerApp(context, '$grupo', Text(''), 0.0, true, 'ApiPorGrups'),
       body: Container(
         padding: EdgeInsets.only(bottom: 55),
         child: GridView.count(

@@ -86,55 +86,68 @@ class _SelectContactsPageState extends State<SelectContactsPage> {
         child: Scaffold(
             appBar: PreferredSize(
                 preferredSize:
-                    Size.fromHeight(222.0), // here the desired height
+                    Size.fromHeight(240.0), // here the desired height
                 child: busqueda(context)),
             resizeToAvoidBottomInset: false,
-            body: ListView.builder(
-                padding: EdgeInsets.only(bottom: 250),
-                itemCount: listaTodos.length,
-                itemBuilder: (context, i) {
-                  return Contacto(
-                      contactoSelec: listaTodos[i],
-                      apiProvider: apiProvider,
-                      grupo: grupo);
-                }),
+            body: Container(
+              padding: EdgeInsets.only(bottom: 55),
+              child: ListView.builder(
+                  padding: EdgeInsets.only(bottom: 170),
+                  itemCount: listaTodos.length,
+                  itemBuilder: (context, i) {
+                    return Contacto(
+                        contactoSelec: listaTodos[i],
+                        apiProvider: apiProvider,
+                        grupo: grupo);
+                  }),
+            ),
             floatingActionButtonLocation:
-                FloatingActionButtonLocation.startFloat,
-            floatingActionButton: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  BotonFlotante(pagina: 'selecCont'),
-                  FloatingActionButton.extended(
-                      heroTag: "guardar",
-                      icon: Icon(
-                        Icons.save,
-                      ),
-                      label: Text(
-                        'guardar',
-                      ),
-                      onPressed: () {
-                        Navigator.pop(context);
-                      })
-                ])));
+                FloatingActionButtonLocation.centerDocked,
+            floatingActionButton: FloatingActionButton.extended(
+                heroTag: "guardar",
+                icon: Icon(
+                  Icons.save,
+                ),
+                label: Text(
+                  'guardar',
+                ),
+                onPressed: () {
+                  Navigator.pop(context);
+                })));
   }
 
   Widget busqueda(BuildContext context) {
     return AppBar(
-      backgroundColor: Color.fromRGBO(55, 57, 84, 1.0),
+      // backgroundColor: Color.fromRGBO(55, 57, 84, 1.0),
       automaticallyImplyLeading: false,
       flexibleSpace: Container(
-        margin: EdgeInsets.only(top: 10, left: 5.0, right: 5.0),
-        height: 242.0,
+        decoration: new BoxDecoration(
+            gradient: LinearGradient(
+                colors: [
+              Theme.of(context).primaryColor,
+
+              Colors.white,
+              Theme.of(context).scaffoldBackgroundColor,
+              // Colors.white,
+              // Colors.orange,
+              // Color.fromRGBO(55, 57, 84, 1.0)
+            ],
+                stops: [
+              0.2,
+              0.4,
+              0.7
+            ],
+                begin: FractionalOffset.topCenter,
+                end: FractionalOffset.bottomCenter)),
+        // margin: EdgeInsets.only(top: 5, left: 5.0, right: 5.0),
+        height: 250.0,
         child: Column(
           // crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            tresBotonesHeader(context, true),
-            Divider(
-              height: 1,
-            ),
+            tresBotonesHeader(context, true, 'ContactoSeleccion'),
             Text(
               'Seleccion de Contactos',
-              style: TextStyle(color: Colors.white, fontSize: 20),
+              style: TextStyle(color: Colors.white, fontSize: 25),
             ),
             TextField(
               style:
@@ -205,7 +218,7 @@ class _ContactoState extends State<Contacto> {
         decoration: BoxDecoration(
             color: widget.apiProvider.categoryContact[widget.grupo]
                     .contains(widget.contactoSelec.displayName)
-                ? Color.fromRGBO(55, 57, 84, 1)
+                ? Theme.of(context).primaryColor
                 : Colors.grey[700],
             borderRadius: BorderRadius.circular(20.0),
             border: Border.all(color: Colors.white)),

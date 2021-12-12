@@ -11,6 +11,7 @@ Widget googleBusqueda(BuildContext context) {
       margin: EdgeInsets.symmetric(vertical: 1.5, horizontal: 5.0),
       alignment: Alignment.center,
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           SizedBox(
             width: 20,

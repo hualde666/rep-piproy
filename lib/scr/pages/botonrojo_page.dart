@@ -78,7 +78,8 @@ class _BotonRojoPageState extends State<BotonRojoPage> {
 
     return SafeArea(
       child: Scaffold(
-        appBar: headerApp(context, 'Emergencia', Text(''), 0.0, false),
+        appBar:
+            headerApp(context, 'Emergencia', Text(''), 0.0, false, 'BotonRojo'),
         //appBar: headerEmergencia(context),
         body: listaContactos.isNotEmpty
             ? conListaEmergenia(context, listaContactos)

@@ -218,11 +218,12 @@ Widget encabezadoIcon(BuildContext context) {
   ];
   return Container(
     height: 100,
-    margin: EdgeInsets.only(top: 2),
-    width: double.infinity,
+    margin: EdgeInsets.only(top: 2, right: 10, left: 10),
+
+    //width: MediaQuery.of(context).w,
     //margin: //EdgeInsets.only(top: 55.0),
     child: ListView.builder(
-      padding: EdgeInsets.only(left: 10),
+      padding: EdgeInsets.only(left: 5),
       // controller: PageController(initialPage: 1, viewportFraction: 0.5),
       scrollDirection: Axis.horizontal,
       itemCount: _listaWidget.length,

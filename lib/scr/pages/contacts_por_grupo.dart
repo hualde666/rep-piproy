@@ -162,9 +162,9 @@ class _ContactsPorGrupoPageState extends State<ContactsPorGrupoPage> {
             // crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SizedBox(
-                height: 10,
+                height: 5,
               ),
-              tresBotonesHeader(context, true),
+              tresBotonesHeader(context, true, 'ContactosporGrupo'),
               Text(
                 grupo,
                 style: TextStyle(color: Colors.white, fontSize: 30),

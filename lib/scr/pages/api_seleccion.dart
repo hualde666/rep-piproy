@@ -34,7 +34,8 @@ class ApiSeleccionPage extends StatelessWidget {
               style: TextStyle(color: Colors.white, fontSize: 30),
             ),
             40.0,
-            true),
+            true,
+            'ApiSeleccion'),
         resizeToAvoidBottomInset: false,
         body: Container(
           // padding: EdgeInsets.only(bottom: 70),

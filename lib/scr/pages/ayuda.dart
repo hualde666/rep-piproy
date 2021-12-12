@@ -17,7 +17,7 @@ class Ayuda extends StatelessWidget {
 
     return SafeArea(
       child: Scaffold(
-        appBar: headerApp(context, 'Ayuda', Text(''), 0.0, true),
+        appBar: headerApp(context, 'Ayuda', Text(''), 0.0, true, 'Ayuda'),
         // backgroundColor: Colors.white,
         body: PaginaAyuda(pagina: pagina),
       ),
@@ -58,7 +58,7 @@ class PaginaAyuda extends StatelessWidget {
       case 'emergiContactos':
         ayuda = AyudaContactosEmergencia();
         break;
-      case 'selecContactos':
+      case 'ContactoSeleccion':
         ayuda = AyudaSeleccionContactos();
         break;
       case 'mostrarContacto':
@@ -67,7 +67,7 @@ class PaginaAyuda extends StatelessWidget {
       case 'editarContacto':
         ayuda = AyudaEditarContacto();
         break;
-      case 'emergiMensaje':
+      case 'EmergenciaMensaje':
         ayuda = AyudaMensajeEmergencia();
         break;
       case 'botonRojo':

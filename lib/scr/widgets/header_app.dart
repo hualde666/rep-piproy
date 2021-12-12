@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:piproy/scr/widgets/tres_botones_header.dart';
 
 Widget headerApp(BuildContext context, String titulo, Widget otroWidget,
-    double alto, bool conrojo) {
+    double alto, bool conrojo, String pagina) {
   return PreferredSize(
     preferredSize: Size.fromHeight(180.0 + alto),
 
@@ -35,9 +35,9 @@ Widget headerApp(BuildContext context, String titulo, Widget otroWidget,
       child: Column(
         children: [
           SizedBox(
-            height: 10,
+            height: 5,
           ),
-          tresBotonesHeader(context, conrojo),
+          tresBotonesHeader(context, conrojo, pagina),
           SizedBox(
             height: 10,
           ),
