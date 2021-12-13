@@ -52,89 +52,80 @@ class ApiGruposPage extends StatelessWidget {
     BuildContext context,
     String grupo,
   ) {
-    return
-        //  GestureDetector(
-        //   onTap: () {
-        //     Provider.of<AplicacionesProvider>(context, listen: false)
-        //         .tipoSeleccion = grupo;
-        //     Navigator.pushNamed(context, 'grupo');
-        //   },
-        //   onLongPress: () => eliminarTipo(context, grupo),
-        //   onDoubleTap: () => agregaMPC(context, grupo),
-        Container(
-            margin: EdgeInsets.symmetric(vertical: 3, horizontal: 4.0),
-            height: 60,
-            decoration: BoxDecoration(
-                color: Theme.of(context).primaryColor,
-                borderRadius: BorderRadius.circular(20.0),
-                border: Border.all(color: Colors.white)),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    if (grupo != 'Todas') {
-                      agregaMPC(context, grupo);
-                    }
-                  },
-                  child: grupo != 'Todas'
-                      ? Container(
-                          width: 30,
-                          height: 30,
-                          child: Center(
-                            child: Icon(
-                              Icons.arrow_back,
-                              size: 20,
-                              color: Colors.blue,
-                            ),
-                          ),
-                        )
-                      : Container(
-                          width: 30,
-                          height: 30,
+    return Container(
+        margin: EdgeInsets.symmetric(vertical: 3, horizontal: 4.0),
+        height: 60,
+        decoration: BoxDecoration(
+            color: Theme.of(context).primaryColor,
+            borderRadius: BorderRadius.circular(20.0),
+            border: Border.all(color: Colors.white)),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            GestureDetector(
+              onTap: () {
+                if (grupo != 'Todas') {
+                  agregaMPD(context, grupo);
+                }
+              },
+              child: grupo != 'Todas'
+                  ? Container(
+                      width: 30,
+                      height: 30,
+                      child: Center(
+                        child: Icon(
+                          Icons.arrow_back,
+                          size: 20,
+                          color: Colors.blue,
                         ),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    Provider.of<AplicacionesProvider>(context, listen: false)
-                        .tipoSeleccion = grupo;
-                    Navigator.pushNamed(context, 'grupo');
-                  },
-                  child: Container(
-                    width: 280,
-                    color: Theme.of(context).primaryColor,
-                    child: Center(
-                      child: Text(
-                        grupo,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(fontSize: 40),
                       ),
+                    )
+                  : Container(
+                      width: 30,
+                      height: 30,
                     ),
+            ),
+            GestureDetector(
+              onTap: () {
+                Provider.of<AplicacionesProvider>(context, listen: false)
+                    .tipoSeleccion = grupo;
+                Navigator.pushNamed(context, 'grupo');
+              },
+              child: Container(
+                width: 280,
+                color: Theme.of(context).primaryColor,
+                child: Center(
+                  child: Text(
+                    grupo,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(fontSize: 40),
                   ),
                 ),
-                GestureDetector(
-                  onTap: () {
-                    if (grupo != 'Todas') {
-                      eliminarTipo(context, grupo);
-                    }
-                  },
-                  child: grupo != 'Todas'
-                      ? Container(
-                          width: 30,
-                          height: 30,
-                          child: Icon(
-                            Icons.close,
-                            size: 20,
-                            color: Colors.red,
-                          ),
-                        )
-                      : Container(
-                          height: 30,
-                          width: 30,
-                        ),
-                ),
-              ],
-            ));
+              ),
+            ),
+            GestureDetector(
+              onTap: () {
+                if (grupo != 'Todas') {
+                  eliminarTipo(context, grupo);
+                }
+              },
+              child: grupo != 'Todas'
+                  ? Container(
+                      width: 30,
+                      height: 30,
+                      child: Icon(
+                        Icons.close,
+                        size: 20,
+                        color: Colors.red,
+                      ),
+                    )
+                  : Container(
+                      height: 30,
+                      width: 30,
+                    ),
+            ),
+          ],
+        ));
   }
 
   ///
@@ -262,9 +253,9 @@ class ApiGruposPage extends StatelessWidget {
               ///
               ///         ELIMNAR DEL MENU PRINCIPAL
 
-              if (apiProvider.listaMenu.contains('MPC' + grupo)) {
+              if (apiProvider.listaMenu.contains('MPD' + grupo)) {
                 Provider.of<AplicacionesProvider>(context, listen: false)
-                    .eliminarTipoMP('MPC' + grupo);
+                    .eliminarTipoMP('MPD' + grupo);
                 DbTiposAplicaciones.db.eliminarGrupoMP(grupo);
               }
 
@@ -284,16 +275,16 @@ class ApiGruposPage extends StatelessWidget {
     );
   }
 
-  Future agregaMPC(BuildContext context, String grupo) async {
+  Future agregaMPD(BuildContext context, String grupo) async {
     // grupo es el nombre de categoria a agregar al menu principal
     return await showDialog(
         context: context,
         builder: (context) {
-          return agregaMpcForm(context, grupo);
+          return agregaMpdForm(context, grupo);
         });
   }
 
-  AlertDialog agregaMpcForm(BuildContext context, String grupo) {
+  AlertDialog agregaMpdForm(BuildContext context, String grupo) {
     final apiProvider = Provider.of<AplicacionesProvider>(context);
     return AlertDialog(
       title: Text('Copiar grupo al Menu Inicio',
@@ -310,12 +301,12 @@ class ApiGruposPage extends StatelessWidget {
       actions: [
         ElevatedButton(
             onPressed: () {
-              final nuevo = new ApiTipos(grupo: 'MPC', nombre: grupo);
-              if (!apiProvider.listaMenu.contains('MPC' + grupo)) {
+              final nuevo = new ApiTipos(grupo: 'MPD', nombre: grupo);
+              if (!apiProvider.listaMenu.contains('MPD' + grupo)) {
                 /// actualizar lista MENU
                 ///
                 Provider.of<AplicacionesProvider>(context, listen: false)
-                    .agregarMenu('MPC' + grupo);
+                    .agregarMenu('MPD' + grupo);
 
                 DbTiposAplicaciones.db.nuevoTipo(nuevo);
               }

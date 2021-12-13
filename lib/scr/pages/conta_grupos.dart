@@ -73,7 +73,8 @@ class ContactsGruposPage extends StatelessWidget {
           GestureDetector(
             onTap: () {
               if (grupo != 'Todos') {
-                agregaMPG(context, grupo);
+                //**  agrega grupo de contacto al menu principal */
+                agregaMPC(context, grupo);
               }
             },
             child: grupo != 'Todos'
@@ -271,7 +272,7 @@ class ContactsGruposPage extends StatelessWidget {
               ///
               ///         ELIMNAR DEL MENU PRINCIPAL
 
-              if (apiProvider.listaMenu.contains('MPG' + grupo)) {
+              if (apiProvider.listaMenu.contains('MPC' + grupo)) {
                 Provider.of<AplicacionesProvider>(context, listen: false)
                     .eliminarTipoMP('MPG' + grupo);
                 DbTiposAplicaciones.db.eliminarGrupoMP(grupo);
@@ -299,16 +300,16 @@ class ContactsGruposPage extends StatelessWidget {
     );
   }
 
-  Future agregaMPG(BuildContext context, String grupo) async {
+  Future agregaMPC(BuildContext context, String grupo) async {
     // grupo es el nombre de categoria a agregar al menu principal
     return await showDialog(
         context: context,
         builder: (context) {
-          return agregaMpgForm(context, grupo);
+          return agregaMpcForm(context, grupo);
         });
   }
 
-  AlertDialog agregaMpgForm(BuildContext context, String grupo) {
+  AlertDialog agregaMpcForm(BuildContext context, String grupo) {
     final apiProvider = Provider.of<AplicacionesProvider>(context);
     return AlertDialog(
       content:
@@ -322,12 +323,12 @@ class ContactsGruposPage extends StatelessWidget {
         ElevatedButton(
             onPressed: () {
               final nuevo =
-                  new ApiTipos(grupo: 'MPG', nombre: grupo, tipo: "3");
-              if (!apiProvider.listaMenu.contains('MPG' + grupo)) {
+                  new ApiTipos(grupo: 'MPC', nombre: grupo, tipo: "3");
+              if (!apiProvider.listaMenu.contains('MPC' + grupo)) {
                 /// actualizar lista MENU
                 ///
                 Provider.of<AplicacionesProvider>(context, listen: false)
-                    .agregarMenu('MPG' + grupo);
+                    .agregarMenu('MPC' + grupo);
 
                 DbTiposAplicaciones.db.nuevoTipo(nuevo);
               }

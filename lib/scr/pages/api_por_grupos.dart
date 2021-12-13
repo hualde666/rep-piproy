@@ -81,7 +81,7 @@ class ElementoApi extends StatelessWidget {
               GestureDetector(
                 onTap: () {
                   if (grupo != 'Todas') {
-                    agregaMPA(context, api);
+                    agregaMPB(context, api);
                   }
                 },
                 child: grupo != 'Todas'
@@ -209,15 +209,15 @@ class ElementoApi extends StatelessWidget {
           ],
         ),
       );
-  Future agregaMPA(BuildContext context, Application api) async {
+  Future agregaMPB(BuildContext context, Application api) async {
     return await showDialog(
         context: context,
         builder: (context) {
-          return agregaMpaForm(context, api);
+          return agregaMpbForm(context, api);
         });
   }
 
-  AlertDialog agregaMpaForm(BuildContext context, Application api) {
+  AlertDialog agregaMpbForm(BuildContext context, Application api) {
     final apiProvider = Provider.of<AplicacionesProvider>(context);
     return AlertDialog(
       // title: Text('¿Desea crear acceso directo a ${api.appName}?'),
@@ -231,12 +231,12 @@ class ElementoApi extends StatelessWidget {
       actions: [
         ElevatedButton(
             onPressed: () {
-              final nuevo = new ApiTipos(grupo: 'MPA', nombre: api.appName);
-              if (!apiProvider.listaMenu.contains('MPA' + api.appName)) {
+              final nuevo = new ApiTipos(grupo: 'MPB', nombre: api.appName);
+              if (!apiProvider.listaMenu.contains('MPB' + api.appName)) {
                 /// actualizar lista MENU
                 ///
                 Provider.of<AplicacionesProvider>(context, listen: false)
-                    .agregarMenu('MPA' + api.appName);
+                    .agregarMenu('MPB' + api.appName);
 
                 DbTiposAplicaciones.db.nuevoTipo(nuevo);
               }

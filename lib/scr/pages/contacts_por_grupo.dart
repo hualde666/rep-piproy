@@ -86,8 +86,8 @@ class _ContactsPorGrupoPageState extends State<ContactsPorGrupoPage> {
       }
     }
 
-    List<Widget> listaContact = List.generate(
-        listaGrupo.length, (i) => TarjetaContacto2(context, listaGrupo[i]));
+    List<Widget> listaContact = List.generate(listaGrupo.length,
+        (i) => TarjetaContacto2(context, listaGrupo[i], true));
 
     return SafeArea(
         child: Scaffold(

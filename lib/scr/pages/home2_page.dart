@@ -1,3 +1,4 @@
+import 'package:contacts_service/contacts_service.dart';
 import 'package:device_apps/device_apps.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -5,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:piproy/scr/models/api_tipos.dart';
 
 import 'package:piproy/scr/providers/aplicaciones_provider.dart';
+import 'package:piproy/scr/providers/contactos_provider.dart';
 
 import 'package:piproy/scr/providers/db_provider.dart';
 
@@ -12,6 +14,7 @@ import 'package:piproy/scr/widgets/boton_exit.dart';
 
 import 'package:piproy/scr/widgets/boton_rojo.dart';
 import 'package:piproy/scr/widgets/boton_verde.dart';
+import 'package:piproy/scr/widgets/contactos_card.dart';
 
 import 'package:piproy/scr/widgets/elemntos.dart';
 
@@ -103,8 +106,8 @@ class _Home2PageState extends State<Home2Page> {
       for (var i = 0; i < listaMenu.length; i++) {
         final String titulo = listaMenu[i].substring(3);
         //********************************************************** */
-        //***** es un grupo API => MPG o un grupo de CONTACTO => MPC */
-        if (listaMenu[i].contains('MPC') || listaMenu[i].contains('MPG')) {
+        //***** es un grupo API => MPD o un grupo de CONTACTO => MPC */
+        if (listaMenu[i].contains('MPD') || listaMenu[i].contains('MPC')) {
           listaOpciones.add(elementos(
               context,
               Text(titulo, style: TextStyle(fontSize: 40.0)),
@@ -112,17 +115,33 @@ class _Home2PageState extends State<Home2Page> {
               titulo,
               listaMenu[i]));
         } else {
-          //******************************************************* */
-          //********************* por hora es una Api   MPA            */
-          final apiProvider = Provider.of<AplicacionesProvider>(context);
-          final Application api = apiProvider.categoryApi['Todas'].firstWhere(
-              (eApi) => eApi.appName == listaMenu[i].substring(3),
-              orElse: () => null);
-          if (api != null) {
-            listaOpciones.add(elementoApi2(context, api));
+          if (listaMenu[i].contains('MPA')) {
+            String nombre = listaMenu[i].substring(3);
+            final contactosProvider = Provider.of<ContactosProvider>(context);
+            final List<Contact> listaContacto =
+                contactosProvider.listaContactos;
+
+            //*********************************************************** */
+            /****************** un contacto MPA*/
+            final Contact contacto = listaContacto.firstWhere(
+                (element) => element.displayName == nombre,
+                orElse: () => null);
+            if (contacto != null) {
+              listaOpciones.add(TarjetaContacto2(context, contacto, false));
+            }
+          } else {
+            //******************************************************* */
+            //********************* una Api   MPB            */
+            final apiProvider = Provider.of<AplicacionesProvider>(context);
+            final Application api = apiProvider.categoryApi['Todas'].firstWhere(
+                (eApi) => eApi.appName == listaMenu[i].substring(3),
+                orElse: () => null);
+            if (api != null) {
+              listaOpciones.add(elementoApi2(context, api));
+            }
           }
+          listaOpciones.add(SizedBox(height: 10));
         }
-        listaOpciones.add(SizedBox(height: 10));
       }
     }
     listaOpciones.add(elementos(
@@ -347,8 +366,6 @@ class _Home2PageState extends State<Home2Page> {
   }
 }
 
-class BotonRojoHeader {}
-
 Widget botonInicio() {
   return GestureDetector(
     onTap: () {},
@@ -394,7 +411,7 @@ Widget elementoApi2(BuildContext context, Application api) {
               ),
               GestureDetector(
                   onTap: () {
-                    eliminarApi(context, 'MPA' + api.appName);
+                    eliminarApiMP(context, 'MPB' + api.appName);
                   },
                   child: Container(
                     width: 30,
@@ -402,7 +419,7 @@ Widget elementoApi2(BuildContext context, Application api) {
                     child: Center(
                       child: Icon(
                         Icons.close,
-                        size: 20,
+                        size: 30,
                         color: Colors.red,
                       ),
                     ),
@@ -425,7 +442,7 @@ Widget elementoApi2(BuildContext context, Application api) {
   );
 }
 
-Future<dynamic> eliminarApi(BuildContext context, String tipo) {
+Future<dynamic> eliminarApiMP(BuildContext context, String tipo) {
   final String titulo = tipo.substring(3);
   return showDialog(
     context: context,

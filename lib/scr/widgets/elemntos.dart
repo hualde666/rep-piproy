@@ -28,15 +28,16 @@ Widget elementos(BuildContext context, Widget widget, double altura,
                       child: Center(
                         child: Icon(
                           Icons.close,
-                          size: 20,
+                          size: 30,
                           color: Colors.red,
                         ),
                       ))),
             ])
           : widget,
       decoration: BoxDecoration(
-          color: ruta == 'contactos' || tipo.contains('MPG')
+          color: ruta == 'contactos' || tipo.contains('MPC')
               ? Colors.green
+              /** es un contacto o grupo de contacto */
               : Theme.of(context).primaryColor,
           borderRadius: BorderRadius.circular(20.0),
           border: Border.all(color: Colors.white)),
@@ -45,10 +46,10 @@ Widget elementos(BuildContext context, Widget widget, double altura,
       if (ruta != '') {
         Provider.of<AplicacionesProvider>(context, listen: false)
             .tipoSeleccion = ruta;
-        if (tipo.contains('MPC')) {
+        if (tipo.contains('MPD')) {
           Navigator.pushNamed(context, 'grupo');
         } else {
-          if (tipo.contains('MPG')) {
+          if (tipo.contains('MPC')) {
             Navigator.pushNamed(context, 'grupocontacto');
           } else {
             Navigator.pushNamed(context, ruta);

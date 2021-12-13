@@ -1,6 +1,7 @@
 import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:piproy/scr/models/api_tipos.dart';
 import 'package:piproy/scr/providers/aplicaciones_provider.dart';
 import 'package:piproy/scr/providers/contactos_provider.dart';
 import 'package:piproy/scr/providers/db_provider.dart';
@@ -8,9 +9,10 @@ import 'package:piproy/scr/widgets/icon_conteiner.dart';
 import 'package:provider/provider.dart';
 
 class TarjetaContacto2 extends StatefulWidget {
-  TarjetaContacto2(this.context, this.contacto);
+  TarjetaContacto2(this.context, this.contacto, this.envio);
   final BuildContext context;
   final Contact contacto;
+  final bool envio;
 
   @override
   _TarjetaContacto2 createState() => _TarjetaContacto2();
@@ -43,7 +45,8 @@ class _TarjetaContacto2 extends State<TarjetaContacto2> {
                   SizedBox(
                     height: 10,
                   ),
-                  _nombreContacto(context, widget.contacto, grupo),
+                  _nombreContacto(
+                      context, widget.contacto, grupo, widget.envio),
 
                   _botonesContactos(context, widget.contacto),
                 ],
@@ -66,7 +69,8 @@ class _TarjetaContacto2 extends State<TarjetaContacto2> {
               margin: EdgeInsets.symmetric(horizontal: 4, vertical: 2.0),
               child:
                   //_avatar(contacto),
-                  _nombreContacto(context, widget.contacto, grupo),
+                  _nombreContacto(
+                      context, widget.contacto, grupo, widget.envio),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20.0),
                   border: Border.all(color: Colors.white)),
@@ -79,82 +83,6 @@ class _TarjetaContacto2 extends State<TarjetaContacto2> {
             },
           );
   }
-
-  // Future<dynamic> eliminarContactoGrupo(
-  //         BuildContext context, String grupo, Contact contacto) =>
-  //     showDialog(
-  //       context: context,
-  //       builder: (context) => AlertDialog(
-  //         title: Text(contacto.displayName,
-  //             style: TextStyle(
-  //               fontSize: 30,
-  //             )),
-  //         content: grupo == 'Todos'
-  //             ? Text('¿Desea eliminar este contacto  del CELULAR ?')
-  //             : Text('¿Desea eliminar este contacto del grupo $grupo llll ?',
-  //                 textAlign: TextAlign.center,
-  //                 style: TextStyle(
-  //                   fontSize: 25,
-  //                 )),
-  //         // shape: CircleBorder(),
-  //         //elevation: 14.0,
-  //         actionsPadding: EdgeInsets.symmetric(horizontal: 30.0),
-  //         actions: [
-  //           ElevatedButton(
-  //               onPressed: () {
-  //                 /// elina contacto de pantalla
-  //                 Provider.of<AplicacionesProvider>(context, listen: false)
-  //                     .eliminarContacto(grupo, contacto.displayName);
-
-  //                 DbTiposAplicaciones.db.deleteApi(
-  //                     grupo, contacto.displayName); //elimina api de BD
-  //                 // elimino contacto del celular
-  //                 if (grupo == 'Todos') {
-  //                   _eliminarContacto(contacto);
-  //                   final contactosProvider = new ContactosProvider();
-  //                   contactosProvider.borrarDeListaContacto(contacto);
-  //                 }
-
-  //                 Navigator.pop(context);
-  //               },
-  //               child: Text(
-  //                 'Si',
-  //               )),
-  //           ElevatedButton(
-  //               onPressed: () {
-  //                 Navigator.pop(context);
-  //               },
-  //               child: Text(
-  //                 'NO',
-  //               )),
-
-  //           // TextButton(
-  //           //     onPressed: () {
-  //           //       /// elina contacto de pantalla
-  //           //       Provider.of<AplicacionesProvider>(context, listen: false)
-  //           //           .eliminarContacto(grupo, contacto.displayName);
-
-  //           //       DbTiposAplicaciones.db.deleteApi(
-  //           //           grupo, contacto.displayName); //elimina api de BD
-  //           //       // elimino contacto del celular
-  //           //       if (grupo == 'Todos') {
-  //           //         _eliminarContacto(contacto);
-  //           //         final contactosProvider = new ContactosProvider();
-  //           //         contactosProvider.borrarDeListaContacto(contacto);
-  //           //       }
-
-  //           //       Navigator.pop(context);
-  //           //     },
-  //           //     child: Text('Si', style: TextStyle(fontSize: 20.0))),
-  //           // TextButton(
-  //           //     autofocus: true,
-  //           //     onPressed: () {
-  //           //       Navigator.pop(context);
-  //           //     },
-  //           //     child: Text('No', style: TextStyle(fontSize: 20.0)))
-  //         ],
-  //       ),
-  //     );
 }
 
 _eliminarContacto(Contact contacto) async {
@@ -304,10 +232,7 @@ Widget _botonesContactos(BuildContext context, Contact contacto) {
 
   return Container(
     height: 115.0,
-    //  margin: EdgeInsets.only(bottom: 2.0, left: 5.0),
     width: 330,
-    // width: double.infinity,
-
     child: ListView.builder(
       // controller: PageController(viewportFraction: 0.1),
       scrollDirection: Axis.horizontal,
@@ -317,7 +242,8 @@ Widget _botonesContactos(BuildContext context, Contact contacto) {
   );
 }
 
-Widget _nombreContacto(BuildContext context, Contact contacto, String grupo) {
+Widget _nombreContacto(
+    BuildContext context, Contact contacto, String grupo, bool envio) {
   Future<dynamic> eliminarContactoGrupo(
           BuildContext context, String grupo, Contact contacto) =>
       showDialog(
@@ -371,6 +297,94 @@ Widget _nombreContacto(BuildContext context, Contact contacto, String grupo) {
           ],
         ),
       );
+  Future<dynamic> agregarMPA(BuildContext context, Contact contacto) async {
+    return await showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+              title: Text(contacto.displayName,
+                  style: TextStyle(
+                    fontSize: 30,
+                  )),
+              content: Text('¿Desea agregar este contacto al menu principal ?',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 25,
+                  )),
+              //                 style: TextStyle(
+              //                   fontSize: 25,
+              //                 )),
+              // shape: CircleBorder(),
+              elevation: 14.0,
+              actionsPadding: EdgeInsets.symmetric(horizontal: 30.0),
+              actionsAlignment: MainAxisAlignment.spaceAround,
+              actions: [
+                ElevatedButton(
+                    onPressed: () {
+                      final nuevo = new ApiTipos(
+                          grupo: 'MPA', nombre: contacto.displayName);
+
+                      /// actualizar lista MENU
+                      ///
+                      Provider.of<AplicacionesProvider>(context, listen: false)
+                          .agregarMenu('MPA' + contacto.displayName);
+
+                      DbTiposAplicaciones.db.nuevoTipo(nuevo);
+
+                      Navigator.of(context).pop();
+                    },
+                    child: Text(
+                      'Si',
+                    )),
+                ElevatedButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: Text(
+                      'NO',
+                    )),
+              ],
+            ));
+  }
+
+  Future<dynamic> eliminarContactoMP(BuildContext context, String tipo) {
+    final String titulo = tipo.substring(3);
+    return showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        content: Text('¿Desea eliminar $titulo  del menú principal?',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 25,
+            )),
+        // shape: CircleBorder(),
+        elevation: 14.0,
+        actionsPadding: EdgeInsets.symmetric(horizontal: 30.0),
+        actionsAlignment: MainAxisAlignment.spaceAround,
+        actions: [
+          ElevatedButton(
+              onPressed: () {
+                /// elina api de pantalla
+                Provider.of<AplicacionesProvider>(context, listen: false)
+                    .eliminarTipoMP(tipo);
+
+                DbTiposAplicaciones.db
+                    .deleteApi(tipo.substring(0, 3), tipo.substring(3));
+
+                //elimina api de BD
+
+                Navigator.pop(context);
+              },
+              child: Text('Si')),
+          ElevatedButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text('NO')),
+        ],
+      ),
+    );
+  }
+
   return Container(
       height: 90,
       decoration: BoxDecoration(
@@ -387,17 +401,24 @@ Widget _nombreContacto(BuildContext context, Contact contacto, String grupo) {
           Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          GestureDetector(
-              onTap: () {},
-              child: Container(
-                width: 30,
-                height: 30,
-                child: Icon(
-                  Icons.arrow_back,
-                  size: 30,
-                  color: Colors.blue,
+          envio
+              ? GestureDetector(
+                  onTap: () {
+                    agregarMPA(context, contacto);
+                  },
+                  child: Container(
+                    width: 30,
+                    height: 30,
+                    child: Icon(
+                      Icons.arrow_back,
+                      size: 30,
+                      color: Colors.blue,
+                    ),
+                  ))
+              : Container(
+                  height: 30,
+                  width: 30,
                 ),
-              )),
           Container(
             width: MediaQuery.of(context).size.width - 80,
             child: Text(
@@ -409,10 +430,15 @@ Widget _nombreContacto(BuildContext context, Contact contacto, String grupo) {
               ),
             ),
           ),
-
           GestureDetector(
               onTap: () {
-                eliminarContactoGrupo(context, grupo, contacto);
+                if (envio) {
+                  // eliminar contacto del grupo
+                  eliminarContactoGrupo(context, grupo, contacto);
+                } else {
+                  // eliminar contacto menu principal
+                  eliminarContactoMP(context, 'MPA' + contacto.displayName);
+                }
               },
               child: Container(
                 width: 30,
@@ -423,14 +449,6 @@ Widget _nombreContacto(BuildContext context, Contact contacto, String grupo) {
                   color: Colors.red,
                 ),
               )),
-
-          // Text(
-          //   contacto.phones.elementAt(0).value,
-          //   style: TextStyle(
-          //     fontSize: 15,
-          //     color: Colors.white,
-          //   ),
-          // )
         ],
       ));
 }

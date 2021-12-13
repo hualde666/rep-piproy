@@ -218,7 +218,10 @@ Widget encabezadoIcon(BuildContext context) {
   ];
   return Container(
     height: 100,
-    margin: EdgeInsets.only(top: 2, right: 10, left: 10),
+    margin: EdgeInsets.only(
+      top: 2,
+      right: 5,
+    ),
 
     //width: MediaQuery.of(context).w,
     //margin: //EdgeInsets.only(top: 55.0),

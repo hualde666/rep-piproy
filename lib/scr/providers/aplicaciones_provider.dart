@@ -49,21 +49,21 @@ class AplicacionesProvider with ChangeNotifier {
 
   List<String> get apigrupos {
     final lista = _apigrupos;
-    //*** devuelvo todos menos MPC */
-    lista.remove('MPC');
+    //*** devuelvo todos menos MPD */
+    lista.remove('MPD');
     return lista;
   }
 
   List<String> get contactgrupos {
     final lista = _contactgrupos;
-    //*** devuelvo todos menos MPC */
-    lista.remove('MPC');
+    //*** devuelvo todos menos MPD */
+    lista.remove('MPD');
     return lista;
   }
 
   List<String> get apitiposMenu {
     final List<String> lista = [];
-    lista.addAll(_apigrupos.where((element) => element == 'MPC'));
+    lista.addAll(_apigrupos.where((element) => element == 'MPD'));
     lista.sort((a, b) {
       return a.toLowerCase().compareTo(b.toLowerCase());
     });
@@ -118,6 +118,9 @@ class AplicacionesProvider with ChangeNotifier {
   // agrega contacto a grupo
   agregarContacto(String grupo, Contact contacto) {
     categoryContact[grupo].add(contacto.displayName);
+    categoryContact[grupo].sort((a, b) {
+      return a.toLowerCase().compareTo(b.toLowerCase());
+    });
     notifyListeners();
   }
 
@@ -239,30 +242,31 @@ class AplicacionesProvider with ChangeNotifier {
   ordenarListasMenu(List<ApiTipos> resp2) {
     for (var i = 0; i < resp2.length; i++) {
       switch (resp2[i].grupo) {
-        case 'MPC':
-          {
-            // grupo app
-            listaMenu.add('MPC' + resp2[i].nombre);
-            break;
-          }
         case 'MPA':
           {
-            // app
+            //contacto
             listaMenu.add('MPA' + resp2[i].nombre);
             break;
           }
-        case 'MPG':
+        case 'MPB':
+          {
+            // app
+            listaMenu.add('MPB' + resp2[i].nombre);
+            break;
+          }
+        case 'MPC':
           {
             //grupo contacto
-            listaMenu.add('MPG' + resp2[i].nombre);
+            listaMenu.add('MPC' + resp2[i].nombre);
             break;
           }
-        case 'MPF':
+        case 'MPD':
           {
-            // contacto
-            listaMenu.add('MPF' + resp2[i].nombre);
+            // grupo app
+            listaMenu.add('MPD' + resp2[i].nombre);
             break;
           }
+
         default:
           {
             // grupo de api

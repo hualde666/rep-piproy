@@ -90,7 +90,8 @@ class _ContactosPageState extends State<ContactosPage> {
                         context,
                         hayBusqueda
                             ? listaContactosFiltro[i]
-                            : snapshot.data[i]));
+                            : snapshot.data[i],
+                        true));
                 return cargando
                     ? Center(
                         child: CircularProgressIndicator(),
