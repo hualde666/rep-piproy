@@ -100,7 +100,7 @@ class _Home2PageState extends State<Home2Page> {
       elementos(context, PilaTimpoClima(), 200, '', ''),
       SizedBox(height: 10),
       googleBusqueda(context),
-      SizedBox(height: 10),
+      //SizedBox(height: 5),
     ];
     if (listaMenu.isNotEmpty) {
       for (var i = 0; i < listaMenu.length; i++) {
@@ -142,6 +142,7 @@ class _Home2PageState extends State<Home2Page> {
           }
           listaOpciones.add(SizedBox(height: 10));
         }
+        listaOpciones.add(SizedBox(height: 10));
       }
     }
     listaOpciones.add(elementos(

@@ -8,7 +8,7 @@ Widget googleBusqueda(BuildContext context) {
   return GestureDetector(
     child: Container(
       height: 60,
-      margin: EdgeInsets.symmetric(vertical: 1.5, horizontal: 5.0),
+      margin: EdgeInsets.symmetric(horizontal: 5.0),
       alignment: Alignment.center,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,

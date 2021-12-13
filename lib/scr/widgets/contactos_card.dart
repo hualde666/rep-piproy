@@ -426,7 +426,7 @@ Widget _nombreContacto(
               overflow: TextOverflow.ellipsis,
               textAlign: TextAlign.center,
               style: TextStyle(
-                fontSize: 30.0,
+                fontSize: 35.0,
               ),
             ),
           ),
