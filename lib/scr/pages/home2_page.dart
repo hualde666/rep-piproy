@@ -10,10 +10,8 @@ import 'package:piproy/scr/providers/contactos_provider.dart';
 
 import 'package:piproy/scr/providers/db_provider.dart';
 
-import 'package:piproy/scr/widgets/boton_exit.dart';
-
 import 'package:piproy/scr/widgets/boton_rojo.dart';
-import 'package:piproy/scr/widgets/boton_verde.dart';
+
 import 'package:piproy/scr/widgets/contactos_card.dart';
 
 import 'package:piproy/scr/widgets/elemntos.dart';
@@ -33,12 +31,12 @@ class Home2Page extends StatefulWidget {
 class _Home2PageState extends State<Home2Page> {
   // ScrollController _scrollController = ScrollController();
   bool cargando = true;
-
+  List<Widget> lista2 = [];
   Application api;
   @override
   void initState() {
     super.initState();
-
+    //  cargarMenu();
     //  _scrollController = ScrollController()
     //    ..addListener(() {
 
@@ -48,14 +46,16 @@ class _Home2PageState extends State<Home2Page> {
   void scrollToTop() {
     //_scrollController.jumpTo(0.0);
   }
-  Future<List<String>> cargarMenu() async {
+  Future cargarMenu() async {
     final apiProvider = Provider.of<AplicacionesProvider>(context);
-    final List<ApiTipos> lista = await apiProvider.cargarCategorias();
-    if (apiProvider.listaMenu.isEmpty) {
-      apiProvider.ordenarListasMenu(lista);
-    }
 
-    return apiProvider.listaMenu;
+    if (apiProvider.listaMenu.isEmpty) {
+      final List<ApiTipos> lista = await apiProvider.cargarCategorias();
+      Provider.of<AplicacionesProvider>(context, listen: false)
+          .ordenarListasMenu(lista);
+      lista2 = await detalle(context, apiProvider.listaMenu);
+    }
+    return lista2;
   }
 
   @override
@@ -76,30 +76,27 @@ class _Home2PageState extends State<Home2Page> {
                 );
               } else {
                 if (snapshot.hasData) {
-                  return detalle(context, snapshot.data);
+                  return ListView.builder(
+                      itemCount: snapshot.data.length,
+                      itemBuilder: (context, i) {
+                        return snapshot.data[i];
+                      });
                 } else {
                   return Container();
                 }
               }
             }),
-        // floatingActionButton: Container(
-        //   margin: EdgeInsets.only(left: 25),
-        //   child: Row(
-        //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        //     children: [
-        //       BotonFlotante(pagina: 'home'),
-        //     ],
-        //   ),
       ),
     );
   }
 
-  detalle(BuildContext context, List<String> listaMenu) {
+  detalle(BuildContext context, List<String> listaMenu) async {
     List<Widget> listaOpciones = [
-      SizedBox(height: 10.0),
+      SizedBox(height: 8.0),
       elementos(context, PilaTimpoClima(), 200, '', ''),
-      SizedBox(height: 10),
+      SizedBox(height: 8),
       googleBusqueda(context),
+      SizedBox(height: 8),
       //SizedBox(height: 5),
     ];
     if (listaMenu.isNotEmpty) {
@@ -114,6 +111,7 @@ class _Home2PageState extends State<Home2Page> {
               100,
               titulo,
               listaMenu[i]));
+          listaOpciones.add(SizedBox(height: 8));
         } else {
           if (listaMenu[i].contains('MPA')) {
             String nombre = listaMenu[i].substring(3);
@@ -132,17 +130,16 @@ class _Home2PageState extends State<Home2Page> {
           } else {
             //******************************************************* */
             //********************* una Api   MPB            */
-            final apiProvider = Provider.of<AplicacionesProvider>(context);
-            final Application api = apiProvider.categoryApi['Todas'].firstWhere(
-                (eApi) => eApi.appName == listaMenu[i].substring(3),
-                orElse: () => null);
+            // final apiProvider = Provider.of<AplicacionesProvider>(context);
+            final Application api =
+                await DeviceApps.getApp(listaMenu[i].substring(3), true);
+
             if (api != null) {
               listaOpciones.add(elementoApi2(context, api));
+              listaOpciones.add(SizedBox(height: 8));
             }
           }
-          listaOpciones.add(SizedBox(height: 10));
         }
-        listaOpciones.add(SizedBox(height: 10));
       }
     }
     listaOpciones.add(elementos(
@@ -151,7 +148,7 @@ class _Home2PageState extends State<Home2Page> {
         100,
         'contactos',
         ''));
-    listaOpciones.add(SizedBox(height: 10));
+    listaOpciones.add(SizedBox(height: 8));
     listaOpciones.add(elementos(
         context,
         Text('Aplicaciones', style: TextStyle(fontSize: 40.0)),
@@ -163,11 +160,7 @@ class _Home2PageState extends State<Home2Page> {
       height: 70,
     ));
 
-    return ListView.builder(
-        itemCount: listaOpciones.length,
-        itemBuilder: (context, i) {
-          return listaOpciones[i];
-        });
+    return listaOpciones;
   }
 
   encabezadoApp(BuildContext context, String titulo) {
@@ -383,12 +376,12 @@ Widget botonInicio() {
 Widget elementoApi2(BuildContext context, Application api) {
   return GestureDetector(
     onTap: () {
-      if (api.appName != "") {
+      if (api.packageName != "") {
         api.openApp();
       }
     },
     child: Container(
-      margin: EdgeInsets.symmetric(vertical: 1.5, horizontal: 4.0),
+      margin: EdgeInsets.symmetric(horizontal: 5.0),
       decoration: BoxDecoration(
           color: Theme.of(context).primaryColor,
           borderRadius: BorderRadius.circular(20.0),
@@ -412,7 +405,7 @@ Widget elementoApi2(BuildContext context, Application api) {
               ),
               GestureDetector(
                   onTap: () {
-                    eliminarApiMP(context, 'MPB' + api.appName);
+                    eliminarApiMP(context, 'MPB' + api.packageName);
                   },
                   child: Container(
                     width: 30,

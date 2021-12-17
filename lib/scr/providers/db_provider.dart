@@ -90,4 +90,16 @@ class DbTiposAplicaciones {
 
     return resp;
   }
+
+  Future<List<ApiTipos>> obtenerAppsGrupo(String grupo) async {
+    final db = await database;
+    final result =
+        await db.query('MenuGrupos', where: 'grupo=?', whereArgs: [grupo]);
+    if (result.isNotEmpty) {
+      final resp2 = result.map((s) => ApiTipos.fromJson(s)).toList();
+      return resp2;
+    } else {
+      return [];
+    }
+  }
 }

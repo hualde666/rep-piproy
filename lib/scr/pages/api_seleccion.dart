@@ -18,12 +18,31 @@ class ApiSeleccionPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final apiProvider = Provider.of<AplicacionesProvider>(context);
     final grupo = apiProvider.tipoSeleccion;
-    final listaTodas = apiProvider.categoryApi['Todas'];
-    listaNueva.addAll(listaVieja);
-    List<Widget> listaApi = List.generate(
-        listaTodas.length,
-        (i) => WidgetApi(
-            listaNueva: listaNueva, context: context, api: listaTodas[i]));
+    List<Application> listaNueva = [];
+    List<Application> listaVieja = [];
+    List<Application> listaTodas = [];
+
+    Future<List<Widget>> cargarListaGrupo() async {
+      List<Application> lista = await apiProvider.obtenerListaApiGrupo(grupo);
+
+      if (lista != null) {
+        listaVieja.addAll(lista);
+        listaNueva.addAll(listaVieja);
+      }
+      List<Application> lista2 =
+          await apiProvider.obtenerListaApiGrupo('Todas');
+      if (lista2 != null) {
+        listaTodas.addAll(lista2);
+        List<Widget> listaApi = List.generate(
+            listaTodas.length,
+            (i) => WidgetApi(
+                listaNueva: listaNueva, context: context, api: listaTodas[i]));
+
+        return listaApi;
+      }
+      return [];
+    }
+
     return SafeArea(
       child: Scaffold(
         appBar: headerApp(
@@ -37,14 +56,30 @@ class ApiSeleccionPage extends StatelessWidget {
             true,
             'ApiSeleccion'),
         resizeToAvoidBottomInset: false,
-        body: Container(
-          // padding: EdgeInsets.only(bottom: 70),
-          padding: EdgeInsets.only(bottom: 60, left: 1, right: 1),
-          child: GridView.count(
-            crossAxisCount: 2,
-            children: listaApi,
-          ),
-        ),
+        body: FutureBuilder(
+            future: cargarListaGrupo(),
+            builder: (BuildContext context, AsyncSnapshot snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              } else {
+                if (snapshot.hasData) {
+                  // snapshot contiene todas las app
+
+                  return Container(
+                    // padding: EdgeInsets.only(bottom: 70),
+                    padding: EdgeInsets.only(bottom: 60, left: 1, right: 1),
+                    child: GridView.count(
+                      crossAxisCount: 2,
+                      children: snapshot.data,
+                    ),
+                  );
+                } else {
+                  return Container();
+                }
+              }
+            }),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         floatingActionButton:
             //BotonFlotante(pagina: 'selecApi'),
@@ -62,7 +97,8 @@ class ApiSeleccionPage extends StatelessWidget {
                 // eliminar
                 Provider.of<AplicacionesProvider>(context, listen: false)
                     .modiApiListaPorTipo(listaVieja[i]);
-                DbTiposAplicaciones.db.deleteApi(grupo, listaVieja[i].appName);
+                DbTiposAplicaciones.db
+                    .deleteApi(grupo, listaVieja[i].packageName);
               }
             }
             for (var i = 0; i < listaNueva.length; i++) {
@@ -71,7 +107,7 @@ class ApiSeleccionPage extends StatelessWidget {
                 Provider.of<AplicacionesProvider>(context, listen: false)
                     .modiApiListaPorTipo(listaNueva[i]);
                 final nuevo = new ApiTipos(
-                    grupo: grupo, nombre: listaNueva[i].appName, tipo: "1");
+                    grupo: grupo, nombre: listaNueva[i].packageName, tipo: "1");
                 DbTiposAplicaciones.db.nuevoTipo(nuevo);
               }
             }
@@ -91,7 +127,7 @@ class ApiSeleccionPage extends StatelessWidget {
         // eliminar
         Provider.of<AplicacionesProvider>(context, listen: true)
             .modiApiListaPorTipo(listaVieja[i]);
-        DbTiposAplicaciones.db.deleteApi(tipo, listaVieja[i].appName);
+        DbTiposAplicaciones.db.deleteApi(tipo, listaVieja[i].packageName);
       }
     }
     for (var i = 0; i < listaNueva.length; i++) {
@@ -99,7 +135,8 @@ class ApiSeleccionPage extends StatelessWidget {
         // agregar
         Provider.of<AplicacionesProvider>(context, listen: true)
             .modiApiListaPorTipo(listaNueva[i]);
-        final nuevo = new ApiTipos(grupo: tipo, nombre: listaNueva[i].appName);
+        final nuevo =
+            new ApiTipos(grupo: tipo, nombre: listaNueva[i].packageName);
         DbTiposAplicaciones.db.nuevoTipo(nuevo);
       }
     }
@@ -125,13 +162,14 @@ class WidgetApi extends StatefulWidget {
 class _WidgetApiState extends State<WidgetApi> {
   @override
   Widget build(BuildContext context) {
+    print(widget.listaNueva);
     final selecionada = widget.listaNueva.contains(widget.api);
     Color color = selecionada
         ? Theme.of(context).primaryColor
         : Color.fromRGBO(55, 57, 84, 0.6);
     return GestureDetector(
       onTap: () {
-        if (widget.api.appName != "") {
+        if (widget.api.packageName != "") {
           /// agregar o eliminar api
           ///
           // Provider.of<AplicacionesProvider>(context, listen: false)

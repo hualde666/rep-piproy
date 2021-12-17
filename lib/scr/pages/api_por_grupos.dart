@@ -13,22 +13,49 @@ class ApiPorGrupoPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final apiProvider = Provider.of<AplicacionesProvider>(context);
     final grupo = apiProvider.tipoSeleccion;
-    final lista = apiProvider.categoryApi[grupo];
-    List<Widget> listaApi =
-        List.generate(lista.length, (i) => ElementoApi(api: lista[i]));
+
+    Future<List<Widget>> cargarListaGrupo() async {
+      List<Application> lista = await apiProvider.obtenerListaApiGrupo(grupo);
+
+      if (lista != null) {
+        List<Widget> listaApi =
+            List.generate(lista.length, (i) => ElementoApi(api: lista[i]));
+
+        return listaApi;
+      }
+      return [];
+    }
+
     return SafeArea(
         child: Scaffold(
       //  backgroundColor: Theme.of(context).primaryColor,
       //****** editar nombre del grupo */
       appBar: headerApp(context, '$grupo', Text(''), 0.0, true, 'ApiPorGrups'),
-      body: Container(
-        padding: EdgeInsets.only(bottom: 55),
-        child: GridView.count(
-          padding: EdgeInsets.only(bottom: 70, left: 1, right: 1),
-          children: listaApi,
-          crossAxisCount: 2,
-        ),
-      ),
+      body: FutureBuilder(
+          future: cargarListaGrupo(),
+          builder: (BuildContext context, AsyncSnapshot snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            } else {
+              if (snapshot.hasData) {
+                // snapshot contiene todas las app del grupo
+
+                return Container(
+                  padding: EdgeInsets.only(bottom: 55),
+                  child: GridView.count(
+                    padding: EdgeInsets.only(bottom: 70, left: 1, right: 1),
+                    children: snapshot.data,
+                    crossAxisCount: 2,
+                  ),
+                );
+              } else {
+                return Container();
+              }
+            }
+          }),
+
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: grupo != 'Todas'
           ?
@@ -128,7 +155,7 @@ class ElementoApi extends StatelessWidget {
           ),
           GestureDetector(
             onTap: () {
-              if (api.appName != "") {
+              if (api.packageName != "") {
                 api.openApp();
               }
             },
@@ -146,7 +173,7 @@ class ElementoApi extends StatelessWidget {
                     height: 50,
                     width: 150,
                     child: Text(
-                      api.appName,
+                      api.packageName,
                       textAlign: TextAlign.center,
                       style: TextStyle(fontSize: 20),
                     ),
@@ -192,7 +219,7 @@ class ElementoApi extends StatelessWidget {
                   Provider.of<AplicacionesProvider>(context, listen: false)
                       .eliminar(api);
                   DbTiposAplicaciones.db
-                      .deleteApi(tipo, api.appName); //elimina api de BD
+                      .deleteApi(tipo, api.packageName); //elimina api de BD
 
                   Navigator.pop(context);
                 },
@@ -231,12 +258,12 @@ class ElementoApi extends StatelessWidget {
       actions: [
         ElevatedButton(
             onPressed: () {
-              final nuevo = new ApiTipos(grupo: 'MPB', nombre: api.appName);
-              if (!apiProvider.listaMenu.contains('MPB' + api.appName)) {
+              final nuevo = new ApiTipos(grupo: 'MPB', nombre: api.packageName);
+              if (!apiProvider.listaMenu.contains('MPB' + api.packageName)) {
                 /// actualizar lista MENU
                 ///
                 Provider.of<AplicacionesProvider>(context, listen: false)
-                    .agregarMenu('MPB' + api.appName);
+                    .agregarMenu('MPB' + api.packageName);
 
                 DbTiposAplicaciones.db.nuevoTipo(nuevo);
               }

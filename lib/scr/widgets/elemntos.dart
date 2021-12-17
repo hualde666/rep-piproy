@@ -9,7 +9,7 @@ Widget elementos(BuildContext context, Widget widget, double altura,
   return GestureDetector(
     child: Container(
       height: altura,
-      margin: EdgeInsets.symmetric(vertical: 1.5, horizontal: 3.0),
+      margin: EdgeInsets.symmetric(horizontal: 5),
       alignment: Alignment.center,
       child: eliminable
           ? Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
@@ -36,8 +36,8 @@ Widget elementos(BuildContext context, Widget widget, double altura,
           : widget,
       decoration: BoxDecoration(
           color: ruta == 'contactos' || tipo.contains('MPC')
-              ? Colors.green
               /** es un contacto o grupo de contacto */
+              ? Colors.green
               : Theme.of(context).primaryColor,
           borderRadius: BorderRadius.circular(20.0),
           border: Border.all(color: Colors.white)),

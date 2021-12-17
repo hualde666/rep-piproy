@@ -11,8 +11,8 @@ class ContactosProvider with ChangeNotifier {
   }
   ContactosProvider._internal() {
     _listaContactos = [];
-    getcontactos();
-    notifyListeners();
+    // getcontactos();
+    // notifyListeners();
   }
   List<Contact> _listaContactos;
   Contact _contacto;
@@ -28,6 +28,12 @@ class ContactosProvider with ChangeNotifier {
 
   get listaContactos {
     return _listaContactos;
+  }
+
+  obtenerContacto(String nombre) async {
+    List<Contact> listaContacto =
+        await ContactsService.getContacts(query: nombre);
+    return listaContacto;
   }
 
   borrarDeListaContacto(Contact contacto) {

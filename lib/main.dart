@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     DbTiposAplicaciones.db.database;
     // EstadoProvider estadoProvider = new EstadoProvider();
-    ContactosProvider contactosProvider = new ContactosProvider();
+    // ContactosProvider contactosProvider = new ContactosProvider();
     // AplicacionesProvider aplicacionesProvider = new AplicacionesProvider();
 
     SystemChrome.setPreferredOrientations(

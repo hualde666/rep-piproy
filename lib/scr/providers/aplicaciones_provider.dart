@@ -187,6 +187,52 @@ class AplicacionesProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  obtenerApi(String nombre) async {
+    // Application api;
+    if (nombre != '') {
+      Application api = await DeviceApps.getApp(nombre, true);
+      return api;
+    }
+  }
+
+  obtenerListaApiGrupo(String grupo) async {
+    if (grupo == 'Todas') {
+      // ******* obtengo Todas las app del celular */
+      if (categoryApi['Todas'].isEmpty) {
+        final resp1 = await DeviceApps.getInstalledApplications(
+            includeAppIcons: true,
+            includeSystemApps: true,
+            onlyAppsWithLaunchIntent: true);
+
+        categoryApi['Todas'].addAll(resp1);
+      }
+    } else {
+      if (categoryApi[grupo].isEmpty) {
+        //*** obtengo lista de la BD tosas las apps del grupo */
+        List<ApiTipos> lista =
+            await DbTiposAplicaciones.db.obtenerAppsGrupo(grupo);
+        for (var i = 0; i < lista.length; i++) {
+          if (lista[i].nombre != '') {
+            final api = await DeviceApps.getApp(lista[i].nombre, true);
+
+            if (api != null) {
+              if (!categoryApi[grupo].contains(api)) {
+                categoryApi[grupo].add(api);
+              }
+            }
+          }
+        }
+      }
+    }
+
+    if (categoryApi[grupo] != null) {
+      categoryApi[grupo].sort((a, b) {
+        return a.appName.toLowerCase().compareTo(b.appName.toLowerCase());
+      });
+      return categoryApi[grupo];
+    }
+  }
+
   //******************************* */
   // agrega elemnto al menu principal
   agregarMenu(String tipo) {
@@ -218,16 +264,6 @@ class AplicacionesProvider with ChangeNotifier {
     // obtengo lista de api por categorias
 
     if (this._cargando) {
-      //******* obtengo Todas las app del celular */
-      final resp1 = await DeviceApps.getInstalledApplications(
-          includeAppIcons: true,
-          includeSystemApps: true,
-          onlyAppsWithLaunchIntent: true);
-      if (resp1.isNotEmpty && categoryApi['Todas'].isEmpty) {
-        categoryApi['Todas'].addAll(resp1);
-      }
-
-      //*******   obtener organizacion de apps y contactos */
       final resp = await DbTiposAplicaciones.db.getAllRegistros();
 
       if (resp.isNotEmpty) {
@@ -239,7 +275,7 @@ class AplicacionesProvider with ChangeNotifier {
     return [];
   }
 
-  ordenarListasMenu(List<ApiTipos> resp2) {
+  ordenarListasMenu(List<ApiTipos> resp2) async {
     for (var i = 0; i < resp2.length; i++) {
       switch (resp2[i].grupo) {
         case 'MPA':
@@ -276,17 +312,16 @@ class AplicacionesProvider with ChangeNotifier {
                 categoryApi[resp2[i].grupo] = [];
               }
 
-              final String nombreApi = resp2[i].nombre;
-              if (nombreApi != "") {
-                final Application api = this.categoryApi['Todas'].firstWhere(
-                    (element) => element.appName == nombreApi,
-                    orElse: () => null);
-                if (api != null) {
-                  if (!categoryApi[resp2[i].grupo].contains(api)) {
-                    categoryApi[resp2[i].grupo].add(api);
-                  }
-                }
-              }
+              // final String nombreApi = resp2[i].nombre;
+              // if (nombreApi != "") {
+              //   final api = await DeviceApps.getApp(nombreApi);
+
+              //   if (api != null) {
+              //     if (!categoryApi[resp2[i].grupo].contains(api)) {
+              //       categoryApi[resp2[i].grupo].add(api);
+              //     }
+              //   }
+              // }
             }
 
             /// grupo de contactos
@@ -337,12 +372,12 @@ class AplicacionesProvider with ChangeNotifier {
 
     // ordenar  alfabeticamente Todas las api por categoria
     //
-    for (var i = 0; i < _apigrupos.length; i++) {
-      if (categoryApi[_apigrupos[i]].isNotEmpty) {
-        categoryApi[_apigrupos[i]].sort((a, b) {
-          return a.appName.toLowerCase().compareTo(b.appName.toLowerCase());
-        });
-      }
-    }
+    // for (var i = 0; i < _apigrupos.length; i++) {
+    //   if (categoryApi[_apigrupos[i]].isNotEmpty) {
+    //     categoryApi[_apigrupos[i]].sort((a, b) {
+    //       return a.appName.toLowerCase().compareTo(b.appName.toLowerCase());
+    //     });
+    //   }
+    // }
   }
 }
