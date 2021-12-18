@@ -36,7 +36,7 @@ class _Home2PageState extends State<Home2Page> {
   @override
   void initState() {
     super.initState();
-    //  cargarMenu();
+    // cargarMenu();
     //  _scrollController = ScrollController()
     //    ..addListener(() {
 
@@ -55,11 +55,13 @@ class _Home2PageState extends State<Home2Page> {
           .ordenarListasMenu(lista);
       lista2 = await detalle(context, apiProvider.listaMenu);
     }
-    return lista2;
+    return apiProvider.listaMenu;
   }
 
   @override
   Widget build(BuildContext context) {
+    final apiProvider = Provider.of<AplicacionesProvider>(context);
+    final lista = apiProvider.listaMenu;
     return SafeArea(
       child: Scaffold(
         appBar: PreferredSize(
@@ -68,7 +70,7 @@ class _Home2PageState extends State<Home2Page> {
         ),
         // backgroundColor: Theme.of(context).primaryColor,
         body: FutureBuilder(
-            future: cargarMenu(),
+            future: detalle(context, lista),
             builder: (BuildContext context, AsyncSnapshot snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return Center(
@@ -304,39 +306,6 @@ class _Home2PageState extends State<Home2Page> {
             ]),
             encabezadoIcon(context),
           ]),
-      //
-      // SizedBox(height: 3),
-      // Container(
-      //     child: Row(
-      //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      //   children: [
-
-      //     // botonHomeHeader(context),
-      //     SizedBox(
-      //       height: 10,
-      //     ),
-      //     Container(
-      //       //  width: 250,
-      //       child: Center(
-      //         child: Text(
-      //           'Vitalfon',
-      //           style: TextStyle(
-      //               color: Theme.of(context).primaryColor, fontSize: 45),
-      //         ),
-      //       ),
-      //     ),
-      //     // botonBackHeader(context)
-      //   ],
-      // )),
-      // Ho
-      // mainAxisAlignment: MainAxisAlignment.spaceAround,
-      // children: [
-      //   botonBackHeader(context),
-      //   botonRojoHeader(context),
-      //   botonHomeHeader(context),
-      // ],
-
-      // encabezadoIcon(context),
 
       decoration: new BoxDecoration(
           gradient: LinearGradient(
@@ -358,19 +327,6 @@ class _Home2PageState extends State<Home2Page> {
       //  ),
     );
   }
-}
-
-Widget botonInicio() {
-  return GestureDetector(
-    onTap: () {},
-    child: Container(
-      child:
-          Image(image: AssetImage('assets/boton_home.png'), fit: BoxFit.cover),
-      height: 100,
-      width: 100,
-      //color: Colors.red),
-    ),
-  );
 }
 
 Widget elementoApi2(BuildContext context, Application api) {

@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 
 import 'package:piproy/scr/providers/db_provider.dart';
 import 'package:piproy/scr/models/api_tipos.dart';
+import 'package:piproy/scr/widgets/elemntos.dart';
+import 'package:piproy/scr/widgets/pila_tiempo_clima.dart';
 
 class AplicacionesProvider with ChangeNotifier {
   static final AplicacionesProvider _aplicacionesProvider =
@@ -23,13 +25,22 @@ class AplicacionesProvider with ChangeNotifier {
   Map<String, List<Application>> categoryApi = {};
   List<String> listaMenu = [];
   Map<String, List<String>> categoryContact = {};
-
+  List<Widget> _listaOpciones = [];
   List<String> _contactgrupos = [
     'Todos',
   ];
   AplicacionesProvider._internal() {
     this.categoryApi['Todas'] = [];
     this.categoryContact['Todos'] = [];
+    cargarCategorias();
+  }
+//***********************************Widgets delmenu principal */
+  inicializaMP() {
+    // _menuPrincipal.addAll();
+  }
+
+  get menuPrincipal {
+    //return this._menuPrincipal;
   }
 
   agregarApiGrupo(String grupo) {
@@ -260,7 +271,7 @@ class AplicacionesProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<List<ApiTipos>> cargarCategorias() async {
+  cargarCategorias() async {
     // obtengo lista de api por categorias
 
     if (this._cargando) {
@@ -269,10 +280,9 @@ class AplicacionesProvider with ChangeNotifier {
       if (resp.isNotEmpty) {
         final resp2 = resp.map((s) => ApiTipos.fromJson(s)).toList();
         this._cargando = false;
-        return resp2;
+        ordenarListasMenu(resp2);
       }
     }
-    return [];
   }
 
   ordenarListasMenu(List<ApiTipos> resp2) async {

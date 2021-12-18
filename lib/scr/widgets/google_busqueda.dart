@@ -41,7 +41,8 @@ Widget googleBusqueda(BuildContext context) {
             border:
                 Border.all(color: Theme.of(context).primaryColor, width: 3.0))),
     onTap: () {
-      final apiProvider = Provider.of<AplicacionesProvider>(context);
+      final apiProvider =
+          Provider.of<AplicacionesProvider>(context, listen: false);
       // final listaApi = apiProvider.categoryApi['Todas'];
       // final Application api = listaApi.firstWhere(
       //     (element) =>
