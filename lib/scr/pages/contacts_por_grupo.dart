@@ -22,6 +22,7 @@ class _ContactsPorGrupoPageState extends State<ContactsPorGrupoPage> {
   bool hayBusqueda = false;
   bool buscar = false;
   TextEditingController _searchController = TextEditingController();
+
   List<Contact> listaContactosFiltro;
   @override
   void initState() {
@@ -70,35 +71,50 @@ class _ContactsPorGrupoPageState extends State<ContactsPorGrupoPage> {
   @override
   Widget build(BuildContext context) {
     bool hayBusqueda = _searchController.text.isNotEmpty;
-    final contactosProvaide = new ContactosProvider();
+
     final apiProvider = Provider.of<AplicacionesProvider>(context);
 
     final grupo = apiProvider.tipoSeleccion;
-    listaGrupo = [];
-    if (hayBusqueda) {
-      listaGrupo.addAll(listaContactosFiltro);
-    } else {
-      if (grupo == 'Todos') {
-        listaGrupo.addAll(contactosProvaide.listaContactos);
+
+    Future<List<Contact>> obtenerListaGrupo() async {
+      if (hayBusqueda) {
+        return listaContactosFiltro;
       } else {
-        listaGrupo.addAll(generarLista(apiProvider.categoryContact[grupo],
-            contactosProvaide.listaContactos));
+        List<Contact> lista =
+            await apiProvider.obtenerListaContactosGrupo(grupo);
+        listaGrupo.addAll(lista);
+        return lista;
       }
     }
-
-    List<Widget> listaContact = List.generate(listaGrupo.length,
-        (i) => TarjetaContacto2(context, listaGrupo[i], true));
 
     return SafeArea(
         child: Scaffold(
       appBar: busqueda(context),
-      body: Container(
-        padding: EdgeInsets.only(bottom: 50),
-        child: ListView(
-          padding: EdgeInsets.only(bottom: 68),
-          children: listaContact,
-        ),
-      ),
+      body: FutureBuilder(
+          future: obtenerListaGrupo(),
+          builder: (BuildContext context, AsyncSnapshot snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            } else {
+              if (snapshot.hasData) {
+                // snapshot contiene lista de displayname de los contactos por grupo
+
+                List<Widget> listaContact = List.generate(snapshot.data.length,
+                    (i) => TarjetaContacto2(context, snapshot.data[i], true));
+                return Container(
+                  padding: EdgeInsets.only(bottom: 50),
+                  child: ListView(
+                    padding: EdgeInsets.only(bottom: 68),
+                    children: listaContact,
+                  ),
+                );
+              } else {
+                return Container();
+              }
+            }
+          }),
       resizeToAvoidBottomInset: false,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: grupo != 'Todos'

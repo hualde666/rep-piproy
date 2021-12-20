@@ -26,14 +26,18 @@ class ContactosProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  get listaContactos {
+  get listaContactos async {
+    if (_listaContactos == []) {
+      getcontactos();
+    }
     return _listaContactos;
   }
 
   obtenerContacto(String nombre) async {
-    List<Contact> listaContacto =
+    Iterable<Contact> listaContacto =
         await ContactsService.getContacts(query: nombre);
-    return listaContacto;
+
+    return listaContacto.firstWhere((element) => element.displayName == nombre);
   }
 
   borrarDeListaContacto(Contact contacto) {
@@ -44,6 +48,7 @@ class ContactosProvider with ChangeNotifier {
 
   getcontactos() async {
     // List<Contact> _lista = [];
+
     final resp = await Permission.contacts.request();
 
     if (resp == PermissionStatus.granted) {
@@ -51,6 +56,8 @@ class ContactosProvider with ChangeNotifier {
       _listaContactos.addAll(_contactos
           .where((contac) => contac.phones.isEmpty == false)
           .toList());
+      return _listaContactos;
     }
+    return [];
   }
 }

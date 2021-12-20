@@ -70,9 +70,7 @@ class _BotonRojoPageState extends State<BotonRojoPage> {
       if (apiProvider.categoryContact['Emergencia'].isNotEmpty) {
         //*** con los nombres de la lista de contactos genero lista con los datos de cada contacto */
         listaContactos = [];
-        listaContactos.addAll((generarLista(
-            apiProvider.categoryContact['Emergencia'],
-            contactosProvaide.listaContactos)));
+        // listaContactos.addAll(apiProvider.categoryContact['Emergencia']);
       }
     }
 

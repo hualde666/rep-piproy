@@ -61,6 +61,7 @@ class _Home2PageState extends State<Home2Page> {
   @override
   Widget build(BuildContext context) {
     final apiProvider = Provider.of<AplicacionesProvider>(context);
+
     final lista = apiProvider.listaMenu;
     return SafeArea(
       child: Scaffold(
@@ -93,6 +94,7 @@ class _Home2PageState extends State<Home2Page> {
   }
 
   detalle(BuildContext context, List<String> listaMenu) async {
+    final contactosProvider = Provider.of<ContactosProvider>(context);
     List<Widget> listaOpciones = [
       SizedBox(height: 8.0),
       elementos(context, PilaTimpoClima(), 200, '', ''),
@@ -117,15 +119,11 @@ class _Home2PageState extends State<Home2Page> {
         } else {
           if (listaMenu[i].contains('MPA')) {
             String nombre = listaMenu[i].substring(3);
-            final contactosProvider = Provider.of<ContactosProvider>(context);
-            final List<Contact> listaContacto =
-                contactosProvider.listaContactos;
 
             //*********************************************************** */
             /****************** un contacto MPA*/
-            final Contact contacto = listaContacto.firstWhere(
-                (element) => element.displayName == nombre,
-                orElse: () => null);
+            final Contact contacto =
+                await contactosProvider.obtenerContacto(nombre);
             if (contacto != null) {
               listaOpciones.add(TarjetaContacto2(context, contacto, false));
             }

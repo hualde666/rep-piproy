@@ -34,27 +34,10 @@ class _SelectContactsPageState extends State<SelectContactsPage> {
     super.dispose();
   }
 
-  generarLista(List<String> listaNombre, List<Contact> listaContactos) {
-    listaGrupo = [];
-    if (listaNombre.isNotEmpty) {
-      for (int i = 0; i < listaNombre.length; i++) {
-        final contacto = listaContactos.firstWhere(
-            (element) => element.displayName == listaNombre[i],
-            orElse: () => null);
-        if (contacto != null) {
-          listaGrupo.add(contacto);
-        }
-      }
-    }
-
-    return listaGrupo;
-  }
-
   filtrarContactos() {
-    final contactosProvaide = new ContactosProvider();
     List<Contact> _contactos = [];
 
-    _contactos.addAll(contactosProvaide.listaContactos);
+    _contactos.addAll(listaGrupo);
     if (_searchController.text.isNotEmpty) {
       _contactos.retainWhere((contacto) {
         String busquedaMinuscula = _searchController.text.toLowerCase();
@@ -70,18 +53,27 @@ class _SelectContactsPageState extends State<SelectContactsPage> {
   @override
   Widget build(BuildContext context) {
     final apiProvider = Provider.of<AplicacionesProvider>(context);
-    final contactosProvaide = new ContactosProvider();
+
     final grupo = apiProvider.tipoSeleccion;
     // final listaGrupo = generarLista(
     //     apiProvider.categoryContact[grupo], contactosProvaide.listaContactos);
 
-    final List<Contact> listaTodos = [];
     bool hayBusqueda = _searchController.text.isNotEmpty;
-    if (hayBusqueda) {
-      listaTodos.addAll(listaContactosFiltro);
-    } else {
-      listaTodos.addAll(contactosProvaide.listaContactos);
+
+    Future<List<Contact>> obtenerListaGrupo() async {
+      if (hayBusqueda) {
+        return listaContactosFiltro;
+      } else {
+        if (listaGrupo.isEmpty) {
+          List<Contact> lista =
+              await apiProvider.obtenerListaContactosGrupo('Todos');
+          listaGrupo.addAll(lista);
+        }
+
+        return listaGrupo;
+      }
     }
+
     return SafeArea(
         child: Scaffold(
             appBar: PreferredSize(
@@ -89,18 +81,32 @@ class _SelectContactsPageState extends State<SelectContactsPage> {
                     Size.fromHeight(240.0), // here the desired height
                 child: busqueda(context)),
             resizeToAvoidBottomInset: false,
-            body: Container(
-              padding: EdgeInsets.only(bottom: 55),
-              child: ListView.builder(
-                  padding: EdgeInsets.only(bottom: 170),
-                  itemCount: listaTodos.length,
-                  itemBuilder: (context, i) {
-                    return Contacto(
-                        contactoSelec: listaTodos[i],
-                        apiProvider: apiProvider,
-                        grupo: grupo);
-                  }),
-            ),
+            body: FutureBuilder(
+                future: obtenerListaGrupo(),
+                builder: (BuildContext context, AsyncSnapshot snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  } else {
+                    if (snapshot.hasData) {
+                      return Container(
+                        padding: EdgeInsets.only(bottom: 55),
+                        child: ListView.builder(
+                            padding: EdgeInsets.only(bottom: 170),
+                            itemCount: snapshot.data.length,
+                            itemBuilder: (context, i) {
+                              return Contacto(
+                                  contactoSelec: snapshot.data[i],
+                                  apiProvider: apiProvider,
+                                  grupo: grupo);
+                            }),
+                      );
+                    } else {
+                      return Container();
+                    }
+                  }
+                }),
             floatingActionButtonLocation:
                 FloatingActionButtonLocation.centerDocked,
             floatingActionButton: FloatingActionButton.extended(
@@ -217,7 +223,7 @@ class _ContactoState extends State<Contacto> {
         height: 96.0,
         decoration: BoxDecoration(
             color: widget.apiProvider.categoryContact[widget.grupo]
-                    .contains(widget.contactoSelec.displayName)
+                    .contains(widget.contactoSelec)
                 ? Theme.of(context).primaryColor
                 : Colors.grey[700],
             borderRadius: BorderRadius.circular(20.0),
@@ -229,10 +235,10 @@ class _ContactoState extends State<Contacto> {
       ),
       onTap: () {
         if (widget.apiProvider.categoryContact[widget.grupo]
-            .contains(widget.contactoSelec.displayName)) {
+            .contains(widget.contactoSelec)) {
           //eliminar
           Provider.of<AplicacionesProvider>(context, listen: false)
-              .eliminarContacto(widget.grupo, widget.contactoSelec.displayName);
+              .eliminarContacto(widget.grupo, widget.contactoSelec);
 
           DbTiposAplicaciones.db
               .deleteApi(widget.grupo, widget.contactoSelec.displayName);

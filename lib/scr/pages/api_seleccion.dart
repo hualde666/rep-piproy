@@ -164,9 +164,8 @@ class _WidgetApiState extends State<WidgetApi> {
   Widget build(BuildContext context) {
     print(widget.listaNueva);
     final selecionada = widget.listaNueva.contains(widget.api);
-    Color color = selecionada
-        ? Theme.of(context).primaryColor
-        : Color.fromRGBO(55, 57, 84, 0.6);
+    Color color =
+        selecionada ? Theme.of(context).primaryColor : Colors.grey[700];
     return GestureDetector(
       onTap: () {
         if (widget.api.packageName != "") {
@@ -195,6 +194,9 @@ class _WidgetApiState extends State<WidgetApi> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
+            SizedBox(
+              width: 5,
+            ),
             Image.memory(
               (widget.api as ApplicationWithIcon).icon,
               width: 100,

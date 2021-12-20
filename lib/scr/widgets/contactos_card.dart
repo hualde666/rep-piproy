@@ -12,6 +12,7 @@ class TarjetaContacto2 extends StatefulWidget {
   TarjetaContacto2(this.context, this.contacto, this.envio);
   final BuildContext context;
   final Contact contacto;
+  //**** boleana envio true el contacto tiene la opcion de enviar al menu principal */
   final bool envio;
 
   @override
@@ -250,6 +251,7 @@ Widget _nombreContacto(
         context: context,
         builder: (context) => AlertDialog(
           title: Text(contacto.displayName,
+              textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 30,
               )),
@@ -264,14 +266,14 @@ Widget _nombreContacto(
           //                   fontSize: 25,
           //                 )),
           // shape: CircleBorder(),
-          elevation: 14.0,
-          actionsPadding: EdgeInsets.symmetric(horizontal: 30.0),
+
+          actionsAlignment: MainAxisAlignment.spaceAround,
           actions: [
             ElevatedButton(
                 onPressed: () {
                   /// elina contacto de pantalla
                   Provider.of<AplicacionesProvider>(context, listen: false)
-                      .eliminarContacto(grupo, contacto.displayName);
+                      .eliminarContacto(grupo, contacto);
 
                   DbTiposAplicaciones.db.deleteApi(
                       grupo, contacto.displayName); //elimina api de BD
@@ -302,6 +304,7 @@ Widget _nombreContacto(
         context: context,
         builder: (context) => AlertDialog(
               title: Text(contacto.displayName,
+                  textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 30,
                   )),

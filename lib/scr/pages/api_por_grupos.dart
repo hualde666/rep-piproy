@@ -173,7 +173,7 @@ class ElementoApi extends StatelessWidget {
                     height: 50,
                     width: 150,
                     child: Text(
-                      api.packageName,
+                      api.appName,
                       textAlign: TextAlign.center,
                       style: TextStyle(fontSize: 20),
                     ),
