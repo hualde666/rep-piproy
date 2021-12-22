@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 
 import 'package:piproy/scr/pages/contact_seleccion.dart';
 import 'package:piproy/scr/providers/aplicaciones_provider.dart';
-import 'package:piproy/scr/providers/contactos_provider.dart';
 
 import 'package:piproy/scr/widgets/contactos_card.dart';
 
@@ -37,22 +36,6 @@ class _ContactsPorGrupoPageState extends State<ContactsPorGrupoPage> {
     super.dispose();
   }
 
-  generarLista(List<String> listaNombre, List<Contact> listaContactos) {
-    listaGrupo = [];
-    if (listaNombre.isNotEmpty) {
-      for (int i = 0; i < listaNombre.length; i++) {
-        final contacto = listaContactos.firstWhere(
-            (element) => element.displayName == listaNombre[i],
-            orElse: () => null);
-        if (contacto != null) {
-          listaGrupo.add(contacto);
-        }
-      }
-    }
-
-    return listaGrupo;
-  }
-
   filtrarContactos() {
     List<Contact> _contactos = [];
     _contactos.addAll(listaGrupo);
@@ -80,10 +63,14 @@ class _ContactsPorGrupoPageState extends State<ContactsPorGrupoPage> {
       if (hayBusqueda) {
         return listaContactosFiltro;
       } else {
-        List<Contact> lista =
-            await apiProvider.obtenerListaContactosGrupo(grupo);
-        listaGrupo.addAll(lista);
-        return lista;
+        if (listaGrupo.isEmpty) {
+          List<Contact> lista =
+              await apiProvider.obtenerListaContactosGrupo(grupo);
+          listaGrupo = [];
+          listaGrupo.addAll(lista);
+        }
+
+        return listaGrupo;
       }
     }
 

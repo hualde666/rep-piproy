@@ -26,13 +26,18 @@ class ApiSeleccionPage extends StatelessWidget {
       List<Application> lista = await apiProvider.obtenerListaApiGrupo(grupo);
 
       if (lista != null) {
+        listaVieja = [];
         listaVieja.addAll(lista);
+        listaNueva = [];
         listaNueva.addAll(listaVieja);
       }
       List<Application> lista2 =
           await apiProvider.obtenerListaApiGrupo('Todas');
       if (lista2 != null) {
-        listaTodas.addAll(lista2);
+        if (listaTodas.isEmpty) {
+          listaTodas.addAll(lista2);
+        }
+
         List<Widget> listaApi = List.generate(
             listaTodas.length,
             (i) => WidgetApi(

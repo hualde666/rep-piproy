@@ -45,27 +45,11 @@ class _BotonRojoPageState extends State<BotonRojoPage> {
     return;
   }
 
-  generarLista(List<String> listaNombre, List<Contact> listaContactos) {
-    List<Contact> listaGrupo = [];
-
-    if (listaNombre.isNotEmpty) {
-      for (int i = 0; i < listaNombre.length; i++) {
-        final contacto = listaContactos.firstWhere(
-            (element) => element.displayName == listaNombre[i],
-            orElse: () => null);
-        if (contacto != null) {
-          listaGrupo.add(contacto);
-        }
-      }
-    }
-
-    return listaGrupo;
-  }
-
   @override
   Widget build(BuildContext context) {
     final apiProvider = Provider.of<AplicacionesProvider>(context);
-    final contactosProvaide = Provider.of<ContactosProvider>(context);
+
+    List<Contact> listaGrupo = [];
     if (apiProvider.contactgrupos.contains('Emergencia')) {
       if (apiProvider.categoryContact['Emergencia'].isNotEmpty) {
         //*** con los nombres de la lista de contactos genero lista con los datos de cada contacto */
@@ -73,15 +57,37 @@ class _BotonRojoPageState extends State<BotonRojoPage> {
         // listaContactos.addAll(apiProvider.categoryContact['Emergencia']);
       }
     }
+    Future<List<Contact>> obtenerListaGrupo() async {
+      if (listaGrupo.isEmpty) {
+        List<Contact> lista =
+            await apiProvider.obtenerListaContactosGrupo('Emergencia');
+        listaGrupo.addAll(lista);
+      }
+      return listaGrupo;
+    }
 
     return SafeArea(
       child: Scaffold(
         appBar:
             headerApp(context, 'Emergencia', Text(''), 0.0, false, 'BotonRojo'),
         //appBar: headerEmergencia(context),
-        body: listaContactos.isNotEmpty
-            ? conListaEmergenia(context, listaContactos)
-            : sinListaEmergenia(context),
+        body: FutureBuilder(
+            future: obtenerListaGrupo(),
+            builder: (BuildContext context, AsyncSnapshot snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              } else {
+                if (snapshot.hasData) {
+                  // snapshot contiene lista de displayname de los contactos por grupo
+                  return conListaEmergenia(context, snapshot.data);
+                } else {
+                  return sinListaEmergenia(context);
+                }
+              }
+            }),
+
         // floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
         // floatingActionButton: BotonFlotante(pagina: 'botonRojo'),
       ),

@@ -64,11 +64,10 @@ class _SelectContactsPageState extends State<SelectContactsPage> {
       if (hayBusqueda) {
         return listaContactosFiltro;
       } else {
-        if (listaGrupo.isEmpty) {
-          List<Contact> lista =
-              await apiProvider.obtenerListaContactosGrupo('Todos');
-          listaGrupo.addAll(lista);
-        }
+        List<Contact> lista =
+            await apiProvider.obtenerListaContactosGrupo('Todos');
+
+        listaGrupo.addAll(lista);
 
         return listaGrupo;
       }
@@ -90,16 +89,19 @@ class _SelectContactsPageState extends State<SelectContactsPage> {
                     );
                   } else {
                     if (snapshot.hasData) {
+                      List<Widget> listaContact = List.generate(
+                          snapshot.data.length,
+                          (i) => Contacto(
+                              contactoSelec: snapshot.data[i],
+                              apiProvider: apiProvider,
+                              grupo: grupo));
                       return Container(
                         padding: EdgeInsets.only(bottom: 55),
                         child: ListView.builder(
                             padding: EdgeInsets.only(bottom: 170),
                             itemCount: snapshot.data.length,
                             itemBuilder: (context, i) {
-                              return Contacto(
-                                  contactoSelec: snapshot.data[i],
-                                  apiProvider: apiProvider,
-                                  grupo: grupo);
+                              return listaContact[i];
                             }),
                       );
                     } else {

@@ -95,11 +95,16 @@ class _Home2PageState extends State<Home2Page> {
 
   detalle(BuildContext context, List<String> listaMenu) async {
     final contactosProvider = Provider.of<ContactosProvider>(context);
+    final apiProvider =
+        Provider.of<AplicacionesProvider>(context, listen: false);
+
+    final apiGoogle =
+        await apiProvider.obtenerApi('com.google.android.googlequicksearchbox');
     List<Widget> listaOpciones = [
       SizedBox(height: 8.0),
       elementos(context, PilaTimpoClima(), 200, '', ''),
       SizedBox(height: 8),
-      googleBusqueda(context),
+      googleBusqueda(context, apiGoogle),
       SizedBox(height: 8),
       //SizedBox(height: 5),
     ];
