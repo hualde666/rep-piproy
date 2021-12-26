@@ -131,6 +131,7 @@ class AplicacionesProvider with ChangeNotifier {
   // elimina contacto de grupo
   eliminarContacto(String grupo, Contact contacto) {
     categoryContact[grupo].remove(contacto);
+
     notifyListeners();
   }
 
@@ -273,6 +274,7 @@ class AplicacionesProvider with ChangeNotifier {
       });
       return categoryContact[grupo];
     }
+    notifyListeners();
   }
 
   //******************************* */

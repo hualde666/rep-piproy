@@ -43,20 +43,12 @@ class DbTiposAplicaciones {
     return resp;
   }
 
-  Future<int> deleteApi(String grupo, String nombre) async {
+  deleteApi(String grupo, String nombre) async {
     final db = await database;
+    await db.rawDelete('DELETE FROM MenuGrupos WHERE nombre = ? AND grupo = ?',
+        [nombre, grupo]);
 
-    ///
-    /// OJO: mejorar el query para que devuelva un solo reg
-    ///
-    final resp =
-        await db.query('MenuGrupos', where: ' nombre= ?', whereArgs: [nombre]);
-    final resp2 = resp.map((s) => ApiTipos.fromJson(s)).toList();
-    final row = resp2.firstWhere((element) => element.grupo == grupo);
-    final result =
-        await db.delete('MenuGrupos', where: 'id=?', whereArgs: [row.id]);
-
-    return result;
+    return;
   }
 
   Future modificarNombre(String nombreViejo, String nombreNuevo) async {

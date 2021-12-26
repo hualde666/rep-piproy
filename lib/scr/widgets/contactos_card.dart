@@ -271,18 +271,18 @@ Widget _nombreContacto(
           actions: [
             ElevatedButton(
                 onPressed: () {
+                  DbTiposAplicaciones.db.deleteApi(
+                      grupo, contacto.displayName); //elimina api de BD
                   /// elina contacto de pantalla
                   Provider.of<AplicacionesProvider>(context, listen: false)
                       .eliminarContacto(grupo, contacto);
 
-                  DbTiposAplicaciones.db.deleteApi(
-                      grupo, contacto.displayName); //elimina api de BD
                   // elimino contacto del celular
                   if (grupo == 'Todos') {
                     _eliminarContacto(contacto);
                     final contactosProvider = new ContactosProvider();
                     contactosProvider.borrarDeListaContacto(contacto);
-                  }
+                  } else {}
 
                   Navigator.pop(context);
                 },

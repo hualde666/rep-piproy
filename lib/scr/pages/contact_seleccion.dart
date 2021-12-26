@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 
 import 'package:piproy/scr/models/api_tipos.dart';
 import 'package:piproy/scr/providers/aplicaciones_provider.dart';
-import 'package:piproy/scr/providers/contactos_provider.dart';
 
 import 'package:piproy/scr/providers/db_provider.dart';
 
@@ -98,7 +97,7 @@ class _SelectContactsPageState extends State<SelectContactsPage> {
                       return Container(
                         padding: EdgeInsets.only(bottom: 55),
                         child: ListView.builder(
-                            padding: EdgeInsets.only(bottom: 170),
+                            padding: EdgeInsets.only(bottom: 220),
                             itemCount: snapshot.data.length,
                             itemBuilder: (context, i) {
                               return listaContact[i];
@@ -125,77 +124,77 @@ class _SelectContactsPageState extends State<SelectContactsPage> {
   }
 
   Widget busqueda(BuildContext context) {
-    return AppBar(
-      // backgroundColor: Color.fromRGBO(55, 57, 84, 1.0),
-      automaticallyImplyLeading: false,
-      flexibleSpace: Container(
-        decoration: new BoxDecoration(
-            gradient: LinearGradient(
-                colors: [
-              Theme.of(context).primaryColor,
+    return
+        //AppBar(
+        // backgroundColor: Color.fromRGBO(55, 57, 84, 1.0),
+        // automaticallyImplyLeading: false,
+        // flexibleSpace:
+        Container(
+            decoration: new BoxDecoration(
+                gradient: LinearGradient(
+                    colors: [
+                  Theme.of(context).primaryColor,
 
-              Colors.white,
-              Theme.of(context).scaffoldBackgroundColor,
-              // Colors.white,
-              // Colors.orange,
-              // Color.fromRGBO(55, 57, 84, 1.0)
-            ],
-                stops: [
-              0.2,
-              0.4,
-              0.7
-            ],
-                begin: FractionalOffset.topCenter,
-                end: FractionalOffset.bottomCenter)),
-        // margin: EdgeInsets.only(top: 5, left: 5.0, right: 5.0),
-        height: 250.0,
-        child: Column(
-          // crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            tresBotonesHeader(context, true, 'ContactoSeleccion'),
-            Text(
-              'Seleccion de Contactos',
-              style: TextStyle(color: Colors.white, fontSize: 25),
-            ),
-            TextField(
-              style:
-                  TextStyle(fontSize: 25.0, color: Colors.white54, height: 1.0),
-              keyboardType: TextInputType.text,
-              controller: _searchController,
-              // autofocus: true,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(
-                    //borderSide: BorderSide(color: Colors.amber),
-                    borderRadius: BorderRadius.all(Radius.circular(25.0))),
-                labelStyle: TextStyle(color: Colors.white38, fontSize: 20),
-                labelText: 'Buscar Contacto :',
-                suffixIcon: _searchController.text.isNotEmpty
-                    ? IconButton(
-                        onPressed: () {
-                          setState(() {
-                            _searchController.clear();
-                            buscar = true;
-                          });
-                        },
-                        icon: Icon(
-                          Icons.clear,
-                          color: Colors.white,
-                          size: 30,
-                        ))
-                    : Icon(
-                        Icons.search,
-                        color: Colors.white,
-                        size: 30,
-                      ),
-                focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.white),
-                    borderRadius: BorderRadius.all(Radius.circular(25.0))),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
+                  Colors.white,
+                  Theme.of(context).scaffoldBackgroundColor,
+                  // Colors.white,
+                  // Colors.orange,
+                  // Color.fromRGBO(55, 57, 84, 1.0)
+                ],
+                    stops: [
+                  0.2,
+                  0.4,
+                  0.7
+                ],
+                    begin: FractionalOffset.topCenter,
+                    end: FractionalOffset.bottomCenter)),
+            // margin: EdgeInsets.only(top: 5, left: 5.0, right: 5.0),
+            height: 250.0,
+            child: Column(
+              // crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                tresBotonesHeader(context, true, 'ContactoSeleccion'),
+                Text(
+                  'Seleccion de Contactos',
+                  style: TextStyle(color: Colors.white, fontSize: 25),
+                ),
+                TextField(
+                  style: TextStyle(
+                      fontSize: 25.0, color: Colors.white54, height: 1.0),
+                  keyboardType: TextInputType.text,
+                  controller: _searchController,
+                  // autofocus: true,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                        //borderSide: BorderSide(color: Colors.amber),
+                        borderRadius: BorderRadius.all(Radius.circular(25.0))),
+                    labelStyle: TextStyle(color: Colors.white38, fontSize: 20),
+                    labelText: 'Buscar Contacto :',
+                    suffixIcon: _searchController.text.isNotEmpty
+                        ? IconButton(
+                            onPressed: () {
+                              setState(() {
+                                _searchController.clear();
+                                buscar = true;
+                              });
+                            },
+                            icon: Icon(
+                              Icons.clear,
+                              color: Colors.white,
+                              size: 30,
+                            ))
+                        : Icon(
+                            Icons.search,
+                            color: Colors.white,
+                            size: 30,
+                          ),
+                    focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.white),
+                        borderRadius: BorderRadius.all(Radius.circular(25.0))),
+                  ),
+                ),
+              ],
+            ));
   }
 }
 

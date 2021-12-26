@@ -131,6 +131,7 @@ class _Home2PageState extends State<Home2Page> {
                 await contactosProvider.obtenerContacto(nombre);
             if (contacto != null) {
               listaOpciones.add(TarjetaContacto2(context, contacto, false));
+              listaOpciones.add(SizedBox(height: 8));
             }
           } else {
             //******************************************************* */
