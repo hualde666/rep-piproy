@@ -31,6 +31,7 @@ import android.hardware.camera2.CameraManager
 import 	android.net.wifi.WifiNetworkSuggestion
 import android.net.wifi.WifiManager
 import android.net.Uri
+import 	android.telephony.TelephonyManager
 class MainActivity: FlutterActivity() {
     
       private val CHANNEL = "app.piproy.channel/hualdemirene@gmail.com"
@@ -64,14 +65,10 @@ class MainActivity: FlutterActivity() {
                   if (call.method == "wifi") {
                     
                     val res:Boolean = getWifi()
-                    // if (res== true){
+                    
                       result.success(res)
   
-                    // }
-                    // else
-                    // {
-                    //   result.success(0)
-                    // }
+                  
     
                 }
                 if (call.method == "onoffwifi") {
@@ -118,11 +115,7 @@ class MainActivity: FlutterActivity() {
                     }
                   }
                  
-                  // else{
-        
-                  // println("**** NO IMPLEMENTADO ****")
-                  //   result.notImplemented()
-                  // }
+               
         
                 }
               }
@@ -247,9 +240,10 @@ class MainActivity: FlutterActivity() {
         
       } 
         private fun getDatos(): Boolean{
-              
+          var tm =  context.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager;  //gets the current TelephonyManager
+          return !(tm.getSimState() == TelephonyManager.SIM_STATE_ABSENT);
  
-          return true
+         // return true
         
     } 
     private fun prendeLinterna(prender: Boolean): Boolean{
