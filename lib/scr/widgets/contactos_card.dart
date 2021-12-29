@@ -67,7 +67,7 @@ class _TarjetaContacto2 extends State<TarjetaContacto2> {
             child: Container(
               height: 100,
 
-              margin: EdgeInsets.symmetric(horizontal: 4, vertical: 2.0),
+              margin: EdgeInsets.symmetric(horizontal: 5, vertical: 2.0),
               child:
                   //_avatar(contacto),
                   _nombreContacto(

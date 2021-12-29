@@ -19,7 +19,7 @@ class ContactsPorGrupoPage extends StatefulWidget {
 class _ContactsPorGrupoPageState extends State<ContactsPorGrupoPage> {
   List<Contact> listaGrupo = [];
   bool hayBusqueda = false;
-  bool cargando = true;
+
   TextEditingController _searchController = TextEditingController();
 
   List<Contact> listaContactosFiltro;
@@ -62,20 +62,17 @@ class _ContactsPorGrupoPageState extends State<ContactsPorGrupoPage> {
         return List.generate(listaContactosFiltro.length,
             (i) => TarjetaContacto2(context, listaContactosFiltro[i], true));
       } else {
-        if (cargando) {
-          List<Contact> lista =
-              await apiProvider.obtenerListaContactosGrupo(grupo);
-          listaGrupo = [];
-          if (lista.isNotEmpty) {
-            listaGrupo.addAll(lista);
+        List<Contact> lista =
+            await apiProvider.obtenerListaContactosGrupo(grupo);
+        listaGrupo = [];
+        if (lista.isNotEmpty) {
+          listaGrupo.addAll(lista);
 
-            return List.generate(
-                lista.length, (i) => TarjetaContacto2(context, lista[i], true));
-          }
-
-          return [];
+          return List.generate(
+              lista.length, (i) => TarjetaContacto2(context, lista[i], true));
         }
       }
+      return [];
     }
 
     return SafeArea(
@@ -155,9 +152,9 @@ class _ContactsPorGrupoPageState extends State<ContactsPorGrupoPage> {
                 // Color.fromRGBO(55, 57, 84, 1.0)
               ],
                   stops: [
-                0.2,
+                0.1,
                 0.4,
-                0.7
+                0.9
               ],
                   begin: FractionalOffset.topCenter,
                   end: FractionalOffset.bottomCenter)),
@@ -175,41 +172,46 @@ class _ContactsPorGrupoPageState extends State<ContactsPorGrupoPage> {
                 style: TextStyle(color: Colors.white, fontSize: 30),
               ),
               grupo == 'Todos'
-                  ? TextField(
-                      style: TextStyle(
-                          fontSize: 25.0, color: Colors.white54, height: 1.0),
-                      keyboardType: TextInputType.text,
-                      controller: _searchController,
-                      // autofocus: true,
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                            //borderSide: BorderSide(color: Colors.amber),
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(25.0))),
-                        labelStyle:
-                            TextStyle(color: Colors.white38, fontSize: 20),
-                        labelText: 'Buscar Contacto :',
-                        suffixIcon: _searchController.text.isNotEmpty
-                            ? IconButton(
-                                onPressed: () {
-                                  setState(() {
-                                    _searchController.clear();
-                                  });
-                                },
-                                icon: Icon(
-                                  Icons.clear,
+                  ? Container(
+                      padding: EdgeInsets.symmetric(horizontal: 7),
+                      child: TextField(
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontSize: 25.0, color: Colors.white54, height: 1.0),
+                        keyboardType: TextInputType.text,
+                        controller: _searchController,
+                        // autofocus: true,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(
+
+                              //borderSide: BorderSide(color: Colors.amber),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(25.0))),
+                          labelStyle:
+                              TextStyle(color: Colors.white38, fontSize: 20),
+                          labelText: 'Buscar Contacto :',
+                          suffixIcon: _searchController.text.isNotEmpty
+                              ? IconButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      _searchController.clear();
+                                    });
+                                  },
+                                  icon: Icon(
+                                    Icons.clear,
+                                    color: Colors.white,
+                                    size: 30,
+                                  ))
+                              : Icon(
+                                  Icons.search,
                                   color: Colors.white,
                                   size: 30,
-                                ))
-                            : Icon(
-                                Icons.search,
-                                color: Colors.white,
-                                size: 30,
-                              ),
-                        focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.white),
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(25.0))),
+                                ),
+                          focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.white),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(25.0))),
+                        ),
                       ),
                     )
                   : SizedBox(),

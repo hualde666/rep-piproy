@@ -22,9 +22,9 @@ Widget headerApp(BuildContext context, String titulo, Widget otroWidget,
             // Color.fromRGBO(55, 57, 84, 1.0)
           ],
               stops: [
-            0.2,
+            0.1,
             0.4,
-            0.7
+            0.99
           ],
               begin: FractionalOffset.topCenter,
               end: FractionalOffset.bottomCenter)),

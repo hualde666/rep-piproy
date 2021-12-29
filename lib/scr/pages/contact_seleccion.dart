@@ -142,9 +142,9 @@ class _SelectContactsPageState extends State<SelectContactsPage> {
                   // Color.fromRGBO(55, 57, 84, 1.0)
                 ],
                     stops: [
-                  0.2,
+                  0.1,
                   0.4,
-                  0.7
+                  0.9
                 ],
                     begin: FractionalOffset.topCenter,
                     end: FractionalOffset.bottomCenter)),
@@ -158,39 +158,46 @@ class _SelectContactsPageState extends State<SelectContactsPage> {
                   'Seleccion de Contactos',
                   style: TextStyle(color: Colors.white, fontSize: 25),
                 ),
-                TextField(
-                  style: TextStyle(
-                      fontSize: 25.0, color: Colors.white54, height: 1.0),
-                  keyboardType: TextInputType.text,
-                  controller: _searchController,
-                  // autofocus: true,
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                        //borderSide: BorderSide(color: Colors.amber),
-                        borderRadius: BorderRadius.all(Radius.circular(25.0))),
-                    labelStyle: TextStyle(color: Colors.white38, fontSize: 20),
-                    labelText: 'Buscar Contacto :',
-                    suffixIcon: _searchController.text.isNotEmpty
-                        ? IconButton(
-                            onPressed: () {
-                              setState(() {
-                                _searchController.clear();
-                                buscar = true;
-                              });
-                            },
-                            icon: Icon(
-                              Icons.clear,
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 7),
+                  child: TextField(
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontSize: 25.0, color: Colors.white54, height: 1.0),
+                    keyboardType: TextInputType.text,
+                    controller: _searchController,
+                    // autofocus: true,
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                          //borderSide: BorderSide(color: Colors.amber),
+                          borderRadius:
+                              BorderRadius.all(Radius.circular(25.0))),
+                      labelStyle:
+                          TextStyle(color: Colors.white38, fontSize: 20),
+                      labelText: 'Buscar Contacto :',
+                      suffixIcon: _searchController.text.isNotEmpty
+                          ? IconButton(
+                              onPressed: () {
+                                setState(() {
+                                  _searchController.clear();
+                                  buscar = true;
+                                });
+                              },
+                              icon: Icon(
+                                Icons.clear,
+                                color: Colors.white,
+                                size: 30,
+                              ))
+                          : Icon(
+                              Icons.search,
                               color: Colors.white,
                               size: 30,
-                            ))
-                        : Icon(
-                            Icons.search,
-                            color: Colors.white,
-                            size: 30,
-                          ),
-                    focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.white),
-                        borderRadius: BorderRadius.all(Radius.circular(25.0))),
+                            ),
+                      focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.white),
+                          borderRadius:
+                              BorderRadius.all(Radius.circular(25.0))),
+                    ),
                   ),
                 ),
               ],
