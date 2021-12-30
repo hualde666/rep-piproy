@@ -5,9 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:piproy/channel/channel_android.dart';
 
 import 'package:piproy/scr/funciones/url_funciones.dart';
-import 'package:piproy/scr/pages/gps_page.dart';
+
 import 'package:piproy/scr/pages/mostrar_contacto.dart';
-import 'package:piproy/scr/pages/wifi_page.dart';
+
 import 'package:piproy/scr/providers/aplicaciones_provider.dart';
 import 'package:piproy/scr/providers/contactos_provider.dart';
 
@@ -45,9 +45,7 @@ Widget conteinerIcon(
       widget = dispositivo(activoGps, nuevoIcon);
       break;
     case 'señal':
-      nuevoIcon = activoDatos
-          ? Icons.signal_cellular_alt_rounded
-          : Icons.signal_cellular_off_rounded;
+      nuevoIcon = Icons.signal_cellular_alt_rounded;
 
       widget = dispositivo(activoDatos, nuevoIcon);
       break;
@@ -89,6 +87,9 @@ Widget conteinerIcon(
 
 funcionIcon(
     BuildContext context, String tarea, Contact contacto, bool prendida) {
+  final celProvider = Provider.of<EstadoProvider>(context, listen: false);
+
+  bool activoDatos = celProvider.conexionDatos;
   String phone;
   if (contacto != null) {
     phone = contacto.phones.elementAt(0).value;
@@ -96,32 +97,39 @@ funcionIcon(
 
   switch (tarea) {
     case 'discado':
+      if (activoDatos) {
+        ///  *** llamada desde menu horizontal
+        llamar("");
+      }
 
-      ///  *** llamada desde menu horizontal
-      llamar("");
       break;
     case 'llamada':
-
-      /// *** llamada desde el contacto
-      llamar(phone);
+      if (activoDatos) {
+        /// *** llamada desde el contacto
+        llamar(phone);
+      }
       break;
     case 'mensaje':
-      mensaje("");
+      if (activoDatos) {
+        mensaje("");
+      }
       break;
     case 'mensajeC':
-      mensaje(phone);
+      if (activoDatos) {
+        mensaje(phone);
+      }
       break;
     case 'bateria':
       break;
     case 'wifi':
       // prender y apagar)
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => WifiPage()));
+      // Navigator.push(
+      //     context, MaterialPageRoute(builder: (context) => WifiPage()));
       break;
     case 'gps':
       // prender y apagar
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => GpsPage()));
+      // Navigator.push(
+      //     context, MaterialPageRoute(builder: (context) => GpsPage()));
       break;
     case 'linterna':
       AndroidChannel _androidChannel = AndroidChannel();

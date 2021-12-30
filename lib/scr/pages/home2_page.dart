@@ -321,7 +321,7 @@ class _Home2PageState extends State<Home2Page> {
             //Color.fromRGBO(55, 57, 84, 1.0)
           ],
               stops: [
-            0.1,
+            0.1, //2
             0.4,
             0.9
           ],
