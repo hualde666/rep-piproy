@@ -45,7 +45,9 @@ Widget conteinerIcon(
       widget = dispositivo(activoGps, nuevoIcon);
       break;
     case 'señal':
-      nuevoIcon = Icons.signal_cellular_alt_rounded;
+      nuevoIcon = activoDatos
+          ? Icons.signal_cellular_alt_rounded
+          : Icons.signal_cellular_off_outlined;
 
       widget = dispositivo(activoDatos, nuevoIcon);
       break;
