@@ -23,12 +23,13 @@ import 'package:piproy/scr/providers/aplicaciones_provider.dart';
 import 'package:piproy/scr/providers/contactos_provider.dart';
 
 import 'package:piproy/scr/providers/estado_celular.dart';
+
 //import 'package:piproy/scr/providers/lista_id_provider.dart';
 
 import 'package:provider/provider.dart';
 import 'package:piproy/scr/providers/db_provider.dart';
 
-void main() {
+void main() async {
   runApp(MyApp());
 }
 

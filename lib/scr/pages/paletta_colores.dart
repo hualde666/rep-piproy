@@ -9,7 +9,6 @@ class PaletaPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<Widget> paleta = [
-      Divider(height: 3, color: Colors.white),
       colores(context, Colors.grey[700], Color.fromRGBO(55, 57, 84, 1.0),
           Colors.white, 1),
       SizedBox(
