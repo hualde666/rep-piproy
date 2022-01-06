@@ -46,8 +46,8 @@ class PaletaPage extends StatelessWidget {
     );
   }
 
-  Widget colores(
-      BuildContext context, Color fondo, Color elemento, Color letras, paleta) {
+  Widget colores(BuildContext context, Color fondo, Color elemento,
+      Color letras, int paleta) {
     final celProvider = Provider.of<EstadoProvider>(context);
     return GestureDetector(
       onTap: () {
@@ -58,7 +58,11 @@ class PaletaPage extends StatelessWidget {
         decoration: BoxDecoration(
             color: fondo,
             // borderRadius: BorderRadius.circular(15.0),
-            border: Border.all(color: Colors.white, width: 1.0)),
+            border: Border.all(
+                color: celProvider.paleta == paleta.toString()
+                    ? Colors.white
+                    : Colors.white54,
+                width: celProvider.paleta == paleta.toString() ? 3.0 : 1.0)),
         margin: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
         height: 100,
         // color: fondo,
