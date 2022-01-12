@@ -44,7 +44,8 @@ class _SelectContactsPageState extends State<SelectContactsPage> {
         return nombreMinuscula.contains(busquedaMinuscula);
       });
       setState(() {
-        listaContactosFiltro = _contactos;
+        listaContactosFiltro = [];
+        listaContactosFiltro.addAll(_contactos);
       });
     }
   }
@@ -65,7 +66,7 @@ class _SelectContactsPageState extends State<SelectContactsPage> {
       } else {
         List<Contact> lista =
             await apiProvider.obtenerListaContactosGrupo('Todos');
-
+        listaGrupo = [];
         listaGrupo.addAll(lista);
 
         return listaGrupo;

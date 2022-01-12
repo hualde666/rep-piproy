@@ -106,28 +106,29 @@ class ElementoApi extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               GestureDetector(
-                onTap: () {
-                  if (grupo != 'Todas') {
+                  onTap: () {
+                    //if (grupo != 'Todas') {
                     agregaMPB(context, api);
-                  }
-                },
-                child: grupo != 'Todas'
-                    ? Container(
-                        width: 30,
-                        height: 30,
-                        child: Center(
-                          child: Icon(
-                            Icons.arrow_back,
-                            size: 20,
-                            color: Colors.blue,
-                          ),
-                        ),
-                      )
-                    : Container(
-                        width: 30,
-                        height: 30,
+                    //}
+                  },
+                  child: //grupo != 'Todas'
+                      // ?
+                      Container(
+                    width: 30,
+                    height: 30,
+                    child: Center(
+                      child: Icon(
+                        Icons.arrow_back,
+                        size: 20,
+                        color: Colors.blue,
                       ),
-              ),
+                    ),
+                  )
+                  // : Container(
+                  //     width: 30,
+                  //     height: 30,
+                  //   ),
+                  ),
               GestureDetector(
                 onTap: () {
                   if (grupo != 'Todas') {

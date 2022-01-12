@@ -57,9 +57,111 @@ Widget elementos(BuildContext context, Widget widget, double altura,
         }
       }
     },
-    // onLongPress: () {
-    //   eliminarApi(context, tipo);
-    // },
+    onLongPress: () {
+      if (tipo.contains('MPC') || tipo.contains('MPD')) {
+        editarTipo(context, tipo);
+      }
+    },
+  );
+}
+//******************** EDITA NOMBRE DEL GRUPO*****************************/
+
+Future editarTipo(BuildContext context, String tipo) async {
+  return await showDialog(
+      context: context,
+      builder: (context) {
+        return editarGrupoForm(context, tipo);
+      });
+}
+
+AlertDialog editarGrupoForm(BuildContext context, String tipo) {
+  final grupo = tipo.substring(3);
+  final clase = tipo.substring(0, 3);
+  final apiProvider = Provider.of<AplicacionesProvider>(context);
+  final TextEditingController _tipoControle =
+      TextEditingController(text: grupo);
+  return AlertDialog(
+    content: Form(
+      child: Container(
+        height: 170,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text('Editar nombre de grupo ',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 25,
+                )),
+            SizedBox(
+              height: 10,
+            ),
+            TextFormField(
+              // initialValue: grupo,
+              textCapitalization: TextCapitalization.words,
+              style: TextStyle(
+                fontSize: 30,
+              ),
+              controller: _tipoControle,
+              validator: (valor) {
+                // validar que no exite ya
+
+                return valor.isNotEmpty ? null : "dato invalido";
+              },
+              decoration: InputDecoration(hintText: "nombre del grupo"),
+            )
+          ],
+        ),
+      ),
+    ),
+    actionsAlignment: MainAxisAlignment.spaceAround,
+    actions: [
+      ElevatedButton(
+          onPressed: () {
+            // no puede estar en blanco ni ya definido
+            if (_tipoControle.value.text != "" &&
+                !apiProvider.contactgrupos.contains(_tipoControle.value.text)) {
+              // agregar a BD
+              String grupoNuevo = _tipoControle.value.text[0].toUpperCase();
+              if (_tipoControle.value.text.length > 1) {
+                grupoNuevo = _tipoControle.value.text[0].toUpperCase() +
+                    _tipoControle.value.text.substring(1);
+              }
+              if (clase == 'MPC') {
+                apiProvider.cambiarGrupoContact(grupo, grupoNuevo);
+              } else {
+                apiProvider.cambiarGrupoApi(grupo, grupoNuevo);
+              }
+
+              if (apiProvider.listaMenu.contains(clase + grupo)) {
+                Provider.of<AplicacionesProvider>(context, listen: false)
+                    .agregarMenu(clase + grupoNuevo);
+                Provider.of<AplicacionesProvider>(context, listen: false)
+                    .eliminarTipoMP(clase + grupo);
+                DbTiposAplicaciones.db.modificarGrupo(grupo, grupoNuevo);
+                DbTiposAplicaciones.db
+                    .modificarNombre(grupo, grupoNuevo, clase);
+              }
+            }
+
+            Navigator.of(context).pop();
+          },
+          style:
+              ElevatedButton.styleFrom(primary: Color.fromRGBO(249, 75, 11, 1)),
+          child: Text(
+            'Si',
+            style: TextStyle(fontSize: 25, color: Colors.white),
+          )),
+      ElevatedButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          style:
+              ElevatedButton.styleFrom(primary: Color.fromRGBO(249, 75, 11, 1)),
+          child: Text(
+            'No',
+            style: TextStyle(fontSize: 25, color: Colors.white),
+          )),
+    ],
   );
 }
 

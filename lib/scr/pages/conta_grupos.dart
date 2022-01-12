@@ -50,92 +50,100 @@ class ContactsGruposPage extends StatelessWidget {
     BuildContext context,
     String grupo,
   ) {
-    // return GestureDetector(
-    //   onTap: () {
-    //     Provider.of<AplicacionesProvider>(context, listen: false)
-    //         .tipoSeleccion = grupo;
-    //     Navigator.push(
-    //       context,
-    //       MaterialPageRoute(builder: (context) => ContactsPorGrupoPage()),
-    //     );
-    //   },
-    //   onLongPress: () => eliminarTipo(context, grupo),
-    //   onDoubleTap: () => agregaMPG(context, grupo),
-    //   child:
-    return Container(
-        margin: EdgeInsets.symmetric(vertical: 3, horizontal: 4.0),
-        height: 70,
-        decoration: BoxDecoration(
-            color: Theme.of(context).primaryColor,
-            borderRadius: BorderRadius.circular(20.0),
-            border: Border.all(color: Colors.white)),
-        child: Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
-          GestureDetector(
-            onTap: () {
-              if (grupo != 'Todos') {
-                //**  agrega grupo de contacto al menu principal */
-                agregaMPC(context, grupo);
-              }
-            },
-            child: grupo != 'Todos'
-                ? Container(
-                    width: 30,
-                    height: 30,
-                    child: Center(
-                      child: Icon(
-                        Icons.arrow_back,
-                        size: 30,
-                        color: Colors.blue,
+    return GestureDetector(
+        //   onTap: () {
+        //     Provider.of<AplicacionesProvider>(context, listen: false)
+        //         .tipoSeleccion = grupo;
+        //     Navigator.push(
+        //       context,
+        //       MaterialPageRoute(builder: (context) => ContactsPorGrupoPage()),
+        //     );
+        //   },
+        onLongPress: () {
+          if (grupo != 'Todos') {
+            editarTipo(context, grupo);
+          }
+        },
+        //   onDoubleTap: () => agregaMPG(context, grupo),
+        //   child:
+        // return
+        child: Container(
+            margin: EdgeInsets.symmetric(vertical: 3, horizontal: 4.0),
+            height: 70,
+            decoration: BoxDecoration(
+                color: Theme.of(context).primaryColor,
+                borderRadius: BorderRadius.circular(20.0),
+                border: Border.all(color: Colors.white)),
+            child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      if (grupo != 'Todos') {
+                        //**  agrega grupo de contacto al menu principal */
+                        agregaMPC(context, grupo);
+                      }
+                    },
+                    child: grupo != 'Todos'
+                        ? Container(
+                            width: 30,
+                            height: 30,
+                            child: Center(
+                              child: Icon(
+                                Icons.arrow_back,
+                                size: 30,
+                                color: Colors.blue,
+                              ),
+                            ),
+                          )
+                        : Container(
+                            width: 30,
+                            height: 30,
+                          ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Provider.of<AplicacionesProvider>(context, listen: false)
+                          .tipoSeleccion = grupo;
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ContactsPorGrupoPage()),
+                      );
+                    },
+                    child: Container(
+                      width: 280,
+                      child: Center(
+                        child: Text(
+                          grupo,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(fontSize: 40),
+                        ),
                       ),
                     ),
-                  )
-                : Container(
-                    width: 30,
-                    height: 30,
                   ),
-          ),
-          GestureDetector(
-            onTap: () {
-              Provider.of<AplicacionesProvider>(context, listen: false)
-                  .tipoSeleccion = grupo;
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => ContactsPorGrupoPage()),
-              );
-            },
-            child: Container(
-              width: 280,
-              child: Center(
-                child: Text(
-                  grupo,
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(fontSize: 40),
-                ),
-              ),
-            ),
-          ),
-          GestureDetector(
-            onTap: () {
-              if (grupo != 'Todos') {
-                eliminarTipo(context, grupo);
-              }
-            },
-            child: (grupo != 'Todos' && grupo != 'Emergencia')
-                ? Container(
-                    width: 30,
-                    height: 30,
-                    child: Icon(
-                      Icons.close,
-                      size: 30,
-                      color: Colors.red,
-                    ),
-                  )
-                : Container(
-                    height: 30,
-                    width: 30,
+                  GestureDetector(
+                    onTap: () {
+                      if (grupo != 'Todos') {
+                        eliminarTipo(context, grupo);
+                      }
+                    },
+                    child: (grupo != 'Todos' && grupo != 'Emergencia')
+                        ? Container(
+                            width: 30,
+                            height: 30,
+                            child: Icon(
+                              Icons.close,
+                              size: 30,
+                              color: Colors.red,
+                            ),
+                          )
+                        : Container(
+                            height: 30,
+                            width: 30,
+                          ),
                   ),
-          ),
-        ]));
+                ])));
   }
 
   ///
@@ -349,6 +357,101 @@ class ContactsGruposPage extends StatelessWidget {
                 primary: Color.fromRGBO(249, 75, 11, 1)),
             child: const Text('NO',
                 style: TextStyle(fontSize: 25, color: Colors.white))),
+      ],
+    );
+  }
+//******************** EDITA NOMBRE DEL GRUPO*****************************/
+
+  Future editarTipo(BuildContext context, String grupo) async {
+    return await showDialog(
+        context: context,
+        builder: (context) {
+          return editarGrupoForm(context, grupo);
+        });
+  }
+
+  AlertDialog editarGrupoForm(BuildContext context, String grupo) {
+    final apiProvider = Provider.of<AplicacionesProvider>(context);
+    final TextEditingController _tipoControle =
+        TextEditingController(text: grupo);
+    return AlertDialog(
+      content: Form(
+        child: Container(
+          height: 170,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text('Editar nombre de grupo de Contacto',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 30,
+                  )),
+              SizedBox(
+                height: 10,
+              ),
+              TextFormField(
+                // initialValue: grupo,
+                textCapitalization: TextCapitalization.words,
+                style: TextStyle(
+                  fontSize: 25,
+                ),
+                controller: _tipoControle,
+                validator: (valor) {
+                  // validar que no exite ya
+
+                  return valor.isNotEmpty ? null : "dato invalido";
+                },
+                decoration: InputDecoration(hintText: "nombre del grupo"),
+              )
+            ],
+          ),
+        ),
+      ),
+      actionsAlignment: MainAxisAlignment.spaceAround,
+      actions: [
+        ElevatedButton(
+            onPressed: () {
+              // no puede estar en blanco ni ya definido
+              if (_tipoControle.value.text != "" &&
+                  !apiProvider.contactgrupos
+                      .contains(_tipoControle.value.text)) {
+                // agregar a BD
+                String grupoNuevo = _tipoControle.value.text[0].toUpperCase();
+                if (_tipoControle.value.text.length > 1) {
+                  grupoNuevo = _tipoControle.value.text[0].toUpperCase() +
+                      _tipoControle.value.text.substring(1);
+                }
+                apiProvider.cambiarGrupoContact(grupo, grupoNuevo);
+                if (apiProvider.listaMenu.contains('MPC' + grupo)) {
+                  Provider.of<AplicacionesProvider>(context, listen: false)
+                      .agregarMenu('MPC' + grupoNuevo);
+                  Provider.of<AplicacionesProvider>(context, listen: false)
+                      .eliminarTipoMP('MPC' + grupo);
+
+                  DbTiposAplicaciones.db
+                      .modificarNombre(grupo, grupoNuevo, 'MPC');
+                }
+                DbTiposAplicaciones.db.modificarGrupo(grupo, grupoNuevo);
+              }
+
+              Navigator.of(context).pop();
+            },
+            style: ElevatedButton.styleFrom(
+                primary: Color.fromRGBO(249, 75, 11, 1)),
+            child: Text(
+              'Si',
+              style: TextStyle(fontSize: 25, color: Colors.white),
+            )),
+        ElevatedButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            style: ElevatedButton.styleFrom(
+                primary: Color.fromRGBO(249, 75, 11, 1)),
+            child: Text(
+              'No',
+              style: TextStyle(fontSize: 25, color: Colors.white),
+            )),
       ],
     );
   }

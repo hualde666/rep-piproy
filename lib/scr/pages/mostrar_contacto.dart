@@ -1,8 +1,6 @@
-import 'package:device_apps/device_apps.dart';
 import 'package:flutter/material.dart';
 import 'package:contacts_service/contacts_service.dart';
 
-import 'package:piproy/scr/providers/aplicaciones_provider.dart';
 import 'package:piproy/scr/providers/contactos_provider.dart';
 import 'package:piproy/scr/widgets/header_app.dart';
 import 'package:provider/provider.dart';
@@ -21,30 +19,30 @@ class _MostrarContactoState extends State<MostrarContacto> {
       child: Scaffold(
         appBar: headerApp(context, '', Text(''), 0.0, true, 'mostrarcontacto'),
         body: fichaContacto(contacto),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        floatingActionButton: FloatingActionButton.extended(
-          heroTag: "editar",
-          icon: Icon(
-            Icons.edit,
-          ),
-          label: Text(
-            'editar',
-          ),
-          onPressed: () {
-            // Navigator.push(context,
-            //     MaterialPageRoute(builder: (context) => EditarContacto()));
-            final apiProvider =
-                Provider.of<AplicacionesProvider>(context, listen: false);
-            final listaApi = apiProvider.categoryApi['Todas'];
-            final Application api = listaApi.firstWhere(
-                (element) =>
-                    element.packageName == 'com.google.android.contacts',
-                orElse: null);
-            if (api != null) {
-              api.openApp();
-            }
-          },
-        ),
+        // floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        // floatingActionButton: FloatingActionButton.extended(
+        //   heroTag: "editar",
+        //   icon: Icon(
+        //     Icons.edit,
+        //   ),
+        //   label: Text(
+        //     'editar',
+        //   ),
+        //   onPressed: () {
+        //     // Navigator.push(context,
+        //     //     MaterialPageRoute(builder: (context) => EditarContacto()));
+        //     final apiProvider =
+        //         Provider.of<AplicacionesProvider>(context, listen: false);
+        //     final listaApi = apiProvider.categoryApi['Todas'];
+        //     final Application api = listaApi.firstWhere(
+        //         (element) =>
+        //             element.packageName == 'com.google.android.contacts',
+        //         orElse: null);
+        //     if (api != null) {
+        //       api.openApp();
+        //     }
+        //   },
+        // ),
       ),
     );
   }

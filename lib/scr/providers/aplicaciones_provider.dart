@@ -33,7 +33,7 @@ class AplicacionesProvider with ChangeNotifier {
     this.categoryContact['Todos'] = [];
     cargarCategorias();
   }
-//***********************************Widgets delmenu principal */
+//***********************************Widgets del menu principal */
 
   agregarApiGrupo(String grupo) {
     _apigrupos.add(grupo);
@@ -118,6 +118,22 @@ class AplicacionesProvider with ChangeNotifier {
   }
 
   //******************************* */
+  // agrega grupo contacto
+  cambiarGrupoContact(String grupo, String grupoNuevo) {
+    _contactgrupos.add(grupoNuevo);
+    categoryContact[grupoNuevo] = [];
+    categoryContact[grupoNuevo].addAll(categoryContact[grupo]);
+    categoryContact.remove(grupo);
+    _contactgrupos.remove(grupo);
+    _contactgrupos.sort((a, b) {
+      return a.toLowerCase().compareTo(b.toLowerCase());
+    });
+    // _tipoSeleccion = tipo;
+
+    notifyListeners();
+  }
+
+  //******************************* */
   // agrega contacto a grupo
   agregarContacto(String grupo, Contact contacto) {
     categoryContact[grupo].add(contacto);
@@ -190,6 +206,20 @@ class AplicacionesProvider with ChangeNotifier {
   eliminarTipos(String tipo) {
     _apigrupos.removeWhere((element) => element == tipo);
     categoryApi.remove(tipo = tipo);
+    notifyListeners();
+  }
+
+  cambiarGrupoApi(String grupo, String grupoNuevo) {
+    _apigrupos.add(grupoNuevo);
+    categoryApi[grupoNuevo] = [];
+    categoryApi[grupoNuevo].addAll(categoryApi[grupo]);
+    categoryApi.remove(grupo);
+    _apigrupos.remove(grupo);
+    _apigrupos.sort((a, b) {
+      return a.toLowerCase().compareTo(b.toLowerCase());
+    });
+    // _tipoSeleccion = tipo;
+
     notifyListeners();
   }
 

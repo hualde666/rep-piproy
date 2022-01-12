@@ -62,7 +62,7 @@ class MyApp extends StatelessWidget {
                 child: child,
               );
             },
-            title: 'Proyecto',
+            title: 'Vitalfon',
             theme: themaApi(colorKey),
             // home: SplashPage(),
 

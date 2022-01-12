@@ -51,14 +51,25 @@ class DbTiposAplicaciones {
     return;
   }
 
-  Future modificarNombre(String nombreViejo, String nombreNuevo) async {
+  Future modificarGrupo(String nombreViejo, String nombreNuevo) async {
     final db = await database;
 
-    await db.rawUpdate('''
+    final n = await db.rawUpdate('''
+    UPDATE MenuGrupos 
+    SET grupo = ? 
+    WHERE grupo = ?
+    ''', [nombreNuevo, nombreViejo]);
+  }
+
+  Future modificarNombre(
+      String nombreViejo, String nombreNuevo, String menu) async {
+    final db = await database;
+    final n = await db.rawUpdate('''
     UPDATE MenuGrupos 
     SET nombre = ? 
-    WHERE nombre = ?
-    ''', [nombreNuevo, nombreViejo]);
+    WHERE grupo = ? AND nombre = ?
+    ''', [nombreNuevo, menu, nombreViejo]);
+    print(n);
   }
 
   Future<int> eliminarGrupo(String grupo) async {
@@ -79,7 +90,7 @@ class DbTiposAplicaciones {
   Future<List<Map<String, Object>>> getAllRegistros() async {
     final db = await database;
     final resp = await db.query('MenuGrupos');
-
+    print(resp);
     return resp;
   }
 

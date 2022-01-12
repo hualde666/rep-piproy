@@ -365,7 +365,8 @@ Widget elementoApi2(BuildContext context, Application api) {
               ),
               GestureDetector(
                   onTap: () {
-                    eliminarApiMP(context, 'MPB' + api.packageName);
+                    eliminarApiMP(
+                        context, 'MPB' + api.packageName, api.appName);
                   },
                   child: Container(
                     width: 30,
@@ -396,12 +397,13 @@ Widget elementoApi2(BuildContext context, Application api) {
   );
 }
 
-Future<dynamic> eliminarApiMP(BuildContext context, String tipo) {
-  final String titulo = tipo.substring(3);
+Future<dynamic> eliminarApiMP(
+    BuildContext context, String tipo, String nombre) {
+  // final String titulo = tipo.substring(3);
   return showDialog(
     context: context,
     builder: (context) => AlertDialog(
-      content: Text('¿Desea eliminar $titulo  del menú principal?',
+      content: Text('¿Desea eliminar $nombre  del menú principal?',
           textAlign: TextAlign.center,
           style: TextStyle(
             fontSize: 25,
