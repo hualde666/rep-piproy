@@ -59,6 +59,7 @@ class DbTiposAplicaciones {
     SET grupo = ? 
     WHERE grupo = ?
     ''', [nombreNuevo, nombreViejo]);
+    print(n);
   }
 
   Future modificarNombre(

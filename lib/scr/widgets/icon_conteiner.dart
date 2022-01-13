@@ -88,7 +88,7 @@ Widget conteinerIcon(
 }
 
 funcionIcon(
-    BuildContext context, String tarea, Contact contacto, bool prendida) {
+    BuildContext context, String tarea, Contact contacto, bool prendida) async {
   final celProvider = Provider.of<EstadoProvider>(context, listen: false);
 
   bool activoDatos = celProvider.conexionDatos;
@@ -163,10 +163,10 @@ funcionIcon(
     case 'alarma':
       final apiProvider =
           Provider.of<AplicacionesProvider>(context, listen: false);
-      final listaApi = apiProvider.categoryApi['Todas'];
-      final Application api = listaApi.firstWhere(
-          (element) => element.packageName == 'com.android.deskclock',
-          orElse: null);
+      //  final listaApi = apiProvider.categoryApi['Todas'];
+      final Application api =
+          await apiProvider.obtenerApi('com.android.deskclock');
+
       if (api != null) {
         api.openApp();
       }
