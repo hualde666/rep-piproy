@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:piproy/scr/providers/estado_celular.dart';
 
-import 'package:piproy/scr/widgets/reloj.dart';
+import 'package:piproy/scr/widgets/reloj_viejo.dart';
 import 'package:provider/provider.dart';
 
 class PilaTimpoClima extends StatefulWidget {

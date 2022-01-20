@@ -15,7 +15,7 @@ class AplicacionesProvider with ChangeNotifier {
   }
 
   bool _cargando = true;
-  String _tipoSeleccion = 'Todas';
+  String _tipoSeleccion = '';
   List<Application> _listaApp;
   List<Application> _listaSeleccion;
   List<String> _apigrupos = [
@@ -277,6 +277,7 @@ class AplicacionesProvider with ChangeNotifier {
       //*** obtengo lista de la BD tosas las apps del grupo */
       if (grupo == 'Todos') {
         List<Contact> lista = await contactosProvaide.getcontactos();
+        categoryContact['Todos'] = [];
         categoryContact['Todos'].addAll(lista);
       } else {
         List<ApiTipos> lista =

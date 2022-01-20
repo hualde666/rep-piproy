@@ -75,22 +75,6 @@ Widget headerResumen(BuildContext context) {
     // here the desired height
     child: Container(
       padding: EdgeInsets.only(top: 5),
-      decoration: new BoxDecoration(
-          gradient: LinearGradient(
-              colors: [
-            Theme.of(context).primaryColor,
-
-            Colors.white,
-            Theme.of(context).scaffoldBackgroundColor,
-            //Color.fromRGBO(55, 57, 84, 1.0)
-          ],
-              stops: [
-            0.2,
-            0.5,
-            0.8
-          ],
-              begin: FractionalOffset.topCenter,
-              end: FractionalOffset.bottomCenter)),
       height: 200,
       child: Column(
         children: [

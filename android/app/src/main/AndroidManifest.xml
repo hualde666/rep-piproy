@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.piproy">
    <application
-        android:label="piproy"
+        android:label="Vitalfon"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
@@ -31,6 +31,7 @@
             <intent-filter>
                  <action android:name="android.intent.action.MAIN"/>
                  <category android:name="android.intent.category.LAUNCHER"/>
+                 <!--   hace que la app sea launcher -->
                  <!-- <category android:name="android.intent.category.HOME" />
                  <category android:name="android.intent.category.DEFAULT" /> -->
    

@@ -59,8 +59,10 @@ class _ContactsPorGrupoPageState extends State<ContactsPorGrupoPage> {
 
     Future<List<Widget>> obtenerListaGrupo(String grupo) async {
       if (_searchController.text.isNotEmpty) {
-        return List.generate(listaContactosFiltro.length,
-            (i) => TarjetaContacto2(context, listaContactosFiltro[i], true));
+        return List.generate(
+            listaContactosFiltro.length,
+            (i) =>
+                TarjetaContacto2(context, listaContactosFiltro[i], true, true));
       } else {
         List<Contact> lista =
             await apiProvider.obtenerListaContactosGrupo(grupo);
@@ -69,7 +71,10 @@ class _ContactsPorGrupoPageState extends State<ContactsPorGrupoPage> {
           listaGrupo.addAll(lista);
 
           return List.generate(
-              lista.length, (i) => TarjetaContacto2(context, lista[i], true));
+              lista.length,
+              (i) => (grupo != 'Todos')
+                  ? TarjetaContacto2(context, lista[i], true, true)
+                  : TarjetaContacto2(context, lista[i], true, false));
         }
       }
       return [];
@@ -140,25 +145,6 @@ class _ContactsPorGrupoPageState extends State<ContactsPorGrupoPage> {
 
         // here the desired height
         child: Container(
-          decoration: BoxDecoration(
-              gradient: LinearGradient(
-                  colors: [
-                Theme.of(context).primaryColor,
-
-                Colors.white,
-                Theme.of(context).scaffoldBackgroundColor,
-                // Colors.white,
-                // Colors.orange,
-                // Color.fromRGBO(55, 57, 84, 1.0)
-              ],
-                  stops: [
-                0.1,
-                0.4,
-                0.9
-              ],
-                  begin: FractionalOffset.topCenter,
-                  end: FractionalOffset.bottomCenter)),
-          // margin: EdgeInsets.only(top: 10, left: 5.0, right: 5.0),
           height: alto,
           child: Column(
             // crossAxisAlignment: CrossAxisAlignment.center,

@@ -17,7 +17,8 @@ import 'package:piproy/scr/widgets/elemntos.dart';
 
 import 'package:piproy/scr/widgets/encabezado_icon.dart';
 import 'package:piproy/scr/widgets/google_busqueda.dart';
-import 'package:piproy/scr/widgets/pila_tiempo_clima.dart';
+
+import 'package:piproy/scr/widgets/reloj.dart';
 import 'package:provider/provider.dart';
 
 class Home2Page extends StatefulWidget {
@@ -65,7 +66,7 @@ class _Home2PageState extends State<Home2Page> {
     return SafeArea(
       child: Scaffold(
         appBar: PreferredSize(
-          preferredSize: Size.fromHeight(240.0),
+          preferredSize: Size.fromHeight(180.0),
           child: encabezadoApp(context, 'Proyecto PI'),
         ),
         // backgroundColor: Theme.of(context).primaryColor,
@@ -101,10 +102,10 @@ class _Home2PageState extends State<Home2Page> {
         await apiProvider.obtenerApi('com.google.android.googlequicksearchbox');
     List<Widget> listaOpciones = [
       SizedBox(height: 8.0),
-      elementos(context, PilaTimpoClima(), 200, '', ''),
-      SizedBox(height: 8),
-      googleBusqueda(context, apiGoogle),
-      SizedBox(height: 8),
+      // elementos(context, PilaTimpoClima(), 200, '', ''),
+      // SizedBox(height: 8),
+      //  googleBusqueda(context, apiGoogle),
+      // SizedBox(height: 8),
       //SizedBox(height: 5),
     ];
     if (listaMenu.isNotEmpty) {
@@ -116,7 +117,7 @@ class _Home2PageState extends State<Home2Page> {
           listaOpciones.add(elementos(
               context,
               Text(titulo, style: TextStyle(fontSize: 40.0)),
-              100,
+              60,
               titulo,
               listaMenu[i]));
           listaOpciones.add(SizedBox(height: 8));
@@ -129,7 +130,8 @@ class _Home2PageState extends State<Home2Page> {
             final Contact contacto =
                 await contactosProvider.obtenerContacto(nombre);
             if (contacto != null) {
-              listaOpciones.add(TarjetaContacto2(context, contacto, false));
+              listaOpciones
+                  .add(TarjetaContacto2(context, contacto, false, true));
               listaOpciones.add(SizedBox(height: 8));
             }
           } else {
@@ -150,14 +152,14 @@ class _Home2PageState extends State<Home2Page> {
     listaOpciones.add(elementos(
         context,
         Text('Contactos', style: TextStyle(fontSize: 40.0)),
-        100,
+        60,
         'contactos',
         ''));
     listaOpciones.add(SizedBox(height: 8));
     listaOpciones.add(elementos(
         context,
         Text('Aplicaciones', style: TextStyle(fontSize: 40.0)),
-        100,
+        60,
         'apigrupos',
         ''));
 
@@ -169,163 +171,177 @@ class _Home2PageState extends State<Home2Page> {
   }
 
   encabezadoApp(BuildContext context, String titulo) {
-    return Container(
-      height: 240,
-      padding: EdgeInsets.only(left: 5, top: 5),
-      child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
+    return AspectRatio(
+      aspectRatio: 3 / 2,
+      child: Container(
+        height: 200, //240,
+        padding: EdgeInsets.only(left: 5, top: 5),
+        child:
             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-              Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        showDialog(
-                            context: context,
-                            builder: (context) => AlertDialog(
-                                  backgroundColor: Colors.red[900],
-                                  title: Container(
-                                    width: 100,
-                                    height: 100,
+          Column(mainAxisAlignment: MainAxisAlignment.start, children: [
+            GestureDetector(
+              onTap: () {
+                showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                          backgroundColor: Colors.red[900],
+                          title: Container(
+                            width: 100,
+                            height: 100,
+                            child: Center(
+                              child: Text('¿ Desea salir de Vitalfon ?',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      fontSize: 28, color: Colors.white)),
+                            ),
+                          ),
+
+                          //shape: CircleBorder(),
+                          elevation: 14.0,
+                          actionsPadding:
+                              EdgeInsets.symmetric(horizontal: 15.0),
+                          //actionsAlignment: MainAxisAlignment.spaceAround,
+                          actions: [
+                            TextButton(
+                                onPressed: () {
+                                  // se sale con flecha menu inferior
+                                  SystemNavigator.pop();
+
+                                  // exit(0);
+                                  //Navigator.pop(context);
+                                },
+                                child: ClipOval(
+                                  child: Container(
+                                    height: 80,
+                                    width: 80,
+                                    color: Colors.black38,
                                     child: Center(
-                                      child: Text('¿ Desea salir de Vitalfon ?',
-                                          textAlign: TextAlign.center,
+                                      child: Text('Si',
                                           style: TextStyle(
-                                              fontSize: 28,
+                                              fontSize: 25.0,
                                               color: Colors.white)),
                                     ),
                                   ),
-
-                                  //shape: CircleBorder(),
-                                  elevation: 14.0,
-                                  actionsPadding:
-                                      EdgeInsets.symmetric(horizontal: 15.0),
-                                  //actionsAlignment: MainAxisAlignment.spaceAround,
-                                  actions: [
-                                    TextButton(
-                                        onPressed: () {
-                                          // se sale con flecha menu inferior
-                                          SystemNavigator.pop();
-
-                                          // exit(0);
-                                          //Navigator.pop(context);
-                                        },
-                                        child: ClipOval(
-                                          child: Container(
-                                            height: 80,
-                                            width: 80,
-                                            color: Colors.black38,
-                                            child: Center(
-                                              child: Text('Si',
-                                                  style: TextStyle(
-                                                      fontSize: 25.0,
-                                                      color: Colors.white)),
-                                            ),
-                                          ),
-                                        )),
-                                    TextButton(
-                                        autofocus: true,
-                                        onPressed: () {
-                                          Navigator.pop(context);
-                                        },
-                                        child: ClipOval(
-                                            child: Container(
-                                                height: 80,
-                                                width: 80,
-                                                color: Colors.black38,
-                                                child: Center(
-                                                    child: Text('No',
-                                                        style: TextStyle(
-                                                            fontSize: 25.0,
-                                                            color: Colors
-                                                                .white))))))
-                                  ],
-                                ));
-                      },
-                      child: Container(
-                          width: 90,
-                          height: 40,
-                          decoration: BoxDecoration(
-                              color: Colors.black38,
-                              borderRadius: BorderRadius.circular(20.0),
-                              border: Border.all(color: Colors.white30)),
-                          margin: EdgeInsets.only(right: 5),
-                          child: Center(
-                            child: Text(
-                              'SALIDA',
-                              style:
-                                  TextStyle(fontSize: 18, color: Colors.white),
-                            ),
-                          )),
+                                )),
+                            TextButton(
+                                autofocus: true,
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                child: ClipOval(
+                                    child: Container(
+                                        height: 80,
+                                        width: 80,
+                                        color: Colors.black38,
+                                        child: Center(
+                                            child: Text('No',
+                                                style: TextStyle(
+                                                    fontSize: 25.0,
+                                                    color: Colors.white))))))
+                          ],
+                        ));
+              },
+              child: Container(
+                  width: 90,
+                  height: 40,
+                  decoration: BoxDecoration(
+                      color: Colors.black38,
+                      borderRadius: BorderRadius.circular(20.0),
+                      border: Border.all(color: Colors.white30)),
+                  margin: EdgeInsets.only(right: 5),
+                  child: Center(
+                    child: Text(
+                      'SALIDA',
+                      style: TextStyle(fontSize: 18, color: Colors.white),
                     ),
-                    SizedBox(
-                      height: 3,
-                    ),
-                    botonRojoHeader(context, true),
-                  ]),
-              Container(
-                // height: 200,
-                margin: EdgeInsets.only(top: 50),
-                child: Center(
-                  child: Text(
-                    'Vitalfon',
-                    style: TextStyle(
-                        color: Theme.of(context).primaryColor, fontSize: 45),
-                  ),
-                ),
-              ),
-              Column(
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.pushNamed(context, 'ayuda', arguments: 'home');
-                    },
-                    child: Container(
-                        width: 90,
-                        height: 40,
-                        decoration: BoxDecoration(
-                            color: Colors.black38,
-                            borderRadius: BorderRadius.circular(20.0),
-                            border: Border.all(color: Colors.white30)),
-                        margin: EdgeInsets.only(right: 5),
-                        child: Center(
-                          child: Text(
-                            'AYUDA',
-                            style: TextStyle(fontSize: 18, color: Colors.white),
-                          ),
-                        )),
-                  ),
-                  SizedBox(
-                    height: 3,
-                  ),
-                  Container(
-                    height: 90,
-                    width: 90,
-                  )
-                ],
-              ),
-            ]),
-            encabezadoIcon(context),
+                  )),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            botonRojoHeader(context, true),
           ]),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              GestureDetector(
+                onTap: () {
+                  // Navigator.pushNamed(context, 'ayuda',
+                  //     arguments: 'home');
+                  Navigator.pushNamed(context, 'configurar');
+                },
+                child: Container(
+                    width: 125,
+                    height: 40,
+                    decoration: BoxDecoration(
+                        color: Colors.black38,
+                        borderRadius: BorderRadius.circular(20.0),
+                        border: Border.all(color: Colors.white30)),
+                    margin: EdgeInsets.only(right: 5),
+                    child: Center(
+                      child: Text(
+                        'CONFIGURAR',
+                        style: TextStyle(fontSize: 18, color: Colors.white),
+                      ),
+                    )),
+              ),
+              // HoraFecha(),
+              SizedBox(
+                height: 3,
+              ),
+              HoraFecha(),
+            ],
+          ),
+          Column(
+            children: [
+              GestureDetector(
+                onTap: () {
+                  Navigator.pushNamed(context, 'ayuda', arguments: 'home');
+                },
+                child: Container(
+                    width: 90,
+                    height: 40,
+                    decoration: BoxDecoration(
+                        color: Colors.black38,
+                        borderRadius: BorderRadius.circular(20.0),
+                        border: Border.all(color: Colors.white30)),
+                    margin: EdgeInsets.only(right: 5),
+                    child: Center(
+                      child: Text(
+                        'AYUDA',
+                        style: TextStyle(fontSize: 18, color: Colors.white),
+                      ),
+                    )),
+              ),
+              SizedBox(
+                height: 3,
+              ),
+              Container(
+                height: 130,
+                width: 90,
+              )
+            ],
+          ),
+        ]),
+        //   encabezadoIcon(context),
+      ),
 
-      decoration: new BoxDecoration(
-          gradient: LinearGradient(
-              colors: [
-            Theme.of(context).primaryColor,
+      // decoration: new BoxDecoration(
+      //     gradient: LinearGradient(
+      //         colors: [
+      //       Theme.of(context).primaryColor,
 
-            Colors.white,
-            Theme.of(context).scaffoldBackgroundColor,
-            //Color.fromRGBO(55, 57, 84, 1.0)
-          ],
-              stops: [
-            0.1, //2
-            0.4,
-            0.9
-          ],
-              begin: FractionalOffset.topCenter,
-              end: FractionalOffset.bottomCenter)),
+      //       Colors.white,
+      //       Theme.of(context).scaffoldBackgroundColor,
+      //       //Color.fromRGBO(55, 57, 84, 1.0)
+      //     ],
+      //         stops: [
+      //       0.1, //2
+      //       0.4,
+      //       0.9
+      //     ],
+      //         begin: FractionalOffset.topCenter,
+      //         end: FractionalOffset.bottomCenter)),
       // color: Color.fromRGBO(55, 57, 84, 1.0),
       //  ),
     );

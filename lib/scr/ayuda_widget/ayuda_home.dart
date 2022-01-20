@@ -41,12 +41,19 @@ class AyudaHome extends StatelessWidget {
             Row(
               children: [
                 Container(
-                  child: Image(
-                      image: AssetImage('assets/boton_exit.png'),
-                      fit: BoxFit.cover),
-                  height: 70,
-                  width: 70,
-                ),
+                    width: 90,
+                    height: 40,
+                    decoration: BoxDecoration(
+                        color: Colors.black38,
+                        borderRadius: BorderRadius.circular(20.0),
+                        border: Border.all(color: Colors.white30)),
+                    margin: EdgeInsets.only(right: 5),
+                    child: Center(
+                      child: Text(
+                        'SALIDA',
+                        style: TextStyle(fontSize: 18, color: Colors.white),
+                      ),
+                    )),
                 Container(
                   margin: EdgeInsets.only(left: 10),
                   height: 70,
@@ -78,7 +85,7 @@ class AyudaHome extends StatelessWidget {
         color: Colors.black87,
       ),
       Container(
-        height: 150,
+        //height: 150,
         margin: EdgeInsets.only(left: 5),
         child: Column(
           children: [
@@ -109,7 +116,7 @@ class AyudaHome extends StatelessWidget {
               width: double.infinity,
               margin: EdgeInsets.only(left: 6, right: 6, top: 3),
               child: Text(
-                'Lo lleva a la pantalla para el envio de mensaje de emergencia',
+                'Inicia el proceso de envio de menaje de emergencia (Deberá haber seleccionado sus contactos de emergencia previamente y tener activo el GPS para que funcione el envio de su geolocalización). Se enviará un mensaje genérico a sus contactos advirtiendo que se encuentra en una situación de emergencia y necesita ayuda. También se enviará su geolocalización. El 112 no puede recibir este tipo de mensaje.',
                 textAlign: TextAlign.left,
                 style: TextStyle(fontSize: 20),
               ),
@@ -124,53 +131,53 @@ class AyudaHome extends StatelessWidget {
         height: 10,
         color: Colors.black87,
       ),
-      Container(
-        height: 150,
-        margin: EdgeInsets.only(left: 5),
-        child: Column(
-          children: [
-            Row(
-              children: [
-                Container(
-                  child: Image(
-                      image: AssetImage('assets/boton_home.png'),
-                      fit: BoxFit.cover),
-                  height: 70,
-                  width: 70,
-                ),
-                Container(
-                  margin: EdgeInsets.only(left: 10),
-                  height: 70,
-                  width: 250,
-                  child: Center(
-                    child: Text(
-                      'Boton Inicio:',
-                      textAlign: TextAlign.left,
-                      style: TextStyle(fontSize: 20),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            Container(
-              width: double.infinity,
-              margin: EdgeInsets.only(left: 6, right: 6, top: 3),
-              child: Text(
-                'Muestra el inicio de la lista de contenido',
-                textAlign: TextAlign.left,
-                style: TextStyle(fontSize: 20),
-              ),
-            ),
-          ],
-        ),
-      ),
-      SizedBox(
-        height: 10,
-      ),
-      Divider(
-        height: 10,
-        color: Colors.black87,
-      ),
+      // Container(
+      //   //height: 400,
+      //   margin: EdgeInsets.only(left: 5),
+      //   child: Column(
+      //     children: [
+      //       Row(
+      //         children: [
+      //           Container(
+      //             child: Image(
+      //                 image: AssetImage('assets/boton_home.png'),
+      //                 fit: BoxFit.cover),
+      //             height: 70,
+      //             width: 70,
+      //           ),
+      //           Container(
+      //             margin: EdgeInsets.only(left: 10),
+      //             // height: 300,
+      //             width: 250,
+      //             child: Center(
+      //               child: Text(
+      //                 'Boton Inicio:',
+      //                 textAlign: TextAlign.left,
+      //                 style: TextStyle(fontSize: 20),
+      //               ),
+      //             ),
+      //           ),
+      //         ],
+      //       ),
+      //       Container(
+      //         width: double.infinity,
+      //         margin: EdgeInsets.only(left: 6, right: 6, top: 3),
+      //         child: Text(
+      //           'Muestra el inicio de la lista de contenido',
+      //           textAlign: TextAlign.left,
+      //           style: TextStyle(fontSize: 20),
+      //         ),
+      //       ),
+      //     ],
+      //   ),
+      // ),
+      // SizedBox(
+      //   height: 10,
+      // ),
+      // Divider(
+      //   height: 10,
+      //   color: Colors.black87,
+      // ),
       Container(
         height: 150,
         margin: EdgeInsets.only(left: 5),
@@ -206,7 +213,7 @@ class AyudaHome extends StatelessWidget {
               width: double.infinity,
               margin: EdgeInsets.only(left: 6, right: 6, top: 3),
               child: Text(
-                'Configura caracteristicas de la aplicación',
+                'Configuración de los contactos de emergencia, el mensaje de emergencia y color de Vitalfon.',
                 textAlign: TextAlign.left,
                 style: TextStyle(fontSize: 20),
               ),

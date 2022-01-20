@@ -56,6 +56,7 @@ class ContactosProvider with ChangeNotifier {
       _listaContactos.addAll(_contactos
           .where((contac) => contac.phones.isEmpty == false)
           .toList());
+
       return _listaContactos;
     }
     return [];

@@ -9,11 +9,12 @@ import 'package:piproy/scr/widgets/icon_conteiner.dart';
 import 'package:provider/provider.dart';
 
 class TarjetaContacto2 extends StatefulWidget {
-  TarjetaContacto2(this.context, this.contacto, this.envio);
+  TarjetaContacto2(this.context, this.contacto, this.envio, this.eliminar);
   final BuildContext context;
   final Contact contacto;
   //**** boleana envio true el contacto tiene la opcion de enviar al menu principal */
   final bool envio;
+  final bool eliminar;
 
   @override
   _TarjetaContacto2 createState() => _TarjetaContacto2();
@@ -46,8 +47,8 @@ class _TarjetaContacto2 extends State<TarjetaContacto2> {
                   SizedBox(
                     height: 10,
                   ),
-                  _nombreContacto(
-                      context, widget.contacto, grupo, widget.envio),
+                  _nombreContacto(context, widget.contacto, grupo, widget.envio,
+                      widget.eliminar),
 
                   _botonesContactos(context, widget.contacto),
                 ],
@@ -65,13 +66,13 @@ class _TarjetaContacto2 extends State<TarjetaContacto2> {
           )
         : GestureDetector(
             child: Container(
-              height: 100,
+              height: 60,
 
               margin: EdgeInsets.symmetric(horizontal: 5, vertical: 2.0),
               child:
                   //_avatar(contacto),
-                  _nombreContacto(
-                      context, widget.contacto, grupo, widget.envio),
+                  _nombreContacto(context, widget.contacto, grupo, widget.envio,
+                      widget.eliminar),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20.0),
                   border: Border.all(color: Colors.white)),
@@ -243,8 +244,8 @@ Widget _botonesContactos(BuildContext context, Contact contacto) {
   );
 }
 
-Widget _nombreContacto(
-    BuildContext context, Contact contacto, String grupo, bool envio) {
+Widget _nombreContacto(BuildContext context, Contact contacto, String grupo,
+    bool envio, bool eliminar) {
   Future<dynamic> eliminarContactoGrupo(
           BuildContext context, String grupo, Contact contacto) =>
       showDialog(
@@ -253,7 +254,7 @@ Widget _nombreContacto(
           title: Text(contacto.displayName,
               textAlign: TextAlign.center,
               style: TextStyle(
-                fontSize: 30,
+                fontSize: 25,
               )),
           content: grupo == 'Todos'
               ? Text('¿Desea eliminar este contacto  del CELULAR ?')
@@ -429,29 +430,37 @@ Widget _nombreContacto(
               overflow: TextOverflow.ellipsis,
               textAlign: TextAlign.center,
               style: TextStyle(
-                fontSize: 35.0,
+                fontSize: 45.0,
               ),
             ),
           ),
           GestureDetector(
               onTap: () {
                 if (envio) {
+                  if (grupo != 'Todos') {
+                    eliminarContactoGrupo(context, grupo, contacto);
+                  }
                   // eliminar contacto del grupo
-                  eliminarContactoGrupo(context, grupo, contacto);
+
                 } else {
                   // eliminar contacto menu principal
                   eliminarContactoMP(context, 'MPA' + contacto.displayName);
                 }
               },
-              child: Container(
-                width: 30,
-                height: 30,
-                child: Icon(
-                  Icons.close,
-                  size: 30,
-                  color: Colors.red,
-                ),
-              )),
+              child: eliminar
+                  ? Container(
+                      width: 30,
+                      height: 30,
+                      child: Icon(
+                        Icons.close,
+                        size: 30,
+                        color: Colors.red,
+                      ),
+                    )
+                  : Container(
+                      height: 30,
+                      width: 30,
+                    ))
         ],
       ));
 }

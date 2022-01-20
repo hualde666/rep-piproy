@@ -7,8 +7,8 @@ Widget botonBackHeader(BuildContext context) {
       // child: Center(
       //     child: Text('RETORNO',
       //         style: TextStyle(color: Colors.white, fontSize: 25))),
-      child:
-          Image(image: AssetImage('assets/boton_verde.png'), fit: BoxFit.cover),
+      child: Image(
+          image: AssetImage('assets/boton_verde.png'), fit: BoxFit.contain),
       // decoration: BoxDecoration(
       //   color: Colors.green[400],
       //   borderRadius: BorderRadius.circular(15.0),

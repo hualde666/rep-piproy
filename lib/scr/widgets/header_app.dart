@@ -10,24 +10,24 @@ Widget headerApp(BuildContext context, String titulo, Widget otroWidget,
     child: Container(
       //decoration: BoxDecoration(border: Border.all(color: Colors.black)),
       //padding: EdgeInsets.only(top: 5),
-      decoration: new BoxDecoration(
-          gradient: LinearGradient(
-              colors: [
-            Theme.of(context).primaryColor,
+      // decoration: new BoxDecoration(
+      //     gradient: LinearGradient(
+      //         colors: [
+      //       Theme.of(context).primaryColor,
 
-            Colors.white,
-            Theme.of(context).scaffoldBackgroundColor,
-            // Colors.white,
-            // Colors.orange,
-            // Color.fromRGBO(55, 57, 84, 1.0)
-          ],
-              stops: [
-            0.1,
-            0.4,
-            0.99
-          ],
-              begin: FractionalOffset.topCenter,
-              end: FractionalOffset.bottomCenter)),
+      //       Colors.white,
+      //       Theme.of(context).scaffoldBackgroundColor,
+      //       // Colors.white,
+      //       // Colors.orange,
+      //       // Color.fromRGBO(55, 57, 84, 1.0)
+      //     ],
+      //         stops: [
+      //       0.1,
+      //       0.4,
+      //       0.99
+      //     ],
+      //         begin: FractionalOffset.topCenter,
+      //         end: FractionalOffset.bottomCenter)),
       //color: Color.fromRGBO(55, 57, 84, 1.0),
       height: 180 + alto,
       width: double.infinity,

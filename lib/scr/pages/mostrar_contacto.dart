@@ -31,13 +31,11 @@ class _MostrarContactoState extends State<MostrarContacto> {
         //   onPressed: () {
         //     // Navigator.push(context,
         //     //     MaterialPageRoute(builder: (context) => EditarContacto()));
-        //     final apiProvider =
+        //      final apiProvider =
         //         Provider.of<AplicacionesProvider>(context, listen: false);
-        //     final listaApi = apiProvider.categoryApi['Todas'];
-        //     final Application api = listaApi.firstWhere(
-        //         (element) =>
-        //             element.packageName == 'com.google.android.contacts',
-        //         orElse: null);
+        // //  final listaApi = apiProvider.categoryApi['Todas'];
+        //     final Application api = await apiProvider.obtenerApi( 'com.google.android.contacts');
+
         //     if (api != null) {
         //       api.openApp();
         //     }
@@ -89,38 +87,46 @@ class _MostrarContactoState extends State<MostrarContacto> {
 
   List<Widget> creaListaDatos(Contact _contact) {
     List<Widget> lista = [
-      Container(
-        height: 170,
-        margin: EdgeInsets.symmetric(horizontal: 5),
-        decoration: BoxDecoration(
-            color: Theme.of(context).primaryColor,
-            borderRadius: BorderRadius.circular(20.0),
-            border: Border.all(color: Colors.white)),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Center(child: _avatar(_contact)),
-            //    Text('Id: ${_contact.identifier}',
-            //      style: TextStyle(color: Colors.white, fontSize: 20)),
-            Center(
-              child: _contact.displayName != null
-                  ? Text(' ${_contact.displayName}',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(color: Colors.white, fontSize: 30))
-                  : Text('',
-                      style: TextStyle(color: Colors.white, fontSize: 20)),
-            ),
-          ],
-        ),
-      ),
+      // Container(
+      //   height: 170,
+      //   margin: EdgeInsets.symmetric(horizontal: 5),
+      //   decoration: BoxDecoration(
+      //       color: Theme.of(context).primaryColor,
+      //       borderRadius: BorderRadius.circular(20.0),
+      //       border: Border.all(color: Colors.white)),
+      //   child: Column(
+      //     mainAxisAlignment: MainAxisAlignment.center,
+      //     children: [
+      //       // Center(child: _avatar(_contact)),
+      //       //    Text('Id: ${_contact.identifier}',
+      //       //      style: TextStyle(color: Colors.white, fontSize: 20)),
+      //       Center(
+      //         child: _contact.displayName != null
+      //             ? Text(' ${_contact.displayName}',
+      //                 textAlign: TextAlign.center,
+      //                 style: TextStyle(color: Colors.white, fontSize: 30))
+      //             : Text('',
+      //                 style: TextStyle(color: Colors.white, fontSize: 20)),
+      //       ),
+      //     ],
+      //   ),
+      // ),
       SizedBox(
         height: 10,
       ),
-      dato('Primer Nombre:', _contact.givenName),
-      dato('Segundo Nombre:', _contact.middleName),
-      dato('Apellido:', _contact.familyName),
-      dato('Compañia:', _contact.company),
     ];
+    if (_contact.givenName != null) {
+      lista.add(dato('Primer Nombre:', _contact.givenName));
+    }
+    if (_contact.middleName != null && _contact.middleName != "") {
+      lista.add(dato('Segundo Nombre:', _contact.middleName));
+    }
+    if (_contact.familyName != null && _contact.familyName != "") {
+      lista.add(dato('Apellido:', _contact.familyName));
+    }
+    if (_contact.company != null && _contact.company != "") {
+      lista.add(dato('Primer Nombre:', _contact.company));
+    }
     if (_contact.phones.isNotEmpty) {
       for (var i = 0; i < _contact.phones.length; i++) {
         String phone = _contact.phones.elementAt(i).value.replaceAll('+', '');

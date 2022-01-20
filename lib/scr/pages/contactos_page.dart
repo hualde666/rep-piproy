@@ -91,6 +91,7 @@ class _ContactosPageState extends State<ContactosPage> {
                         hayBusqueda
                             ? listaContactosFiltro[i]
                             : snapshot.data[i],
+                        true,
                         true));
                 return cargando
                     ? Center(
