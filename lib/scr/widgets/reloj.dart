@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:piproy/scr/models/reloj_modelo.dart';
 import 'package:piproy/scr/providers/estado_celular.dart';
-import 'package:piproy/scr/widgets/reloj_viejo.dart';
 
 import 'package:provider/provider.dart';
 
@@ -58,7 +57,7 @@ class Reloj extends StatelessWidget {
     final RelojModel reloj = RelojModel();
 
     return Container(
-      //  color: Colors.red,
+      // color: Colors.red,
       height: 130,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,

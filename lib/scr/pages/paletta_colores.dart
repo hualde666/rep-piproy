@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'package:piproy/scr/providers/estado_celular.dart';
+import 'package:piproy/scr/providers/usuario_pref.dart';
 import 'package:piproy/scr/widgets/header_app.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class PaletaPage extends StatelessWidget {
   @override
@@ -48,21 +47,24 @@ class PaletaPage extends StatelessWidget {
 
   Widget colores(BuildContext context, Color fondo, Color elemento,
       Color letras, int paleta) {
-    final celProvider = Provider.of<EstadoProvider>(context);
+    final usuarioProvider = Provider.of<Preferencias>(context);
+
     return GestureDetector(
       onTap: () {
-        guardarPreferencia(paleta.toString());
-        celProvider.paleta = paleta.toString();
+        //guardarPreferencia(paleta.toString());
+        usuarioProvider.paleta = paleta.toString();
+        //celProvider.paleta = paleta.toString();
       },
       child: Container(
         decoration: BoxDecoration(
             color: fondo,
             // borderRadius: BorderRadius.circular(15.0),
             border: Border.all(
-                color: celProvider.paleta == paleta.toString()
+                color: usuarioProvider.paleta == paleta.toString()
                     ? Colors.white
                     : Colors.white54,
-                width: celProvider.paleta == paleta.toString() ? 3.0 : 1.0)),
+                width:
+                    usuarioProvider.paleta == paleta.toString() ? 3.0 : 1.0)),
         margin: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
         height: 100,
         // color: fondo,
@@ -81,10 +83,5 @@ class PaletaPage extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  guardarPreferencia(String paletaNueva) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString('paleta', paletaNueva);
   }
 }

@@ -1,6 +1,6 @@
-class Contactos {
-  String nombre;
-  String telefono;
-  String whatsapptel;
-  Contactos({this.nombre, this.telefono, this.whatsapptel});
+class ContactoDatos {
+  final String nombre;
+  final String telefono;
+  final String whatsapptel;
+  ContactoDatos({this.nombre, this.telefono, this.whatsapptel});
 }

@@ -1,10 +1,10 @@
-import 'package:contacts_service/contacts_service.dart';
 import 'package:device_apps/device_apps.dart';
 
 import 'package:flutter/material.dart';
 import 'package:piproy/channel/channel_android.dart';
 
 import 'package:piproy/scr/funciones/url_funciones.dart';
+import 'package:piproy/scr/models/contactos_modelo.dart';
 
 import 'package:piproy/scr/pages/mostrar_contacto.dart';
 
@@ -15,20 +15,16 @@ import 'package:piproy/scr/providers/estado_celular.dart';
 import 'package:provider/provider.dart';
 
 Widget conteinerIcon(
-    BuildContext context, Icon icon, String tarea, Contact contacto) {
+    BuildContext context, Icon icon, String tarea, ContactoDatos contacto) {
   final celProvider = Provider.of<EstadoProvider>(context);
   bool activoGps = celProvider.conexionGps;
   bool activoDatos = celProvider.conexionDatos;
   bool activoWifi = celProvider.conexionWifi;
 
-  String phone;
   bool prendida;
   IconData nuevoIcon;
   Widget widget;
 
-  if (phone != null) {
-    phone = contacto.phones.elementAt(0).value;
-  }
   switch (tarea) {
     case 'bateria':
       widget = Pila();
@@ -69,7 +65,7 @@ Widget conteinerIcon(
                   ? Colors.green
                   : Theme.of(context).primaryColor,
               borderRadius: BorderRadius.circular(80),
-              border: Border.all(color: Colors.white, width: 2.0)),
+              border: Border.all(color: Colors.white, width: 0.5)),
           child:
               //  (tarea == 'whatsapp')
               //     ? Image(
@@ -87,15 +83,11 @@ Widget conteinerIcon(
       onTap: () => funcionIcon(context, tarea, contacto, prendida));
 }
 
-funcionIcon(
-    BuildContext context, String tarea, Contact contacto, bool prendida) async {
+funcionIcon(BuildContext context, String tarea, ContactoDatos contacto,
+    bool prendida) async {
   final celProvider = Provider.of<EstadoProvider>(context, listen: false);
 
   bool activoDatos = celProvider.conexionDatos;
-  String phone;
-  if (contacto != null) {
-    phone = contacto.phones.elementAt(0).value;
-  }
 
   switch (tarea) {
     case 'discado':
@@ -108,7 +100,7 @@ funcionIcon(
     case 'llamada':
       if (activoDatos) {
         /// *** llamada desde el contacto
-        llamar(phone);
+        llamar(contacto.telefono);
       }
       break;
     case 'mensaje':
@@ -118,7 +110,7 @@ funcionIcon(
       break;
     case 'mensajeC':
       if (activoDatos) {
-        mensaje(phone);
+        mensaje(contacto.telefono);
       }
       break;
     case 'bateria':
@@ -148,7 +140,10 @@ funcionIcon(
 
       break;
     case 'whatsapp':
-      abrirWhatsapp(phone, '');
+      if (contacto.whatsapptel != "") {
+        abrirWhatsapp(contacto.whatsapptel, '');
+      }
+
       break;
     case 'configurar':
       Navigator.pushNamed(context, 'configurar');
@@ -184,7 +179,7 @@ Widget dispositivo(bool activo, IconData icon) {
     decoration: BoxDecoration(
         color: color,
         borderRadius: BorderRadius.circular(80),
-        border: Border.all(color: Colors.white, width: 2.0)),
+        border: Border.all(color: Colors.white, width: 0.5)),
     child: Center(child: Icon(icon, size: 40.0, color: Colors.white)),
   ));
 }
@@ -199,7 +194,7 @@ Widget dispLinterna(BuildContext context, bool activo, IconData icon) {
     decoration: BoxDecoration(
         color: color,
         borderRadius: BorderRadius.circular(80),
-        border: Border.all(color: Colors.white, width: 2.0)),
+        border: Border.all(color: Colors.white, width: 0.5)),
     child: Center(child: Icon(icon, size: 40.0, color: Colors.white)),
   ));
 }
@@ -230,12 +225,13 @@ class _PilaState extends State<Pila> {
 
     return Center(
         child: Container(
+            // padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
             width: 70.0,
             height: 70.0,
             decoration: BoxDecoration(
                 color: cargando ? Colors.blue[900] : color,
                 borderRadius: BorderRadius.circular(80),
-                border: Border.all(color: Colors.white, width: 2.0)),
+                border: Border.all(color: Colors.white, width: 0.5)),
             child: Center(
               child: Text(
                 '$nivelBateria%',

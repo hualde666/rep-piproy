@@ -35,12 +35,12 @@ Widget elementos(BuildContext context, Widget widget, double altura,
             ])
           : widget,
       decoration: BoxDecoration(
-          color: ruta == 'contactos' || tipo.contains('MPC')
+          color: ruta == 'contactos' || tipo.contains('MPA')
               /** es un contacto o grupo de contacto */
               ? Colors.green
               : Theme.of(context).primaryColor,
           borderRadius: BorderRadius.circular(20.0),
-          border: Border.all(color: Colors.white)),
+          border: Border.all(color: Colors.white38)),
     ),
     onTap: () {
       if (ruta != '') {

@@ -73,7 +73,7 @@ class ContactsGruposPage extends StatelessWidget {
             decoration: BoxDecoration(
                 color: Theme.of(context).primaryColor,
                 borderRadius: BorderRadius.circular(20.0),
-                border: Border.all(color: Colors.white)),
+                border: Border.all(color: Colors.white38)),
             child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [

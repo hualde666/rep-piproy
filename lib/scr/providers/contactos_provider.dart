@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:contacts_service/contacts_service.dart';
+import 'package:piproy/scr/models/contactos_modelo.dart';
 
 class ContactosProvider with ChangeNotifier {
   static final ContactosProvider _contactosProvider =
@@ -15,12 +16,12 @@ class ContactosProvider with ChangeNotifier {
     // notifyListeners();
   }
   List<Contact> _listaContactos;
-  Contact _contacto;
+  ContactoDatos _contacto;
   get contacto {
     return _contacto;
   }
 
-  set contacto(Contact nuevoContacto) {
+  set contacto(ContactoDatos nuevoContacto) {
     this._contacto = nuevoContacto;
 
     notifyListeners();
@@ -36,11 +37,27 @@ class ContactosProvider with ChangeNotifier {
   obtenerContacto(String nombre) async {
     Iterable<Contact> listaContacto =
         await ContactsService.getContacts(query: nombre);
+    Contact contact =
+        listaContacto.firstWhere((element) => element.displayName == nombre);
+    String _nombre = contact.displayName;
+    String _telefono = "";
+    String _whatsapp = "";
+    if (contact.phones.isNotEmpty) {
+      _telefono = contact.phones.elementAt(0).value;
+      Item item = contact.phones.firstWhere(
+          (element) => element.value.substring(0, 1) == '+',
+          orElse: () => null);
+      if (item != null) {
+        _whatsapp = item.value;
+      }
+    }
+    final _contacto = new ContactoDatos(
+        nombre: _nombre, telefono: _telefono, whatsapptel: _whatsapp);
 
-    return listaContacto.firstWhere((element) => element.displayName == nombre);
+    return _contacto;
   }
 
-  borrarDeListaContacto(Contact contacto) {
+  borrarDeListaContacto(ContactoDatos contacto) {
     _listaContactos.remove(contacto);
   }
 

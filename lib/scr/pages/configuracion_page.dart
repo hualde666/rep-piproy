@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 
 import 'package:piproy/scr/models/api_tipos.dart';
+import 'package:piproy/scr/pages/api_grupos.dart';
+import 'package:piproy/scr/pages/conta_grupos.dart';
 import 'package:piproy/scr/pages/contacts_por_grupo.dart';
+import 'package:piproy/scr/pages/opciones_page.dart';
 import 'package:piproy/scr/pages/paletta_colores.dart';
 import 'package:piproy/scr/pages/presentacion_page.dart';
 import 'package:piproy/scr/providers/aplicaciones_provider.dart';
@@ -24,6 +27,77 @@ class ConfiguracionPage extends StatelessWidget {
 
         body: ListView(
           children: [
+            SizedBox(
+              height: 20,
+            ),
+            Divider(
+              height: 10,
+              color: Colors.white38,
+            ),
+            ListTile(
+              leading: Icon(
+                Icons.groups,
+                size: 40.0,
+                color: Colors.white,
+              ),
+              title: Text('Contactos',
+                  style: TextStyle(
+                    fontSize: 25,
+                    color: Colors.white,
+                  )),
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ContactsGruposPage()));
+              },
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Divider(
+              height: 10,
+              color: Colors.white38,
+            ),
+            ListTile(
+              leading: Icon(
+                Icons.app_registration,
+                size: 40.0,
+                color: Colors.white,
+              ),
+              title: Text('Aplicaciones',
+                  style: TextStyle(
+                    fontSize: 25,
+                    color: Colors.white,
+                  )),
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => ApiGruposPage()));
+              },
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Divider(
+              height: 10,
+              color: Colors.white38,
+            ),
+            ListTile(
+              leading: Icon(
+                Icons.engineering,
+                size: 40.0,
+                color: Colors.white,
+              ),
+              title: Text('Habilitar Elementos',
+                  style: TextStyle(
+                    fontSize: 25,
+                    color: Colors.white,
+                  )),
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => OpcionesPage()));
+              },
+            ),
             SizedBox(
               height: 20,
             ),

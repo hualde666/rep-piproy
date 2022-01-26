@@ -1,14 +1,14 @@
-import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';
 
 import 'package:geolocator/geolocator.dart';
 import 'package:piproy/channel/channel_android.dart';
+import 'package:piproy/scr/models/contactos_modelo.dart';
 
 import 'package:piproy/scr/widgets/tres_botones_header.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ResumenEnvioPage extends StatelessWidget {
-  final List<Contact> listaE;
+  final List<ContactoDatos> listaE;
   final String mensaje;
   ResumenEnvioPage({this.listaE, this.mensaje});
   @override
@@ -34,7 +34,7 @@ class ResumenEnvioPage extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Text(
-                            listaE[i].displayName,
+                            listaE[i].nombre,
                             style: TextStyle(fontSize: 35),
                           ),
                           Container(
@@ -125,7 +125,7 @@ Future _geoLocal() async {
 
 placemarkFromCoordinates(latitude, longitude) {}
 
-Future<void> mandarSMS(List<Contact> listaE) async {
+Future<void> mandarSMS(List<ContactoDatos> listaE) async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   String mensaje = prefs.getString('mensajeE');
   String pos2 = "";
@@ -151,7 +151,7 @@ Future<void> mandarSMS(List<Contact> listaE) async {
   //   // generar lita de telefonos
 
   for (var contacto in listaE) {
-    String _phone = contacto.phones.elementAt(0).value;
+    String _phone = contacto.telefono;
 
     /// ENVIAR MENSAJE
 

@@ -8,13 +8,13 @@ Widget googleBusqueda(BuildContext context, Application api) {
         margin: EdgeInsets.symmetric(horizontal: 5.0),
         alignment: Alignment.center,
         child: Container(
-          margin: EdgeInsets.symmetric(horizontal: 2),
+          margin: EdgeInsets.symmetric(horizontal: 3),
           decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(20.0),
               border: Border.all(
-                  color: Colors.white, // Theme.of(context).primaryColor,
-                  width: 1.0)),
+                  color: Colors.white38, // Theme.of(context).primaryColor,
+                  width: 0.5)),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -45,7 +45,7 @@ Widget googleBusqueda(BuildContext context, Application api) {
             // color: Colors.white,
             borderRadius: BorderRadius.circular(20.0),
             border: Border.all(
-                color: Colors.white, // Theme.of(context).primaryColor,
+                color: Colors.white38, // Theme.of(context).primaryColor,
                 width: 1.0))),
     onTap: () {
       // await DeviceApps.getApp(listaMenu[i].substring(3), true);

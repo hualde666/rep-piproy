@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 
 Widget botonRojoHeader(BuildContext context, bool activo) {
   final celProvider = Provider.of<EstadoProvider>(context);
-  final activoDatos = true;
+  final activoDatos = celProvider.conexionDatos;
   // bool activoDatos = celProvider.conexionDatos;
   return GestureDetector(
       onTap: () {
@@ -17,14 +17,11 @@ Widget botonRojoHeader(BuildContext context, bool activo) {
       },
       child: activoDatos
           ? Container(
+              child: Image(
+                  image: AssetImage('assets/boton_rojo.png'),
+                  fit: BoxFit.contain),
               height: 90,
-              child: Container(
-                child: Image(
-                    image: AssetImage('assets/boton_rojo.png'),
-                    fit: BoxFit.contain),
-                height: 90,
-                width: 90,
-              ),
+              width: 90,
             )
           : Container(
               height: 90,

@@ -1,7 +1,7 @@
-import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';
-import 'package:permission_handler/permission_handler.dart';
+
 import 'package:piproy/scr/models/api_tipos.dart';
+import 'package:piproy/scr/models/contactos_modelo.dart';
 import 'package:piproy/scr/providers/aplicaciones_provider.dart';
 import 'package:piproy/scr/providers/contactos_provider.dart';
 import 'package:piproy/scr/providers/db_provider.dart';
@@ -11,7 +11,7 @@ import 'package:provider/provider.dart';
 class TarjetaContacto2 extends StatefulWidget {
   TarjetaContacto2(this.context, this.contacto, this.envio, this.eliminar);
   final BuildContext context;
-  final Contact contacto;
+  final ContactoDatos contacto;
   //**** boleana envio true el contacto tiene la opcion de enviar al menu principal */
   final bool envio;
   final bool eliminar;
@@ -56,7 +56,7 @@ class _TarjetaContacto2 extends State<TarjetaContacto2> {
               decoration: BoxDecoration(
                   color: Theme.of(context).scaffoldBackgroundColor,
                   borderRadius: BorderRadius.circular(15.0),
-                  border: Border.all(color: Colors.white, width: 1.0)),
+                  border: Border.all(color: Colors.white38, width: 1.0)),
             ),
             onTap: () {
               oneTap = !oneTap;
@@ -75,7 +75,7 @@ class _TarjetaContacto2 extends State<TarjetaContacto2> {
                       widget.eliminar),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20.0),
-                  border: Border.all(color: Colors.white)),
+                  border: Border.all(color: Colors.white38)),
               // borderRadius: BorderRadius.circular(35.0),
             ),
             onTap: () {
@@ -87,17 +87,17 @@ class _TarjetaContacto2 extends State<TarjetaContacto2> {
   }
 }
 
-_eliminarContacto(Contact contacto) async {
-  final resp = await Permission.contacts.request();
+_eliminarContacto(ContactoDatos contacto) async {
+  // final resp = await Permission.contacts.request();
 
-  if (resp == PermissionStatus.granted) {
-    await ContactsService.deleteContact(contacto);
-  }
+  // if (resp == PermissionStatus.granted) {
+  //   await ContactsService.deleteContact(contacto);
+  // }
 
   return;
 }
 
-Widget _botonesContactos(BuildContext context, Contact contacto) {
+Widget _botonesContactos(BuildContext context, ContactoDatos contacto) {
   final List<Widget> _listaWidget = [
     Column(
       children: [
@@ -244,14 +244,14 @@ Widget _botonesContactos(BuildContext context, Contact contacto) {
   );
 }
 
-Widget _nombreContacto(BuildContext context, Contact contacto, String grupo,
-    bool envio, bool eliminar) {
+Widget _nombreContacto(BuildContext context, ContactoDatos contacto,
+    String grupo, bool envio, bool eliminar) {
   Future<dynamic> eliminarContactoGrupo(
-          BuildContext context, String grupo, Contact contacto) =>
+          BuildContext context, String grupo, ContactoDatos contacto) =>
       showDialog(
         context: context,
         builder: (context) => AlertDialog(
-          title: Text(contacto.displayName,
+          title: Text(contacto.nombre,
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 25,
@@ -272,8 +272,8 @@ Widget _nombreContacto(BuildContext context, Contact contacto, String grupo,
           actions: [
             ElevatedButton(
                 onPressed: () {
-                  DbTiposAplicaciones.db.deleteApi(
-                      grupo, contacto.displayName); //elimina api de BD
+                  DbTiposAplicaciones.db
+                      .deleteApi(grupo, contacto.nombre); //elimina api de BD
                   /// elina contacto de pantalla
                   Provider.of<AplicacionesProvider>(context, listen: false)
                       .eliminarContacto(grupo, contacto);
@@ -300,11 +300,12 @@ Widget _nombreContacto(BuildContext context, Contact contacto, String grupo,
           ],
         ),
       );
-  Future<dynamic> agregarMPA(BuildContext context, Contact contacto) async {
+  Future<dynamic> agregarMPA(
+      BuildContext context, ContactoDatos contacto) async {
     return await showDialog(
         context: context,
         builder: (context) => AlertDialog(
-              title: Text(contacto.displayName,
+              title: Text(contacto.nombre,
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 30,
@@ -324,13 +325,13 @@ Widget _nombreContacto(BuildContext context, Contact contacto, String grupo,
               actions: [
                 ElevatedButton(
                     onPressed: () {
-                      final nuevo = new ApiTipos(
-                          grupo: 'MPA', nombre: contacto.displayName);
+                      final nuevo =
+                          new ApiTipos(grupo: 'MPA', nombre: contacto.nombre);
 
                       /// actualizar lista MENU
                       ///
                       Provider.of<AplicacionesProvider>(context, listen: false)
-                          .agregarMenu('MPA' + contacto.displayName);
+                          .agregarMenu('MPA' + contacto.nombre);
 
                       DbTiposAplicaciones.db.nuevoTipo(nuevo);
 
@@ -426,7 +427,7 @@ Widget _nombreContacto(BuildContext context, Contact contacto, String grupo,
           Container(
             width: MediaQuery.of(context).size.width - 80,
             child: Text(
-              contacto.displayName,
+              contacto.nombre,
               overflow: TextOverflow.ellipsis,
               textAlign: TextAlign.center,
               style: TextStyle(
@@ -444,7 +445,7 @@ Widget _nombreContacto(BuildContext context, Contact contacto, String grupo,
 
                 } else {
                   // eliminar contacto menu principal
-                  eliminarContactoMP(context, 'MPA' + contacto.displayName);
+                  eliminarContactoMP(context, 'MPA' + contacto.nombre);
                 }
               },
               child: eliminar

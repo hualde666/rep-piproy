@@ -1,10 +1,10 @@
-import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';
+import 'package:piproy/scr/models/contactos_modelo.dart';
 import 'package:piproy/scr/widgets/icon_conteiner.dart';
 
-Widget tarjetaContacto(BuildContext context, Contact contacto) {
+Widget tarjetaContacto(BuildContext context, ContactoDatos contacto) {
   final String _nombre =
-      contacto.displayName != null ? contacto.displayName : 'Sin Nombre';
+      contacto.nombre != null ? contacto.nombre : 'Sin Nombre';
   // final String _telefono1 = contacto.phones.elementAt(0).value;
   return GestureDetector(
     child: Container(
@@ -24,10 +24,10 @@ Widget tarjetaContacto(BuildContext context, Contact contacto) {
         ],
       ),
       decoration: BoxDecoration(
-          image: contacto.avatar.isEmpty
-              ? null
-              : DecorationImage(
-                  image: MemoryImage(contacto.avatar), fit: BoxFit.cover),
+          // image: contacto.avatar.isEmpty
+          //     ? null
+          //     : DecorationImage(
+          //         image: MemoryImage(contacto.avatar), fit: BoxFit.cover),
           color: Colors.white38,
           borderRadius: BorderRadius.circular(20.0),
           border:
@@ -40,7 +40,7 @@ Widget tarjetaContacto(BuildContext context, Contact contacto) {
   );
 }
 
-Widget _botonesContactos(BuildContext context, Contact contacto) {
+Widget _botonesContactos(BuildContext context, ContactoDatos contacto) {
   return Container(
     height: 100.0,
     margin: EdgeInsets.only(bottom: 10.0, right: 15.0),
@@ -76,7 +76,7 @@ Widget _nombreContacto(BuildContext context, String nombre) {
       decoration: BoxDecoration(
           color: Theme.of(context).primaryColor,
           borderRadius: BorderRadius.circular(20.0),
-          border: Border.all(color: Colors.green)),
+          border: Border.all(color: Colors.white38)),
       child: Center(
           child: Text(nombre,
               textAlign: TextAlign.center,

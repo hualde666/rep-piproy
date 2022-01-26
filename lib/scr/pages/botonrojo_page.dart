@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:piproy/scr/models/contactos_modelo.dart';
 
 import 'package:piproy/scr/pages/envio_emergencia.dart';
 import 'package:piproy/scr/providers/aplicaciones_provider.dart';
@@ -10,8 +11,6 @@ import 'package:provider/provider.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'package:contacts_service/contacts_service.dart';
-
 import 'package:audioplayers/audioplayers.dart';
 
 class BotonRojoPage extends StatefulWidget {
@@ -21,12 +20,12 @@ class BotonRojoPage extends StatefulWidget {
 
 class _BotonRojoPageState extends State<BotonRojoPage> {
   final listaSelectInfo = new ContactosProvider();
-  List<Contact> listaIdContacto = [];
+  List<ContactoDatos> listaIdContacto = [];
 
-  List<Contact> listaE = [];
+  List<ContactoDatos> listaE = [];
   String mensaje;
 
-  List<Contact> listaContactos = [];
+  List<ContactoDatos> listaContactos = [];
   bool hayLista = true;
 
   @override
@@ -49,7 +48,7 @@ class _BotonRojoPageState extends State<BotonRojoPage> {
   Widget build(BuildContext context) {
     final apiProvider = Provider.of<AplicacionesProvider>(context);
 
-    List<Contact> listaGrupo = [];
+    List<ContactoDatos> listaGrupo = [];
     if (apiProvider.contactgrupos.contains('Emergencia')) {
       if (apiProvider.categoryContact['Emergencia'].isNotEmpty) {
         //*** con los nombres de la lista de contactos genero lista con los datos de cada contacto */
@@ -57,9 +56,9 @@ class _BotonRojoPageState extends State<BotonRojoPage> {
         // listaContactos.addAll(apiProvider.categoryContact['Emergencia']);
       }
     }
-    Future<List<Contact>> obtenerListaGrupo() async {
+    Future<List<ContactoDatos>> obtenerListaGrupo() async {
       if (listaGrupo.isEmpty) {
-        List<Contact> lista =
+        List<ContactoDatos> lista =
             await apiProvider.obtenerListaContactosGrupo('Emergencia');
         listaGrupo.addAll(lista);
       }
@@ -142,7 +141,7 @@ Widget headerEmergencia(BuildContext context) {
   );
 }
 
-conListaEmergenia(BuildContext context, List<Contact> listaE) {
+conListaEmergenia(BuildContext context, List<ContactoDatos> listaE) {
   return Center(
     child: Container(
       height: 400.0,

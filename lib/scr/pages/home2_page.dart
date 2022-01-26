@@ -1,14 +1,16 @@
-import 'package:contacts_service/contacts_service.dart';
 import 'package:device_apps/device_apps.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:piproy/scr/models/api_tipos.dart';
+import 'package:piproy/scr/models/contactos_modelo.dart';
 
 import 'package:piproy/scr/providers/aplicaciones_provider.dart';
 import 'package:piproy/scr/providers/contactos_provider.dart';
 
 import 'package:piproy/scr/providers/db_provider.dart';
+
+import 'package:piproy/scr/providers/usuario_pref.dart';
 
 import 'package:piproy/scr/widgets/boton_rojo.dart';
 
@@ -61,12 +63,14 @@ class _Home2PageState extends State<Home2Page> {
   @override
   Widget build(BuildContext context) {
     final apiProvider = Provider.of<AplicacionesProvider>(context);
-
+    final pref = Provider.of<Preferencias>(context);
+    final menuH = pref.menuHorizontal;
+    final altura = menuH ? 275.0 : 190.0;
     final lista = apiProvider.listaMenu;
     return SafeArea(
       child: Scaffold(
         appBar: PreferredSize(
-          preferredSize: Size.fromHeight(180.0),
+          preferredSize: Size.fromHeight(altura),
           child: encabezadoApp(context, 'Proyecto PI'),
         ),
         // backgroundColor: Theme.of(context).primaryColor,
@@ -97,17 +101,25 @@ class _Home2PageState extends State<Home2Page> {
     final contactosProvider = Provider.of<ContactosProvider>(context);
     final apiProvider =
         Provider.of<AplicacionesProvider>(context, listen: false);
+    final pref = Provider.of<Preferencias>(context);
 
     final apiGoogle =
         await apiProvider.obtenerApi('com.google.android.googlequicksearchbox');
     List<Widget> listaOpciones = [
-      SizedBox(height: 8.0),
+      // SizedBox(height: 8.0),
       // elementos(context, PilaTimpoClima(), 200, '', ''),
       // SizedBox(height: 8),
+
       //  googleBusqueda(context, apiGoogle),
       // SizedBox(height: 8),
       //SizedBox(height: 5),
     ];
+    if (pref.iGoogle) {
+      listaOpciones.add(googleBusqueda(context, apiGoogle));
+      listaOpciones.add(
+        SizedBox(height: 8),
+      );
+    }
     if (listaMenu.isNotEmpty) {
       for (var i = 0; i < listaMenu.length; i++) {
         final String titulo = listaMenu[i].substring(3);
@@ -127,7 +139,7 @@ class _Home2PageState extends State<Home2Page> {
 
             //*********************************************************** */
             /****************** un contacto MPA*/
-            final Contact contacto =
+            final ContactoDatos contacto =
                 await contactosProvider.obtenerContacto(nombre);
             if (contacto != null) {
               listaOpciones
@@ -149,97 +161,201 @@ class _Home2PageState extends State<Home2Page> {
         }
       }
     }
-    listaOpciones.add(elementos(
-        context,
-        Text('Contactos', style: TextStyle(fontSize: 40.0)),
-        60,
-        'contactos',
-        ''));
-    listaOpciones.add(SizedBox(height: 8));
-    listaOpciones.add(elementos(
-        context,
-        Text('Aplicaciones', style: TextStyle(fontSize: 40.0)),
-        60,
-        'apigrupos',
-        ''));
+    if (pref.iContactos) {
+      listaOpciones.add(elementos(
+          context,
+          Text('Contactos', style: TextStyle(fontSize: 40.0)),
+          60,
+          'contactos',
+          ''));
+      listaOpciones.add(SizedBox(height: 8));
+    }
+    if (pref.iAplicaciones) {
+      listaOpciones.add(elementos(
+          context,
+          Text('Aplicaciones', style: TextStyle(fontSize: 40.0)),
+          60,
+          'apigrupos',
+          ''));
 
-    listaOpciones.add(SizedBox(
-      height: 70,
-    ));
+      listaOpciones.add(SizedBox(
+        height: 70,
+      ));
+    }
 
     return listaOpciones;
   }
 
   encabezadoApp(BuildContext context, String titulo) {
-    return AspectRatio(
-      aspectRatio: 3 / 2,
-      child: Container(
-        height: 200, //240,
-        padding: EdgeInsets.only(left: 5, top: 5),
-        child:
-            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-          Column(mainAxisAlignment: MainAxisAlignment.start, children: [
+    final pref = Provider.of<Preferencias>(context, listen: false);
+    final menuHorizontal = pref.menuHorizontal;
+    // celProvider.menuHorizontal;
+    return Container(
+      // color: Colors.amber,
+      height: menuHorizontal ? 275 : 190,
+      padding: EdgeInsets.only(left: 5, right: 5),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          BotonesEncabezado(),
+          menuHorizontal ? encabezadoIcon(context) : Text(''),
+        ],
+        // ),
+
+        // decoration: new BoxDecoration(
+        //     gradient: LinearGradient(
+        //         colors: [
+        //       Theme.of(context).primaryColor,
+
+        //       Colors.white,
+        //       Theme.of(context).scaffoldBackgroundColor,
+        //       //Color.fromRGBO(55, 57, 84, 1.0)
+        //     ],
+        //         stops: [
+        //       0.1, //2
+        //       0.4,
+        //       0.9
+        //     ],
+        //         begin: FractionalOffset.topCenter,
+        //         end: FractionalOffset.bottomCenter)),
+        // color: Color.fromRGBO(55, 57, 84, 1.0),
+      ),
+    );
+  }
+}
+
+class BotonesEncabezado extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      // color: Colors.green,
+      child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+        Column(mainAxisAlignment: MainAxisAlignment.start, children: [
+          GestureDetector(
+            onTap: () {
+              showDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                        backgroundColor: Colors.red[900],
+                        title: Container(
+                          width: 100,
+                          height: 100,
+                          child: Center(
+                            child: Text('¿ Desea salir de Vitalfon ?',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    fontSize: 28, color: Colors.white)),
+                          ),
+                        ),
+
+                        //shape: CircleBorder(),
+                        elevation: 14.0,
+                        actionsPadding: EdgeInsets.symmetric(horizontal: 15.0),
+                        //actionsAlignment: MainAxisAlignment.spaceAround,
+                        actions: [
+                          TextButton(
+                              onPressed: () {
+                                // se sale con flecha menu inferior
+                                SystemNavigator.pop();
+
+                                // exit(0);
+                                //Navigator.pop(context);
+                              },
+                              child: ClipOval(
+                                child: Container(
+                                  height: 80,
+                                  width: 80,
+                                  color: Colors.black38,
+                                  child: Center(
+                                    child: Text('Si',
+                                        style: TextStyle(
+                                            fontSize: 25.0,
+                                            color: Colors.white)),
+                                  ),
+                                ),
+                              )),
+                          TextButton(
+                              autofocus: true,
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              child: ClipOval(
+                                  child: Container(
+                                      height: 80,
+                                      width: 80,
+                                      color: Colors.black38,
+                                      child: Center(
+                                          child: Text('No',
+                                              style: TextStyle(
+                                                  fontSize: 25.0,
+                                                  color: Colors.white))))))
+                        ],
+                      ));
+            },
+            child: Container(
+                width: 90,
+                height: 40,
+                decoration: BoxDecoration(
+                    color: Colors.black38,
+                    borderRadius: BorderRadius.circular(20.0),
+                    border: Border.all(color: Colors.white30)),
+                margin: EdgeInsets.only(right: 5),
+                child: Center(
+                  child: Text(
+                    'SALIDA',
+                    style: TextStyle(fontSize: 18, color: Colors.white),
+                  ),
+                )),
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          botonRojoHeader(context, true),
+          SizedBox(
+            height: 30,
+          )
+        ]),
+        Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
             GestureDetector(
               onTap: () {
-                showDialog(
-                    context: context,
-                    builder: (context) => AlertDialog(
-                          backgroundColor: Colors.red[900],
-                          title: Container(
-                            width: 100,
-                            height: 100,
-                            child: Center(
-                              child: Text('¿ Desea salir de Vitalfon ?',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      fontSize: 28, color: Colors.white)),
-                            ),
-                          ),
-
-                          //shape: CircleBorder(),
-                          elevation: 14.0,
-                          actionsPadding:
-                              EdgeInsets.symmetric(horizontal: 15.0),
-                          //actionsAlignment: MainAxisAlignment.spaceAround,
-                          actions: [
-                            TextButton(
-                                onPressed: () {
-                                  // se sale con flecha menu inferior
-                                  SystemNavigator.pop();
-
-                                  // exit(0);
-                                  //Navigator.pop(context);
-                                },
-                                child: ClipOval(
-                                  child: Container(
-                                    height: 80,
-                                    width: 80,
-                                    color: Colors.black38,
-                                    child: Center(
-                                      child: Text('Si',
-                                          style: TextStyle(
-                                              fontSize: 25.0,
-                                              color: Colors.white)),
-                                    ),
-                                  ),
-                                )),
-                            TextButton(
-                                autofocus: true,
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                },
-                                child: ClipOval(
-                                    child: Container(
-                                        height: 80,
-                                        width: 80,
-                                        color: Colors.black38,
-                                        child: Center(
-                                            child: Text('No',
-                                                style: TextStyle(
-                                                    fontSize: 25.0,
-                                                    color: Colors.white))))))
-                          ],
-                        ));
+                // Navigator.pushNamed(context, 'ayuda',
+                //     arguments: 'home');
+                Navigator.pushNamed(context, 'configurar');
+              },
+              child: Container(
+                  width: 50,
+                  height: 40,
+                  decoration: BoxDecoration(
+                      color: Colors.black38,
+                      borderRadius: BorderRadius.circular(20.0),
+                      border: Border.all(color: Colors.white30)),
+                  margin: EdgeInsets.only(right: 5),
+                  child: Center(
+                    child: Icon(
+                      Icons.ac_unit,
+                      size: 35,
+                      color: Colors.white,
+                    ),
+                    //  Text(
+                    //   'CONFIGURAR',
+                    //   style: TextStyle(fontSize: 18, color: Colors.white),
+                    // ),
+                  )),
+            ),
+            // HoraFecha(),
+            SizedBox(
+              height: 3,
+            ),
+            HoraFecha(),
+          ],
+        ),
+        Column(
+          children: [
+            GestureDetector(
+              onTap: () {
+                Navigator.pushNamed(context, 'ayuda', arguments: 'home');
               },
               child: Container(
                   width: 90,
@@ -251,99 +367,21 @@ class _Home2PageState extends State<Home2Page> {
                   margin: EdgeInsets.only(right: 5),
                   child: Center(
                     child: Text(
-                      'SALIDA',
+                      'AYUDA',
                       style: TextStyle(fontSize: 18, color: Colors.white),
                     ),
                   )),
             ),
             SizedBox(
-              height: 10,
+              height: 3,
             ),
-            botonRojoHeader(context, true),
-          ]),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              GestureDetector(
-                onTap: () {
-                  // Navigator.pushNamed(context, 'ayuda',
-                  //     arguments: 'home');
-                  Navigator.pushNamed(context, 'configurar');
-                },
-                child: Container(
-                    width: 125,
-                    height: 40,
-                    decoration: BoxDecoration(
-                        color: Colors.black38,
-                        borderRadius: BorderRadius.circular(20.0),
-                        border: Border.all(color: Colors.white30)),
-                    margin: EdgeInsets.only(right: 5),
-                    child: Center(
-                      child: Text(
-                        'CONFIGURAR',
-                        style: TextStyle(fontSize: 18, color: Colors.white),
-                      ),
-                    )),
-              ),
-              // HoraFecha(),
-              SizedBox(
-                height: 3,
-              ),
-              HoraFecha(),
-            ],
-          ),
-          Column(
-            children: [
-              GestureDetector(
-                onTap: () {
-                  Navigator.pushNamed(context, 'ayuda', arguments: 'home');
-                },
-                child: Container(
-                    width: 90,
-                    height: 40,
-                    decoration: BoxDecoration(
-                        color: Colors.black38,
-                        borderRadius: BorderRadius.circular(20.0),
-                        border: Border.all(color: Colors.white30)),
-                    margin: EdgeInsets.only(right: 5),
-                    child: Center(
-                      child: Text(
-                        'AYUDA',
-                        style: TextStyle(fontSize: 18, color: Colors.white),
-                      ),
-                    )),
-              ),
-              SizedBox(
-                height: 3,
-              ),
-              Container(
-                height: 130,
-                width: 90,
-              )
-            ],
-          ),
-        ]),
-        //   encabezadoIcon(context),
-      ),
-
-      // decoration: new BoxDecoration(
-      //     gradient: LinearGradient(
-      //         colors: [
-      //       Theme.of(context).primaryColor,
-
-      //       Colors.white,
-      //       Theme.of(context).scaffoldBackgroundColor,
-      //       //Color.fromRGBO(55, 57, 84, 1.0)
-      //     ],
-      //         stops: [
-      //       0.1, //2
-      //       0.4,
-      //       0.9
-      //     ],
-      //         begin: FractionalOffset.topCenter,
-      //         end: FractionalOffset.bottomCenter)),
-      // color: Color.fromRGBO(55, 57, 84, 1.0),
-      //  ),
+            Container(
+              height: 130,
+              width: 90,
+            )
+          ],
+        ),
+      ]),
     );
   }
 }

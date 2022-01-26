@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:contacts_service/contacts_service.dart';
+
+import 'package:piproy/scr/models/contactos_modelo.dart';
 
 import 'package:piproy/scr/providers/contactos_provider.dart';
 import 'package:piproy/scr/widgets/header_app.dart';
@@ -45,35 +46,7 @@ class _MostrarContactoState extends State<MostrarContacto> {
     );
   }
 
-  Widget _avatar(Contact contacto) {
-    if (contacto.avatar.isEmpty) {
-      return Container(
-        height: 80.0,
-        child: CircleAvatar(
-          child: Text(
-            contacto.initials(),
-            style: TextStyle(
-                fontSize: 30.0,
-                fontWeight: FontWeight.w900,
-                color: Colors.green),
-          ),
-          foregroundColor: Colors.green,
-          backgroundColor: Colors.white,
-          maxRadius: 50.0,
-        ),
-      );
-    } else {
-      return Container(
-        height: 80.0,
-        child: CircleAvatar(
-          maxRadius: 50.0,
-          backgroundImage: MemoryImage(contacto.avatar),
-        ),
-      );
-    }
-  }
-
-  Widget fichaContacto(Contact _contact) {
+  Widget fichaContacto(ContactoDatos _contact) {
     List<Widget> listaPhone = creaListaDatos(_contact);
 
     return ListView.builder(
@@ -85,7 +58,7 @@ class _MostrarContactoState extends State<MostrarContacto> {
     //_contact.phones.
   }
 
-  List<Widget> creaListaDatos(Contact _contact) {
+  List<Widget> creaListaDatos(ContactoDatos _contact) {
     List<Widget> lista = [
       // Container(
       //   height: 170,
@@ -115,40 +88,34 @@ class _MostrarContactoState extends State<MostrarContacto> {
         height: 10,
       ),
     ];
-    if (_contact.givenName != null) {
-      lista.add(dato('Primer Nombre:', _contact.givenName));
+    if (_contact.nombre != null) {
+      lista.add(dato('Primer Nombre:', _contact.nombre));
     }
-    if (_contact.middleName != null && _contact.middleName != "") {
-      lista.add(dato('Segundo Nombre:', _contact.middleName));
+    // if (_contact.middleName != null && _contact.middleName != "") {
+    //   lista.add(dato('Segundo Nombre:', _contact.middleName));
+    // }
+    // if (_contact.familyName != null && _contact.familyName != "") {
+    //   lista.add(dato('Apellido:', _contact.familyName));
+    // }
+    // if (_contact.company != null && _contact.company != "") {
+    //   lista.add(dato('Primer Nombre:', _contact.company));
+    // }
+    if (_contact.telefono != '') {
+      lista.add(dato('Teléfonos:', _contact.telefono));
     }
-    if (_contact.familyName != null && _contact.familyName != "") {
-      lista.add(dato('Apellido:', _contact.familyName));
+    if (_contact.whatsapptel != '') {
+      lista.add(dato('Whatsapp:', _contact.whatsapptel));
     }
-    if (_contact.company != null && _contact.company != "") {
-      lista.add(dato('Primer Nombre:', _contact.company));
-    }
-    if (_contact.phones.isNotEmpty) {
-      for (var i = 0; i < _contact.phones.length; i++) {
-        String phone = _contact.phones.elementAt(i).value.replaceAll('+', '');
-        phone = phone + ' ' + _contact.phones.elementAt(i).label;
-        if (i == 0) {
-          lista.add(dato('Teléfonos:', phone));
-        } else {
-          lista.add(dato('          ', phone));
-        }
-      }
-    }
-
-    if (_contact.emails.isNotEmpty) {
-      for (var i = 0; i < _contact.emails.length; i++) {
-        String correo = _contact.emails.elementAt(i).value;
-        if (i == 0) {
-          lista.add(dato('Correos:', correo));
-        } else {
-          lista.add(dato('C', correo));
-        }
-      }
-    }
+    // if (_contact.emails.isNotEmpty) {
+    //   for (var i = 0; i < _contact.emails.length; i++) {
+    //     String correo = _contact.emails.elementAt(i).value;
+    //     if (i == 0) {
+    //       lista.add(dato('Correos:', correo));
+    //     } else {
+    //       lista.add(dato('C', correo));
+    //     }
+    //   }
+    // }
 
     lista.add(SizedBox(
       height: 70,

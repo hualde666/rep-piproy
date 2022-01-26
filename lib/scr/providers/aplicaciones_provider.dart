@@ -2,6 +2,7 @@ import 'package:contacts_service/contacts_service.dart';
 import 'package:device_apps/device_apps.dart';
 
 import 'package:flutter/material.dart';
+import 'package:piproy/scr/models/contactos_modelo.dart';
 import 'package:piproy/scr/providers/contactos_provider.dart';
 
 import 'package:piproy/scr/providers/db_provider.dart';
@@ -23,7 +24,7 @@ class AplicacionesProvider with ChangeNotifier {
   ];
   Map<String, List<Application>> categoryApi = {};
   List<String> listaMenu = [];
-  Map<String, List<Contact>> categoryContact = {};
+  Map<String, List<ContactoDatos>> categoryContact = {};
 
   List<String> _contactgrupos = [
     'Todos',
@@ -135,17 +136,17 @@ class AplicacionesProvider with ChangeNotifier {
 
   //******************************* */
   // agrega contacto a grupo
-  agregarContacto(String grupo, Contact contacto) {
+  agregarContacto(String grupo, ContactoDatos contacto) {
     categoryContact[grupo].add(contacto);
     categoryContact[grupo].sort((a, b) {
-      return a.displayName.toLowerCase().compareTo(b.displayName.toLowerCase());
+      return a.nombre.toLowerCase().compareTo(b.nombre.toLowerCase());
     });
     notifyListeners();
   }
 
   //******************************* */
   // elimina contacto de grupo
-  eliminarContacto(String grupo, Contact contacto) {
+  eliminarContacto(String grupo, ContactoDatos contacto) {
     categoryContact[grupo].remove(contacto);
 
     notifyListeners();
@@ -168,9 +169,7 @@ class AplicacionesProvider with ChangeNotifier {
   ordenerGrupoContacto(String grupo) {
     if (categoryContact[grupo].isNotEmpty) {
       categoryContact[grupo].sort((a, b) {
-        return a.displayName
-            .toLowerCase()
-            .compareTo(b.displayName.toLowerCase());
+        return a.nombre.toLowerCase().compareTo(b.nombre.toLowerCase());
       });
     }
   }
@@ -278,7 +277,24 @@ class AplicacionesProvider with ChangeNotifier {
       if (grupo == 'Todos') {
         List<Contact> lista = await contactosProvaide.getcontactos();
         categoryContact['Todos'] = [];
-        categoryContact['Todos'].addAll(lista);
+        for (var i = 0; i < lista.length; i++) {
+          String _nombre = lista[i].displayName;
+          String _telefono = "";
+          String _whatsapp = "";
+          if (lista[i].phones.isNotEmpty) {
+            _telefono = lista[i].phones.elementAt(0).value;
+            Item item = lista[i].phones.firstWhere(
+                (element) => element.value.substring(0, 1) == '+',
+                orElse: () => null);
+            if (item != null) {
+              _whatsapp = item.value;
+            }
+          }
+          final _contacto = new ContactoDatos(
+              nombre: _nombre, telefono: _telefono, whatsapptel: _whatsapp);
+          categoryContact['Todos'].add((_contacto));
+        }
+        //categoryContact['Todos'].addAll(lista);
       } else {
         List<ApiTipos> lista =
             await DbTiposAplicaciones.db.obtenerAppsGrupo(grupo);
@@ -299,9 +315,7 @@ class AplicacionesProvider with ChangeNotifier {
 
     if (categoryContact[grupo] != null) {
       categoryContact[grupo].sort((a, b) {
-        return a.displayName
-            .toLowerCase()
-            .compareTo(b.displayName.toLowerCase());
+        return a.nombre.toLowerCase().compareTo(b.nombre.toLowerCase());
       });
       return categoryContact[grupo];
     }
@@ -419,9 +433,7 @@ class AplicacionesProvider with ChangeNotifier {
         if (grupo != 'Todos') {
           if (categoryContact[grupo].isNotEmpty) {
             categoryContact[grupo].sort((a, b) {
-              return a.displayName
-                  .toLowerCase()
-                  .compareTo(b.displayName.toLowerCase());
+              return a.nombre.toLowerCase().compareTo(b.nombre.toLowerCase());
             });
           }
         }

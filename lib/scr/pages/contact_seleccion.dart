@@ -1,7 +1,7 @@
-import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';
 
 import 'package:piproy/scr/models/api_tipos.dart';
+import 'package:piproy/scr/models/contactos_modelo.dart';
 import 'package:piproy/scr/providers/aplicaciones_provider.dart';
 
 import 'package:piproy/scr/providers/db_provider.dart';
@@ -15,11 +15,11 @@ class SelectContactsPage extends StatefulWidget {
 }
 
 class _SelectContactsPageState extends State<SelectContactsPage> {
-  List<Contact> listaGrupo = [];
+  List<ContactoDatos> listaGrupo = [];
   bool hayBusqueda = false;
   bool buscar = false;
   TextEditingController _searchController = TextEditingController();
-  List<Contact> listaContactosFiltro;
+  List<ContactoDatos> listaContactosFiltro;
   @override
   void initState() {
     super.initState();
@@ -34,13 +34,13 @@ class _SelectContactsPageState extends State<SelectContactsPage> {
   }
 
   filtrarContactos() {
-    List<Contact> _contactos = [];
+    List<ContactoDatos> _contactos = [];
 
     _contactos.addAll(listaGrupo);
     if (_searchController.text.isNotEmpty) {
       _contactos.retainWhere((contacto) {
         String busquedaMinuscula = _searchController.text.toLowerCase();
-        String nombreMinuscula = contacto.displayName.toLowerCase();
+        String nombreMinuscula = contacto.nombre.toLowerCase();
         return nombreMinuscula.contains(busquedaMinuscula);
       });
       setState(() {
@@ -60,11 +60,11 @@ class _SelectContactsPageState extends State<SelectContactsPage> {
 
     bool hayBusqueda = _searchController.text.isNotEmpty;
 
-    Future<List<Contact>> obtenerListaGrupo() async {
+    Future<List<ContactoDatos>> obtenerListaGrupo() async {
       if (hayBusqueda) {
         return listaContactosFiltro;
       } else {
-        List<Contact> lista =
+        List<ContactoDatos> lista =
             await apiProvider.obtenerListaContactosGrupo('Todos');
         listaGrupo = [];
         listaGrupo.addAll(lista);
@@ -131,24 +131,7 @@ class _SelectContactsPageState extends State<SelectContactsPage> {
         // automaticallyImplyLeading: false,
         // flexibleSpace:
         Container(
-            decoration: new BoxDecoration(
-                gradient: LinearGradient(
-                    colors: [
-                  Theme.of(context).primaryColor,
 
-                  Colors.white,
-                  Theme.of(context).scaffoldBackgroundColor,
-                  // Colors.white,
-                  // Colors.orange,
-                  // Color.fromRGBO(55, 57, 84, 1.0)
-                ],
-                    stops: [
-                  0.1,
-                  0.4,
-                  0.9
-                ],
-                    begin: FractionalOffset.topCenter,
-                    end: FractionalOffset.bottomCenter)),
             // margin: EdgeInsets.only(top: 5, left: 5.0, right: 5.0),
             height: 250.0,
             child: Column(
@@ -214,7 +197,7 @@ class Contacto extends StatefulWidget {
     @required this.grupo,
   }) : super(key: key);
 
-  final Contact contactoSelec;
+  final ContactoDatos contactoSelec;
   final AplicacionesProvider apiProvider;
   final String grupo;
 
@@ -238,7 +221,7 @@ class _ContactoState extends State<Contacto> {
             borderRadius: BorderRadius.circular(20.0),
             border: Border.all(color: Colors.white)),
         child: Center(
-            child: Text(widget.contactoSelec.displayName,
+            child: Text(widget.contactoSelec.nombre,
                 textAlign: TextAlign.center,
                 style: TextStyle(color: Colors.white, fontSize: 30))),
       ),
@@ -250,7 +233,7 @@ class _ContactoState extends State<Contacto> {
               .eliminarContacto(widget.grupo, widget.contactoSelec);
 
           DbTiposAplicaciones.db
-              .deleteApi(widget.grupo, widget.contactoSelec.displayName);
+              .deleteApi(widget.grupo, widget.contactoSelec.nombre);
         } else {
           //agregar
 
@@ -258,7 +241,7 @@ class _ContactoState extends State<Contacto> {
               .agregarContacto(widget.grupo, widget.contactoSelec);
           final nuevo = new ApiTipos(
               grupo: widget.grupo,
-              nombre: widget.contactoSelec.displayName,
+              nombre: widget.contactoSelec.nombre,
               tipo: "2");
           DbTiposAplicaciones.db.nuevoTipo(nuevo);
         }

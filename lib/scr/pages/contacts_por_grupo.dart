@@ -1,6 +1,5 @@
-import 'package:contacts_service/contacts_service.dart';
-
 import 'package:flutter/material.dart';
+import 'package:piproy/scr/models/contactos_modelo.dart';
 
 import 'package:piproy/scr/pages/contact_seleccion.dart';
 import 'package:piproy/scr/providers/aplicaciones_provider.dart';
@@ -17,12 +16,12 @@ class ContactsPorGrupoPage extends StatefulWidget {
 }
 
 class _ContactsPorGrupoPageState extends State<ContactsPorGrupoPage> {
-  List<Contact> listaGrupo = [];
+  List<ContactoDatos> listaGrupo = [];
   bool hayBusqueda = false;
 
   TextEditingController _searchController = TextEditingController();
 
-  List<Contact> listaContactosFiltro;
+  List<ContactoDatos> listaContactosFiltro;
   @override
   void initState() {
     super.initState();
@@ -37,12 +36,12 @@ class _ContactsPorGrupoPageState extends State<ContactsPorGrupoPage> {
   }
 
   filtrarContactos() {
-    List<Contact> _contactos = [];
+    List<ContactoDatos> _contactos = [];
     _contactos.addAll(listaGrupo);
     if (_searchController.text.isNotEmpty) {
       _contactos.retainWhere((contacto) {
         String busquedaMinuscula = _searchController.text.toLowerCase();
-        String nombreMinuscula = contacto.displayName.toLowerCase();
+        String nombreMinuscula = contacto.nombre.toLowerCase();
         return nombreMinuscula.contains(busquedaMinuscula);
       });
       setState(() {
@@ -64,7 +63,7 @@ class _ContactsPorGrupoPageState extends State<ContactsPorGrupoPage> {
             (i) =>
                 TarjetaContacto2(context, listaContactosFiltro[i], true, true));
       } else {
-        List<Contact> lista =
+        List<ContactoDatos> lista =
             await apiProvider.obtenerListaContactosGrupo(grupo);
         listaGrupo = [];
         if (lista.isNotEmpty) {
