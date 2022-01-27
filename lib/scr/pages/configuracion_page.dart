@@ -25,207 +25,203 @@ class ConfiguracionPage extends StatelessWidget {
 
         // title: Text('Configuración'),
 
-        body: ListView(
-          children: [
-            SizedBox(
-              height: 20,
+        body: ListView(children: [
+          SizedBox(
+            height: 20,
+          ),
+          Divider(
+            height: 10,
+            color: Colors.white38,
+          ),
+          ListTile(
+            leading: Icon(
+              Icons.groups,
+              size: 40.0,
+              color: Colors.white,
             ),
-            Divider(
-              height: 10,
-              color: Colors.white38,
-            ),
-            ListTile(
-              leading: Icon(
-                Icons.groups,
-                size: 40.0,
-                color: Colors.white,
-              ),
-              title: Text('Contactos',
-                  style: TextStyle(
-                    fontSize: 25,
-                    color: Colors.white,
-                  )),
-              onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => ContactsGruposPage()));
-              },
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            Divider(
-              height: 10,
-              color: Colors.white38,
-            ),
-            ListTile(
-              leading: Icon(
-                Icons.app_registration,
-                size: 40.0,
-                color: Colors.white,
-              ),
-              title: Text('Aplicaciones',
-                  style: TextStyle(
-                    fontSize: 25,
-                    color: Colors.white,
-                  )),
-              onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => ApiGruposPage()));
-              },
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            Divider(
-              height: 10,
-              color: Colors.white38,
-            ),
-            ListTile(
-              leading: Icon(
-                Icons.engineering,
-                size: 40.0,
-                color: Colors.white,
-              ),
-              title: Text('Habilitar Elementos',
-                  style: TextStyle(
-                    fontSize: 25,
-                    color: Colors.white,
-                  )),
-              onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => OpcionesPage()));
-              },
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            Divider(
-              height: 10,
-              color: Colors.white38,
-            ),
-            ListTile(
-                leading: Icon(
-                  Icons.contact_phone,
-                  size: 35.0,
+            title: Text('Contactos',
+                style: TextStyle(
+                  fontSize: 25,
                   color: Colors.white,
-                ),
-                title: Text(
-                  'Agregar o eliminar contactos de emergencia',
-                  style: TextStyle(fontSize: 25, color: Colors.white),
-                ),
-                onTap: () {
-                  //Navigator.pop(context);
-                  // Navigator.pushNamed(context, 'emergiContactos');
-                  final String grupo = 'Emergencia';
+                )),
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => ContactsGruposPage()));
+            },
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          Divider(
+            height: 10,
+            color: Colors.white38,
+          ),
+          ListTile(
+            leading: Icon(
+              Icons.app_registration,
+              size: 40.0,
+              color: Colors.white,
+            ),
+            title: Text('Aplicaciones',
+                style: TextStyle(
+                  fontSize: 25,
+                  color: Colors.white,
+                )),
+            onTap: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => ApiGruposPage()));
+            },
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          Divider(
+            height: 10,
+            color: Colors.white38,
+          ),
+          ListTile(
+            leading: Icon(
+              Icons.engineering,
+              size: 40.0,
+              color: Colors.white,
+            ),
+            title: Text('Habilitar Elementos',
+                style: TextStyle(
+                  fontSize: 25,
+                  color: Colors.white,
+                )),
+            onTap: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => OpcionesPage()));
+            },
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          Divider(
+            height: 10,
+            color: Colors.white38,
+          ),
+          ListTile(
+              leading: Icon(
+                Icons.contact_phone,
+                size: 35.0,
+                color: Colors.white,
+              ),
+              title: Text(
+                'Agregar o eliminar contactos de emergencia',
+                style: TextStyle(fontSize: 25, color: Colors.white),
+              ),
+              onTap: () {
+                //Navigator.pop(context);
+                // Navigator.pushNamed(context, 'emergiContactos');
+                final String grupo = 'Emergencia';
 
-                  if (!apiProvider.contactgrupos.contains(grupo)) {
-                    Provider.of<AplicacionesProvider>(context, listen: false)
-                        .agregarGrupoContact(grupo);
-                    final nuevo =
-                        new ApiTipos(grupo: grupo, nombre: "", tipo: "2");
-                    DbTiposAplicaciones.db.nuevoTipo(nuevo);
-                  }
+                if (!apiProvider.contactgrupos.contains(grupo)) {
                   Provider.of<AplicacionesProvider>(context, listen: false)
-                      .tipoSeleccion = grupo;
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => ContactsPorGrupoPage()));
-                }),
-            SizedBox(
-              height: 20,
-            ),
-            Divider(
-              height: 10,
-              color: Colors.white38,
-            ),
-            ListTile(
-              leading: Icon(
-                Icons.message,
-                size: 40.0,
-                color: Colors.white,
-              ),
-              title: Text('Redactar mensaje de emergencia',
-                  style: TextStyle(
-                    fontSize: 25,
-                    color: Colors.white,
-                  )),
-              onTap: () {
-                Navigator.pushNamed(context, 'emergiMensaje');
-              },
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            Divider(
-              height: 10,
-              color: Colors.white38,
-            ),
-            ListTile(
-              leading: Icon(
-                Icons.palette,
-                size: 40.0,
-                color: Colors.white,
-              ),
-              title: Text('Color de Viatlfon',
-                  style: TextStyle(
-                    fontSize: 25,
-                    color: Colors.white,
-                  )),
-              onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => PaletaPage()));
-              },
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            Divider(
-              height: 10,
-              color: Colors.white38,
-            ),
-            ListTile(
-              leading: Icon(
-                Icons.play_circle,
-                size: 40.0,
-                color: Colors.white,
-              ),
-              title: Text('Video Presentacion',
-                  style: TextStyle(
-                    fontSize: 25,
-                    color: Colors.white,
-                  )),
-              onTap: () {
+                      .agregarGrupoContact(grupo);
+                  final nuevo =
+                      new ApiTipos(grupo: grupo, nombre: "", tipo: "2");
+                  DbTiposAplicaciones.db.nuevoTipo(nuevo);
+                }
+                Provider.of<AplicacionesProvider>(context, listen: false)
+                    .tipoSeleccion = grupo;
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => VideoPlayerScreen()));
-              },
+                        builder: (context) => ContactsPorGrupoPage()));
+              }),
+          SizedBox(
+            height: 20,
+          ),
+          Divider(
+            height: 10,
+            color: Colors.white38,
+          ),
+          ListTile(
+            leading: Icon(
+              Icons.message,
+              size: 40.0,
+              color: Colors.white,
             ),
-            SizedBox(
-              height: 20,
+            title: Text('Redactar mensaje de emergencia',
+                style: TextStyle(
+                  fontSize: 25,
+                  color: Colors.white,
+                )),
+            onTap: () {
+              Navigator.pushNamed(context, 'emergiMensaje');
+            },
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          Divider(
+            height: 10,
+            color: Colors.white38,
+          ),
+          ListTile(
+            leading: Icon(
+              Icons.palette,
+              size: 40.0,
+              color: Colors.white,
             ),
-            Divider(
-              height: 10,
-              color: Colors.white38,
+            title: Text('Color de Viatlfon',
+                style: TextStyle(
+                  fontSize: 25,
+                  color: Colors.white,
+                )),
+            onTap: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => PaletaPage()));
+            },
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          Divider(
+            height: 10,
+            color: Colors.white38,
+          ),
+          ListTile(
+            leading: Icon(
+              Icons.play_circle,
+              size: 40.0,
+              color: Colors.white,
             ),
-            ListTile(
-              leading: Icon(
-                Icons.gavel_rounded,
-                size: 40.0,
-                color: Colors.white,
-              ),
-              title: Text('Simulación',
-                  style: TextStyle(
-                    fontSize: 25,
-                    color: Colors.white,
-                  )),
-              onTap: () {},
+            title: Text('Video Presentacion',
+                style: TextStyle(
+                  fontSize: 25,
+                  color: Colors.white,
+                )),
+            onTap: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => VideoPlayerScreen()));
+            },
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          Divider(
+            height: 10,
+            color: Colors.white38,
+          ),
+          ListTile(
+            leading: Icon(
+              Icons.gavel_rounded,
+              size: 40.0,
+              color: Colors.white,
             ),
-          ],
-        ),
+            title: Text('Simulación',
+                style: TextStyle(
+                  fontSize: 25,
+                  color: Colors.white,
+                )),
+            onTap: () {},
+          ),
+        ]),
         // floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
         // floatingActionButton: BotonFlotante(pagina: 'configurar'),
       ),

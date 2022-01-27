@@ -10,329 +10,84 @@ class OpcionesPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final pref = Provider.of<Preferencias>(context);
     List<Widget> opciones = [
+      Divider(
+        height: 2,
+        color: Colors.white,
+      ),
       SizedBox(
         height: 5,
       ),
-      Divider(
-        height: 2,
-        color: Colors.white,
-      ),
-      GestureDetector(
-        onTap: () {
-          pref.iTelefono = !pref.iTelefono;
-        },
-        child: Container(
-          height: 90,
-          decoration: BoxDecoration(
-            color: pref.iTelefono
-                ?
-                /** es un contacto o grupo de contacto */
-                Theme.of(context).primaryColor
-                : Theme.of(context).scaffoldBackgroundColor,
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                width: 70.0,
-                height: 70.0,
-                decoration: BoxDecoration(
-                    color: Theme.of(context).primaryColor,
-                    borderRadius: BorderRadius.circular(80),
-                    border: Border.all(color: Colors.white38, width: 2.0)),
-                child: Icon(
-                  Icons.call,
-                  size: 40.0,
-                ),
-              ),
-              Text(
-                'teléfono',
-                style: TextStyle(color: Colors.white60),
-              )
-            ],
-          ),
-        ),
-      ),
-      Divider(
-        height: 2,
-        color: Colors.white,
-      ),
-      GestureDetector(
-        onTap: () {
-          pref.iBateria = !pref.iBateria;
-        },
-        child: Container(
-          height: 90,
-          decoration: BoxDecoration(
-            color: pref.iBateria
-                ?
-                /** es un contacto o grupo de contacto */
-                Theme.of(context).primaryColor
-                : Theme.of(context).scaffoldBackgroundColor,
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                width: 70.0,
-                height: 70.0,
-                decoration: BoxDecoration(
-                    color: Theme.of(context).primaryColor,
-                    borderRadius: BorderRadius.circular(80),
-                    border: Border.all(color: Colors.white38, width: 2.0)),
-                child: Icon(
-                  Icons.battery_std,
-                  size: 40.0,
-                ),
-              ),
-              Text(
-                'bateria',
-                style: TextStyle(color: Colors.white60),
-              )
-            ],
-          ),
-        ),
-      ),
-      Divider(
-        height: 2,
-        color: Colors.white,
-      ),
-      GestureDetector(
-        onTap: () {
-          pref.iWifi = !pref.iWifi;
-        },
-        child: Container(
-          decoration: BoxDecoration(
-            color: pref.iWifi
-                ?
-                /** es un contacto o grupo de contacto */
-                Theme.of(context).primaryColor
-                : Theme.of(context).scaffoldBackgroundColor,
-          ),
-          child: Container(
-            height: 90,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  width: 70.0,
-                  height: 70.0,
-                  decoration: BoxDecoration(
-                      color: Theme.of(context).primaryColor,
-                      borderRadius: BorderRadius.circular(80),
-                      border: Border.all(color: Colors.white38, width: 2.0)),
-                  child: Icon(
-                    Icons.wifi,
-                    size: 40.0,
-                  ),
-                ),
-                Text(
-                  'wifi',
-                  style: TextStyle(color: Colors.white60),
-                )
-              ],
+      Container(
+        height: 365,
+        child: GridView.count(
+          mainAxisSpacing: 3,
+          crossAxisSpacing: 3,
+          crossAxisCount: 3,
+          children: [
+            GestureDetector(
+              onTap: () {
+                pref.iTelefono = !pref.iTelefono;
+              },
+              child: IconOpcion(
+                  iconop: Icons.call,
+                  icontext: 'telefono',
+                  activo: pref.iTelefono),
             ),
-          ),
-        ),
-      ),
-      Divider(
-        height: 2,
-        color: Colors.white,
-      ),
-      GestureDetector(
-        onTap: () {
-          pref.iLinea = !pref.iLinea;
-        },
-        child: Container(
-          height: 90,
-          decoration: BoxDecoration(
-            color: pref.iLinea
-                ?
-                /** es un contacto o grupo de contacto */
-                Theme.of(context).primaryColor
-                : Theme.of(context).scaffoldBackgroundColor,
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                width: 70.0,
-                height: 70.0,
-                decoration: BoxDecoration(
-                    color: Theme.of(context).primaryColor,
-                    borderRadius: BorderRadius.circular(80),
-                    border: Border.all(color: Colors.white38, width: 2.0)),
-                child: Icon(
-                  Icons.signal_cellular_alt_rounded,
-                  size: 40.0,
-                ),
-              ),
-              Text(
-                'linea',
-                style: TextStyle(color: Colors.white60),
-              )
-            ],
-          ),
-        ),
-      ),
-      Divider(
-        height: 2,
-        color: Colors.white,
-      ),
-      GestureDetector(
-        onTap: () {
-          pref.iGps = !pref.iGps;
-        },
-        child: Container(
-          height: 90,
-          decoration: BoxDecoration(
-            color: pref.iGps
-                ?
-                /** es un contacto o grupo de contacto */
-                Theme.of(context).primaryColor
-                : Theme.of(context).scaffoldBackgroundColor,
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                width: 70.0,
-                height: 70.0,
-                decoration: BoxDecoration(
-                    color: Theme.of(context).primaryColor,
-                    borderRadius: BorderRadius.circular(80),
-                    border: Border.all(color: Colors.white38, width: 2.0)),
-                child: Icon(
-                  Icons.gps_fixed_rounded,
-                  size: 40.0,
-                ),
-              ),
-              Text(
-                'gps',
-                style: TextStyle(color: Colors.white60),
-              )
-            ],
-          ),
-        ),
-      ),
-      Divider(
-        height: 2,
-        color: Colors.white,
-      ),
-      GestureDetector(
-        onTap: () {
-          pref.iLinterna = !pref.iLinterna;
-        },
-        child: Container(
-          height: 90,
-          decoration: BoxDecoration(
-            color: pref.iLinterna
-                ?
-                /** es un contacto o grupo de contacto */
-                Theme.of(context).primaryColor
-                : Theme.of(context).scaffoldBackgroundColor,
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                width: 70.0,
-                height: 70.0,
-                decoration: BoxDecoration(
-                    color: Theme.of(context).primaryColor,
-                    borderRadius: BorderRadius.circular(80),
-                    border: Border.all(color: Colors.white38, width: 2.0)),
-                child: Icon(
-                  Icons.filter_alt,
-                  size: 40.0,
-                ),
-              ),
-              Text(
-                'linterna',
-                style: TextStyle(color: Colors.white60),
-              )
-            ],
-          ),
-        ),
-      ),
-      Divider(
-        height: 2,
-        color: Colors.white,
-      ),
-      GestureDetector(
-        onTap: () {
-          pref.iMensaje = !pref.iMensaje;
-        },
-        child: Container(
-          height: 90,
-          decoration: BoxDecoration(
-            color: pref.iMensaje
-                ?
-                /** es un contacto o grupo de contacto */
-                Theme.of(context).primaryColor
-                : Theme.of(context).scaffoldBackgroundColor,
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                width: 70.0,
-                height: 70.0,
-                decoration: BoxDecoration(
-                    color: Theme.of(context).primaryColor,
-                    borderRadius: BorderRadius.circular(80),
-                    border: Border.all(color: Colors.white38, width: 2.0)),
-                child: Icon(
-                  Icons.chat,
-                  size: 40.0,
-                ),
-              ),
-              Text(
-                'mensaje',
-                style: TextStyle(color: Colors.white60),
-              )
-            ],
-          ),
-        ),
-      ),
-      Divider(
-        height: 2,
-        color: Colors.white,
-      ),
-      GestureDetector(
-        onTap: () {
-          pref.iReloj = !pref.iReloj;
-        },
-        child: Container(
-          height: 90,
-          decoration: BoxDecoration(
-            color: pref.iReloj
-                ?
-                /** es un contacto o grupo de contacto */
-                Theme.of(context).primaryColor
-                : Theme.of(context).scaffoldBackgroundColor,
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                width: 70.0,
-                height: 70.0,
-                decoration: BoxDecoration(
-                    color: Theme.of(context).primaryColor,
-                    borderRadius: BorderRadius.circular(80),
-                    border: Border.all(color: Colors.white38, width: 2.0)),
-                child: Icon(
-                  Icons.access_alarm,
-                  size: 40.0,
-                ),
-              ),
-              Text(
-                'reloj',
-                style: TextStyle(color: Colors.white60),
-              )
-            ],
-          ),
+            GestureDetector(
+                onTap: () {
+                  pref.iBateria = !pref.iBateria;
+                },
+                child: IconOpcion(
+                    iconop: Icons.battery_std,
+                    icontext: 'bateria',
+                    activo: pref.iBateria)),
+            GestureDetector(
+                onTap: () {
+                  pref.iWifi = !pref.iWifi;
+                },
+                child: IconOpcion(
+                    iconop: Icons.wifi, icontext: 'wifi', activo: pref.iWifi)),
+            GestureDetector(
+                onTap: () {
+                  pref.iLinea = !pref.iLinea;
+                },
+                child: IconOpcion(
+                    iconop: Icons.signal_cellular_alt_rounded,
+                    icontext: 'linea',
+                    activo: pref.iLinea)),
+            GestureDetector(
+                onTap: () {
+                  pref.iGps = !pref.iGps;
+                },
+                child: IconOpcion(
+                    iconop: Icons.gps_fixed_rounded,
+                    icontext: 'gps',
+                    activo: pref.iGps)),
+            GestureDetector(
+                onTap: () {
+                  pref.iLinterna = !pref.iLinterna;
+                },
+                child: IconOpcion(
+                    iconop: Icons.filter_alt,
+                    icontext: 'gps',
+                    activo: pref.iLinterna)),
+            GestureDetector(
+                onTap: () {
+                  pref.iMensaje = !pref.iMensaje;
+                },
+                child: IconOpcion(
+                    iconop: Icons.chat,
+                    icontext: 'mensaje',
+                    activo: pref.iMensaje)),
+            GestureDetector(
+                onTap: () {
+                  pref.iReloj = !pref.iReloj;
+                },
+                child: IconOpcion(
+                    iconop: Icons.access_alarm,
+                    icontext: 'reloj',
+                    activo: pref.iReloj)),
+          ],
         ),
       ),
       Divider(
@@ -489,17 +244,48 @@ class OpcionesPage extends StatelessWidget {
       ),
     );
   }
+}
 
-  Widget opcionWidget(BuildContext context, Widget widget) {
-    // final celProvider = Provider.of<EstadoProvider>(context);
-    return GestureDetector(
-      onTap: () {
-        //guardarPreferenciaOpciones();
-        //    celProvider.paleta = paleta.toString();
-      },
-      child: Container(
-        height: 60,
-        child: widget,
+class IconOpcion extends StatelessWidget {
+  const IconOpcion({@required this.iconop, this.icontext, this.activo});
+
+  final bool activo;
+  final IconData iconop;
+  final String icontext;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 40,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: Colors.white38, width: 2.0),
+        color: activo
+            ?
+            /** es un contacto o grupo de contacto */
+            Theme.of(context).primaryColor
+            : Theme.of(context).scaffoldBackgroundColor,
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            width: 70.0,
+            height: 70.0,
+            decoration: BoxDecoration(
+                color: Theme.of(context).primaryColor,
+                borderRadius: BorderRadius.circular(80),
+                border: Border.all(color: Colors.white38, width: 2.0)),
+            child: Icon(
+              iconop,
+              size: 40.0,
+            ),
+          ),
+          Text(
+            icontext,
+            style: TextStyle(color: Colors.white60),
+          )
+        ],
       ),
     );
   }

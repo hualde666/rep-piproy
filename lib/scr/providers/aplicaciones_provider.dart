@@ -298,14 +298,16 @@ class AplicacionesProvider with ChangeNotifier {
       } else {
         List<ApiTipos> lista =
             await DbTiposAplicaciones.db.obtenerAppsGrupo(grupo);
-        for (var i = 0; i < lista.length; i++) {
-          if (lista[i].nombre != '') {
-            final contacto =
-                await contactosProvaide.obtenerContacto(lista[i].nombre);
+        if (lista != null) {
+          for (var i = 0; i < lista.length; i++) {
+            if (lista[i].nombre != '') {
+              final contacto =
+                  await contactosProvaide.obtenerContacto(lista[i].nombre);
 
-            if (contacto != null) {
-              if (!categoryContact[grupo].contains(contacto)) {
-                categoryContact[grupo].add(contacto);
+              if (contacto != null) {
+                if (!categoryContact[grupo].contains(contacto)) {
+                  categoryContact[grupo].add(contacto);
+                }
               }
             }
           }
