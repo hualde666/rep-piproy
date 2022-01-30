@@ -98,7 +98,7 @@ class ElementoApi extends StatelessWidget {
       decoration: BoxDecoration(
           color: Theme.of(context).primaryColor,
           borderRadius: BorderRadius.circular(15.0),
-          border: Border.all(color: Colors.white, width: 1.0)),
+          border: Border.all(color: Colors.white38, width: 1.0)),
 
       child: Column(
         children: [
@@ -167,9 +167,9 @@ class ElementoApi extends StatelessWidget {
                     (api as ApplicationWithIcon).icon,
                     width: 90,
                   ),
-                  SizedBox(
-                    width: 5,
-                  ),
+                  // SizedBox(
+                  //   height: 5,
+                  // ),
                   Container(
                     height: 50,
                     width: 150,

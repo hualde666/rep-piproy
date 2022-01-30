@@ -52,7 +52,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final pref = Provider.of<Preferencias>(context);
-    final apiProvider = Provider.of<AplicacionesProvider>(context);
+
     DbTiposAplicaciones.db.database;
 
     SystemChrome.setPreferredOrientations(

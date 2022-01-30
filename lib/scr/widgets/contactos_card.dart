@@ -431,7 +431,7 @@ Widget _nombreContacto(BuildContext context, ContactoDatos contacto,
               overflow: TextOverflow.ellipsis,
               textAlign: TextAlign.center,
               style: TextStyle(
-                fontSize: 45.0,
+                fontSize: 35.0,
               ),
             ),
           ),

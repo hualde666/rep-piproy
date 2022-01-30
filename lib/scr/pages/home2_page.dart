@@ -37,7 +37,7 @@ class _Home2PageState extends State<Home2Page> {
   @override
   Widget build(BuildContext context) {
     final pref = Provider.of<Preferencias>(context);
-    final apiProvider = Provider.of<AplicacionesProvider>(context);
+
     // final lista = apiProvider.listaMenu;
     return SafeArea(
       child: Scaffold(
@@ -158,12 +158,8 @@ Iterable<Widget> listaGrupos(BuildContext context, List<String> listaMenu) {
   lista.addAll(listaMenu.where((element) => element.contains('MPC')));
   for (var i = 0; i < lista.length; i++) {
     final String titulo = lista[i].substring(3);
-    listaGrupos.add(elementos(
-        context,
-        Text(titulo, style: TextStyle(fontSize: 40.0)),
-        60,
-        titulo,
-        listaMenu[i]));
+    listaGrupos.add(elementos(context,
+        Text(titulo, style: TextStyle(fontSize: 40.0)), 60, titulo, lista[i]));
     listaGrupos.add(SizedBox(height: 8));
   }
   final List<String> lista2 = [];
@@ -171,12 +167,8 @@ Iterable<Widget> listaGrupos(BuildContext context, List<String> listaMenu) {
   lista2.addAll(listaMenu.where((element) => element.contains('MPD')));
   for (var i = 0; i < lista2.length; i++) {
     final String titulo = lista2[i].substring(3);
-    listaGrupos.add(elementos(
-        context,
-        Text(titulo, style: TextStyle(fontSize: 40.0)),
-        60,
-        titulo,
-        listaMenu[i]));
+    listaGrupos.add(elementos(context,
+        Text(titulo, style: TextStyle(fontSize: 40.0)), 60, titulo, lista2[i]));
     listaGrupos.add(SizedBox(height: 8));
   }
   return listaGrupos;
@@ -429,7 +421,7 @@ Widget elementoApi2(BuildContext context, Application api) {
               ),
               Image.memory(
                 (api as ApplicationWithIcon).icon,
-                width: 100,
+                width: 90,
               ),
               GestureDetector(
                   onTap: () {
@@ -450,13 +442,13 @@ Widget elementoApi2(BuildContext context, Application api) {
             ],
           ),
           SizedBox(
-            width: 20,
+            height: 10,
           ),
           Text(
             api.appName,
             textAlign: TextAlign.center,
             style: TextStyle(
-              fontSize: 25,
+              fontSize: 20,
             ),
           ),
         ],
