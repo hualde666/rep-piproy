@@ -20,6 +20,7 @@ import 'package:piproy/scr/pages/botonrojo_page.dart';
 import 'package:piproy/scr/pages/splash.dart';
 //import 'package:piproy/scr/pages/splash.dart';
 import 'package:piproy/scr/providers/aplicaciones_provider.dart';
+
 import 'package:piproy/scr/providers/contactos_provider.dart';
 
 import 'package:piproy/scr/providers/estado_celular.dart';
@@ -33,10 +34,12 @@ import 'package:piproy/scr/providers/db_provider.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final pref = new Preferencias();
+  final apiMenu = new AplicacionesProvider();
   await pref.init();
+  await apiMenu.cargarCategorias();
   runApp(MultiProvider(
     providers: [
-      ChangeNotifierProvider(create: (context) => new Preferencias()),
+      ChangeNotifierProvider(create: (_) => new Preferencias()),
       ChangeNotifierProvider(create: (_) => new ContactosProvider()),
       ChangeNotifierProvider(create: (_) => new EstadoProvider()),
       ChangeNotifierProvider(create: (_) => new AplicacionesProvider()),
@@ -49,6 +52,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final pref = Provider.of<Preferencias>(context);
+    final apiProvider = Provider.of<AplicacionesProvider>(context);
     DbTiposAplicaciones.db.database;
 
     SystemChrome.setPreferredOrientations(

@@ -2,7 +2,6 @@ import 'package:device_apps/device_apps.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'package:piproy/scr/models/api_tipos.dart';
 import 'package:piproy/scr/models/contactos_modelo.dart';
 
 import 'package:piproy/scr/providers/aplicaciones_provider.dart';
@@ -31,51 +30,23 @@ class Home2Page extends StatefulWidget {
 }
 
 class _Home2PageState extends State<Home2Page> {
-  // ScrollController _scrollController = ScrollController();
   bool cargando = true;
   List<Widget> lista2 = [];
   Application api;
-  @override
-  void initState() {
-    super.initState();
-    // cargarMenu();
-    //  _scrollController = ScrollController()
-    //    ..addListener(() {
-
-    //    });
-  }
-
-  void scrollToTop() {
-    //_scrollController.jumpTo(0.0);
-  }
-  Future cargarMenu() async {
-    final apiProvider = Provider.of<AplicacionesProvider>(context);
-
-    if (apiProvider.listaMenu.isEmpty) {
-      final List<ApiTipos> lista = await apiProvider.cargarCategorias();
-      Provider.of<AplicacionesProvider>(context, listen: false)
-          .ordenarListasMenu(lista);
-      lista2 = await detalle(context, apiProvider.listaMenu);
-    }
-    return apiProvider.listaMenu;
-  }
 
   @override
   Widget build(BuildContext context) {
-    final apiProvider = Provider.of<AplicacionesProvider>(context);
     final pref = Provider.of<Preferencias>(context);
-    final menuH = pref.menuHorizontal;
-    final altura = menuH ? 275.0 : 190.0;
-    final lista = apiProvider.listaMenu;
+    final apiProvider = Provider.of<AplicacionesProvider>(context);
+    // final lista = apiProvider.listaMenu;
     return SafeArea(
       child: Scaffold(
         appBar: PreferredSize(
-          preferredSize: Size.fromHeight(altura),
+          preferredSize: Size.fromHeight(pref.menuHorizontal ? 275.0 : 190.0),
           child: encabezadoApp(context, 'Proyecto PI'),
         ),
-        // backgroundColor: Theme.of(context).primaryColor,
         body: FutureBuilder(
-            future: detalle(context, lista),
+            future: detalle(context),
             builder: (BuildContext context, AsyncSnapshot snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return Center(
@@ -97,69 +68,24 @@ class _Home2PageState extends State<Home2Page> {
     );
   }
 
-  detalle(BuildContext context, List<String> listaMenu) async {
-    final contactosProvider = Provider.of<ContactosProvider>(context);
-    final apiProvider =
-        Provider.of<AplicacionesProvider>(context, listen: false);
+  detalle(BuildContext context) async {
+    final apiProvider = Provider.of<AplicacionesProvider>(context);
+    // final listaMenu = apiProvider.listaMenu;
     final pref = Provider.of<Preferencias>(context);
-
-    final apiGoogle =
-        await apiProvider.obtenerApi('com.google.android.googlequicksearchbox');
-    List<Widget> listaOpciones = [
-      // SizedBox(height: 8.0),
-      // elementos(context, PilaTimpoClima(), 200, '', ''),
-      // SizedBox(height: 8),
-
-      //  googleBusqueda(context, apiGoogle),
-      // SizedBox(height: 8),
-      //SizedBox(height: 5),
-    ];
+    final listaMenu = apiProvider.listaMenu;
+    List<Widget> listaOpciones = [];
     if (pref.iGoogle) {
+      final apiGoogle = await apiProvider
+          .obtenerApi('com.google.android.googlequicksearchbox');
       listaOpciones.add(googleBusqueda(context, apiGoogle));
       listaOpciones.add(
         SizedBox(height: 8),
       );
     }
     if (listaMenu.isNotEmpty) {
-      for (var i = 0; i < listaMenu.length; i++) {
-        final String titulo = listaMenu[i].substring(3);
-        //********************************************************** */
-        //***** es un grupo API => MPD o un grupo de CONTACTO => MPC */
-        if (listaMenu[i].contains('MPD') || listaMenu[i].contains('MPC')) {
-          listaOpciones.add(elementos(
-              context,
-              Text(titulo, style: TextStyle(fontSize: 40.0)),
-              60,
-              titulo,
-              listaMenu[i]));
-          listaOpciones.add(SizedBox(height: 8));
-        } else {
-          if (listaMenu[i].contains('MPA')) {
-            String nombre = listaMenu[i].substring(3);
-
-            //*********************************************************** */
-            /****************** un contacto MPA*/
-            final ContactoDatos contacto =
-                await contactosProvider.obtenerContacto(nombre);
-            if (contacto != null) {
-              listaOpciones
-                  .add(TarjetaContacto2(context, contacto, false, true));
-              listaOpciones.add(SizedBox(height: 8));
-            }
-          } else {
-            //******************************************************* */
-            //********************* una Api   MPB            */
-            // final apiProvider = Provider.of<AplicacionesProvider>(context);
-            final Application api =
-                await DeviceApps.getApp(listaMenu[i].substring(3), true);
-
-            if (api != null) {
-              listaOpciones.add(elementoApi2(context, api));
-              listaOpciones.add(SizedBox(height: 8));
-            }
-          }
-        }
-      }
+      listaOpciones.addAll(await listaContactos(context, listaMenu));
+      listaOpciones.add(await matrizApis(context, listaMenu));
+      listaOpciones.addAll(listaGrupos(context, listaMenu));
     }
     if (pref.iContactos) {
       listaOpciones.add(elementos(
@@ -185,43 +111,132 @@ class _Home2PageState extends State<Home2Page> {
 
     return listaOpciones;
   }
+}
 
-  encabezadoApp(BuildContext context, String titulo) {
-    final pref = Provider.of<Preferencias>(context, listen: false);
-    final menuHorizontal = pref.menuHorizontal;
-    // celProvider.menuHorizontal;
-    return Container(
-      // color: Colors.amber,
-      height: menuHorizontal ? 275 : 190,
-      padding: EdgeInsets.only(left: 5, right: 5),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          BotonesEncabezado(),
-          menuHorizontal ? encabezadoIcon(context) : Text(''),
-        ],
-        // ),
+encabezadoApp(BuildContext context, String titulo) {
+  final pref = Provider.of<Preferencias>(context);
+  final menuHorizontal = pref.menuHorizontal;
+  // celProvider.menuHorizontal;
+  return Container(
+    // color: Colors.amber,
+    height: pref.menuHorizontal ? 275 : 190,
+    padding: EdgeInsets.only(left: 5, right: 5),
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        BotonesEncabezado(),
+        menuHorizontal ? encabezadoIcon(context) : Text(''),
+      ],
+      // ),
 
-        // decoration: new BoxDecoration(
-        //     gradient: LinearGradient(
-        //         colors: [
-        //       Theme.of(context).primaryColor,
+      // decoration: new BoxDecoration(
+      //     gradient: LinearGradient(
+      //         colors: [
+      //       Theme.of(context).primaryColor,
 
-        //       Colors.white,
-        //       Theme.of(context).scaffoldBackgroundColor,
-        //       //Color.fromRGBO(55, 57, 84, 1.0)
-        //     ],
-        //         stops: [
-        //       0.1, //2
-        //       0.4,
-        //       0.9
-        //     ],
-        //         begin: FractionalOffset.topCenter,
-        //         end: FractionalOffset.bottomCenter)),
-        // color: Color.fromRGBO(55, 57, 84, 1.0),
-      ),
-    );
+      //       Colors.white,
+      //       Theme.of(context).scaffoldBackgroundColor,
+      //       //Color.fromRGBO(55, 57, 84, 1.0)
+      //     ],
+      //         stops: [
+      //       0.1, //2
+      //       0.4,
+      //       0.9
+      //     ],
+      //         begin: FractionalOffset.topCenter,
+      //         end: FractionalOffset.bottomCenter)),
+      // color: Color.fromRGBO(55, 57, 84, 1.0),
+    ),
+  );
+}
+
+Iterable<Widget> listaGrupos(BuildContext context, List<String> listaMenu) {
+  final List<String> lista = [];
+  final List<Widget> listaGrupos = [];
+  //********************************************************** */
+  //************** grupos de contactoa************************* */
+  lista.addAll(listaMenu.where((element) => element.contains('MPC')));
+  for (var i = 0; i < lista.length; i++) {
+    final String titulo = lista[i].substring(3);
+    listaGrupos.add(elementos(
+        context,
+        Text(titulo, style: TextStyle(fontSize: 40.0)),
+        60,
+        titulo,
+        listaMenu[i]));
+    listaGrupos.add(SizedBox(height: 8));
   }
+  final List<String> lista2 = [];
+
+  lista2.addAll(listaMenu.where((element) => element.contains('MPD')));
+  for (var i = 0; i < lista2.length; i++) {
+    final String titulo = lista2[i].substring(3);
+    listaGrupos.add(elementos(
+        context,
+        Text(titulo, style: TextStyle(fontSize: 40.0)),
+        60,
+        titulo,
+        listaMenu[i]));
+    listaGrupos.add(SizedBox(height: 8));
+  }
+  return listaGrupos;
+}
+
+matrizApis(BuildContext context, List<String> listaMenu) async {
+  //******************************************************* */
+  //********************* una Api   MPB            */
+  //final apiProvider = Provider.of<AplicacionesProvider>(context, listen: false);
+  //final listaMenu = apiProvider.listaMenu;
+  final List<String> lista = [];
+  final List<Widget> listaApis = [];
+  lista.addAll(listaMenu.where((element) => element.contains('MPB')));
+  for (var i = 0; i < lista.length; i++) {
+    final Application api =
+        await DeviceApps.getApp(lista[i].substring(3), true);
+
+    if (api != null) {
+      listaApis.add(elementoApi2(context, api));
+    }
+  }
+  if (listaApis.isNotEmpty) {
+    final altura =
+        lista.length > 2 ? 180.0 * (lista.length / 2).round() : 180.0;
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: 5),
+      height: altura,
+      child: GridView.count(
+          physics: NeverScrollableScrollPhysics(),
+          mainAxisSpacing: 3,
+          crossAxisSpacing: 3,
+          crossAxisCount: 2,
+          children: listaApis),
+    );
+  } else {
+    return Container();
+  }
+}
+
+listaContactos(BuildContext context, List<String> listaMenu) async {
+  //*********************************************************** */
+  /****************** un contacto MPA***************************/
+  //*********************************************************** */
+  final contactosProvider =
+      Provider.of<ContactosProvider>(context, listen: false);
+  final List<Widget> listaWidgetContactos = [];
+  final List<String> lista = [];
+  lista.addAll(listaMenu.where((element) => element.contains('MPA')));
+  for (var i = 0; i < lista.length; i++) {
+    String nombre = lista[i].substring(3);
+    final ContactoDatos contacto =
+        await contactosProvider.obtenerContacto(nombre);
+    if (contacto != null) {
+      listaWidgetContactos
+          .add(TarjetaContacto2(context, contacto, false, true));
+      listaWidgetContactos.add(SizedBox(height: 8));
+    }
+  }
+
+  return listaWidgetContactos;
 }
 
 class BotonesEncabezado extends StatelessWidget {
@@ -394,11 +409,11 @@ Widget elementoApi2(BuildContext context, Application api) {
       }
     },
     child: Container(
-      margin: EdgeInsets.symmetric(horizontal: 5.0),
+      // margin: EdgeInsets.symmetric(horizontal: 5.0),
       decoration: BoxDecoration(
           color: Theme.of(context).primaryColor,
           borderRadius: BorderRadius.circular(20.0),
-          border: Border.all(color: Colors.white)),
+          border: Border.all(color: Colors.white38, width: 1)),
       // color: Theme.of(context).primaryColor,
       child: Column(
         children: [
@@ -441,7 +456,7 @@ Widget elementoApi2(BuildContext context, Application api) {
             api.appName,
             textAlign: TextAlign.center,
             style: TextStyle(
-              fontSize: 35,
+              fontSize: 25,
             ),
           ),
         ],

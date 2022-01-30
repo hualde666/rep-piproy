@@ -23,6 +23,7 @@ class OpcionesPage extends StatelessWidget {
           mainAxisSpacing: 3,
           crossAxisSpacing: 3,
           crossAxisCount: 3,
+          physics: NeverScrollableScrollPhysics(),
           children: [
             GestureDetector(
               onTap: () {
@@ -69,7 +70,7 @@ class OpcionesPage extends StatelessWidget {
                 },
                 child: IconOpcion(
                     iconop: Icons.filter_alt,
-                    icontext: 'gps',
+                    icontext: 'linterna',
                     activo: pref.iLinterna)),
             GestureDetector(
                 onTap: () {

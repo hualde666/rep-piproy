@@ -17,6 +17,7 @@ class AplicacionesProvider with ChangeNotifier {
 
   bool _cargando = true;
   String _tipoSeleccion = '';
+
   List<Application> _listaApp;
   List<Application> _listaSeleccion;
   List<String> _apigrupos = [
@@ -32,7 +33,7 @@ class AplicacionesProvider with ChangeNotifier {
   AplicacionesProvider._internal() {
     this.categoryApi['Todas'] = [];
     this.categoryContact['Todos'] = [];
-    cargarCategorias();
+    // cargarCategorias();
   }
 //***********************************Widgets del menu principal */
 
@@ -363,6 +364,7 @@ class AplicacionesProvider with ChangeNotifier {
         ordenarListasMenu(resp2);
       }
     }
+    return listaMenu;
   }
 
   ordenarListasMenu(List<ApiTipos> resp2) async {

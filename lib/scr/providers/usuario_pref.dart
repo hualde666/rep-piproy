@@ -47,11 +47,13 @@ class Preferencias extends ChangeNotifier {
         !_iLinterna &&
         !_iMensaje &&
         !_iReloj &&
-        !_iWifi) {
+        !_iWifi &&
+        !_iTelefono) {
       this._menuHorizontal = false;
     } else {
       this._menuHorizontal = true;
     }
+    notifyListeners();
   }
 
   String get paleta {
@@ -173,17 +175,19 @@ class Preferencias extends ChangeNotifier {
   onoffMenuHorizontal(bool estatus) {
     if (estatus = true) {
       this._menuHorizontal = true;
-    } else {
-      if (!_iBateria &&
-          !_iGps &&
-          !_iLinea &&
-          !_iLinterna &&
-          !_iMensaje &&
-          !_iReloj &&
-          !_iWifi) {
-        this._menuHorizontal = false;
-      }
     }
+    if (!_iBateria &&
+        !_iGps &&
+        !_iLinea &&
+        !_iLinterna &&
+        !_iMensaje &&
+        !_iReloj &&
+        !_iWifi &&
+        !_iTelefono) {
+      this._menuHorizontal = false;
+    }
+
+    notifyListeners();
   }
 
   get iTelefono {
