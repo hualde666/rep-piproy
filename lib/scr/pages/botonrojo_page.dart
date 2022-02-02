@@ -59,7 +59,7 @@ class _BotonRojoPageState extends State<BotonRojoPage> {
     Future<List<ContactoDatos>> obtenerListaGrupo() async {
       if (listaGrupo.isEmpty) {
         List<ContactoDatos> lista =
-            await apiProvider.obtenerListaContactosGrupo('Emergencia');
+            await apiProvider.obtenerListaContactosGrupo(context, 'Emergencia');
         listaGrupo.addAll(lista);
       }
       return listaGrupo;

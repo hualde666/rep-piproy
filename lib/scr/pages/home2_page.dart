@@ -43,7 +43,7 @@ class _Home2PageState extends State<Home2Page> {
       child: Scaffold(
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(pref.menuHorizontal ? 275.0 : 190.0),
-          child: encabezadoApp(context, 'Proyecto PI'),
+          child: encabezadoApp(context),
         ),
         body: FutureBuilder(
             future: detalle(context),
@@ -113,12 +113,11 @@ class _Home2PageState extends State<Home2Page> {
   }
 }
 
-encabezadoApp(BuildContext context, String titulo) {
+encabezadoApp(BuildContext context) {
   final pref = Provider.of<Preferencias>(context);
   final menuHorizontal = pref.menuHorizontal;
-  // celProvider.menuHorizontal;
+
   return Container(
-    // color: Colors.amber,
     height: pref.menuHorizontal ? 275 : 190,
     padding: EdgeInsets.only(left: 5, right: 5),
     child: Column(
@@ -192,12 +191,13 @@ matrizApis(BuildContext context, List<String> listaMenu) async {
   }
   if (listaApis.isNotEmpty) {
     final altura =
-        lista.length > 2 ? 180.0 * (lista.length / 2).round() : 180.0;
+        lista.length > 2 ? 150.0 * (lista.length / 2).round() : 150.0;
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 5),
       height: altura,
       child: GridView.count(
           physics: NeverScrollableScrollPhysics(),
+          childAspectRatio: 1.2,
           mainAxisSpacing: 3,
           crossAxisSpacing: 3,
           crossAxisCount: 2,

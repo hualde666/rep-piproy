@@ -64,7 +64,7 @@ class _ContactsPorGrupoPageState extends State<ContactsPorGrupoPage> {
                 TarjetaContacto2(context, listaContactosFiltro[i], true, true));
       } else {
         List<ContactoDatos> lista =
-            await apiProvider.obtenerListaContactosGrupo(grupo);
+            await apiProvider.obtenerListaContactosGrupo(context, grupo);
         listaGrupo = [];
         if (lista.isNotEmpty) {
           listaGrupo.addAll(lista);

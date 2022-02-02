@@ -7,6 +7,7 @@ import 'package:piproy/scr/funciones/url_funciones.dart';
 import 'package:piproy/scr/models/contactos_modelo.dart';
 
 import 'package:piproy/scr/pages/mostrar_contacto.dart';
+import 'package:piproy/scr/pages/telefono_discado.dart';
 
 import 'package:piproy/scr/providers/aplicaciones_provider.dart';
 import 'package:piproy/scr/providers/contactos_provider.dart';
@@ -40,7 +41,7 @@ Widget conteinerIcon(
 
       widget = dispositivo(activoGps, nuevoIcon);
       break;
-    case 'señal':
+    case 'linea':
       nuevoIcon = activoDatos
           ? Icons.signal_cellular_alt_rounded
           : Icons.signal_cellular_off_outlined;
@@ -90,10 +91,14 @@ funcionIcon(BuildContext context, String tarea, ContactoDatos contacto,
   bool activoDatos = celProvider.conexionDatos;
 
   switch (tarea) {
-    case 'discado':
+    case 'telefono':
       if (activoDatos) {
         ///  *** llamada desde menu horizontal
-        llamar("");
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => Discado()),
+        );
+        // llamar("");
       }
 
       break;
@@ -141,7 +146,7 @@ funcionIcon(BuildContext context, String tarea, ContactoDatos contacto,
       break;
     case 'whatsapp':
       if (contacto.whatsapptel != "") {
-        abrirWhatsapp(contacto.whatsapptel, '');
+        abrirWhatsapp(contacto.telefono, '');
       }
 
       break;

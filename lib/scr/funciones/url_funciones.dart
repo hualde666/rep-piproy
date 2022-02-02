@@ -1,5 +1,7 @@
 import 'package:url_launcher/url_launcher.dart';
 
+import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
+
 abrirWhatsapp(String phone, String mensaje) async {
   // FlutterOpenWhatsapp.sendSingleMessage(phone, mensaje);
   var whatsappURl = "whatsapp://send?phone=" + phone + "";
@@ -12,14 +14,14 @@ abrirWhatsapp(String phone, String mensaje) async {
 }
 
 llamar(String telefono) async {
-  String url = 'tel:' + telefono;
-
-  if (await canLaunch(url)) {
-    await launch(url);
-    // } else {
-    //   throw 'Could not launch $url';
-    // }
-  }
+  //String url = 'tel:' + telefono;
+  await FlutterPhoneDirectCaller.callNumber(telefono);
+  // if (await canLaunch(url)) {
+  //   await launch(url);
+  //   // } else {
+  //   //   throw 'Could not launch $url';
+  //   // }
+  // }
 }
 
 mensaje(String phone) async {

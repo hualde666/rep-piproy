@@ -65,7 +65,7 @@ class _SelectContactsPageState extends State<SelectContactsPage> {
         return listaContactosFiltro;
       } else {
         List<ContactoDatos> lista =
-            await apiProvider.obtenerListaContactosGrupo('Todos');
+            await apiProvider.obtenerListaContactosGrupo(context, 'Todos');
         listaGrupo = [];
         listaGrupo.addAll(lista);
 

@@ -7,6 +7,7 @@ import 'package:piproy/scr/providers/contactos_provider.dart';
 
 import 'package:piproy/scr/providers/db_provider.dart';
 import 'package:piproy/scr/models/api_tipos.dart';
+import 'package:provider/provider.dart';
 
 class AplicacionesProvider with ChangeNotifier {
   static final AplicacionesProvider _aplicacionesProvider =
@@ -270,8 +271,8 @@ class AplicacionesProvider with ChangeNotifier {
   }
 //******************** lista de contactos por gupos */
 
-  obtenerListaContactosGrupo(String grupo) async {
-    final contactosProvaide = new ContactosProvider();
+  obtenerListaContactosGrupo(BuildContext context, String grupo) async {
+    final contactosProvaide = Provider.of<ContactosProvider>(context);
 
     if (categoryContact[grupo].isEmpty) {
       //*** obtengo lista de la BD tosas las apps del grupo */
