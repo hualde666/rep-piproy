@@ -403,14 +403,15 @@ Widget elementoApi2(BuildContext context, Application api) {
     child: Container(
       // margin: EdgeInsets.symmetric(horizontal: 5.0),
       decoration: BoxDecoration(
-          color: Theme.of(context).primaryColor,
-          borderRadius: BorderRadius.circular(20.0),
-          border: Border.all(color: Colors.white38, width: 1)),
+        color: Theme.of(context).scaffoldBackgroundColor,
+        borderRadius: BorderRadius.circular(20.0),
+      ),
+      // border: Border.all(color: Colors.white38, width: 1)),
       // color: Theme.of(context).primaryColor,
       child: Column(
         children: [
           SizedBox(
-            height: 10,
+            height: 3,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -442,7 +443,7 @@ Widget elementoApi2(BuildContext context, Application api) {
             ],
           ),
           SizedBox(
-            height: 10,
+            height: 3,
           ),
           Text(
             api.appName,

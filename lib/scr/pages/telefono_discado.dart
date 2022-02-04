@@ -37,7 +37,7 @@ class _DiscadoState extends State<Discado> {
                     color: Colors.amber,
                     borderRadius: BorderRadius.circular(20.0),
                     border: Border.all(color: Colors.white38, width: 1)),
-                height: 80,
+                // height: 80,
                 child: Center(
                   child: Text(
                     myController.text,
@@ -53,10 +53,10 @@ class _DiscadoState extends State<Discado> {
               margin: EdgeInsets.symmetric(
                 horizontal: 5,
               ),
-              height: 320,
+              height: 270,
               child: GridView.count(
                   physics: NeverScrollableScrollPhysics(),
-                  childAspectRatio: 1.5,
+                  childAspectRatio: 1.8,
                   mainAxisSpacing: 5,
                   crossAxisSpacing: 5,
                   crossAxisCount: 3,
@@ -186,12 +186,12 @@ class _DiscadoState extends State<Discado> {
                 print(myController.text);
               },
               child: Container(
-                height: 10,
-                width: 10,
+                //   height: 10,
+                //   width: 10,
                 child: Center(
                   child: Text(
                     teclado[index],
-                    style: TextStyle(fontSize: 60, color: Colors.white),
+                    style: TextStyle(fontSize: 50, color: Colors.white),
                   ),
                 ),
                 decoration: BoxDecoration(
