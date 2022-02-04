@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:piproy/scr/funciones/url_funciones.dart';
 import 'package:piproy/scr/widgets/header_app.dart';
 
@@ -9,9 +10,9 @@ class Discado extends StatefulWidget {
 
 class _DiscadoState extends State<Discado> {
   final myController = TextEditingController();
+  String telefono = '';
   @override
   void initState() {
-    // TODO: implement initState
     myController.text = '';
     super.initState();
   }
@@ -26,20 +27,25 @@ class _DiscadoState extends State<Discado> {
         body: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Container(
-              margin: EdgeInsets.symmetric(horizontal: 5),
-              decoration: BoxDecoration(
-                  color: Colors.amber,
-                  borderRadius: BorderRadius.circular(20.0),
-                  border: Border.all(color: Colors.white38, width: 1)),
-              height: 80,
-              child: Center(
-                child: Text(
-                  myController.text,
-                  style: TextStyle(
-                      fontSize: 50,
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold),
+            GestureDetector(
+              onTap: () {
+                //SystemChannels.textInput.invokeMethod('TextInput.hide');
+              },
+              child: Container(
+                margin: EdgeInsets.symmetric(horizontal: 5),
+                decoration: BoxDecoration(
+                    color: Colors.amber,
+                    borderRadius: BorderRadius.circular(20.0),
+                    border: Border.all(color: Colors.white38, width: 1)),
+                height: 80,
+                child: Center(
+                  child: Text(
+                    myController.text,
+                    style: TextStyle(
+                        fontSize: 45,
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold),
+                  ),
                 ),
               ),
             ),
@@ -50,7 +56,7 @@ class _DiscadoState extends State<Discado> {
               height: 320,
               child: GridView.count(
                   physics: NeverScrollableScrollPhysics(),
-                  // childAspectRatio: 1.1,
+                  childAspectRatio: 1.5,
                   mainAxisSpacing: 5,
                   crossAxisSpacing: 5,
                   crossAxisCount: 3,
@@ -66,6 +72,7 @@ class _DiscadoState extends State<Discado> {
                   GestureDetector(
                     onTap: (() => {
                           setState(() {
+                            telefono = '';
                             myController.clear();
                           })
                         }),
@@ -110,11 +117,14 @@ class _DiscadoState extends State<Discado> {
                     onTap: () {
                       setState(() {
                         final String numero = myController.text;
+                        telefono = myController.text;
                         if (numero.length > 1) {
                           myController.text =
                               numero.substring(0, numero.length - 1);
+                          //   final x = formatoNumero(numero);
                         } else {
                           myController.text = '';
+                          telefono = '';
                         }
                       });
                     },
@@ -128,7 +138,7 @@ class _DiscadoState extends State<Discado> {
                       child: Center(
                         child: Icon(
                           Icons.backspace_outlined,
-                          size: 50,
+                          size: 40,
                         ),
                       ),
                     ),
@@ -140,6 +150,14 @@ class _DiscadoState extends State<Discado> {
         ),
       ),
     );
+  }
+
+  String formatoNumero(String numero) {
+    final expRegular = RegExp(r'[0-9]{3}-[0-9]{2}-[0-9]{2}-[0-9]{2}');
+    //  r'/^[\(]?[\+]?(\d{2}|\d{3})[\)](\d{2}|\d{3})[\*\.\-\s]$?[\s]?((\d{6}|\d{8})|(\d{3}[\*\.\-\s]){3}|(\d{2}[\*\.\-\s]){4}|(\d{4}[\*\.\-\s]){2})|\d{8}|\d{10}|\d{12}$');
+    final text = numero.replaceAllMapped(expRegular, (match) => null);
+    print(text);
+    return '';
   }
 
   List<Widget> botones(
@@ -163,6 +181,7 @@ class _DiscadoState extends State<Discado> {
         (index) => GestureDetector(
               onTap: () {
                 myController.text = myController.text + teclado[index];
+                formatoNumero(myController.text);
                 setState(() {});
                 print(myController.text);
               },

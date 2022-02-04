@@ -60,8 +60,8 @@ class _ContactsPorGrupoPageState extends State<ContactsPorGrupoPage> {
       if (_searchController.text.isNotEmpty) {
         return List.generate(
             listaContactosFiltro.length,
-            (i) =>
-                TarjetaContacto2(context, listaContactosFiltro[i], true, true));
+            (i) => TarjetaContacto2(
+                context, listaContactosFiltro[i], true, false));
       } else {
         List<ContactoDatos> lista =
             await apiProvider.obtenerListaContactosGrupo(context, grupo);
