@@ -131,4 +131,12 @@ class AndroidChannel {
       return e;
     }
   }
+
+  Future<void> permisoSms() async {
+    try {
+      await _methodChannel.invokeMethod("permisosms", '');
+    } catch (e) {
+      return e;
+    }
+  }
 }

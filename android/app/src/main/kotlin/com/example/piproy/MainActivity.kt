@@ -52,6 +52,10 @@ class MainActivity: FlutterActivity() {
                     //result.success(resultado)
                  
                   }
+                  if (call.method == "permisosms") {
+                  permisoSms()
+    
+                }
                   if (call.method == "version") {
                     val resultado = getAndroidVersion()
                     result.success(resultado)
@@ -269,6 +273,14 @@ class MainActivity: FlutterActivity() {
                   101)
                   
                }
+        
+         
+              }
+              private fun permisoSms() {
+                
+        
+                 ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS)
+               
         
          
               }
