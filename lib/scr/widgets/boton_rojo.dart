@@ -17,14 +17,38 @@ Widget botonRojoHeader(BuildContext context, bool activo) {
       },
       child: activoDatos
           ? Container(
-              child: Image(
-                  image: AssetImage('assets/boton_rojo.png'),
-                  fit: BoxFit.contain),
-              height: 90,
-              width: 90,
+              child: Column(
+                children: [
+                  Icon(Icons.health_and_safety_outlined,
+                      size: 60, color: Colors.white),
+                  Text(
+                    'S O S',
+                    style: TextStyle(fontSize: 20, color: Colors.white),
+                  )
+                ],
+              ),
+              decoration: BoxDecoration(
+                  color: Colors.red[700],
+                  boxShadow: [
+                    BoxShadow(
+                      color: Color.fromARGB(255, 75, 8, 3),
+                      blurRadius: 1,
+                      spreadRadius: 2,
+                      offset: Offset(0, 3),
+                    ),
+                  ],
+                  borderRadius: BorderRadius.only(
+                      topRight: Radius.circular(35),
+                      bottomRight: Radius.circular(35)),
+                  border: Border.all(color: Colors.white12)),
+              // child: Image(
+              //     image: AssetImage('assets/boton_rojo.png'),
+              //     fit: BoxFit.contain),
+              height: 85,
+              width: 100,
             )
           : Container(
-              height: 90,
-              width: 90,
+              height: 100,
+              width: 100,
             ));
 }

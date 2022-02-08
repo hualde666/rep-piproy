@@ -35,10 +35,9 @@ ThemeData themaApi(String color) {
       break;
     case '2':
       tema = ThemeData(
-        primaryColor:
-            Color.fromRGBO(55, 57, 84, 1), //Color.fromRGBO(55, 57, 84, 1.0),
-        // primaryTextTheme: TextTheme(bodyText1: TextStyle(color: Colors.black)),
-        scaffoldBackgroundColor: Color.fromRGBO(220, 118, 51, 1),
+        primaryColor: Color.fromARGB(255, 3, 51, 90),
+
+        scaffoldBackgroundColor: Color.fromARGB(255, 2, 84, 131),
         textTheme: TextTheme(
             bodyText1: TextStyle(color: Colors.white),
             bodyText2: TextStyle(color: Colors.white)),
@@ -64,13 +63,14 @@ ThemeData themaApi(String color) {
       break;
     case '3':
       tema = ThemeData(
-        primaryColor: Colors.teal[700], //Color.fromRGBO(55, 57, 84, 1.0),
+        primaryColor: Color.fromARGB(
+            255, 245, 247, 245), //Color.fromRGBO(55, 57, 84, 1.0),
         // primaryTextTheme: TextTheme(bodyText1: TextStyle(color: Colors.black)),
-        scaffoldBackgroundColor: Colors.teal[700],
+        scaffoldBackgroundColor: Color.fromARGB(255, 4, 173, 154),
         textTheme: TextTheme(
-            bodyText1: TextStyle(color: Colors.white),
-            bodyText2: TextStyle(color: Colors.white)),
-        iconTheme: IconThemeData(color: Colors.white, size: 40),
+            bodyText1: TextStyle(color: Colors.black),
+            bodyText2: TextStyle(color: Colors.grey[700])),
+        iconTheme: IconThemeData(color: Colors.grey[700], size: 40),
         elevatedButtonTheme: ElevatedButtonThemeData(
             style: ElevatedButton.styleFrom(
           primary: Color.fromRGBO(192, 57, 43, 1),

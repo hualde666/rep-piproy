@@ -15,8 +15,8 @@ class ApiGruposPage extends StatelessWidget {
     final List<String> listaGrupos = apiProvider.apigrupos;
     return SafeArea(
         child: Scaffold(
-      appBar:
-          headerApp(context, 'Grupos app', Text(''), 0.0, true, 'ApiGrupos'),
+      appBar: headerApp(
+          context, 'Grupos Aplicaciones', Text(''), 0.0, true, 'ApiGrupos'),
       resizeToAvoidBottomInset: false,
       //  backgroundColor: Theme.of(context).primaryColor,
       body: Container(

@@ -125,18 +125,18 @@ class _ContactosPageState extends State<ContactosPage> {
 
   Widget busqueda(BuildContext context) {
     return AppBar(
-      backgroundColor: Color.fromRGBO(55, 57, 84, 1.0),
+      backgroundColor: Colors.amber, // Color.fromRGBO(55, 57, 84, 1.0),
       automaticallyImplyLeading: false,
       flexibleSpace: Container(
         margin: EdgeInsets.only(top: 10, left: 5.0, right: 5.0),
-        height: 220.0,
+        height: 225.0,
         child: Column(
           // crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             tresBotonesHeader(context, true, 'ContactosPage'),
-            Divider(
-              height: 10,
-            ),
+            // Divider(
+            //   height: 2,
+            // ),
             TextField(
               style:
                   TextStyle(fontSize: 25.0, color: Colors.white54, height: 1.0),

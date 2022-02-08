@@ -8,9 +8,6 @@ Widget encabezadoIcon(BuildContext context) {
   //final bool isOn = false;
   final pref = Provider.of<Preferencias>(context);
   final List<Widget> _listaWidget = [
-    pref.iTelefono
-        ? widgetHorizontal(context, Icons.call, 'telefono')
-        : Container(),
     pref.iBateria
         ? widgetHorizontal(context, Icons.battery_std, 'bateria')
         : Container(),
@@ -20,6 +17,16 @@ Widget encabezadoIcon(BuildContext context) {
             Icons.wifi,
             'wifi',
           )
+        : Container(),
+    pref.iLinterna
+        ? widgetHorizontal(
+            context,
+            Icons.filter_alt,
+            'linterna',
+          )
+        : Container(),
+    pref.iTelefono
+        ? widgetHorizontal(context, Icons.call, 'telefono')
         : Container(),
     pref.iLinea
         ? widgetHorizontal(
@@ -33,13 +40,6 @@ Widget encabezadoIcon(BuildContext context) {
             context,
             Icons.gps_fixed_rounded,
             'gps',
-          )
-        : Container(),
-    pref.iLinterna
-        ? widgetHorizontal(
-            context,
-            Icons.filter_alt,
-            'linterna',
           )
         : Container(),
     pref.iMensaje

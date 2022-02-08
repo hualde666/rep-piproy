@@ -8,17 +8,14 @@ import 'package:piproy/scr/widgets/reloj.dart';
 
 Widget tresBotonesHeader(BuildContext context, bool rojo, String pagina) {
   return Container(
-    //color: Colors.blue,
-    padding: EdgeInsets.only(
-      left: 5,
-    ),
     child: Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Column(mainAxisAlignment: MainAxisAlignment.start, children: [
           InicioBoton(pagina: pagina),
           SizedBox(
-            height: 5,
+            height: 10,
           ),
           botonRojoHeader(context, rojo)
         ]),
@@ -30,7 +27,7 @@ Widget tresBotonesHeader(BuildContext context, bool rojo, String pagina) {
           children: [
             AyudaBoton(pagina: pagina),
             SizedBox(
-              height: 5,
+              height: 15,
             ),
             botonBackHeader(context)
           ],

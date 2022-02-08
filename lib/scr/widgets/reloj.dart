@@ -64,20 +64,16 @@ class Reloj extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text('${reloj.dias[reloj.diaweek - 1]}',
-              style: TextStyle(
-                fontSize: 30,
-                //fontWeight: FontWeight.bold,
-              )),
+              style: TextStyle(fontSize: 30, color: Colors.white
+                  //fontWeight: FontWeight.bold,
+                  )),
           Text('${reloj.shora}:${reloj.sminutos}',
-              style: TextStyle(
-                fontSize: 50,
-                // fontWeight: FontWeight.bold,
-              )),
+              style: TextStyle(fontSize: 50, color: Colors.white
+                  // fontWeight: FontWeight.bold,
+                  )),
           Text(
             '${reloj.dia} ${reloj.meses[reloj.mes - 1]} ',
-            style: TextStyle(
-              fontSize: 25,
-            ),
+            style: TextStyle(fontSize: 25, color: Colors.white),
           ),
         ],
       ),

@@ -12,12 +12,22 @@ class InicioBoton extends StatelessWidget {
         }
       },
       child: Container(
-          width: 90,
-          height: 40,
+          width: 100,
+          height: 50,
           decoration: BoxDecoration(
               color: Colors.black38,
-              borderRadius: BorderRadius.circular(20.0),
-              border: Border.all(color: Colors.white30)),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black54,
+                  blurRadius: 1,
+                  spreadRadius: 2,
+                  offset: Offset(0, 3),
+                ),
+              ],
+              borderRadius: BorderRadius.only(
+                  topRight: Radius.circular(20),
+                  bottomRight: Radius.circular(20)),
+              border: Border.all(color: Colors.white12)),
           margin: EdgeInsets.only(right: 5),
           child: Center(
             child: Text(

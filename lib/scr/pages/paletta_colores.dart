@@ -13,12 +13,13 @@ class PaletaPage extends StatelessWidget {
       SizedBox(
         height: 5,
       ),
-      colores(context, Color.fromRGBO(220, 118, 51, 1),
-          Color.fromRGBO(55, 57, 84, 1.0), Colors.white, 2),
+      colores(context, Color.fromARGB(255, 2, 84, 131),
+          Color.fromARGB(255, 3, 51, 90), Colors.white, 2),
       SizedBox(
         height: 5,
       ),
-      colores(context, Colors.teal[700], Colors.teal[700], Colors.white, 3),
+      colores(context, Color.fromARGB(255, 4, 173, 154),
+          Color.fromARGB(255, 245, 247, 245), Colors.grey[700], 3),
       SizedBox(
         height: 5,
       ),

@@ -32,6 +32,7 @@ import 	android.net.wifi.WifiNetworkSuggestion
 import android.net.wifi.WifiManager
 import android.net.Uri
 import 	android.telephony.TelephonyManager
+import 	android.telephony.SmsManager.FinancialSmsCallback
 class MainActivity: FlutterActivity() {
     
       private val CHANNEL = "app.piproy.channel/hualdemirene@gmail.com"
@@ -286,8 +287,9 @@ class MainActivity: FlutterActivity() {
               }
               private fun myMessage(myNumber: String,myMsg: String) {
                 
-             
+   
                       val smsManager: SmsManager = SmsManager.getDefault()
+                     
                       smsManager.sendTextMessage(myNumber, null, myMsg, null, null)
                       
                 }

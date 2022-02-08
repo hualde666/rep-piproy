@@ -134,7 +134,7 @@ class _ContactsPorGrupoPageState extends State<ContactsPorGrupoPage> {
     final apiProvider = Provider.of<AplicacionesProvider>(context);
 
     final grupo = apiProvider.tipoSeleccion;
-    final alto = grupo == 'Todos' ? 240.0 : 175.0;
+    final alto = grupo == 'Todos' ? 255.0 : 190.0;
     // return AppBar(
     //   //backgroundColor: Color.fromRGBO(55, 57, 84, 1.0),
     //   automaticallyImplyLeading: false,
@@ -148,12 +148,12 @@ class _ContactsPorGrupoPageState extends State<ContactsPorGrupoPage> {
           child: Column(
             // crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SizedBox(
-                height: 5,
-              ),
+              // SizedBox(
+              //   height: 5,
+              // ),
               tresBotonesHeader(context, true, 'ContactosporGrupo'),
               Text(
-                grupo,
+                'Contactos: ' + grupo,
                 style: TextStyle(color: Colors.white, fontSize: 30),
               ),
               grupo == 'Todos'

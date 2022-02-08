@@ -52,9 +52,6 @@ class ConfiguracionPage extends StatelessWidget {
                       builder: (context) => ContactsGruposPage()));
             },
           ),
-          SizedBox(
-            height: 20,
-          ),
           Divider(
             height: 10,
             color: Colors.white38,
@@ -75,9 +72,6 @@ class ConfiguracionPage extends StatelessWidget {
                   MaterialPageRoute(builder: (context) => ApiGruposPage()));
             },
           ),
-          SizedBox(
-            height: 20,
-          ),
           Divider(
             height: 10,
             color: Colors.white38,
@@ -88,7 +82,7 @@ class ConfiguracionPage extends StatelessWidget {
               size: 40.0,
               color: Colors.white,
             ),
-            title: Text('Habilitar Elementos',
+            title: Text('Habilitar o Deshabilitar Elementos',
                 style: TextStyle(
                   fontSize: 25,
                   color: Colors.white,
@@ -97,9 +91,6 @@ class ConfiguracionPage extends StatelessWidget {
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => OpcionesPage()));
             },
-          ),
-          SizedBox(
-            height: 20,
           ),
           Divider(
             height: 10,
@@ -134,9 +125,6 @@ class ConfiguracionPage extends StatelessWidget {
                     MaterialPageRoute(
                         builder: (context) => ContactsPorGrupoPage()));
               }),
-          SizedBox(
-            height: 20,
-          ),
           Divider(
             height: 10,
             color: Colors.white38,
@@ -155,9 +143,6 @@ class ConfiguracionPage extends StatelessWidget {
             onTap: () {
               Navigator.pushNamed(context, 'emergiMensaje');
             },
-          ),
-          SizedBox(
-            height: 20,
           ),
           Divider(
             height: 10,
@@ -179,31 +164,31 @@ class ConfiguracionPage extends StatelessWidget {
                   MaterialPageRoute(builder: (context) => PaletaPage()));
             },
           ),
-          SizedBox(
-            height: 20,
-          ),
           Divider(
             height: 10,
             color: Colors.white38,
           ),
-          ListTile(
-            leading: Icon(
-              Icons.play_circle,
-              size: 40.0,
-              color: Colors.white,
-            ),
-            title: Text('Video Presentacion',
-                style: TextStyle(
-                  fontSize: 25,
+          Container(
+            child: Center(
+              child: ListTile(
+                leading: Icon(
+                  Icons.play_circle,
+                  size: 40.0,
                   color: Colors.white,
-                )),
-            onTap: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => VideoPlayerScreen()));
-            },
-          ),
-          SizedBox(
-            height: 20,
+                ),
+                title: Text('Video Presentacion',
+                    style: TextStyle(
+                      fontSize: 25,
+                      color: Colors.white,
+                    )),
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => VideoPlayerScreen()));
+                },
+              ),
+            ),
           ),
           Divider(
             height: 10,

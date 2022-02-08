@@ -17,8 +17,8 @@ class ContactsGruposPage extends StatelessWidget {
     final List<String> listaGrupos = apiProvider.contactgrupos;
     return SafeArea(
         child: Scaffold(
-      appBar: headerApp(
-          context, 'Grupos Contactos', Text(''), 0.0, true, 'ContactoGrupos'),
+      appBar: headerApp(context, 'Grupos de Contactos', Text(''), 0.0, true,
+          'ContactoGrupos'),
       resizeToAvoidBottomInset: false,
       // backgroundColor: Theme.of(context).primaryColor,
       body: Container(

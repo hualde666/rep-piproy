@@ -185,7 +185,11 @@ Widget dispositivo(bool activo, IconData icon) {
         color: color,
         borderRadius: BorderRadius.circular(80),
         border: Border.all(color: Colors.white, width: 0.5)),
-    child: Center(child: Icon(icon, size: 40.0, color: Colors.white)),
+    child: Center(
+        child: Icon(
+      icon,
+      size: 40.0,
+    )),
   ));
 }
 
@@ -200,7 +204,11 @@ Widget dispLinterna(BuildContext context, bool activo, IconData icon) {
         color: color,
         borderRadius: BorderRadius.circular(80),
         border: Border.all(color: Colors.white, width: 0.5)),
-    child: Center(child: Icon(icon, size: 40.0, color: Colors.white)),
+    child: Center(
+        child: Icon(
+      icon,
+      size: 40.0,
+    )),
   ));
 }
 
@@ -238,13 +246,18 @@ class _PilaState extends State<Pila> {
                 borderRadius: BorderRadius.circular(80),
                 border: Border.all(color: Colors.white, width: 0.5)),
             child: Center(
-              child: Text(
-                '$nivelBateria%',
-                style: TextStyle(
-                    fontSize: 20,
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold),
-              ),
+              child: Stack(children: [
+                Center(child: Icon(Icons.battery_std_outlined)),
+                Center(
+                  child: Text(
+                    '$nivelBateria%',
+                    style: TextStyle(
+                        fontSize: 30,
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
+              ]),
             ) // Icon(Icons.battery_std, size: 40.0, color: Colors.white),
             ));
   }

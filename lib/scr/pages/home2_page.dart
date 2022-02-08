@@ -42,7 +42,7 @@ class _Home2PageState extends State<Home2Page> {
     return SafeArea(
       child: Scaffold(
         appBar: PreferredSize(
-          preferredSize: Size.fromHeight(pref.menuHorizontal ? 275.0 : 190.0),
+          preferredSize: Size.fromHeight(pref.menuHorizontal ? 275.0 : 196.0),
           child: encabezadoApp(context),
         ),
         body: FutureBuilder(
@@ -54,11 +54,44 @@ class _Home2PageState extends State<Home2Page> {
                 );
               } else {
                 if (snapshot.hasData) {
-                  return ListView.builder(
-                      itemCount: snapshot.data.length,
-                      itemBuilder: (context, i) {
-                        return snapshot.data[i];
-                      });
+                  return Stack(
+                    children: [
+                      Container(
+                          color: Theme.of(context).scaffoldBackgroundColor,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Container(
+                                decoration: BoxDecoration(
+                                    gradient: LinearGradient(
+                                  begin: Alignment.topCenter,
+                                  end: Alignment.bottomCenter,
+                                  colors: [
+                                    Theme.of(context).scaffoldBackgroundColor,
+                                    Colors.white,
+                                  ],
+                                )),
+                                // padding: EdgeInsets.only(top: 50),
+                                height: 60,
+                                child: Center(
+                                  child: Text('vitalfon',
+                                      style: TextStyle(
+                                          color: Colors.black26,
+                                          fontSize: 40,
+                                          fontWeight: FontWeight.w800,
+                                          fontStyle: FontStyle.italic)),
+                                ),
+                              ),
+                            ],
+                          )),
+                      ListView.builder(
+                          padding: EdgeInsets.only(bottom: 100),
+                          itemCount: snapshot.data.length,
+                          itemBuilder: (context, i) {
+                            return snapshot.data[i];
+                          }),
+                    ],
+                  );
                 } else {
                   return Container();
                 }
@@ -118,33 +151,14 @@ encabezadoApp(BuildContext context) {
   final menuHorizontal = pref.menuHorizontal;
 
   return Container(
-    height: pref.menuHorizontal ? 275 : 190,
-    padding: EdgeInsets.only(left: 5, right: 5),
+    height: pref.menuHorizontal ? 275 : 196,
+    //   padding: EdgeInsets.only(left: 5, right: 5),
     child: Column(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         BotonesEncabezado(),
         menuHorizontal ? encabezadoIcon(context) : Text(''),
       ],
-      // ),
-
-      // decoration: new BoxDecoration(
-      //     gradient: LinearGradient(
-      //         colors: [
-      //       Theme.of(context).primaryColor,
-
-      //       Colors.white,
-      //       Theme.of(context).scaffoldBackgroundColor,
-      //       //Color.fromRGBO(55, 57, 84, 1.0)
-      //     ],
-      //         stops: [
-      //       0.1, //2
-      //       0.4,
-      //       0.9
-      //     ],
-      //         begin: FractionalOffset.topCenter,
-      //         end: FractionalOffset.bottomCenter)),
-      // color: Color.fromRGBO(55, 57, 84, 1.0),
     ),
   );
 }
@@ -235,160 +249,204 @@ class BotonesEncabezado extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      // color: Colors.green,
-      child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-        Column(mainAxisAlignment: MainAxisAlignment.start, children: [
-          GestureDetector(
-            onTap: () {
-              showDialog(
-                  context: context,
-                  builder: (context) => AlertDialog(
-                        backgroundColor: Colors.red[900],
-                        title: Container(
-                          width: 100,
-                          height: 100,
-                          child: Center(
-                            child: Text('¿ Desea salir de Vitalfon ?',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    fontSize: 28, color: Colors.white)),
-                          ),
-                        ),
-
-                        //shape: CircleBorder(),
-                        elevation: 14.0,
-                        actionsPadding: EdgeInsets.symmetric(horizontal: 15.0),
-                        //actionsAlignment: MainAxisAlignment.spaceAround,
-                        actions: [
-                          TextButton(
-                              onPressed: () {
-                                // se sale con flecha menu inferior
-                                SystemNavigator.pop();
-
-                                // exit(0);
-                                //Navigator.pop(context);
-                              },
-                              child: ClipOval(
-                                child: Container(
-                                  height: 80,
-                                  width: 80,
-                                  color: Colors.black38,
-                                  child: Center(
-                                    child: Text('Si',
-                                        style: TextStyle(
-                                            fontSize: 25.0,
-                                            color: Colors.white)),
-                                  ),
+      child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Container(
+              // color: Colors.green,
+              child:
+                  Column(mainAxisAlignment: MainAxisAlignment.start, children: [
+                GestureDetector(
+                  onTap: () {
+                    showDialog(
+                        context: context,
+                        builder: (context) => AlertDialog(
+                              backgroundColor: Colors.red[900],
+                              title: Container(
+                                width: 100,
+                                height: 100,
+                                child: Center(
+                                  child: Text('¿ Desea salir de Vitalfon ?',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          fontSize: 28, color: Colors.white)),
                                 ),
-                              )),
-                          TextButton(
-                              autofocus: true,
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
-                              child: ClipOval(
-                                  child: Container(
-                                      height: 80,
-                                      width: 80,
-                                      color: Colors.black38,
-                                      child: Center(
-                                          child: Text('No',
+                              ),
+
+                              //shape: CircleBorder(),
+                              elevation: 14.0,
+                              actionsPadding:
+                                  EdgeInsets.symmetric(horizontal: 15.0),
+                              //actionsAlignment: MainAxisAlignment.spaceAround,
+                              actions: [
+                                TextButton(
+                                    onPressed: () {
+                                      // se sale con flecha menu inferior
+                                      SystemNavigator.pop();
+
+                                      // exit(0);
+                                      //Navigator.pop(context);
+                                    },
+                                    child: ClipOval(
+                                      child: Container(
+                                        height: 80,
+                                        width: 80,
+                                        color: Colors.black38,
+                                        child: Center(
+                                          child: Text('Si',
                                               style: TextStyle(
                                                   fontSize: 25.0,
-                                                  color: Colors.white))))))
-                        ],
-                      ));
-            },
-            child: Container(
-                width: 90,
-                height: 40,
-                decoration: BoxDecoration(
-                    color: Colors.black38,
-                    borderRadius: BorderRadius.circular(20.0),
-                    border: Border.all(color: Colors.white30)),
-                margin: EdgeInsets.only(right: 5),
-                child: Center(
-                  child: Text(
-                    'SALIDA',
-                    style: TextStyle(fontSize: 18, color: Colors.white),
-                  ),
-                )),
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          botonRojoHeader(context, true),
-          SizedBox(
-            height: 30,
-          )
-        ]),
-        Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            GestureDetector(
-              onTap: () {
-                // Navigator.pushNamed(context, 'ayuda',
-                //     arguments: 'home');
-                Navigator.pushNamed(context, 'configurar');
-              },
-              child: Container(
-                  width: 50,
-                  height: 40,
-                  decoration: BoxDecoration(
-                      color: Colors.black38,
-                      borderRadius: BorderRadius.circular(20.0),
-                      border: Border.all(color: Colors.white30)),
-                  margin: EdgeInsets.only(right: 5),
-                  child: Center(
-                    child: Icon(
-                      Icons.ac_unit,
-                      size: 35,
-                      color: Colors.white,
-                    ),
-                    //  Text(
-                    //   'CONFIGURAR',
-                    //   style: TextStyle(fontSize: 18, color: Colors.white),
-                    // ),
-                  )),
-            ),
-            // HoraFecha(),
-            SizedBox(
-              height: 3,
-            ),
-            HoraFecha(),
-          ],
-        ),
-        Column(
-          children: [
-            GestureDetector(
-              onTap: () {
-                Navigator.pushNamed(context, 'ayuda', arguments: 'home');
-              },
-              child: Container(
-                  width: 90,
-                  height: 40,
-                  decoration: BoxDecoration(
-                      color: Colors.black38,
-                      borderRadius: BorderRadius.circular(20.0),
-                      border: Border.all(color: Colors.white30)),
-                  margin: EdgeInsets.only(right: 5),
-                  child: Center(
-                    child: Text(
-                      'AYUDA',
-                      style: TextStyle(fontSize: 18, color: Colors.white),
-                    ),
-                  )),
-            ),
-            SizedBox(
-              height: 3,
+                                                  color: Colors.white)),
+                                        ),
+                                      ),
+                                    )),
+                                TextButton(
+                                    autofocus: true,
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                    child: ClipOval(
+                                        child: Container(
+                                            height: 80,
+                                            width: 80,
+                                            color: Colors.black38,
+                                            child: Center(
+                                                child: Text('No',
+                                                    style: TextStyle(
+                                                        fontSize: 25.0,
+                                                        color:
+                                                            Colors.white))))))
+                              ],
+                            ));
+                  },
+                  child: Container(
+                      width: 100,
+                      height: 50,
+                      decoration: BoxDecoration(
+                          color: Colors.black38,
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black54,
+                              blurRadius: 1,
+                              spreadRadius: 2,
+                              offset: Offset(0, 3),
+                            ),
+                          ],
+                          borderRadius: BorderRadius.only(
+                              topRight: Radius.circular(20),
+                              bottomRight: Radius.circular(20)),
+                          border: Border.all(color: Colors.white12)),
+                      // decoration: BoxDecoration(
+                      //     color: Colors.black38,
+                      //     borderRadius: BorderRadius.circular(20.0),
+                      //     border: Border.all(color: Colors.white30)),
+                      margin: EdgeInsets.only(right: 5),
+                      child: Center(
+                        child: Text(
+                          'SALIDA',
+                          style: TextStyle(fontSize: 18, color: Colors.white),
+                        ),
+                      )),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                botonRojoHeader(context, true),
+                SizedBox(
+                  height: 20,
+                )
+              ]),
             ),
             Container(
-              height: 130,
-              width: 90,
-            )
-          ],
-        ),
-      ]),
+              // color: Colors.blue,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      // Navigator.pushNamed(context, 'ayuda',
+                      //     arguments: 'home');
+                      Navigator.pushNamed(context, 'configurar');
+                    },
+                    child: Container(
+                        width: 50,
+                        height: 50,
+                        decoration: BoxDecoration(
+                            color: Colors.black38,
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black54,
+                                blurRadius: 1,
+                                spreadRadius: 2,
+                                offset: Offset(0, 3),
+                              ),
+                            ],
+                            borderRadius: BorderRadius.circular(25.0),
+                            border: Border.all(color: Colors.white12)),
+                        margin: EdgeInsets.only(right: 5),
+                        child: Center(
+                          child: Icon(
+                            Icons.build,
+                            size: 30,
+                            color: Colors.white,
+                          ),
+                          //  Text(
+                          //   'CONFIGURAR',
+                          //   style: TextStyle(fontSize: 18, color: Colors.white),
+                          // ),
+                        )),
+                  ),
+                  HoraFecha(),
+                ],
+              ),
+            ),
+            Container(
+              //  color: Colors.amber,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(context, 'ayuda', arguments: 'home');
+                    },
+                    child: Container(
+                        width: 100,
+                        height: 50,
+                        decoration: BoxDecoration(
+                            color: Colors.black38,
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black54,
+                                blurRadius: 1,
+                                spreadRadius: 2,
+                                offset: Offset(0, 3),
+                              ),
+                            ],
+                            borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(20),
+                                bottomLeft: Radius.circular(20)),
+                            border: Border.all(color: Colors.white12)),
+                        // decoration: BoxDecoration(
+                        //     color: Colors.black38,
+                        //     borderRadius: BorderRadius.circular(20.0),
+                        //     border: Border.all(color: Colors.white30)),
+                        // margin: EdgeInsets.only(right: 5),
+                        child: Center(
+                          child: Text(
+                            'AYUDA',
+                            style: TextStyle(fontSize: 18, color: Colors.white),
+                          ),
+                        )),
+                  ),
+                  Container(
+                    height: 110,
+                    width: 90,
+                  )
+                ],
+              ),
+            ),
+          ]),
     );
   }
 }
@@ -403,10 +461,9 @@ Widget elementoApi2(BuildContext context, Application api) {
     child: Container(
       // margin: EdgeInsets.symmetric(horizontal: 5.0),
       decoration: BoxDecoration(
-        color: Theme.of(context).scaffoldBackgroundColor,
-        borderRadius: BorderRadius.circular(20.0),
-      ),
-      // border: Border.all(color: Colors.white38, width: 1)),
+          color: Theme.of(context).scaffoldBackgroundColor,
+          borderRadius: BorderRadius.circular(20.0),
+          border: Border.all(color: Colors.white38, width: 1)),
       // color: Theme.of(context).primaryColor,
       child: Column(
         children: [
