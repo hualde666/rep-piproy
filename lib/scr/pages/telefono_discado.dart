@@ -64,24 +64,48 @@ class _DiscadoState extends State<Discado> {
           //       children: teclado),
           // ),
 
-          Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
+          Row(mainAxisAlignment: MainAxisAlignment.center, children: [
             tecla(context, '1', myController),
+            SizedBox(
+              width: 8,
+            ),
             tecla(context, '2', myController),
+            SizedBox(
+              width: 8,
+            ),
             tecla(context, '3', myController)
           ]),
-          Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
+          Row(mainAxisAlignment: MainAxisAlignment.center, children: [
             tecla(context, '4', myController),
+            SizedBox(
+              width: 8,
+            ),
             tecla(context, '5', myController),
+            SizedBox(
+              width: 8,
+            ),
             tecla(context, '6', myController)
           ]),
-          Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
+          Row(mainAxisAlignment: MainAxisAlignment.center, children: [
             tecla(context, '7', myController),
+            SizedBox(
+              width: 8,
+            ),
             tecla(context, '8', myController),
+            SizedBox(
+              width: 8,
+            ),
             tecla(context, '9', myController)
           ]),
-          Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
+          Row(mainAxisAlignment: MainAxisAlignment.center, children: [
             tecla(context, '*', myController),
+            SizedBox(
+              width: 8,
+            ),
             tecla(context, '0', myController),
+            SizedBox(
+              width: 8,
+            ),
             tecla(context, '#', myController)
           ]),
           Row(
@@ -191,7 +215,9 @@ class _DiscadoState extends State<Discado> {
           child: Center(
             child: Text(
               tecla,
-              style: TextStyle(fontSize: 55, color: Colors.white),
+              style: TextStyle(
+                fontSize: 55,
+              ),
             ),
           ),
           decoration: BoxDecoration(

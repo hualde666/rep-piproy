@@ -47,6 +47,9 @@ class ApiPorGrupoPage extends StatelessWidget {
                   child: GridView.count(
                     padding: EdgeInsets.only(bottom: 70, left: 1, right: 1),
                     children: snapshot.data,
+                    childAspectRatio: 1.2,
+                    mainAxisSpacing: 4,
+                    crossAxisSpacing: 4,
                     crossAxisCount: 2,
                   ),
                 );
@@ -93,110 +96,172 @@ class ElementoApi extends StatelessWidget {
   Widget build(BuildContext context) {
     final apiProvider = Provider.of<AplicacionesProvider>(context);
     final grupo = apiProvider.tipoSeleccion;
-    return Container(
-      margin: EdgeInsets.symmetric(horizontal: 3, vertical: 3),
-      decoration: BoxDecoration(
-          color: Theme.of(context).primaryColor,
-          borderRadius: BorderRadius.circular(15.0),
-          border: Border.all(color: Colors.white38, width: 1.0)),
-
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              GestureDetector(
+    return GestureDetector(
+      onTap: () {
+        if (api.packageName != "") {
+          api.openApp();
+        }
+      },
+      child: Container(
+        // margin: EdgeInsets.symmetric(horizontal: 5.0),
+        decoration: BoxDecoration(
+            color: Theme.of(context).scaffoldBackgroundColor,
+            borderRadius: BorderRadius.circular(20.0),
+            border: Border.all(color: Colors.white38, width: 1)),
+        // color: Theme.of(context).primaryColor,
+        child: Column(
+          children: [
+            SizedBox(
+              height: 5,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                GestureDetector(
                   onTap: () {
                     //if (grupo != 'Todas') {
                     agregaMPB(context, api);
                     //}
                   },
-                  child: //grupo != 'Todas'
-                      // ?
-                      Container(
+                  child: Container(
                     width: 30,
                     height: 30,
                     child: Center(
                       child: Icon(
                         Icons.arrow_back,
-                        size: 20,
+                        size: 30,
                         color: Colors.blue,
                       ),
                     ),
-                  )
-                  // : Container(
-                  //     width: 30,
-                  //     height: 30,
-                  //   ),
                   ),
-              GestureDetector(
-                onTap: () {
-                  if (grupo != 'Todas') {
-                    eliminarApi(context, grupo);
-                  }
-                },
-                child: grupo != 'Todas'
-                    ? Container(
-                        width: 30,
-                        height: 30,
-                        child: Center(
-                          child: Icon(
-                            Icons.close,
-                            size: 20,
-                            color: Colors.red,
-                          ),
+                ),
+                Image.memory(
+                  (api as ApplicationWithIcon).icon,
+                  width: 90,
+                ),
+                GestureDetector(
+                    onTap: () {
+                      if (grupo != 'Todas') {
+                        eliminarApi(context, grupo);
+                      }
+                    },
+                    child: Container(
+                      width: 30,
+                      height: 30,
+                      child: Center(
+                        child: Icon(
+                          Icons.close,
+                          size: 30,
+                          color: Colors.red,
                         ),
-                      )
-                    : Container(
-                        width: 30,
-                        height: 30,
                       ),
-              ),
-            ],
-          ),
-          GestureDetector(
-            onTap: () {
-              if (api.packageName != "") {
-                api.openApp();
-              }
-            },
-            child: Container(
-              child: Column(
-                children: [
-                  Image.memory(
-                    (api as ApplicationWithIcon).icon,
-                    width: 90,
-                  ),
-                  // SizedBox(
-                  //   height: 5,
-                  // ),
-                  Container(
-                    height: 50,
-                    width: 150,
-                    child: Text(
-                      api.appName,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 20),
-                    ),
-                  ),
-                ],
+                    )),
+              ],
+            ),
+            SizedBox(
+              height: 3,
+            ),
+            Text(
+              api.appName,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 20,
               ),
             ),
-          )
-
-          // Container(
-          //   height: 60,
-          //   width: 150,
-          //   child: Text(
-          //     api.packageName,
-          //     textAlign: TextAlign.center,
-          //     style: TextStyle(fontSize: 15, color: Colors.white),
-          //   ),
-          // ),
-        ],
+          ],
+        ),
       ),
-      //   ),
     );
+    // return Container(
+    //   // margin: EdgeInsets.symmetric(horizontal: 3, vertical: 3),
+    //   decoration: BoxDecoration(
+    //       //  color: Theme.of(context).primaryColor,
+    //       borderRadius: BorderRadius.circular(15.0),
+    //       border: Border.all(color: Colors.white38, width: 1.0)),
+
+    //   child: Row(
+    //     mainAxisAlignment: MainAxisAlignment.center,
+    //     children: [
+    //       GestureDetector(
+    //           onTap: () {
+    //             //if (grupo != 'Todas') {
+    //             agregaMPB(context, api);
+    //             //}
+    //           },
+    //           child: //grupo != 'Todas'
+    //               // ?
+    //               Container(
+    //             width: 30,
+    //             height: 30,
+    //             child: Center(
+    //               child: Icon(
+    //                 Icons.arrow_back,
+    //                 size: 30,
+    //                 color: Colors.blue,
+    //               ),
+    //             ),
+    //           )),
+    //       GestureDetector(
+    //         onTap: () {
+    //           if (api.packageName != "") {
+    //             api.openApp();
+    //           }
+    //         },
+    //         child: Container(
+    //           child: Column(
+    //             children: [
+    //               Image.memory(
+    //                 (api as ApplicationWithIcon).icon,
+    //                 width: 90,
+    //               ),
+
+    //               Text(
+    //                 api.appName,
+    //                 textAlign: TextAlign.center,
+    //                 style: TextStyle(fontSize: 20),
+    //               ),
+    //             ],
+    //           ),
+    //         ),
+    //       ),
+    //       GestureDetector(
+    //         onTap: () {
+    //           if (grupo != 'Todas') {
+    //             eliminarApi(context, grupo);
+    //           }
+    //         },
+    //         child: grupo != 'Todas'
+    //             ? Container(
+    //                 width: 30,
+    //                 height: 30,
+    //                 child: Center(
+    //                   child: Icon(
+    //                     Icons.close,
+    //                     size: 30,
+    //                     color: Colors.red,
+    //                   ),
+    //                 ),
+    //               )
+    //             : Container(
+    //                 width: 30,
+    //                 height: 30,
+    //               ),
+    //       ),
+    //     ],
+    //   ),
+
+    //   // Container(
+    //   //   height: 60,
+    //   //   width: 150,
+    //   //   child: Text(
+    //   //     api.packageName,
+    //   //     textAlign: TextAlign.center,
+    //   //     style: TextStyle(fontSize: 15, color: Colors.white),
+    //   //   ),
+    //   // ),
+
+    //   //   ),
+    // );
   }
 
   Future<dynamic> eliminarApi(BuildContext context, String tipo) => showDialog(
