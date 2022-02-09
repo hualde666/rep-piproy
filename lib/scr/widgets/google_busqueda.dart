@@ -8,7 +8,8 @@ Widget googleBusqueda(BuildContext context, Application api) {
         margin: EdgeInsets.symmetric(horizontal: 5.0),
         alignment: Alignment.center,
         child: Container(
-          margin: EdgeInsets.symmetric(horizontal: 3),
+          height: 60,
+          margin: EdgeInsets.symmetric(horizontal: 2, vertical: 2),
           decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(20.0),
@@ -26,12 +27,12 @@ Widget googleBusqueda(BuildContext context, Application api) {
                     child: Image(
                         image: AssetImage('assets/google.png'),
                         fit: BoxFit.fill)),
-                height: 50,
-                width: 250,
+                height: 45,
+                width: 150,
                 //color: Colors.red),
               ),
               SizedBox(
-                width: 10,
+                width: 5,
               ),
               Icon(
                 Icons.search,

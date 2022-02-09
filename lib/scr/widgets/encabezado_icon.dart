@@ -7,68 +7,76 @@ import 'package:provider/provider.dart';
 Widget encabezadoIcon(BuildContext context) {
   //final bool isOn = false;
   final pref = Provider.of<Preferencias>(context);
-  final List<Widget> _listaWidget = [
-    pref.iBateria
-        ? widgetHorizontal(context, Icons.battery_std, 'bateria')
-        : Container(),
-    pref.iWifi
-        ? widgetHorizontal(
-            context,
-            Icons.wifi,
-            'wifi',
-          )
-        : Container(),
-    pref.iLinterna
-        ? widgetHorizontal(
-            context,
-            Icons.filter_alt,
-            'linterna',
-          )
-        : Container(),
-    pref.iTelefono
-        ? widgetHorizontal(context, Icons.call, 'telefono')
-        : Container(),
-    pref.iLinea
-        ? widgetHorizontal(
-            context,
-            Icons.signal_cellular_alt_rounded,
-            'linea',
-          )
-        : Container(),
-    pref.iGps
-        ? widgetHorizontal(
-            context,
-            Icons.gps_fixed_rounded,
-            'gps',
-          )
-        : Container(),
-    pref.iMensaje
-        ? widgetHorizontal(
-            context,
-            Icons.chat,
-            'mensaje',
-          )
-        : Container(),
-    pref.iReloj
-        ? widgetHorizontal(
-            context,
-            Icons.access_alarm,
-            'alarma',
-          )
-        : Container(),
-  ];
-  final margen = 140 / _listaWidget.length;
+  List<Widget> _listaWidget = [];
+
+  if (pref.iBateria) {
+    _listaWidget.add(widgetHorizontal(context, Icons.battery_std, 'bateria'));
+  }
+
+  if (pref.iWifi) {
+    _listaWidget.add(widgetHorizontal(
+      context,
+      Icons.wifi,
+      'wifi',
+    ));
+  }
+  if (pref.iLinterna) {
+    _listaWidget.add(widgetHorizontal(
+      context,
+      Icons.filter_alt,
+      'linterna',
+    ));
+  }
+
+  if (pref.iTelefono) {
+    _listaWidget.add(widgetHorizontal(context, Icons.call, 'telefono'));
+  }
+
+  if (pref.iLinea) {
+    _listaWidget.add(widgetHorizontal(
+      context,
+      Icons.signal_cellular_alt_rounded,
+      'linea',
+    ));
+  }
+
+  if (pref.iGps) {
+    _listaWidget.add(widgetHorizontal(
+      context,
+      Icons.gps_fixed_rounded,
+      'gps',
+    ));
+  }
+
+  if (pref.iMensaje) {
+    _listaWidget.add(widgetHorizontal(
+      context,
+      Icons.chat,
+      'mensaje',
+    ));
+  }
+
+  if (pref.iReloj) {
+    _listaWidget.add(widgetHorizontal(
+      context,
+      Icons.access_alarm,
+      'alarma',
+    ));
+  }
+
   return Container(
+    margin: EdgeInsets.symmetric(horizontal: 5),
+    // color: Colors.green,
     height: 91,
-    margin: EdgeInsets.only(
-      left: margen,
-      top: 2,
-      right: margen,
-    ),
-    child: ListView.builder(
-      scrollDirection: Axis.horizontal,
-      itemCount: _listaWidget.length,
-      itemBuilder: (context, i) => _listaWidget[i],
+    width: _listaWidget.length < 5
+        ? 78.0 * _listaWidget.length
+        : MediaQuery.of(context).size.width,
+    child: Center(
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: _listaWidget.length,
+        itemBuilder: (context, i) => _listaWidget[i],
+      ),
     ),
   );
 }

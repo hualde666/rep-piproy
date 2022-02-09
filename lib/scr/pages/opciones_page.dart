@@ -105,7 +105,7 @@ class OpcionesPage extends StatelessWidget {
             color: pref.iGoogle
                 ?
                 /** es un contacto o grupo de contacto */
-                Theme.of(context).primaryColor
+                Colors.black38
                 : Theme.of(context).scaffoldBackgroundColor,
             // borderRadius: BorderRadius.circular(20.0),
           ),
@@ -165,7 +165,7 @@ class OpcionesPage extends StatelessWidget {
             color: pref.iContactos
                 ?
                 /** es un contacto o grupo de contacto */
-                Theme.of(context).primaryColor
+                Colors.black38
                 : Theme.of(context).scaffoldBackgroundColor,
           ),
           child: Container(
@@ -202,7 +202,7 @@ class OpcionesPage extends StatelessWidget {
               color: pref.iAplicaciones
                   ?
                   /** es un contacto o grupo de contacto */
-                  Theme.of(context).primaryColor
+                  Colors.black38
                   : Theme.of(context).scaffoldBackgroundColor,
             ),
             child: Container(
@@ -262,9 +262,8 @@ class IconOpcion extends StatelessWidget {
         borderRadius: BorderRadius.circular(20),
         border: Border.all(color: Colors.white38, width: 2.0),
         color: activo
-            ?
-            /** es un contacto o grupo de contacto */
-            Theme.of(context).primaryColor
+            ? Colors.black45
+            // Theme.of(context).primaryColor
             : Theme.of(context).scaffoldBackgroundColor,
       ),
       child: Column(
