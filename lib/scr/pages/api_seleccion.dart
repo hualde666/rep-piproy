@@ -55,7 +55,7 @@ class ApiSeleccionPage extends StatelessWidget {
             'Seleccion Apps para: ',
             Text(
               '$grupo',
-              style: TextStyle(color: Colors.white, fontSize: 30),
+              style: TextStyle(fontSize: 30),
             ),
             40.0,
             true,
@@ -170,7 +170,7 @@ class _WidgetApiState extends State<WidgetApi> {
     print(widget.listaNueva);
     final selecionada = widget.listaNueva.contains(widget.api);
     Color color =
-        selecionada ? Theme.of(context).primaryColor : Colors.grey[700];
+        selecionada ? Theme.of(context).backgroundColor : Colors.grey[700];
     return GestureDetector(
       onTap: () {
         if (widget.api.packageName != "") {
@@ -195,7 +195,7 @@ class _WidgetApiState extends State<WidgetApi> {
         decoration: BoxDecoration(
             color: color,
             borderRadius: BorderRadius.circular(20.0),
-            border: Border.all(color: Colors.white)),
+            border: Border.all(color: Theme.of(context).primaryColor)),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
@@ -215,7 +215,9 @@ class _WidgetApiState extends State<WidgetApi> {
               child: Text(
                 widget.api.appName,
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 20, color: Colors.white),
+                style: TextStyle(
+                  fontSize: 20,
+                ),
               ),
             ),
           ],

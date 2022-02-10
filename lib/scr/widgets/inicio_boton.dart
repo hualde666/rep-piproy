@@ -20,14 +20,15 @@ class InicioBoton extends StatelessWidget {
                 BoxShadow(
                   color: Colors.black54,
                   blurRadius: 1,
-                  spreadRadius: 2,
+                  spreadRadius: 0.5,
                   offset: Offset(0, 3),
                 ),
               ],
               borderRadius: BorderRadius.only(
                   topRight: Radius.circular(20),
                   bottomRight: Radius.circular(20)),
-              border: Border.all(color: Colors.white12)),
+              border: Border.all(
+                  color: Theme.of(context).primaryColor, width: 0.5)),
           margin: EdgeInsets.only(right: 5),
           child: Center(
             child: Text(

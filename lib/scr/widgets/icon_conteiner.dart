@@ -64,9 +64,10 @@ Widget conteinerIcon(
           decoration: BoxDecoration(
               color: (tarea == 'whatsapp')
                   ? Colors.green
-                  : Theme.of(context).primaryColor,
+                  : Theme.of(context).backgroundColor,
               borderRadius: BorderRadius.circular(80),
-              border: Border.all(color: Colors.white, width: 0.5)),
+              border: Border.all(
+                  color: Theme.of(context).primaryColor, width: 0.5)),
           child:
               //  (tarea == 'whatsapp')
               //     ? Image(
@@ -194,7 +195,8 @@ Widget dispositivo(bool activo, IconData icon) {
 }
 
 Widget dispLinterna(BuildContext context, bool activo, IconData icon) {
-  final Color color = activo ? Colors.yellow : Theme.of(context).primaryColor;
+  final Color color =
+      activo ? Colors.yellow : Theme.of(context).backgroundColor;
 
   return Center(
       child: Container(
@@ -203,7 +205,7 @@ Widget dispLinterna(BuildContext context, bool activo, IconData icon) {
     decoration: BoxDecoration(
         color: color,
         borderRadius: BorderRadius.circular(80),
-        border: Border.all(color: Colors.white, width: 0.5)),
+        border: Border.all(color: Theme.of(context).primaryColor, width: 0.5)),
     child: Center(
         child: Icon(
       icon,

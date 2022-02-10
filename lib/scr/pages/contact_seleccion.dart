@@ -77,7 +77,7 @@ class _SelectContactsPageState extends State<SelectContactsPage> {
         child: Scaffold(
             appBar: PreferredSize(
                 preferredSize:
-                    Size.fromHeight(240.0), // here the desired height
+                    Size.fromHeight(250.0), // here the desired height
                 child: busqueda(context)),
             resizeToAvoidBottomInset: false,
             body: FutureBuilder(
@@ -133,7 +133,7 @@ class _SelectContactsPageState extends State<SelectContactsPage> {
         Container(
 
             // margin: EdgeInsets.only(top: 5, left: 5.0, right: 5.0),
-            height: 250.0,
+            height: 255.0,
             child: Column(
               // crossAxisAlignment: CrossAxisAlignment.center,
               children: [
@@ -143,7 +143,9 @@ class _SelectContactsPageState extends State<SelectContactsPage> {
                   style: TextStyle(color: Colors.white, fontSize: 25),
                 ),
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: 7),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 7,
+                  ),
                   child: TextField(
                     textAlign: TextAlign.center,
                     style: TextStyle(
@@ -216,14 +218,15 @@ class _ContactoState extends State<Contacto> {
         decoration: BoxDecoration(
             color: widget.apiProvider.categoryContact[widget.grupo]
                     .contains(widget.contactoSelec)
-                ? Theme.of(context).primaryColor
+                ? Theme.of(context).backgroundColor
                 : Colors.grey[700],
             borderRadius: BorderRadius.circular(20.0),
-            border: Border.all(color: Colors.white)),
+            border: Border.all(color: Theme.of(context).primaryColor)),
         child: Center(
             child: Text(widget.contactoSelec.nombre,
                 textAlign: TextAlign.center,
-                style: TextStyle(color: Colors.white, fontSize: 30))),
+                style: TextStyle(
+                    color: Theme.of(context).primaryColor, fontSize: 30))),
       ),
       onTap: () {
         if (widget.apiProvider.categoryContact[widget.grupo]

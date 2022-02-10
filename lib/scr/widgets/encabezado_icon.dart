@@ -69,10 +69,13 @@ Widget encabezadoIcon(BuildContext context) {
     // color: Colors.green,
     height: 91,
     width: _listaWidget.length < 5
-        ? 78.0 * _listaWidget.length
+        ? 80.0 * _listaWidget.length
         : MediaQuery.of(context).size.width,
     child: Center(
       child: ListView.builder(
+        physics: _listaWidget.length < 5
+            ? NeverScrollableScrollPhysics()
+            : AlwaysScrollableScrollPhysics(),
         scrollDirection: Axis.horizontal,
         itemCount: _listaWidget.length,
         itemBuilder: (context, i) => _listaWidget[i],

@@ -135,10 +135,7 @@ class _ContactsPorGrupoPageState extends State<ContactsPorGrupoPage> {
 
     final grupo = apiProvider.tipoSeleccion;
     final alto = grupo == 'Todos' ? 255.0 : 190.0;
-    // return AppBar(
-    //   //backgroundColor: Color.fromRGBO(55, 57, 84, 1.0),
-    //   automaticallyImplyLeading: false,
-    //   flexibleSpace:
+
     return PreferredSize(
         preferredSize: Size.fromHeight(200.0 + alto),
 
@@ -154,26 +151,31 @@ class _ContactsPorGrupoPageState extends State<ContactsPorGrupoPage> {
               tresBotonesHeader(context, true, 'ContactosporGrupo'),
               Text(
                 'Contactos: ' + grupo,
-                style: TextStyle(color: Colors.white, fontSize: 30),
+                style: TextStyle(
+                    color: Theme.of(context).primaryColor, fontSize: 30),
               ),
               grupo == 'Todos'
                   ? Container(
-                      padding: EdgeInsets.symmetric(horizontal: 7),
+                      margin: EdgeInsets.symmetric(vertical: 2, horizontal: 5),
                       child: TextField(
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                            fontSize: 25.0, color: Colors.white54, height: 1.0),
+                            fontSize: 25.0,
+                            color: Theme.of(context).primaryColor,
+                            height: 1.0),
                         keyboardType: TextInputType.text,
                         controller: _searchController,
                         // autofocus: true,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
-
-                              //borderSide: BorderSide(color: Colors.amber),
+                              borderSide: BorderSide(
+                                  color: Colors.amber,
+                                  style: BorderStyle.solid),
                               borderRadius:
                                   BorderRadius.all(Radius.circular(25.0))),
-                          labelStyle:
-                              TextStyle(color: Colors.white38, fontSize: 20),
+                          labelStyle: TextStyle(
+                              color: Theme.of(context).primaryColor,
+                              fontSize: 20),
                           labelText: 'Buscar Contacto :',
                           suffixIcon: _searchController.text.isNotEmpty
                               ? IconButton(
@@ -184,18 +186,19 @@ class _ContactsPorGrupoPageState extends State<ContactsPorGrupoPage> {
                                   },
                                   icon: Icon(
                                     Icons.clear,
-                                    color: Colors.white,
                                     size: 30,
                                   ))
                               : Icon(
                                   Icons.search,
-                                  color: Colors.white,
+                                  color: Theme.of(context).primaryColor,
                                   size: 30,
                                 ),
                           focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(25.0))),
+                            borderSide: BorderSide(
+                                color: Theme.of(context).primaryColor),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(25.0)),
+                          ),
                         ),
                       ),
                     )

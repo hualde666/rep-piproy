@@ -71,9 +71,9 @@ class ContactsGruposPage extends StatelessWidget {
             margin: EdgeInsets.symmetric(vertical: 3, horizontal: 4.0),
             height: 70,
             decoration: BoxDecoration(
-                color: Theme.of(context).primaryColor,
+                color: Theme.of(context).backgroundColor,
                 borderRadius: BorderRadius.circular(20.0),
-                border: Border.all(color: Colors.white38)),
+                border: Border.all(color: Theme.of(context).primaryColor)),
             child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [

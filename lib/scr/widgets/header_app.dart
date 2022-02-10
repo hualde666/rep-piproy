@@ -16,7 +16,8 @@ Widget headerApp(BuildContext context, String titulo, Widget otroWidget,
           Container(
             child: Text(titulo,
                 overflow: TextOverflow.ellipsis,
-                style: TextStyle(color: Colors.white, fontSize: 25)),
+                style: TextStyle(
+                    color: Theme.of(context).primaryColor, fontSize: 25)),
           ),
           alto > 0
               ? Column(

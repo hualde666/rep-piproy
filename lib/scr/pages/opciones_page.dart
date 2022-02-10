@@ -12,7 +12,7 @@ class OpcionesPage extends StatelessWidget {
     List<Widget> opciones = [
       Divider(
         height: 2,
-        color: Colors.white,
+        color: Theme.of(context).primaryColor,
       ),
       SizedBox(
         height: 5,
@@ -103,10 +103,10 @@ class OpcionesPage extends StatelessWidget {
           height: 90,
           decoration: BoxDecoration(
             color: pref.iGoogle
-                ?
+                ? Theme.of(context).scaffoldBackgroundColor
                 /** es un contacto o grupo de contacto */
-                Colors.black38
-                : Theme.of(context).scaffoldBackgroundColor,
+
+                : Colors.grey,
             // borderRadius: BorderRadius.circular(20.0),
           ),
           child: Container(
@@ -163,10 +163,10 @@ class OpcionesPage extends StatelessWidget {
           height: 90,
           decoration: BoxDecoration(
             color: pref.iContactos
-                ?
+                ? Theme.of(context).scaffoldBackgroundColor
                 /** es un contacto o grupo de contacto */
-                Colors.black38
-                : Theme.of(context).scaffoldBackgroundColor,
+
+                : Colors.grey,
           ),
           child: Container(
             height: 40,
@@ -176,11 +176,14 @@ class OpcionesPage extends StatelessWidget {
                     /** es un contacto o grupo de contacto */
                     Colors.green,
                 borderRadius: BorderRadius.circular(20.0),
-                border: Border.all(color: Colors.white38)),
+                border: Border.all(
+                  color: Theme.of(context).primaryColor,
+                )),
             child: Center(
               child: Text(
                 'Contactos',
                 style: TextStyle(
+                  color: Theme.of(context).backgroundColor,
                   fontSize: 30,
                 ),
               ),
@@ -190,7 +193,7 @@ class OpcionesPage extends StatelessWidget {
       ),
       Divider(
         height: 2,
-        color: Colors.white,
+        color: Theme.of(context).primaryColor,
       ),
       GestureDetector(
         onTap: () {
@@ -200,19 +203,21 @@ class OpcionesPage extends StatelessWidget {
             height: 90,
             decoration: BoxDecoration(
               color: pref.iAplicaciones
-                  ?
+                  ? Theme.of(context).scaffoldBackgroundColor
                   /** es un contacto o grupo de contacto */
-                  Colors.black38
-                  : Theme.of(context).scaffoldBackgroundColor,
+
+                  : Colors.grey,
             ),
             child: Container(
               margin: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
               decoration: BoxDecoration(
                   color:
                       /** es un contacto o grupo de contacto */
-                      Theme.of(context).primaryColor,
+                      Theme.of(context).backgroundColor,
                   borderRadius: BorderRadius.circular(20.0),
-                  border: Border.all(color: Colors.white38)),
+                  border: Border.all(
+                    color: Theme.of(context).primaryColor,
+                  )),
               child: Center(
                 child: Text(
                   'Aplicaciones',
@@ -225,7 +230,7 @@ class OpcionesPage extends StatelessWidget {
       ),
       Divider(
         height: 2,
-        color: Colors.white,
+        color: Theme.of(context).primaryColor,
       ),
     ];
     return SafeArea(
@@ -260,11 +265,11 @@ class IconOpcion extends StatelessWidget {
       height: 40,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: Colors.white38, width: 2.0),
+        border: Border.all(color: Theme.of(context).primaryColor, width: 2.0),
         color: activo
-            ? Colors.black45
+            ? Theme.of(context).scaffoldBackgroundColor
             // Theme.of(context).primaryColor
-            : Theme.of(context).scaffoldBackgroundColor,
+            : Colors.grey,
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -273,9 +278,10 @@ class IconOpcion extends StatelessWidget {
             width: 70.0,
             height: 70.0,
             decoration: BoxDecoration(
-                color: Theme.of(context).primaryColor,
+                color: Theme.of(context).backgroundColor,
                 borderRadius: BorderRadius.circular(80),
-                border: Border.all(color: Colors.white38, width: 2.0)),
+                border: Border.all(
+                    color: Theme.of(context).primaryColor, width: 2.0)),
             child: Icon(
               iconop,
               size: 40.0,

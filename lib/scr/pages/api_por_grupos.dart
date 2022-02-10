@@ -107,7 +107,8 @@ class ElementoApi extends StatelessWidget {
         decoration: BoxDecoration(
             color: Theme.of(context).scaffoldBackgroundColor,
             borderRadius: BorderRadius.circular(20.0),
-            border: Border.all(color: Colors.white38, width: 1)),
+            border:
+                Border.all(color: Theme.of(context).primaryColor, width: 1)),
         // color: Theme.of(context).primaryColor,
         child: Column(
           children: [

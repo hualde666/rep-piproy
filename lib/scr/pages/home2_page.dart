@@ -123,7 +123,9 @@ class _Home2PageState extends State<Home2Page> {
     if (pref.iContactos) {
       listaOpciones.add(elementos(
           context,
-          Text('Contactos', style: TextStyle(fontSize: 40.0)),
+          Text('Contactos',
+              style: TextStyle(
+                  fontSize: 40.0, color: Theme.of(context).backgroundColor)),
           60,
           'contactos',
           ''));
@@ -329,14 +331,17 @@ class BotonesEncabezado extends StatelessWidget {
                             BoxShadow(
                               color: Colors.black54,
                               blurRadius: 1,
-                              spreadRadius: 2,
+                              spreadRadius: 0.5,
                               offset: Offset(0, 3),
                             ),
                           ],
                           borderRadius: BorderRadius.only(
                               topRight: Radius.circular(20),
                               bottomRight: Radius.circular(20)),
-                          border: Border.all(color: Colors.white12)),
+                          border: Border.all(
+                            width: 0.5,
+                            color: Theme.of(context).primaryColor,
+                          )),
                       // decoration: BoxDecoration(
                       //     color: Colors.black38,
                       //     borderRadius: BorderRadius.circular(20.0),
@@ -345,7 +350,10 @@ class BotonesEncabezado extends StatelessWidget {
                       child: Center(
                         child: Text(
                           'SALIDA',
-                          style: TextStyle(fontSize: 18, color: Colors.white),
+                          style: TextStyle(
+                            color: Theme.of(context).primaryColor,
+                            fontSize: 18,
+                          ),
                         ),
                       )),
                 ),
@@ -378,18 +386,20 @@ class BotonesEncabezado extends StatelessWidget {
                               BoxShadow(
                                 color: Colors.black54,
                                 blurRadius: 1,
-                                spreadRadius: 2,
+                                spreadRadius: 0.5,
                                 offset: Offset(0, 3),
                               ),
                             ],
                             borderRadius: BorderRadius.circular(25.0),
-                            border: Border.all(color: Colors.white12)),
+                            border: Border.all(
+                                width: 0.5,
+                                color: Theme.of(context).primaryColor)),
                         margin: EdgeInsets.only(right: 5),
                         child: Center(
                           child: Icon(
                             Icons.build,
                             size: 30,
-                            color: Colors.white,
+                            color: Theme.of(context).primaryColor,
                           ),
                           //  Text(
                           //   'CONFIGURAR',
@@ -419,14 +429,16 @@ class BotonesEncabezado extends StatelessWidget {
                               BoxShadow(
                                 color: Colors.black54,
                                 blurRadius: 1,
-                                spreadRadius: 2,
+                                spreadRadius: 0.5,
                                 offset: Offset(0, 3),
                               ),
                             ],
                             borderRadius: BorderRadius.only(
                                 topLeft: Radius.circular(20),
                                 bottomLeft: Radius.circular(20)),
-                            border: Border.all(color: Colors.white12)),
+                            border: Border.all(
+                                width: 0.5,
+                                color: Theme.of(context).primaryColor)),
                         // decoration: BoxDecoration(
                         //     color: Colors.black38,
                         //     borderRadius: BorderRadius.circular(20.0),
@@ -435,7 +447,9 @@ class BotonesEncabezado extends StatelessWidget {
                         child: Center(
                           child: Text(
                             'AYUDA',
-                            style: TextStyle(fontSize: 18, color: Colors.white),
+                            style: TextStyle(
+                                fontSize: 18,
+                                color: Theme.of(context).primaryColor),
                           ),
                         )),
                   ),
@@ -463,7 +477,7 @@ Widget elementoApi2(BuildContext context, Application api) {
       decoration: BoxDecoration(
           color: Theme.of(context).scaffoldBackgroundColor,
           borderRadius: BorderRadius.circular(20.0),
-          border: Border.all(color: Colors.white38, width: 1)),
+          border: Border.all(color: Theme.of(context).primaryColor, width: 1)),
       // color: Theme.of(context).primaryColor,
       child: Column(
         children: [

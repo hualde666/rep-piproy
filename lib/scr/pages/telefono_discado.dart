@@ -26,7 +26,7 @@ class _DiscadoState extends State<Discado> {
       appBar: headerApp(context, 'Teléfon', Text(''), 0.0, true, 'Ayuda'),
       // backgroundColor: Colors.white,
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           GestureDetector(
             onTap: () {
@@ -37,7 +37,8 @@ class _DiscadoState extends State<Discado> {
               decoration: BoxDecoration(
                   color: Colors.amber,
                   borderRadius: BorderRadius.circular(20.0),
-                  border: Border.all(color: Colors.white38, width: 1)),
+                  border: Border.all(
+                      color: Theme.of(context).primaryColor, width: 1)),
               // height: 80,
               child: Center(
                 child: Text(
@@ -50,20 +51,6 @@ class _DiscadoState extends State<Discado> {
               ),
             ),
           ),
-          // Container(
-          //   margin: EdgeInsets.symmetric(
-          //     horizontal: 5,
-          //   ),
-          //   height: 270,
-          //   child: GridView.count(
-          //       physics: NeverScrollableScrollPhysics(),
-          //       childAspectRatio: 1.8,
-          //       mainAxisSpacing: 5,
-          //       crossAxisSpacing: 5,
-          //       crossAxisCount: 3,
-          //       children: teclado),
-          // ),
-
           Row(mainAxisAlignment: MainAxisAlignment.center, children: [
             tecla(context, '1', myController),
             SizedBox(
@@ -128,6 +115,7 @@ class _DiscadoState extends State<Discado> {
                   child: Center(
                     child: Icon(
                       Icons.clear,
+                      color: Colors.black,
                       size: 50,
                     ),
                   ),
@@ -152,7 +140,7 @@ class _DiscadoState extends State<Discado> {
                   child: Center(
                       child: Text(
                     'llamar',
-                    style: TextStyle(fontSize: 30),
+                    style: TextStyle(fontSize: 30, color: Colors.black),
                   )),
                 ),
               ),
@@ -184,6 +172,7 @@ class _DiscadoState extends State<Discado> {
                   child: Center(
                     child: Icon(
                       Icons.backspace_outlined,
+                      color: Colors.black,
                       size: 40,
                     ),
                   ),
@@ -221,9 +210,10 @@ class _DiscadoState extends State<Discado> {
             ),
           ),
           decoration: BoxDecoration(
-              color: Theme.of(context).primaryColor,
+              color: Theme.of(context).backgroundColor,
               borderRadius: BorderRadius.circular(20.0),
-              border: Border.all(color: Colors.white38, width: 1)),
+              border:
+                  Border.all(color: Theme.of(context).primaryColor, width: 1)),
         ));
   }
 }

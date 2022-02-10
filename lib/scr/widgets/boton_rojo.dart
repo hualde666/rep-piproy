@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 
 import 'package:piproy/scr/providers/estado_celular.dart';
+import 'package:piproy/scr/providers/usuario_pref.dart';
 import 'package:provider/provider.dart';
 
 Widget botonRojoHeader(BuildContext context, bool activo) {
   final celProvider = Provider.of<EstadoProvider>(context);
   final activoDatos = celProvider.conexionDatos;
   // bool activoDatos = celProvider.conexionDatos;
+  final pref = Provider.of<Preferencias>(context);
   return GestureDetector(
       onTap: () {
         if (activoDatos) {
@@ -20,27 +22,36 @@ Widget botonRojoHeader(BuildContext context, bool activo) {
               child: Column(
                 children: [
                   Icon(Icons.health_and_safety_outlined,
-                      size: 60, color: Colors.white),
+                      size: 60,
+                      color: pref.paleta == '4'
+                          ? Color.fromARGB(255, 255, 230, 7)
+                          : Colors.white),
                   Text(
                     'S O S',
-                    style: TextStyle(fontSize: 20, color: Colors.white),
+                    style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: pref.paleta == '4'
+                            ? Color.fromARGB(255, 255, 230, 7)
+                            : Colors.white),
                   )
                 ],
               ),
               decoration: BoxDecoration(
-                  color: Colors.red[700],
+                  color: pref.paleta == '4' ? Colors.black : Colors.red[700],
                   boxShadow: [
                     BoxShadow(
-                      color: Color.fromARGB(255, 75, 8, 3),
+                      color: Colors.black,
                       blurRadius: 1,
-                      spreadRadius: 2,
+                      spreadRadius: 0.5,
                       offset: Offset(0, 3),
                     ),
                   ],
                   borderRadius: BorderRadius.only(
                       topRight: Radius.circular(35),
                       bottomRight: Radius.circular(35)),
-                  border: Border.all(color: Colors.white12)),
+                  border: Border.all(
+                      color: Theme.of(context).primaryColor, width: 0.5)),
               // child: Image(
               //     image: AssetImage('assets/boton_rojo.png'),
               //     fit: BoxFit.contain),
