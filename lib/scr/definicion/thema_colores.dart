@@ -7,7 +7,8 @@ ThemeData themaApi(String color) {
   switch (color) {
     case '1':
       tema = ThemeData(
-        primaryColor: Color.fromRGBO(55, 57, 84, 1.0),
+        primaryColor: Colors.white,
+        backgroundColor: Color.fromRGBO(55, 57, 84, 1.0),
         scaffoldBackgroundColor:
             Colors.grey[700], //  Color.fromRGBO(55, 57, 84, 1.0),
         textTheme: TextTheme(
