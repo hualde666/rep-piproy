@@ -29,7 +29,8 @@ class ResumenEnvioPage extends StatelessWidget {
                     margin: EdgeInsets.only(bottom: 5),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20.0),
-                        border: Border.all(color: Colors.white)),
+                        border:
+                            Border.all(color: Theme.of(context).primaryColor)),
                     child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [

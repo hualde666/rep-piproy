@@ -32,13 +32,13 @@ Widget botonRojoHeader(BuildContext context, bool activo) {
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
                         color: pref.paleta == '4'
-                            ? Color.fromARGB(255, 255, 230, 7)
+                            ? Color.fromARGB(255, 246, 242, 4)
                             : Colors.white),
                   )
                 ],
               ),
               decoration: BoxDecoration(
-                  color: pref.paleta == '4' ? Colors.black : Colors.red[700],
+                  color: pref.paleta == '4' ? Colors.black : Colors.red[900],
                   boxShadow: [
                     BoxShadow(
                       color: Colors.black,

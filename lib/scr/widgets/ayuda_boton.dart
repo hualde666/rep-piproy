@@ -31,7 +31,8 @@ class AyudaBoton extends StatelessWidget {
           child: Center(
             child: Text(
               'AYUDA',
-              style: TextStyle(fontSize: 18, color: Colors.white),
+              style: TextStyle(
+                  fontSize: 18, color: Theme.of(context).primaryColor),
             ),
           )),
     );

@@ -23,7 +23,8 @@ class PaletaPage extends StatelessWidget {
       SizedBox(
         height: 5,
       ),
-      colores(context, Colors.black, Colors.green[300], Colors.white, 4),
+      colores(context, Colors.black, Colors.black,
+          Color.fromARGB(255, 8, 194, 240), 4),
       SizedBox(
         height: 5,
       ),
@@ -75,7 +76,7 @@ class PaletaPage extends StatelessWidget {
               decoration: BoxDecoration(
                   color: elemento,
                   borderRadius: BorderRadius.circular(15.0),
-                  border: Border.all(color: Colors.white, width: 1.0)),
+                  border: Border.all(color: letras, width: 1.0)),
               child: Center(
                   child: Text(
                 'ABC',

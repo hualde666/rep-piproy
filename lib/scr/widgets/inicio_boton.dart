@@ -33,7 +33,8 @@ class InicioBoton extends StatelessWidget {
           child: Center(
             child: Text(
               'INICIO',
-              style: TextStyle(fontSize: 18, color: Colors.white),
+              style: TextStyle(
+                  fontSize: 18, color: Theme.of(context).primaryColor),
             ),
           )),
     );

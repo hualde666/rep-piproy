@@ -96,7 +96,7 @@ class _ContactsPorGrupoPageState extends State<ContactsPorGrupoPage> {
                 return Container(
                   padding: EdgeInsets.only(bottom: 50),
                   child: ListView(
-                    padding: EdgeInsets.only(bottom: 68),
+                    padding: EdgeInsets.only(bottom: 200),
                     children: snapshot.data,
                   ),
                 );

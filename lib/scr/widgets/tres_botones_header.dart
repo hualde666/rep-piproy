@@ -27,7 +27,7 @@ Widget tresBotonesHeader(BuildContext context, bool rojo, String pagina) {
           children: [
             AyudaBoton(pagina: pagina),
             SizedBox(
-              height: 15,
+              height: 10,
             ),
             botonBackHeader(context)
           ],

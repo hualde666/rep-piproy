@@ -87,18 +87,23 @@ class _EmergenciaMensajeState extends State<EmergenciaMensaje> {
                         }
                       },
                       // maxLength: 1,
-                      style: TextStyle(fontSize: 25.0, color: Colors.white),
+                      style: TextStyle(
+                          fontSize: 25.0,
+                          color: Theme.of(context).primaryColor),
                       // autofocus: true,
                       maxLines: null,
+                      autofocus: true,
                       keyboardType: TextInputType.text,
                       controller: _textController,
                       decoration: InputDecoration(
-                        labelStyle:
-                            TextStyle(fontSize: 20, color: Colors.white),
+                        labelStyle: TextStyle(
+                            fontSize: 20,
+                            color: Theme.of(context).primaryColor),
                         // hintText: _mensaje,
                         labelText: 'Mensaje de Emergencia:',
                         border: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.white)),
+                            borderSide: BorderSide(
+                                color: Theme.of(context).primaryColor)),
                       ),
                     ),
                   ),

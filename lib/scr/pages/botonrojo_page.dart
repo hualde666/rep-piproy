@@ -4,7 +4,8 @@ import 'package:piproy/scr/models/contactos_modelo.dart';
 import 'package:piproy/scr/pages/envio_emergencia.dart';
 import 'package:piproy/scr/providers/aplicaciones_provider.dart';
 import 'package:piproy/scr/providers/contactos_provider.dart';
-import 'package:piproy/scr/widgets/boton_home.dart';
+import 'package:piproy/scr/providers/usuario_pref.dart';
+
 import 'package:piproy/scr/widgets/boton_verde.dart';
 import 'package:piproy/scr/widgets/header_app.dart';
 import 'package:provider/provider.dart';
@@ -57,12 +58,13 @@ class _BotonRojoPageState extends State<BotonRojoPage> {
       }
     }
     Future<List<ContactoDatos>> obtenerListaGrupo() async {
-      if (listaGrupo.isEmpty) {
+      if (listaContactos.isEmpty) {
         List<ContactoDatos> lista =
             await apiProvider.obtenerListaContactosGrupo(context, 'Emergencia');
-        listaGrupo.addAll(lista);
+
+        listaContactos.addAll(lista);
       }
-      return listaGrupo;
+      return listaContactos;
     }
 
     return SafeArea(
@@ -78,7 +80,8 @@ class _BotonRojoPageState extends State<BotonRojoPage> {
                   child: CircularProgressIndicator(),
                 );
               } else {
-                if (snapshot.hasData) {
+                listaGrupo.addAll(snapshot.data);
+                if (listaGrupo.isNotEmpty) {
                   // snapshot contiene lista de displayname de los contactos por grupo
                   return conListaEmergenia(context, snapshot.data);
                 } else {
@@ -86,75 +89,26 @@ class _BotonRojoPageState extends State<BotonRojoPage> {
                 }
               }
             }),
-
-        // floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
-        // floatingActionButton: BotonFlotante(pagina: 'botonRojo'),
       ),
     );
   }
 }
 
-Widget headerEmergencia(BuildContext context) {
-  return PreferredSize(
-    preferredSize: Size.fromHeight(200.0),
-    // here the desired height
-    child: Container(
-      padding: EdgeInsets.only(top: 5),
-      decoration: new BoxDecoration(
-          gradient: LinearGradient(
-              colors: [
-            Theme.of(context).primaryColor,
-
-            Colors.white,
-            Theme.of(context).scaffoldBackgroundColor,
-            //Color.fromRGBO(55, 57, 84, 1.0)
-          ],
-              stops: [
-            0.2,
-            0.5,
-            0.8
-          ],
-              begin: FractionalOffset.topCenter,
-              end: FractionalOffset.bottomCenter)),
-      height: 150,
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              botonBackHeader(context),
-              SizedBox(
-                height: 100,
-                width: 100,
-              ),
-              botonHomeHeader(context),
-            ],
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          Text('Alerta de Emergencia',
-              style: TextStyle(color: Colors.white, fontSize: 30)),
-        ],
-      ),
-    ),
-  );
-}
-
 conListaEmergenia(BuildContext context, List<ContactoDatos> listaE) {
+  final pref = Provider.of<Preferencias>(context);
   return Center(
     child: Container(
-      height: 400.0,
-      margin: EdgeInsets.symmetric(horizontal: 10.0),
+      //height: 400.0,
+      margin: EdgeInsets.only(left: 10.0, bottom: 100, right: 10),
       alignment: Alignment.center,
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Text(
             'EMERGENCIA ',
             textAlign: TextAlign.center,
             style: TextStyle(
-              color: Colors.white,
+              color: Theme.of(context).primaryColor,
               fontWeight: FontWeight.bold,
               fontSize: 40.0,
             ),
@@ -165,10 +119,13 @@ conListaEmergenia(BuildContext context, List<ContactoDatos> listaE) {
               'Enviar mensaje a mis contactos de emergencia',
               textAlign: TextAlign.center,
               style: TextStyle(
-                color: Colors.white,
+                color: Theme.of(context).primaryColor,
                 fontSize: 30.0,
               ),
             ),
+          ),
+          SizedBox(
+            height: 20,
           ),
           GestureDetector(
             onTap: () {
@@ -187,8 +144,10 @@ conListaEmergenia(BuildContext context, List<ContactoDatos> listaE) {
               height: 200,
               width: 200,
               decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: pref.paleta == '4' ? Colors.black : Colors.white,
                   borderRadius: BorderRadius.circular(100.0),
+                  border: Border.all(
+                      color: Theme.of(context).primaryColor, width: 4.0),
                   boxShadow: [
                     BoxShadow(
                       color: Colors.black.withOpacity(0.5),
@@ -201,7 +160,9 @@ conListaEmergenia(BuildContext context, List<ContactoDatos> listaE) {
                 child: Text('Enviar',
                     style: TextStyle(
                       fontSize: 50.0,
-                      color: Colors.black,
+                      color: pref.paleta == '4'
+                          ? Theme.of(context).primaryColor
+                          : Colors.black,
                     )
                     // Theme.of(context).primaryColor),
                     ),
@@ -211,10 +172,12 @@ conListaEmergenia(BuildContext context, List<ContactoDatos> listaE) {
         ],
       ),
       decoration: BoxDecoration(
-        color: Color.fromRGBO(200, 0, 0, 1.0),
-        borderRadius: BorderRadius.circular(20.0),
-        // border: Border.all(color: Colors.white, width: 4.0)
-      ),
+          color: pref.paleta == '4'
+              ? Colors.black
+              : Color.fromRGBO(200, 0, 0, 1.0),
+          borderRadius: BorderRadius.circular(20.0),
+          border:
+              Border.all(color: Theme.of(context).primaryColor, width: 4.0)),
     ),
   );
 }
@@ -222,75 +185,47 @@ conListaEmergenia(BuildContext context, List<ContactoDatos> listaE) {
 sinListaEmergenia(BuildContext context) {
   MediaQueryData queryData;
   queryData = MediaQuery.of(context);
+  final pref = Provider.of<Preferencias>(context);
 
-  final alto = queryData.size.height;
   return Center(
-      child: alto > 400
-          ? Container(
-              height: 400.0,
-              margin: EdgeInsets.symmetric(horizontal: 10.0),
-              alignment: Alignment.center,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Text(
-                    'ADVERTENCIA',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 40.0,
-                    ),
-                  ),
-                  Text(
-                    'Debe registrar sus contactos de emergencia para poder notificar la emergencia',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 30.0,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 50.0,
-                  ),
-                ],
-              ),
-              decoration: BoxDecoration(
-                color: Color.fromRGBO(249, 75, 11, 1),
-                borderRadius: BorderRadius.circular(20.0),
-                // border: Border.all(color: Colors.white, width: 4.0)
-              ),
-            )
-          : Container(
-              height: 150.0,
-              margin: EdgeInsets.symmetric(horizontal: 10.0),
-              alignment: Alignment.center,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'ADVERTENCIA',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 35.0,
-                    ),
-                  ),
-                  Text(
-                    'Debe registrar sus contactos de emergencia para poder notificar la emergencia',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 25.0,
-                    ),
-                  ),
-                ],
-              ),
-              decoration: BoxDecoration(
-                color: Color.fromRGBO(249, 75, 11, 1),
-                borderRadius: BorderRadius.circular(20.0),
-                // border: Border.all(color: Colors.white, width: 4.0)
-              ),
-            ));
+      child: Container(
+    height: 400.0,
+    margin: EdgeInsets.only(left: 10.0, bottom: 100, right: 10),
+    alignment: Alignment.center,
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: [
+        Text(
+          'ADVERTENCIA',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            color: pref.paleta == '4'
+                ? Theme.of(context).primaryColor
+                : Colors.black,
+            fontWeight: FontWeight.bold,
+            fontSize: 40.0,
+          ),
+        ),
+        Text(
+          'Debe registrar sus contactos de emergencia para poder notificar la emergencia',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            color: pref.paleta == '4'
+                ? Theme.of(context).primaryColor
+                : Colors.black,
+            fontSize: 30.0,
+          ),
+        ),
+        SizedBox(
+          height: 50.0,
+        ),
+      ],
+    ),
+    decoration: BoxDecoration(
+        color: pref.paleta == '4'
+            ? Theme.of(context).backgroundColor
+            : Color.fromRGBO(249, 75, 11, 1),
+        borderRadius: BorderRadius.circular(20.0),
+        border: Border.all(color: Theme.of(context).primaryColor, width: 4.0)),
+  ));
 }

@@ -33,20 +33,20 @@ Widget conteinerIcon(
     case 'wifi':
       nuevoIcon = activoWifi ? Icons.wifi_rounded : Icons.wifi_off_rounded;
 
-      widget = dispositivo(activoWifi, nuevoIcon);
+      widget = dispositivo(context, activoWifi, nuevoIcon);
       break;
 
     case 'gps':
       nuevoIcon = activoGps ? Icons.gps_fixed : Icons.gps_off_rounded;
 
-      widget = dispositivo(activoGps, nuevoIcon);
+      widget = dispositivo(context, activoGps, nuevoIcon);
       break;
     case 'linea':
       nuevoIcon = activoDatos
           ? Icons.signal_cellular_alt_rounded
           : Icons.signal_cellular_off_outlined;
 
-      widget = dispositivo(activoDatos, nuevoIcon);
+      widget = dispositivo(context, activoDatos, nuevoIcon);
       break;
     case 'linterna':
       prendida = celProvider.linterna;
@@ -175,7 +175,7 @@ funcionIcon(BuildContext context, String tarea, ContactoDatos contacto,
   }
 }
 
-Widget dispositivo(bool activo, IconData icon) {
+Widget dispositivo(BuildContext context, bool activo, IconData icon) {
   final Color color = activo ? Colors.green[900] : Colors.red[900];
 
   return Center(
@@ -185,7 +185,7 @@ Widget dispositivo(bool activo, IconData icon) {
     decoration: BoxDecoration(
         color: color,
         borderRadius: BorderRadius.circular(80),
-        border: Border.all(color: Colors.white, width: 0.5)),
+        border: Border.all(color: Theme.of(context).primaryColor, width: 0.5)),
     child: Center(
         child: Icon(
       icon,
@@ -244,18 +244,23 @@ class _PilaState extends State<Pila> {
             width: 70.0,
             height: 70.0,
             decoration: BoxDecoration(
-                color: cargando ? Colors.blue[900] : color,
+                color: cargando ? Color.fromARGB(255, 5, 68, 161) : color,
                 borderRadius: BorderRadius.circular(80),
-                border: Border.all(color: Colors.white, width: 0.5)),
+                border: Border.all(
+                    color: Theme.of(context).primaryColor, width: 0.5)),
             child: Center(
               child: Stack(children: [
-                Center(child: Icon(Icons.battery_std_outlined)),
+                Center(
+                    child: Icon(
+                  Icons.battery_std_outlined,
+                  color: Colors.white24,
+                )),
                 Center(
                   child: Text(
                     '$nivelBateria%',
                     style: TextStyle(
                         fontSize: 30,
-                        color: Colors.black,
+                        color: Color.fromARGB(136, 0, 0, 0),
                         fontWeight: FontWeight.bold),
                   ),
                 ),

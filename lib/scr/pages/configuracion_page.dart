@@ -32,79 +32,37 @@ class ConfiguracionPage extends StatelessWidget {
           ),
           Divider(
             height: 10,
-            color: Colors.white38,
+            color: Theme.of(context).primaryColor,
           ),
           ListTile(
             leading: Icon(
-              Icons.groups,
+              Icons.message,
               size: 40.0,
-              color: Colors.white,
+              color: Theme.of(context).primaryColor,
             ),
-            title: Text('Contactos',
+            title: Text('Redactar mensaje de emergencia',
                 style: TextStyle(
                   fontSize: 25,
-                  color: Colors.white,
+                  color: Theme.of(context).primaryColor,
                 )),
             onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => ContactsGruposPage()));
+              Navigator.pushNamed(context, 'emergiMensaje');
             },
           ),
           Divider(
             height: 10,
-            color: Colors.white38,
-          ),
-          ListTile(
-            leading: Icon(
-              Icons.app_registration,
-              size: 40.0,
-              color: Colors.white,
-            ),
-            title: Text('Aplicaciones',
-                style: TextStyle(
-                  fontSize: 25,
-                  color: Colors.white,
-                )),
-            onTap: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => ApiGruposPage()));
-            },
-          ),
-          Divider(
-            height: 10,
-            color: Colors.white38,
-          ),
-          ListTile(
-            leading: Icon(
-              Icons.engineering,
-              size: 40.0,
-              color: Colors.white,
-            ),
-            title: Text('Habilitar o Deshabilitar Elementos',
-                style: TextStyle(
-                  fontSize: 25,
-                  color: Colors.white,
-                )),
-            onTap: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => OpcionesPage()));
-            },
-          ),
-          Divider(
-            height: 10,
-            color: Colors.white38,
+            color: Theme.of(context).primaryColor,
           ),
           ListTile(
               leading: Icon(
                 Icons.contact_phone,
                 size: 35.0,
-                color: Colors.white,
+                color: Theme.of(context).primaryColor,
               ),
               title: Text(
                 'Agregar o eliminar contactos de emergencia',
-                style: TextStyle(fontSize: 25, color: Colors.white),
+                style: TextStyle(
+                    fontSize: 25, color: Theme.of(context).primaryColor),
               ),
               onTap: () {
                 //Navigator.pop(context);
@@ -127,37 +85,80 @@ class ConfiguracionPage extends StatelessWidget {
               }),
           Divider(
             height: 10,
-            color: Colors.white38,
+            color: Theme.of(context).primaryColor,
           ),
           ListTile(
             leading: Icon(
-              Icons.message,
+              Icons.groups,
               size: 40.0,
-              color: Colors.white,
+              color: Theme.of(context).primaryColor,
             ),
-            title: Text('Redactar mensaje de emergencia',
+            title: Text('Contactos',
                 style: TextStyle(
                   fontSize: 25,
-                  color: Colors.white,
+                  color: Theme.of(context).primaryColor,
                 )),
             onTap: () {
-              Navigator.pushNamed(context, 'emergiMensaje');
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => ContactsGruposPage()));
             },
           ),
           Divider(
             height: 10,
-            color: Colors.white38,
+            color: Theme.of(context).primaryColor,
+          ),
+          ListTile(
+            leading: Icon(
+              Icons.app_registration,
+              size: 40.0,
+              color: Theme.of(context).primaryColor,
+            ),
+            title: Text('Aplicaciones',
+                style: TextStyle(
+                  fontSize: 25,
+                  color: Theme.of(context).primaryColor,
+                )),
+            onTap: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => ApiGruposPage()));
+            },
+          ),
+          Divider(
+            height: 10,
+            color: Theme.of(context).primaryColor,
+          ),
+          ListTile(
+            leading: Icon(
+              Icons.engineering,
+              size: 40.0,
+              color: Theme.of(context).primaryColor,
+            ),
+            title: Text('Habilitar o Deshabilitar Elementos',
+                style: TextStyle(
+                  fontSize: 25,
+                  color: Theme.of(context).primaryColor,
+                )),
+            onTap: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => OpcionesPage()));
+            },
+          ),
+          Divider(
+            height: 10,
+            color: Theme.of(context).primaryColor,
           ),
           ListTile(
             leading: Icon(
               Icons.palette,
               size: 40.0,
-              color: Colors.white,
+              color: Theme.of(context).primaryColor,
             ),
-            title: Text('Color de Viatlfon',
+            title: Text('Color de vitalfon',
                 style: TextStyle(
                   fontSize: 25,
-                  color: Colors.white,
+                  color: Theme.of(context).primaryColor,
                 )),
             onTap: () {
               Navigator.push(context,
@@ -166,7 +167,7 @@ class ConfiguracionPage extends StatelessWidget {
           ),
           Divider(
             height: 10,
-            color: Colors.white38,
+            color: Theme.of(context).primaryColor,
           ),
           Container(
             child: Center(
@@ -174,12 +175,12 @@ class ConfiguracionPage extends StatelessWidget {
                 leading: Icon(
                   Icons.play_circle,
                   size: 40.0,
-                  color: Colors.white,
+                  color: Theme.of(context).primaryColor,
                 ),
                 title: Text('Video Presentacion',
                     style: TextStyle(
                       fontSize: 25,
-                      color: Colors.white,
+                      color: Theme.of(context).primaryColor,
                     )),
                 onTap: () {
                   Navigator.push(
@@ -192,18 +193,18 @@ class ConfiguracionPage extends StatelessWidget {
           ),
           Divider(
             height: 10,
-            color: Colors.white38,
+            color: Theme.of(context).primaryColor,
           ),
           ListTile(
             leading: Icon(
               Icons.gavel_rounded,
               size: 40.0,
-              color: Colors.white,
+              color: Theme.of(context).primaryColor,
             ),
             title: Text('Simulación',
                 style: TextStyle(
                   fontSize: 25,
-                  color: Colors.white,
+                  color: Theme.of(context).primaryColor,
                 )),
             onTap: () {
               Navigator.push(context,
