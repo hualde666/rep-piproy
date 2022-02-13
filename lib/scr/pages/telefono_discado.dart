@@ -26,7 +26,7 @@ class _DiscadoState extends State<Discado> {
       appBar: headerApp(context, 'Teléfon', Text(''), 0.0, true, 'Ayuda'),
       // backgroundColor: Colors.white,
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           GestureDetector(
             onTap: () {
@@ -51,6 +51,9 @@ class _DiscadoState extends State<Discado> {
               ),
             ),
           ),
+          SizedBox(
+            height: 10,
+          ),
           Row(mainAxisAlignment: MainAxisAlignment.center, children: [
             tecla(context, '1', myController),
             SizedBox(
@@ -62,6 +65,9 @@ class _DiscadoState extends State<Discado> {
             ),
             tecla(context, '3', myController)
           ]),
+          SizedBox(
+            height: 8,
+          ),
           Row(mainAxisAlignment: MainAxisAlignment.center, children: [
             tecla(context, '4', myController),
             SizedBox(
@@ -73,6 +79,9 @@ class _DiscadoState extends State<Discado> {
             ),
             tecla(context, '6', myController)
           ]),
+          SizedBox(
+            height: 8,
+          ),
           Row(mainAxisAlignment: MainAxisAlignment.center, children: [
             tecla(context, '7', myController),
             SizedBox(
@@ -84,6 +93,9 @@ class _DiscadoState extends State<Discado> {
             ),
             tecla(context, '9', myController)
           ]),
+          SizedBox(
+            height: 10,
+          ),
           Row(mainAxisAlignment: MainAxisAlignment.center, children: [
             tecla(context, '*', myController),
             SizedBox(
@@ -95,6 +107,9 @@ class _DiscadoState extends State<Discado> {
             ),
             tecla(context, '#', myController)
           ]),
+          SizedBox(
+            height: 10,
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -193,7 +208,9 @@ class _DiscadoState extends State<Discado> {
     //final altura = (MediaQuery.of(context).size.height - 190) / 5.0;
     return GestureDetector(
         onTap: () {
-          myController.text = myController.text + tecla;
+          if (myController.text.length < 12) {
+            myController.text = myController.text + tecla;
+          }
 
           setState(() {});
           // print(myController.text);

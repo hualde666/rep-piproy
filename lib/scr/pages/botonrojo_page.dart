@@ -6,7 +6,6 @@ import 'package:piproy/scr/providers/aplicaciones_provider.dart';
 import 'package:piproy/scr/providers/contactos_provider.dart';
 import 'package:piproy/scr/providers/usuario_pref.dart';
 
-import 'package:piproy/scr/widgets/boton_verde.dart';
 import 'package:piproy/scr/widgets/header_app.dart';
 import 'package:provider/provider.dart';
 
@@ -132,7 +131,7 @@ conListaEmergenia(BuildContext context, List<ContactoDatos> listaE) {
               //******************* */
               final AudioCache player = new AudioCache();
               player.play('audio_emergencia.mpeg');
-              //listaE[0].check = false;
+
               Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -163,9 +162,7 @@ conListaEmergenia(BuildContext context, List<ContactoDatos> listaE) {
                       color: pref.paleta == '4'
                           ? Theme.of(context).primaryColor
                           : Colors.black,
-                    )
-                    // Theme.of(context).primaryColor),
-                    ),
+                    )),
               ),
             ),
           )
@@ -183,8 +180,6 @@ conListaEmergenia(BuildContext context, List<ContactoDatos> listaE) {
 }
 
 sinListaEmergenia(BuildContext context) {
-  MediaQueryData queryData;
-  queryData = MediaQuery.of(context);
   final pref = Provider.of<Preferencias>(context);
 
   return Center(

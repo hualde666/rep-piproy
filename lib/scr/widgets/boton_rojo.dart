@@ -52,9 +52,6 @@ Widget botonRojoHeader(BuildContext context, bool activo) {
                       bottomRight: Radius.circular(35)),
                   border: Border.all(
                       color: Theme.of(context).primaryColor, width: 0.5)),
-              // child: Image(
-              //     image: AssetImage('assets/boton_rojo.png'),
-              //     fit: BoxFit.contain),
               height: 85,
               width: 100,
             )

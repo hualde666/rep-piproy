@@ -55,6 +55,25 @@ Widget conteinerIcon(
 
       widget = dispLinterna(context, prendida, nuevoIcon);
       break;
+    case 'whatsapp':
+      widget = Container(
+          height: 60,
+          width: 60,
+          decoration: BoxDecoration(
+              color: Theme.of(context).backgroundColor,
+              borderRadius: BorderRadius.circular(25),
+              border: Border.all(
+                  color: Theme.of(context).primaryColor, width: 0.8)),
+          child: ClipRRect(
+              borderRadius: BorderRadius.circular(25),
+              child: Image(
+                  image: AssetImage('assets/what.png'),
+                  height: 60,
+                  width: 60,
+                  fit: BoxFit.fill)));
+
+      break;
+
     default:
       {
         widget = Center(
@@ -62,19 +81,11 @@ Widget conteinerIcon(
           width: 70.0,
           height: 70.0,
           decoration: BoxDecoration(
-              color: (tarea == 'whatsapp')
-                  ? Colors.green
-                  : Theme.of(context).backgroundColor,
+              color: Theme.of(context).backgroundColor,
               borderRadius: BorderRadius.circular(80),
               border: Border.all(
-                  color: Theme.of(context).primaryColor, width: 0.5)),
-          child:
-              //  (tarea == 'whatsapp')
-              //     ? Image(
-              //         image: AssetImage('assets/whatsapp.png'),
-              //       ) // fit: BoxFit.cover))
-              //     :
-              icon,
+                  color: Theme.of(context).primaryColor, width: 0.8)),
+          child: icon,
         ));
         break;
       }
@@ -176,7 +187,8 @@ funcionIcon(BuildContext context, String tarea, ContactoDatos contacto,
 }
 
 Widget dispositivo(BuildContext context, bool activo, IconData icon) {
-  final Color color = activo ? Colors.green[900] : Colors.red[900];
+  final Color color =
+      activo ? Theme.of(context).backgroundColor : Colors.red[900];
 
   return Center(
       child: Container(
@@ -235,7 +247,9 @@ class _PilaState extends State<Pila> {
   Widget build(BuildContext context) {
     final celProvider = Provider.of<EstadoProvider>(context);
     nivelBateria = celProvider.nivelBateria;
-    color = celProvider.bateriaColor;
+    color = nivelBateria > 49
+        ? Theme.of(context).backgroundColor
+        : celProvider.bateriaColor;
     cargando = celProvider.cargandoBateria;
 
     return Center(
@@ -259,8 +273,8 @@ class _PilaState extends State<Pila> {
                   child: Text(
                     '$nivelBateria%',
                     style: TextStyle(
-                        fontSize: 30,
-                        color: Color.fromARGB(136, 0, 0, 0),
+                        fontSize: nivelBateria < 100 ? 30 : 25,
+                        color: Theme.of(context).primaryColor,
                         fontWeight: FontWeight.bold),
                   ),
                 ),

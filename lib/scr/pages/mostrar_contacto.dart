@@ -103,9 +103,9 @@ class _MostrarContactoState extends State<MostrarContacto> {
     if (_contact.telefono != '') {
       lista.add(dato('Teléfonos:', _contact.telefono));
     }
-    if (_contact.whatsapptel != '') {
-      lista.add(dato('Whatsapp:', _contact.whatsapptel));
-    }
+    // if (_contact.whatsapptel != '') {
+    //   lista.add(dato('Whatsapp:', _contact.whatsapptel));
+    // }
     // if (_contact.emails.isNotEmpty) {
     //   for (var i = 0; i < _contact.emails.length; i++) {
     //     String correo = _contact.emails.elementAt(i).value;

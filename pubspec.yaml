@@ -74,14 +74,12 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-     - assets/boton_rojo.png
-     - assets/boton_verde.png
-     - assets/boton_home.png
-     - assets/boton_exit.png
+
+
      - audio_emergencia.mpeg
      - assets/vitalfon.png
      - assets/google.png
-     - assets/whatsapp.png
+     - assets/what.png
      - assets/ui.jpg
      - assets/presentacion.mp4
   #   - images/a_dot_burr.jpeg
