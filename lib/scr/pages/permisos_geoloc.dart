@@ -54,9 +54,6 @@ class GeoPermisos extends StatelessWidget {
                 FloatingActionButtonLocation.centerDocked,
             floatingActionButton: FloatingActionButton.extended(
                 heroTag: "siguiente",
-                // icon: Icon(
-                //   Icons.save,
-                // ),
                 label: Text(
                   'siguiente',
                 ),
@@ -64,7 +61,6 @@ class GeoPermisos extends StatelessWidget {
                   AndroidChannel _androidChannel = AndroidChannel();
                   await _androidChannel.permisoGeo();
 
-                  // await _androidChannel.permisoSms();
                   Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(

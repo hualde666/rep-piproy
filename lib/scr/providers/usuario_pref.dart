@@ -30,17 +30,17 @@ class Preferencias extends ChangeNotifier {
     //WidgetsFlutterBinding.ensureInitialized();
     this._pref = await SharedPreferences.getInstance();
     _paleta = _pref.getString('paleta') ?? '1';
-    _iAplicaciones = _pref.getBool('aplicaciones') ?? false;
-    _iGoogle = _pref.getBool('google') ?? false;
-    _iContactos = _pref.getBool('contactos') ?? false;
-    _iBateria = _pref.getBool('bateria') ?? false;
-    _iGps = _pref.getBool('gps') ?? false;
-    _iLinea = _pref.getBool('linea') ?? false;
-    _iLinterna = _pref.getBool('linterna') ?? false;
-    _iMensaje = _pref.getBool('mensaje') ?? false;
-    _iReloj = _pref.getBool('reloj') ?? false;
-    _iTelefono = _pref.getBool('telefono') ?? false;
-    _iWifi = _pref.getBool('wifi') ?? false;
+    _iAplicaciones = _pref.getBool('aplicaciones') ?? true;
+    _iGoogle = _pref.getBool('google') ?? true;
+    _iContactos = _pref.getBool('contactos') ?? true;
+    _iBateria = _pref.getBool('bateria') ?? true;
+    _iGps = _pref.getBool('gps') ?? true;
+    _iLinea = _pref.getBool('linea') ?? true;
+    _iLinterna = _pref.getBool('linterna') ?? true;
+    _iMensaje = _pref.getBool('mensaje') ?? true;
+    _iReloj = _pref.getBool('reloj') ?? true;
+    _iTelefono = _pref.getBool('telefono') ?? true;
+    _iWifi = _pref.getBool('wifi') ?? true;
     _instalado = _pref.getBool('instalado') ?? false;
     if (!_iBateria &&
         !_iGps &&
@@ -68,8 +68,6 @@ class Preferencias extends ChangeNotifier {
   set instalado(bool estatus) {
     this._instalado = estatus;
     _pref.setBool('instalado', estatus);
-
-    notifyListeners();
   }
 
   set paleta(String nuevaPaleta) {

@@ -2,14 +2,13 @@ import 'package:flutter/material.dart';
 
 import 'package:piproy/channel/channel_android.dart';
 import 'package:piproy/scr/pages/home2_page.dart';
-
-//import 'package:piproy/channel/channel_android.dart';
+import 'package:piproy/scr/providers/usuario_pref.dart';
+import 'package:provider/provider.dart';
 
 class LLamadasPermisos extends StatelessWidget {
-  // GpsPage({@required context});
-  //BuildContext context;
   @override
   Widget build(BuildContext context) {
+    final pref = Provider.of<Preferencias>(context);
     return SafeArea(
         child: Scaffold(
             body: Container(
@@ -54,9 +53,6 @@ class LLamadasPermisos extends StatelessWidget {
                 FloatingActionButtonLocation.centerDocked,
             floatingActionButton: FloatingActionButton.extended(
                 heroTag: "siguiente",
-                // icon: Icon(
-                //   Icons.save,
-                // ),
                 label: Text(
                   'siguiente',
                 ),
@@ -64,10 +60,9 @@ class LLamadasPermisos extends StatelessWidget {
                   AndroidChannel _androidChannel = AndroidChannel();
                   // await FlutterPhoneDirectCaller.callNumber('');
                   await _androidChannel.permisoCall();
+                  pref.instalado = true;
                   Navigator.pushReplacement(context,
                       MaterialPageRoute(builder: (context) => Home2Page()));
-                  // Navigator.push(context,
-                  //     MaterialPageRoute(builder: (context) => GeoPermisos()));
                 })));
   }
 }
