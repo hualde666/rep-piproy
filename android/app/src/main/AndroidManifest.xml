@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.piproy">
    <application
-        android:label="Vitalfon"
+        android:label="vitalfon"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

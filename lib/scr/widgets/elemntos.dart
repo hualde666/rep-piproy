@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:piproy/scr/pages/api_por_grupos.dart';
+import 'package:piproy/scr/pages/contacts_por_grupo.dart';
 import 'package:piproy/scr/providers/aplicaciones_provider.dart';
 import 'package:piproy/scr/providers/db_provider.dart';
 import 'package:provider/provider.dart';
@@ -47,10 +49,16 @@ Widget elementos(BuildContext context, Widget widget, double altura,
         Provider.of<AplicacionesProvider>(context, listen: false)
             .tipoSeleccion = ruta;
         if (tipo.contains('MPD')) {
-          Navigator.pushNamed(context, 'grupo');
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => ApiPorGrupoPage()));
+          // Navigator.pushNamed(context, 'grupo');
         } else {
           if (tipo.contains('MPC')) {
-            Navigator.pushNamed(context, 'grupocontacto');
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => ContactsPorGrupoPage()));
+            // Navigator.pushNamed(context, 'grupocontacto');
           } else {
             Navigator.pushNamed(context, ruta);
           }

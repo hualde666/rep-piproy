@@ -3,8 +3,6 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:piproy/scr/pages/mensajes_permisos.dart';
 
 class InstalacionPage extends StatelessWidget {
-  // GpsPage({@required context});
-  //BuildContext context;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -44,7 +42,7 @@ class InstalacionPage extends StatelessWidget {
                         height: 10,
                       ),
                       Text(
-                        'Vamos a requerir que nos permitas acceder tus Contactos. Esto permitirá organizarlos y registrar a cual notificar tus emergencia',
+                        'Para organizar tus contactos y registrar a cual notificar tus emergencia, vamos a requerir que nos permitas acceder a tus Contactos. ',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             fontStyle: FontStyle.italic,
@@ -71,10 +69,11 @@ class InstalacionPage extends StatelessWidget {
                 ),
                 onPressed: () async {
                   await Permission.contacts.request();
-                  Navigator.push(
+                  Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
                           builder: (context) => MensajesPermisos()));
+
                   // Navigator.pop(context);
                 })));
   }

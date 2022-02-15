@@ -1,21 +1,24 @@
 import 'package:flutter/material.dart';
 
-class GeoPermisos extends StatelessWidget {
+import 'package:piproy/channel/channel_android.dart';
+
+//import 'package:piproy/channel/channel_android.dart';
+
+class LLamadasPermisos extends StatelessWidget {
   // GpsPage({@required context});
   //BuildContext context;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-            body: Center(
-                child: Container(
+            body: Container(
               margin: EdgeInsets.symmetric(horizontal: 10),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SizedBox(
-                    height: 50,
-                  ),
+                  // SizedBox(
+                  //   height: 50,
+                  // ),
                   Column(
                     children: [
                       Text(
@@ -28,10 +31,10 @@ class GeoPermisos extends StatelessWidget {
                             fontStyle: FontStyle.italic),
                       ),
                       SizedBox(
-                        height: 10,
+                        height: 20,
                       ),
                       Text(
-                        'Para enviar tu ubicación en caso de emergencia, necesitamos nos permitas accesar tu geolocalización',
+                        ' Para facilitar tus llamadas, vamos a requerir que nos autorices a realizar llamadas.',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             fontStyle: FontStyle.italic,
@@ -45,7 +48,7 @@ class GeoPermisos extends StatelessWidget {
                   ),
                 ],
               ),
-            )),
+            ),
             floatingActionButtonLocation:
                 FloatingActionButtonLocation.centerDocked,
             floatingActionButton: FloatingActionButton.extended(
@@ -57,9 +60,12 @@ class GeoPermisos extends StatelessWidget {
                   'siguiente',
                 ),
                 onPressed: () async {
-                  //Navigator.push(context,
-                  //MaterialPageRoute(builder: (context) => PermisoMensajes()));
-                  // Navigator.pop(context);
+                  AndroidChannel _androidChannel = AndroidChannel();
+                  // await FlutterPhoneDirectCaller.callNumber('');
+                  await _androidChannel.permisoCall();
+                  Navigator.pop(context);
+                  // Navigator.push(context,
+                  //     MaterialPageRoute(builder: (context) => GeoPermisos()));
                 })));
   }
 }

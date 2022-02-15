@@ -46,23 +46,7 @@ class ResumenEnvioPage extends StatelessWidget {
                           SizedBox(
                             height: 5,
                           )
-                        ])
-                    // : Column(
-                    //     crossAxisAlignment: CrossAxisAlignment.start,
-                    //     children: [
-                    //         Text(
-                    //           listaE[i].nombre,
-                    //           style: TextStyle(
-                    //               color: Colors.red, fontSize: 30),
-                    //         ),
-                    //         Container(
-                    //           alignment: Alignment.centerRight,
-                    //           child: Text('Mensaje No Enviado',
-                    //               style: TextStyle(fontSize: 20)),
-                    //         )
-                    //       ]),
-
-                    );
+                        ]));
               },
             ),
           )),

@@ -4,7 +4,8 @@ import 'package:piproy/scr/models/api_tipos.dart';
 import 'package:piproy/scr/pages/api_grupos.dart';
 import 'package:piproy/scr/pages/conta_grupos.dart';
 import 'package:piproy/scr/pages/contacts_por_grupo.dart';
-import 'package:piproy/scr/pages/intstalacion_page.dart';
+import 'package:piproy/scr/pages/mensaje_emergencia.dart';
+import 'package:piproy/scr/pages/permisos_contactos.dart';
 import 'package:piproy/scr/pages/opciones_page.dart';
 import 'package:piproy/scr/pages/paletta_colores.dart';
 import 'package:piproy/scr/pages/presentacion_page.dart';
@@ -46,7 +47,8 @@ class ConfiguracionPage extends StatelessWidget {
                   color: Theme.of(context).primaryColor,
                 )),
             onTap: () {
-              Navigator.pushNamed(context, 'emergiMensaje');
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => EmergenciaMensaje()));
             },
           ),
           Divider(

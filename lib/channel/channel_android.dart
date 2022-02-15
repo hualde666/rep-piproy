@@ -132,6 +132,22 @@ class AndroidChannel {
     }
   }
 
+  Future<void> permisoCall() async {
+    try {
+      await _methodChannel.invokeMethod("permisocall", '');
+    } catch (e) {
+      return e;
+    }
+  }
+
+  Future<void> permisoGeo() async {
+    try {
+      await _methodChannel.invokeMethod("permisogeo", '');
+    } catch (e) {
+      return e;
+    }
+  }
+
   Future<void> permisoSms() async {
     try {
       await _methodChannel.invokeMethod("permisosms", '');

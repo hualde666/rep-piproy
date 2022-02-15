@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:piproy/scr/models/contactos_modelo.dart';
+import 'package:piproy/scr/pages/configuracion_page.dart';
 
 import 'package:piproy/scr/providers/aplicaciones_provider.dart';
 import 'package:piproy/scr/providers/contactos_provider.dart';
@@ -103,7 +104,7 @@ class _Home2PageState extends State<Home2Page> {
 
   detalle(BuildContext context) async {
     final apiProvider = Provider.of<AplicacionesProvider>(context);
-    // final listaMenu = apiProvider.listaMenu;
+
     final pref = Provider.of<Preferencias>(context);
     final listaMenu = apiProvider.listaMenu;
     List<Widget> listaOpciones = [];
@@ -342,10 +343,6 @@ class BotonesEncabezado extends StatelessWidget {
                             width: 0.5,
                             color: Theme.of(context).primaryColor,
                           )),
-                      // decoration: BoxDecoration(
-                      //     color: Colors.black38,
-                      //     borderRadius: BorderRadius.circular(20.0),
-                      //     border: Border.all(color: Colors.white30)),
                       margin: EdgeInsets.only(right: 5),
                       child: Center(
                         child: Text(
@@ -375,7 +372,11 @@ class BotonesEncabezado extends StatelessWidget {
                     onTap: () {
                       // Navigator.pushNamed(context, 'ayuda',
                       //     arguments: 'home');
-                      Navigator.pushNamed(context, 'configurar');
+
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ConfiguracionPage()));
                     },
                     child: Container(
                         width: 50,

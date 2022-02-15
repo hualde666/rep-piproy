@@ -33,6 +33,7 @@ import android.net.wifi.WifiManager
 import android.net.Uri
 import 	android.telephony.TelephonyManager
 import 	android.telephony.SmsManager.FinancialSmsCallback
+import android.app.Activity
 class MainActivity: FlutterActivity() {
     
       private val CHANNEL = "app.piproy.channel/hualdemirene@gmail.com"
@@ -53,10 +54,18 @@ class MainActivity: FlutterActivity() {
                     //result.success(resultado)
                  
                   }
-                  if (call.method == "permisosms") {
-                  permisoSms()
-    
+                  if (call.method == "permisocall") {
+                 val resultado:Boolean = permisoCall()
+                  result.success(resultado)
                 }
+                if (call.method == "permisogeo") {
+                  val resultado:Boolean = permisoGeo()
+                   result.success(resultado)
+                 }
+                 if (call.method == "permisosms") {
+                  val resultado:Boolean = permisoSms()
+                   result.success(resultado)
+                 }
                   if (call.method == "version") {
                     val resultado = getAndroidVersion()
                     result.success(resultado)
@@ -277,14 +286,33 @@ class MainActivity: FlutterActivity() {
         
          
               }
-              private fun permisoSms() {
+              private fun permisoCall():Boolean {
                 
-        
-                 ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS)
-               
+               ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.CALL_PHONE),
+                101)
+              return true
+          
         
          
               }
+              private fun permisoSms():Boolean {
+                
+                ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.SEND_SMS),
+                 101)
+               return true
+           
+         
+          
+               }
+              private fun permisoGeo():Boolean {
+                
+                ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION),
+                 101)
+               return true
+           
+         
+          
+               }
               private fun myMessage(myNumber: String,myMsg: String) {
                 
    

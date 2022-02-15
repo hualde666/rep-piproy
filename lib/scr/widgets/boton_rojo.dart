@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:piproy/scr/pages/botonrojo_page.dart';
 
 import 'package:piproy/scr/providers/estado_celular.dart';
 import 'package:piproy/scr/providers/usuario_pref.dart';
@@ -13,7 +14,8 @@ Widget botonRojoHeader(BuildContext context, bool activo) {
       onTap: () {
         if (activoDatos) {
           if (activo) {
-            Navigator.pushNamed(context, 'botonRojo');
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => BotonRojoPage()));
           }
         }
       },

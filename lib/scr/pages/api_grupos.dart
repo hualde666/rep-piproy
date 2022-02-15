@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:piproy/scr/models/api_tipos.dart';
+import 'package:piproy/scr/pages/api_por_grupos.dart';
 
 import 'package:piproy/scr/providers/db_provider.dart';
 import 'package:piproy/scr/widgets/header_app.dart';
@@ -95,7 +96,10 @@ class ApiGruposPage extends StatelessWidget {
                 onTap: () {
                   Provider.of<AplicacionesProvider>(context, listen: false)
                       .tipoSeleccion = grupo;
-                  Navigator.pushNamed(context, 'grupo');
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => ApiPorGrupoPage()));
                 },
                 child: Container(
                   width: 280,

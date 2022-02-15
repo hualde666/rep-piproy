@@ -2,31 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:piproy/scr/definicion/thema_colores.dart';
 import 'package:piproy/scr/pages/api_grupos.dart';
-
-import 'package:piproy/scr/pages/api_por_grupos.dart';
-import 'package:piproy/scr/pages/ayuda.dart';
-import 'package:piproy/scr/pages/configuracion_page.dart';
 import 'package:piproy/scr/pages/conta_grupos.dart';
-import 'package:piproy/scr/pages/contacts_por_grupo.dart';
 
-import 'package:piproy/scr/pages/home_agrega_boton.dart';
-
-import 'package:piproy/scr/pages/envio_emergencia.dart';
 import 'package:piproy/scr/pages/home2_page.dart';
-import 'package:piproy/scr/pages/mensaje_emergencia.dart';
 
-import 'package:piproy/scr/pages/botonrojo_page.dart';
-
-import 'package:piproy/scr/pages/splash.dart';
-//import 'package:piproy/scr/pages/splash.dart';
 import 'package:piproy/scr/providers/aplicaciones_provider.dart';
 
 import 'package:piproy/scr/providers/contactos_provider.dart';
 
 import 'package:piproy/scr/providers/estado_celular.dart';
 import 'package:piproy/scr/providers/usuario_pref.dart';
-
-//import 'package:piproy/scr/providers/lista_id_provider.dart';
 
 import 'package:provider/provider.dart';
 import 'package:piproy/scr/providers/db_provider.dart';
@@ -80,17 +65,7 @@ class MyApp extends StatelessWidget {
 Map<String, WidgetBuilder> get rutasApp {
   return {
     'home': (_) => Home2Page(),
-    'botonRojo': (_) => BotonRojoPage(),
-    'resumenRojo': (_) => ResumenEnvioPage(),
     'contactos': (_) => ContactsGruposPage(),
-    //'mostrarContacto': (_) => MostrarContacto(),
-    'emergiMensaje': (_) => EmergenciaMensaje(),
-    'configurar': (_) => ConfiguracionPage(),
-    'ayuda': (_) => Ayuda(),
     'apigrupos': (_) => ApiGruposPage(),
-    'grupo': (_) => ApiPorGrupoPage(),
-    'splash': (_) => SplashPage(),
-    'agregaboton': (_) => AgregaBotonPage(),
-    'grupocontacto': (_) => ContactsPorGrupoPage()
   };
 }
