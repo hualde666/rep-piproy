@@ -14,6 +14,7 @@ import 'package:piproy/scr/providers/db_provider.dart';
 
 import 'package:piproy/scr/widgets/header_app.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ConfiguracionPage extends StatelessWidget {
   final apiProvider = new AplicacionesProvider();
@@ -165,6 +166,33 @@ class ConfiguracionPage extends StatelessWidget {
             onTap: () {
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => PaletaPage()));
+            },
+          ),
+          Divider(
+            height: 10,
+            color: Theme.of(context).primaryColor,
+          ),
+          ListTile(
+            leading: Icon(
+              Icons.email,
+              size: 40.0,
+              color: Theme.of(context).primaryColor,
+            ),
+            title: Text('Contactanos',
+                style: TextStyle(
+                  fontSize: 25,
+                  color: Theme.of(context).primaryColor,
+                )),
+            onTap: () {
+              final Uri _emailLaunchUri = Uri(
+                  scheme: 'mailto',
+                  path: 'vitalfon.app@gmail.com',
+                  queryParameters: {
+                    'subject': 'Contactando a vitalfon',
+                    'body':
+                        'Gracias por contactarnos. Nos gustaría leer tus comentarios:   '
+                  });
+              launch(_emailLaunchUri.toString());
             },
           ),
           Divider(

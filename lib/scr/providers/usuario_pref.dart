@@ -24,6 +24,7 @@ class Preferencias extends ChangeNotifier {
   bool _iMensaje = false;
   bool _menuHorizontal = false;
   String _paleta = "1";
+  bool _instalado = false;
 
   init() async {
     //WidgetsFlutterBinding.ensureInitialized();
@@ -40,7 +41,7 @@ class Preferencias extends ChangeNotifier {
     _iReloj = _pref.getBool('reloj') ?? false;
     _iTelefono = _pref.getBool('telefono') ?? false;
     _iWifi = _pref.getBool('wifi') ?? false;
-
+    _instalado = _pref.getBool('instalado') ?? false;
     if (!_iBateria &&
         !_iGps &&
         !_iLinea &&
@@ -58,6 +59,17 @@ class Preferencias extends ChangeNotifier {
 
   String get paleta {
     return this._paleta;
+  }
+
+  bool get instalado {
+    return this._instalado;
+  }
+
+  set instalado(bool estatus) {
+    this._instalado = estatus;
+    _pref.setBool('instalado', estatus);
+
+    notifyListeners();
   }
 
   set paleta(String nuevaPaleta) {

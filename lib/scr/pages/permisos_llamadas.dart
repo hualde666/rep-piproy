@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:piproy/channel/channel_android.dart';
+import 'package:piproy/scr/pages/home2_page.dart';
 
 //import 'package:piproy/channel/channel_android.dart';
 
@@ -63,7 +64,8 @@ class LLamadasPermisos extends StatelessWidget {
                   AndroidChannel _androidChannel = AndroidChannel();
                   // await FlutterPhoneDirectCaller.callNumber('');
                   await _androidChannel.permisoCall();
-                  Navigator.pop(context);
+                  Navigator.pushReplacement(context,
+                      MaterialPageRoute(builder: (context) => Home2Page()));
                   // Navigator.push(context,
                   //     MaterialPageRoute(builder: (context) => GeoPermisos()));
                 })));

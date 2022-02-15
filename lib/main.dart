@@ -5,6 +5,7 @@ import 'package:piproy/scr/pages/api_grupos.dart';
 import 'package:piproy/scr/pages/conta_grupos.dart';
 
 import 'package:piproy/scr/pages/home2_page.dart';
+import 'package:piproy/scr/pages/permisos_contactos.dart';
 
 import 'package:piproy/scr/providers/aplicaciones_provider.dart';
 
@@ -56,7 +57,7 @@ class MyApp extends StatelessWidget {
       theme: themaApi(pref.paleta),
       // home: SplashPage(),
 
-      initialRoute: 'home',
+      initialRoute: pref.instalado ? 'home' : 'instalar',
       routes: rutasApp,
     );
   }
@@ -67,5 +68,6 @@ Map<String, WidgetBuilder> get rutasApp {
     'home': (_) => Home2Page(),
     'contactos': (_) => ContactsGruposPage(),
     'apigrupos': (_) => ApiGruposPage(),
+    'instalar': (_) => InstalacionPage(),
   };
 }

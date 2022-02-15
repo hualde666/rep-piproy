@@ -8,18 +8,18 @@ class PaletaPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<Widget> paleta = [
-      colores(context, Colors.grey[700], Color.fromRGBO(55, 57, 84, 1.0),
-          Colors.white, 1),
+      colores(context, Color.fromARGB(255, 2, 84, 131),
+          Color.fromARGB(255, 3, 51, 90), Colors.white, 1),
       SizedBox(
         height: 5,
       ),
-      colores(context, Color.fromARGB(255, 2, 84, 131),
-          Color.fromARGB(255, 3, 51, 90), Colors.white, 2),
+      colores(context, Colors.grey[700], Color.fromRGBO(55, 57, 84, 1.0),
+          Colors.white, 2),
       SizedBox(
         height: 5,
       ),
       colores(context, Color.fromARGB(255, 4, 173, 154),
-          Color.fromARGB(255, 245, 247, 245), Colors.grey[700], 3),
+          Color.fromARGB(255, 7, 98, 89), Colors.white, 3),
       SizedBox(
         height: 5,
       ),

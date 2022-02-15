@@ -7,35 +7,6 @@ ThemeData themaApi(String color) {
   switch (color) {
     case '1':
       tema = ThemeData(
-        primaryColor: Colors.white,
-        backgroundColor: Color.fromRGBO(55, 57, 84, 1.0),
-        scaffoldBackgroundColor:
-            Colors.grey[700], //  Color.fromRGBO(55, 57, 84, 1.0),
-        textTheme: TextTheme(
-            bodyText1: TextStyle(color: Colors.white),
-            bodyText2: TextStyle(color: Colors.white70)),
-        iconTheme: IconThemeData(color: Colors.white, size: 40),
-        elevatedButtonTheme: ElevatedButtonThemeData(
-            style: ElevatedButton.styleFrom(
-          primary: Color.fromRGBO(249, 75, 11, 1),
-          textStyle: TextStyle(fontSize: 25, color: Colors.white),
-        )),
-        floatingActionButtonTheme: FloatingActionButtonThemeData(
-          extendedTextStyle: TextStyle(fontSize: 20, color: Colors.white),
-          backgroundColor: Color.fromRGBO(249, 75, 11, 1),
-        ),
-        bottomNavigationBarTheme: BottomNavigationBarThemeData(
-            backgroundColor: Color.fromRGBO(249, 75, 11, 1),
-            selectedIconTheme:
-                IconThemeData(color: Colors.green, opacity: 0.6, size: 40.0),
-            unselectedIconTheme: IconThemeData(
-                color: Colors.green[100], opacity: 0.6, size: 30.0)),
-
-        // style: BorderStyle()
-      );
-      break;
-    case '2':
-      tema = ThemeData(
         primaryColor: Color.fromARGB(
             226, 255, 255, 255), // Color.fromARGB(255, 3, 51, 90),
         backgroundColor: Color.fromARGB(255, 3, 51, 90),
@@ -63,6 +34,36 @@ ThemeData themaApi(String color) {
         // style: BorderStyle()
       );
       break;
+    case '2':
+      tema = ThemeData(
+        primaryColor: Colors.white,
+        backgroundColor: Color.fromRGBO(55, 57, 84, 1.0),
+        scaffoldBackgroundColor:
+            Colors.grey[700], //  Color.fromRGBO(55, 57, 84, 1.0),
+        textTheme: TextTheme(
+            bodyText1: TextStyle(color: Colors.white),
+            bodyText2: TextStyle(color: Colors.white70)),
+        iconTheme: IconThemeData(color: Colors.white, size: 40),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+            style: ElevatedButton.styleFrom(
+          primary: Color.fromRGBO(249, 75, 11, 1),
+          textStyle: TextStyle(fontSize: 25, color: Colors.white),
+        )),
+        floatingActionButtonTheme: FloatingActionButtonThemeData(
+          extendedTextStyle: TextStyle(fontSize: 20, color: Colors.white),
+          backgroundColor: Color.fromRGBO(249, 75, 11, 1),
+        ),
+        bottomNavigationBarTheme: BottomNavigationBarThemeData(
+            backgroundColor: Color.fromRGBO(249, 75, 11, 1),
+            selectedIconTheme:
+                IconThemeData(color: Colors.green, opacity: 0.6, size: 40.0),
+            unselectedIconTheme: IconThemeData(
+                color: Colors.green[100], opacity: 0.6, size: 30.0)),
+
+        // style: BorderStyle()
+      );
+      break;
+
     case '3':
       tema = ThemeData(
         primaryColor: Color.fromARGB(255, 245, 247, 245),
