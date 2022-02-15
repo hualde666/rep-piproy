@@ -73,15 +73,32 @@ class _Home2PageState extends State<Home2Page> {
                                   ],
                                 )),
                                 // padding: EdgeInsets.only(top: 50),
-                                height: 60,
-                                child: Center(
-                                  child: Text('vitalfon',
-                                      style: TextStyle(
-                                          color: Colors.black26,
-                                          fontSize: 40,
-                                          fontWeight: FontWeight.w800,
-                                          fontStyle: FontStyle.italic)),
-                                ),
+                                height: 100,
+                                width: double.infinity,
+                                child: Stack(children: [
+                                  Positioned(
+                                    left: 90,
+                                    top: 32,
+                                    child: Container(
+                                      height: 70,
+                                      width: 70,
+                                      child: Image(
+                                          image: AssetImage(
+                                              'assets/icon_otro_blanco.png'),
+                                          fit: BoxFit.fill),
+                                    ),
+                                  ),
+                                  Positioned(
+                                    left: 115,
+                                    top: 40,
+                                    child: Text('vitalfon',
+                                        style: TextStyle(
+                                            color: Colors.black26,
+                                            fontSize: 40,
+                                            fontWeight: FontWeight.w900,
+                                            fontStyle: FontStyle.italic)),
+                                  ),
+                                ]),
                               ),
                             ],
                           )),
