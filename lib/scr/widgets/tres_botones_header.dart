@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:piproy/scr/widgets/ayuda_boton.dart';
+import 'package:piproy/scr/widgets/boton_ayuda.dart';
 
 import 'package:piproy/scr/widgets/boton_verde.dart';
 import 'package:piproy/scr/widgets/boton_rojo.dart';

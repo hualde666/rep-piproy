@@ -17,7 +17,7 @@ class Ayuda extends StatelessWidget {
 
     return SafeArea(
       child: Scaffold(
-        appBar: headerApp(context, 'Ayuda', Text(''), 0.0, true, 'Ayuda'),
+        // appBar: headerApp(context, 'Ayuda', Text(''), 0.0, true, pagina),
         // backgroundColor: Colors.white,
         body: PaginaAyuda(pagina: pagina),
       ),
@@ -46,7 +46,7 @@ class PaginaAyuda extends StatelessWidget {
       style: TextStyle(color: Colors.red),
     )));
     switch (pagina) {
-      case 'contactosPage':
+      case 'ContactoGrupos':
         ayuda = AyudaPaginaContactos();
         break;
       case 'home':

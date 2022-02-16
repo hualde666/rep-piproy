@@ -11,8 +11,11 @@ import 'package:piproy/scr/providers/contactos_provider.dart';
 import 'package:piproy/scr/providers/db_provider.dart';
 
 import 'package:piproy/scr/providers/usuario_pref.dart';
+import 'package:piproy/scr/widgets/boton_ayuda.dart';
+import 'package:piproy/scr/widgets/boton_ayuda_dibujo.dart';
 
 import 'package:piproy/scr/widgets/boton_rojo.dart';
+import 'package:piproy/scr/widgets/boton_salida.dart';
 
 import 'package:piproy/scr/widgets/contactos_card.dart';
 import 'package:piproy/scr/widgets/elemntos.dart';
@@ -279,97 +282,9 @@ class BotonesEncabezado extends StatelessWidget {
                   Column(mainAxisAlignment: MainAxisAlignment.start, children: [
                 GestureDetector(
                   onTap: () {
-                    showDialog(
-                        context: context,
-                        builder: (context) => AlertDialog(
-                              backgroundColor: Colors.red[900],
-                              title: Container(
-                                width: 100,
-                                height: 100,
-                                child: Center(
-                                  child: Text('¿ Desea salir de Vitalfon ?',
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                          fontSize: 28, color: Colors.white)),
-                                ),
-                              ),
-
-                              //shape: CircleBorder(),
-                              elevation: 14.0,
-                              actionsPadding:
-                                  EdgeInsets.symmetric(horizontal: 15.0),
-                              //actionsAlignment: MainAxisAlignment.spaceAround,
-                              actions: [
-                                TextButton(
-                                    onPressed: () {
-                                      // se sale con flecha menu inferior
-                                      SystemNavigator.pop();
-
-                                      // exit(0);
-                                      //Navigator.pop(context);
-                                    },
-                                    child: ClipOval(
-                                      child: Container(
-                                        height: 80,
-                                        width: 80,
-                                        color: Colors.black38,
-                                        child: Center(
-                                          child: Text('Si',
-                                              style: TextStyle(
-                                                  fontSize: 25.0,
-                                                  color: Colors.white)),
-                                        ),
-                                      ),
-                                    )),
-                                TextButton(
-                                    autofocus: true,
-                                    onPressed: () {
-                                      Navigator.pop(context);
-                                    },
-                                    child: ClipOval(
-                                        child: Container(
-                                            height: 80,
-                                            width: 80,
-                                            color: Colors.black38,
-                                            child: Center(
-                                                child: Text('No',
-                                                    style: TextStyle(
-                                                        fontSize: 25.0,
-                                                        color:
-                                                            Colors.white))))))
-                              ],
-                            ));
+                    salida(context);
                   },
-                  child: Container(
-                      width: 100,
-                      height: 50,
-                      decoration: BoxDecoration(
-                          color: Colors.black38,
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black54,
-                              blurRadius: 1,
-                              spreadRadius: 0.5,
-                              offset: Offset(0, 3),
-                            ),
-                          ],
-                          borderRadius: BorderRadius.only(
-                              topRight: Radius.circular(20),
-                              bottomRight: Radius.circular(20)),
-                          border: Border.all(
-                            width: 0.5,
-                            color: Theme.of(context).primaryColor,
-                          )),
-                      margin: EdgeInsets.only(right: 5),
-                      child: Center(
-                        child: Text(
-                          'SALIDA',
-                          style: TextStyle(
-                            color: Theme.of(context).primaryColor,
-                            fontSize: 18,
-                          ),
-                        ),
-                      )),
+                  child: BotonSalida(),
                 ),
                 SizedBox(
                   height: 10,
@@ -438,38 +353,7 @@ class BotonesEncabezado extends StatelessWidget {
                     onTap: () {
                       Navigator.pushNamed(context, 'ayuda', arguments: 'home');
                     },
-                    child: Container(
-                        width: 100,
-                        height: 50,
-                        decoration: BoxDecoration(
-                            color: Colors.black38,
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black54,
-                                blurRadius: 1,
-                                spreadRadius: 0.5,
-                                offset: Offset(0, 3),
-                              ),
-                            ],
-                            borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(20),
-                                bottomLeft: Radius.circular(20)),
-                            border: Border.all(
-                                width: 0.5,
-                                color: Theme.of(context).primaryColor)),
-                        // decoration: BoxDecoration(
-                        //     color: Colors.black38,
-                        //     borderRadius: BorderRadius.circular(20.0),
-                        //     border: Border.all(color: Colors.white30)),
-                        // margin: EdgeInsets.only(right: 5),
-                        child: Center(
-                          child: Text(
-                            'AYUDA',
-                            style: TextStyle(
-                                fontSize: 18,
-                                color: Theme.of(context).primaryColor),
-                          ),
-                        )),
+                    child: BotonAyudaDibujo(),
                   ),
                   Container(
                     height: 110,
@@ -480,6 +364,104 @@ class BotonesEncabezado extends StatelessWidget {
             ),
           ]),
     );
+  }
+
+  Future<dynamic> salida(BuildContext context) {
+    return showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+              backgroundColor: Colors.red[900],
+              title: Container(
+                width: 100,
+                height: 100,
+                child: Center(
+                  child: Text('¿ Desea salir de Vitalfon ?',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 28, color: Colors.white)),
+                ),
+              ),
+
+              //shape: CircleBorder(),
+              elevation: 14.0,
+              actionsPadding: EdgeInsets.symmetric(horizontal: 15.0),
+              //actionsAlignment: MainAxisAlignment.spaceAround,
+              actions: [
+                TextButton(
+                    onPressed: () {
+                      // se sale con flecha menu inferior
+                      SystemNavigator.pop();
+
+                      // exit(0);
+                      //Navigator.pop(context);
+                    },
+                    child: ClipOval(
+                      child: Container(
+                        height: 80,
+                        width: 80,
+                        color: Colors.black38,
+                        child: Center(
+                          child: Text('Si',
+                              style: TextStyle(
+                                  fontSize: 25.0, color: Colors.white)),
+                        ),
+                      ),
+                    )),
+                TextButton(
+                    autofocus: true,
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: ClipOval(
+                        child: Container(
+                            height: 80,
+                            width: 80,
+                            color: Colors.black38,
+                            child: Center(
+                                child: Text('No',
+                                    style: TextStyle(
+                                        fontSize: 25.0,
+                                        color: Colors.white))))))
+              ],
+            ));
+  }
+}
+
+class BotonAyuda extends StatelessWidget {
+  const BotonAyuda({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        width: 100,
+        height: 50,
+        decoration: BoxDecoration(
+            color: Colors.black38,
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black54,
+                blurRadius: 1,
+                spreadRadius: 0.5,
+                offset: Offset(0, 3),
+              ),
+            ],
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(20), bottomLeft: Radius.circular(20)),
+            border:
+                Border.all(width: 0.5, color: Theme.of(context).primaryColor)),
+        // decoration: BoxDecoration(
+        //     color: Colors.black38,
+        //     borderRadius: BorderRadius.circular(20.0),
+        //     border: Border.all(color: Colors.white30)),
+        // margin: EdgeInsets.only(right: 5),
+        child: Center(
+          child: Text(
+            'AYUDA',
+            style:
+                TextStyle(fontSize: 18, color: Theme.of(context).primaryColor),
+          ),
+        ));
   }
 }
 

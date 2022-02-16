@@ -181,6 +181,12 @@ funcionIcon(BuildContext context, String tarea, ContactoDatos contacto,
 
       if (api != null) {
         api.openApp();
+      } else {
+        final Application api2 =
+            await apiProvider.obtenerApi('com.sec.android.app.clockpackage');
+        if (api2 != null) {
+          api2.openApp();
+        }
       }
       break;
   }
