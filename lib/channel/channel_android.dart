@@ -124,9 +124,11 @@ class AndroidChannel {
 
   Future<void> mandarSms(String phone, String mensaje) async {
     try {
-      var parametros = {'phone': phone, 'mensaje': mensaje};
+      var parametros = {'phone': "smsto: " + phone, 'mensaje': mensaje};
 
-      await _methodChannel.invokeMethod("mandarsms", parametros);
+      var enviado = await _methodChannel.invokeMethod("mandarsms", parametros);
+      print(enviado);
+      return;
     } catch (e) {
       return e;
     }

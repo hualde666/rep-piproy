@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:piproy/scr/definicion/thema_colores.dart';
 import 'package:piproy/scr/pages/api_grupos.dart';
 import 'package:piproy/scr/pages/ayuda.dart';
+
 import 'package:piproy/scr/pages/conta_grupos.dart';
 
 import 'package:piproy/scr/pages/home2_page.dart';
@@ -70,6 +71,6 @@ Map<String, WidgetBuilder> get rutasApp {
     'contactos': (_) => ContactsGruposPage(),
     'apigrupos': (_) => ApiGruposPage(),
     'instalar': (_) => InstalacionPage(),
-    'ayuda': (_) => Ayuda(),
+    'ayuda': (_) => Ayuda(pagina: ''),
   };
 }

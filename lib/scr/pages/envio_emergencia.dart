@@ -110,7 +110,7 @@ Future _geoLocal() async {
 
 placemarkFromCoordinates(latitude, longitude) {}
 
-Future<void> mandarSMS(List<ContactoDatos> listaE) async {
+mandarSMS(List<ContactoDatos> listaE) async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   String mensaje = prefs.getString('mensajeE');
   String pos2 = "";
@@ -129,27 +129,11 @@ Future<void> mandarSMS(List<ContactoDatos> listaE) async {
     final lng = pos.longitude;
     pos2 = ' https://maps.google.com/?q=$lat,$lng';
   }
-  // final resp = await Sendsms.onGetPermission();
-  // if (resp.hashCode != null) {
-  //   print('Permisos: ${resp.hashCode}');
 
-  //   // generar lita de telefonos
-
-  for (var contacto in listaE) {
-    String _phone = contacto.telefono;
-
-    /// ENVIAR MENSAJE
-
-    // final respE =
+  for (int i = 0; i < listaE.length; i++) {
+    String _phone = listaE[i].telefono;
+    print('i:  ' + '$i');
+    print('telefono:  ' + '$_phone');
     await _androidChannel.mandarSms(_phone, mensaje + pos2);
-    //  await _androidChannel.mandarSms(_phone, mensaje);
-
-    //final resp1 = await _androidChannel.mandarSms(_phone, dir);
-    // final resp2 =
-
-    // print('Respuesta: $respE');
-    // if (respE. ) {
-    //   contacto.check = false;
-    // }
   }
 }

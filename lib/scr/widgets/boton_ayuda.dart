@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:piproy/scr/pages/ayuda.dart';
 import 'package:piproy/scr/widgets/boton_ayuda_dibujo.dart';
 
 class AyudaBoton extends StatelessWidget {
@@ -9,7 +10,8 @@ class AyudaBoton extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         //    if (pagina != 'Ayuda') {
-        Navigator.pushNamed(context, 'ayuda', arguments: pagina);
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => Ayuda(pagina: pagina)));
         //  }
       },
       child: BotonAyudaDibujo(),

@@ -53,7 +53,7 @@ class _BotonRojoPageState extends State<BotonRojoPage> {
       if (apiProvider.categoryContact['Emergencia'].isNotEmpty) {
         //*** con los nombres de la lista de contactos genero lista con los datos de cada contacto */
         listaContactos = [];
-        // listaContactos.addAll(apiProvider.categoryContact['Emergencia']);
+        listaContactos.addAll(apiProvider.categoryContact['Emergencia']);
       }
     }
     Future<List<ContactoDatos>> obtenerListaGrupo() async {
@@ -129,6 +129,7 @@ conListaEmergenia(BuildContext context, List<ContactoDatos> listaE) {
           GestureDetector(
             onTap: () {
               //******************* */
+              // await mandarSMS(listaE);
               final AudioCache player = new AudioCache();
               player.play('audio_emergencia.mpeg');
 

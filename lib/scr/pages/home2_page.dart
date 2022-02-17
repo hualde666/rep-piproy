@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:piproy/scr/models/contactos_modelo.dart';
+import 'package:piproy/scr/pages/ayuda.dart';
 import 'package:piproy/scr/pages/configuracion_page.dart';
 
 import 'package:piproy/scr/providers/aplicaciones_provider.dart';
@@ -11,7 +12,7 @@ import 'package:piproy/scr/providers/contactos_provider.dart';
 import 'package:piproy/scr/providers/db_provider.dart';
 
 import 'package:piproy/scr/providers/usuario_pref.dart';
-import 'package:piproy/scr/widgets/boton_ayuda.dart';
+
 import 'package:piproy/scr/widgets/boton_ayuda_dibujo.dart';
 
 import 'package:piproy/scr/widgets/boton_rojo.dart';
@@ -228,15 +229,16 @@ matrizApis(BuildContext context, List<String> listaMenu) async {
   }
   if (listaApis.isNotEmpty) {
     final altura =
-        lista.length > 2 ? 150.0 * (lista.length / 2).round() : 150.0;
+        lista.length > 2 ? 180.0 * (lista.length / 2).round() : 180.0;
     return Container(
+      // color: Colors.white12,
       margin: EdgeInsets.symmetric(horizontal: 5),
       height: altura,
       child: GridView.count(
           physics: NeverScrollableScrollPhysics(),
-          childAspectRatio: 1.2,
-          mainAxisSpacing: 3,
-          crossAxisSpacing: 3,
+          //  childAspectRatio: 1.2,
+          mainAxisSpacing: 10,
+          crossAxisSpacing: 10,
           crossAxisCount: 2,
           children: listaApis),
     );
@@ -351,7 +353,10 @@ class BotonesEncabezado extends StatelessWidget {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      Navigator.pushNamed(context, 'ayuda', arguments: 'home');
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => Ayuda(pagina: 'home')));
                     },
                     child: BotonAyudaDibujo(),
                   ),
@@ -473,56 +478,57 @@ Widget elementoApi2(BuildContext context, Application api) {
       }
     },
     child: Container(
-      // margin: EdgeInsets.symmetric(horizontal: 5.0),
-      decoration: BoxDecoration(
-          color: Theme.of(context).scaffoldBackgroundColor,
-          borderRadius: BorderRadius.circular(20.0),
-          border: Border.all(color: Theme.of(context).primaryColor, width: 1)),
-      // color: Theme.of(context).primaryColor,
-      child: Column(
+      // height: 80,
+      // decoration: BoxDecoration(
+      //     color: Theme.of(context).scaffoldBackgroundColor,
+      //     borderRadius: BorderRadius.circular(20.0),
+      //     border:
+      //         Border.all(color: Theme.of(context).primaryColor, width: 0.5)),
+      // color: Colors.white12, //Theme.of(context).scaffoldBackgroundColor,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(
-            height: 3,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Container(
-                width: 30,
-                height: 30,
-              ),
-              Image.memory(
-                (api as ApplicationWithIcon).icon,
-                width: 90,
-              ),
-              GestureDetector(
-                  onTap: () {
-                    eliminarApiMP(
-                        context, 'MPB' + api.packageName, api.appName);
-                  },
-                  child: Container(
-                    width: 30,
-                    height: 30,
-                    child: Center(
-                      child: Icon(
-                        Icons.close,
-                        size: 30,
-                        color: Colors.red,
-                      ),
-                    ),
-                  )),
-            ],
-          ),
-          SizedBox(
-            height: 3,
-          ),
-          Text(
-            api.appName,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 20,
+          Container(
+            height: 145,
+            width: 120,
+            child: Column(
+              children: [
+                SizedBox(
+                  height: 5,
+                ),
+                Image.memory(
+                  (api as ApplicationWithIcon).icon,
+                  width: 90,
+                ),
+                SizedBox(
+                  height: 2,
+                ),
+                Text(
+                  api.appName,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 20,
+                  ),
+                ),
+              ],
             ),
           ),
+          GestureDetector(
+              onTap: () {
+                eliminarApiMP(context, 'MPB' + api.packageName, api.appName);
+              },
+              child: Container(
+                width: 30,
+                height: 100,
+                child: Center(
+                  child: Icon(
+                    Icons.close,
+                    size: 30,
+                    color: Colors.red,
+                  ),
+                ),
+              )),
         ],
       ),
     ),

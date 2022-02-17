@@ -49,9 +49,9 @@ class MainActivity: FlutterActivity() {
                   if (call.method == "mandarsms") {
                     val phone: String = (call.argument("phone") as? String) ?: ""
                     val mensaje: String = (call.argument("mensaje") as? String) ?:""
-                    sendSms(phone,mensaje)
+                   val resultado = sendSms(phone,mensaje)
                                 
-                    //result.success(resultado)
+                   result.success(resultado)
                  
                   }
                   if (call.method == "permisocall") {
@@ -268,19 +268,27 @@ class MainActivity: FlutterActivity() {
       return true
     
 } 
-              private fun sendSms( phone: String, text: String) {
+              private fun sendSms( phone: String, text: String):Boolean {
                 
         
                 val permissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS)
                 if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
                  
-              myMessage(phone,text)
+
+                  var intent =  Intent()
+                  intent.action = Intent.ACTION_SENDTO // Enviar acción SMS
+                  intent.data = Uri.parse (phone) // smsto: el destinatario es el destinatario, puede cambiarlo a voluntad
+                  intent.putExtra ("sms_body", text) // El segundo parámetro aquí es el contenido del mensaje de texto
+     startActivity(intent)
+     println(phone)
+              return true
                   
                  
 
                } else {
                   ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.SEND_SMS),
                   101)
+                  return false
                   
                }
         
@@ -313,14 +321,14 @@ class MainActivity: FlutterActivity() {
          
           
                }
-              private fun myMessage(myNumber: String,myMsg: String) {
+             // private fun myMessage(myNumber: String,myMsg: String):Boolean {
                 
    
-                      val smsManager: SmsManager = SmsManager.getDefault()
+                   //   val smsManager: SmsManager = SmsManager.getDefault()
                      
-                      smsManager.sendTextMessage(myNumber, null, myMsg, null, null)
-                      
-                }
+                  //    smsManager.sendTextMessage(myNumber, null, myMsg, null, null)
+             //       return true  
+             //   }
         
     
 }

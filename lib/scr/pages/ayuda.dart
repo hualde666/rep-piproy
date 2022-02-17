@@ -8,34 +8,26 @@ import 'package:piproy/scr/ayuda_widget/ayuda_mensaje_emerg.dart';
 import 'package:piproy/scr/ayuda_widget/ayuda_mostrar_contact.dart';
 import 'package:piproy/scr/ayuda_widget/ayuda_selec_contact.dart';
 import 'package:piproy/scr/ayuda_widget/ayuda_pagina_contactos.dart';
-import 'package:piproy/scr/widgets/header_app.dart';
+import 'package:piproy/scr/widgets/boton_ayuda_dibujo.dart';
+import 'package:piproy/scr/widgets/boton_rojo.dart';
+import 'package:piproy/scr/widgets/boton_verde.dart';
+
+import 'package:piproy/scr/widgets/inicio_boton.dart';
+
+import '../widgets/reloj.dart';
 
 class Ayuda extends StatelessWidget {
+  Ayuda({@required pagina});
+  final String pagina = '';
   @override
   Widget build(BuildContext context) {
-    final String pagina = ModalRoute.of(context).settings.arguments;
-
     return SafeArea(
       child: Scaffold(
-        // appBar: headerApp(context, 'Ayuda', Text(''), 0.0, true, pagina),
+        appBar: headerAyuda(context, pagina),
         // backgroundColor: Colors.white,
-        body: PaginaAyuda(pagina: pagina),
+        body: contenido(pagina),
       ),
     );
-  }
-}
-
-class PaginaAyuda extends StatelessWidget {
-  const PaginaAyuda({
-    Key key,
-    @required this.pagina,
-  }) : super(key: key);
-
-  final String pagina;
-
-  @override
-  Widget build(BuildContext context) {
-    return contenido(pagina);
   }
 
   Widget contenido(String pagina) {
@@ -76,4 +68,60 @@ class PaginaAyuda extends StatelessWidget {
     }
     return ayuda;
   }
+}
+
+Widget headerAyuda(BuildContext context, String pagina) {
+  return PreferredSize(
+    preferredSize: Size.fromHeight(185.0),
+    child: Container(
+      width: double.infinity,
+      child: Column(
+        children: [
+          tresBotonesHeader(context, pagina),
+          SizedBox(
+            height: 1,
+          ),
+          Container(
+            child: Text('Ayuda',
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                    color: Theme.of(context).primaryColor, fontSize: 25)),
+          ),
+        ],
+      ),
+    ),
+  );
+}
+
+Widget tresBotonesHeader(BuildContext context, String pagina) {
+  return Container(
+    child: Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Column(mainAxisAlignment: MainAxisAlignment.start, children: [
+          InicioBoton(pagina: pagina),
+          SizedBox(
+            height: 10,
+          ),
+          botonRojoHeader(context, true)
+        ]),
+        //
+        Reloj(),
+
+        Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            // AyudaBoton(pagina: pagina),
+            BotonAyudaDibujo(),
+            SizedBox(
+              height: 10,
+            ),
+
+            botonBackHeader(context)
+          ],
+        )
+      ], // Ho
+    ),
+  );
 }

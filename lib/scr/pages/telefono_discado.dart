@@ -19,11 +19,9 @@ class _DiscadoState extends State<Discado> {
 
   @override
   Widget build(BuildContext context) {
-    //  final List<Widget> teclado = botones(context, myController);
-
     return SafeArea(
         child: Scaffold(
-      appBar: headerApp(context, 'Teléfon', Text(''), 0.0, true, 'Ayuda'),
+      appBar: headerApp(context, 'Teléfono', Text(''), 0.0, true, 'Ayuda'),
       // backgroundColor: Colors.white,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,

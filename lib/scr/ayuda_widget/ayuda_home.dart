@@ -189,7 +189,7 @@ class AyudaHome extends StatelessWidget {
               width: double.infinity,
               margin: EdgeInsets.only(left: 6, right: 6, top: 3),
               child: Text(
-                'Permite: seleccioón decontactos de emergencia, el mensaje de emergencia, color de Vitalfon y hablitar o deshablita elmentos  en pantalla principal',
+                'Permite: selección de contactos de emergencia, el mensaje de emergencia, color de Vitalfon y hablitar o deshablita elmentos  en pantalla principal',
                 textAlign: TextAlign.justify,
                 style: TextStyle(
                     fontSize: 25, color: Theme.of(context).primaryColor),
