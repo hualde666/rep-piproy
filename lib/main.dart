@@ -71,6 +71,6 @@ Map<String, WidgetBuilder> get rutasApp {
     'contactos': (_) => ContactsGruposPage(),
     'apigrupos': (_) => ApiGruposPage(),
     'instalar': (_) => InstalacionPage(),
-    'ayuda': (_) => Ayuda(pagina: ''),
+    'ayuda': (_) => Ayuda(),
   };
 }

@@ -47,6 +47,7 @@ dependencies:
   provider: ^6.0.0
   shared_preferences: ^2.0.6
 
+
   whatsapp_unilink: ^2.0.0
   audioplayers: ^0.20.1
   device_apps: ^2.1.1

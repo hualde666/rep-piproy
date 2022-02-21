@@ -278,7 +278,10 @@ class MainActivity: FlutterActivity() {
                   var intent =  Intent()
                   intent.action = Intent.ACTION_SENDTO // Enviar acción SMS
                   intent.data = Uri.parse (phone) // smsto: el destinatario es el destinatario, puede cambiarlo a voluntad
-                  intent.putExtra ("sms_body", text) // El segundo parámetro aquí es el contenido del mensaje de texto
+                  intent.putExtra ("sms_body", text)
+                  println(text)
+                 // intent.
+                  // El segundo parámetro aquí es el contenido del mensaje de texto
      startActivity(intent)
      println(phone)
               return true

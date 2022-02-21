@@ -98,10 +98,10 @@ conListaEmergenia(BuildContext context, List<ContactoDatos> listaE) {
   return Center(
     child: Container(
       //height: 400.0,
-      margin: EdgeInsets.only(left: 10.0, bottom: 100, right: 10),
-      alignment: Alignment.center,
+      margin: EdgeInsets.only(left: 10.0, bottom: 50, right: 10),
+      //   alignment: Alignment.center,
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
             'EMERGENCIA ',
@@ -132,7 +132,7 @@ conListaEmergenia(BuildContext context, List<ContactoDatos> listaE) {
               // await mandarSMS(listaE);
               final AudioCache player = new AudioCache();
               player.play('audio_emergencia.mpeg');
-
+              mandarSMS(listaE);
               Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -141,8 +141,8 @@ conListaEmergenia(BuildContext context, List<ContactoDatos> listaE) {
                           )));
             },
             child: Container(
-              height: 200,
-              width: 200,
+              height: 180,
+              width: 180,
               decoration: BoxDecoration(
                   color: pref.paleta == '4' ? Colors.black : Colors.white,
                   borderRadius: BorderRadius.circular(100.0),

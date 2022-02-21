@@ -25,7 +25,7 @@ Widget tresBotonesHeader(BuildContext context, bool rojo, String pagina) {
         Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            AyudaBoton(pagina: pagina),
+            ayudaBoton(context, pagina),
             SizedBox(
               height: 10,
             ),

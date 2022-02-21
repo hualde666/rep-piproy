@@ -17,13 +17,12 @@ import 'package:piproy/scr/widgets/inicio_boton.dart';
 import '../widgets/reloj.dart';
 
 class Ayuda extends StatelessWidget {
-  Ayuda({@required pagina});
-  final String pagina = '';
   @override
   Widget build(BuildContext context) {
+    final String pagina = ModalRoute.of(context).settings.arguments;
     return SafeArea(
       child: Scaffold(
-        appBar: headerAyuda(context, pagina),
+        appBar: headerAyuda(context, 'Ayuda'),
         // backgroundColor: Colors.white,
         body: contenido(pagina),
       ),

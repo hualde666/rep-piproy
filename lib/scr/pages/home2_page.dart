@@ -353,10 +353,11 @@ class BotonesEncabezado extends StatelessWidget {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => Ayuda(pagina: 'home')));
+                      // Navigator.push(
+                      //     context,
+                      //     MaterialPageRoute(
+                      //         builder: (context) => Ayuda(pagina: 'home')));
+                      Navigator.pushNamed(context, 'ayuda', arguments: 'home');
                     },
                     child: BotonAyudaDibujo(),
                   ),

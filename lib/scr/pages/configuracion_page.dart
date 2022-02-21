@@ -183,16 +183,23 @@ class ConfiguracionPage extends StatelessWidget {
                   fontSize: 25,
                   color: Theme.of(context).primaryColor,
                 )),
-            onTap: () {
-              final Uri _emailLaunchUri = Uri(
-                  scheme: 'mailto',
-                  path: 'vitalfon.app@gmail.com',
-                  queryParameters: {
-                    'subject': 'Contactando a vitalfon',
-                    'body':
-                        'Gracias por contactarnos. Nos gustaría leer tus comentarios:   '
-                  });
-              launch(_emailLaunchUri.toString());
+            onTap: () async {
+              final String toEmail = 'vitalfon.app@gmail.com';
+              final String asunto = 'Contactando a vitalfon';
+              final String contenido =
+                  'Gracias por contactarnos. Nos gustaría leer tus comentarios:   ';
+              // final Uri _emailLaunchUri = Uri(
+              //     scheme: 'mailto',
+              //     path: 'vitalfon.app@gmail.com',
+              //     queryParameters: {
+              //       'subject': "Contactando a vitalfon",
+              //       'body':
+              //           "Gracias por contactarnos. Nos gustaría leer tus comentarios:   "
+              //     });
+
+              final url = 'mailto:$toEmail?subject=$asunto&body=$contenido';
+              await launch(url);
+              // launch(_emailLaunchUri.toString());
             },
           ),
           Divider(

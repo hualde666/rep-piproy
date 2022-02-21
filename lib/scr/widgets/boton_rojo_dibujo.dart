@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:piproy/scr/providers/usuario_pref.dart';
 import 'package:provider/provider.dart';
 
@@ -9,7 +10,7 @@ class BotonRojo extends StatelessWidget {
     return Container(
       child: Column(
         children: [
-          Icon(Icons.health_and_safety_outlined,
+          Icon(Icons.call, //Icons.health_and_safety_outlined,
               size: 60,
               color: pref.paleta == '4'
                   ? Color.fromARGB(255, 255, 230, 7)

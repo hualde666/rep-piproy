@@ -13,7 +13,6 @@ class ResumenEnvioPage extends StatelessWidget {
   ResumenEnvioPage({this.listaE, this.mensaje});
   @override
   Widget build(BuildContext context) {
-    mandarSMS(listaE);
     return SafeArea(
       child: Scaffold(
           //  backgroundColor: Color.fromRGBO(55, 57, 84, 1.0),
@@ -131,9 +130,8 @@ mandarSMS(List<ContactoDatos> listaE) async {
   }
 
   for (int i = 0; i < listaE.length; i++) {
-    String _phone = listaE[i].telefono;
-    print('i:  ' + '$i');
-    print('telefono:  ' + '$_phone');
+    final _phone = listaE[i].telefono;
+
     await _androidChannel.mandarSms(_phone, mensaje + pos2);
   }
 }
