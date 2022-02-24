@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:piproy/scr/providers/estado_celular.dart';
 import 'package:piproy/scr/widgets/header_app.dart';
 import 'package:provider/provider.dart';
-import 'package:geolocator/geolocator.dart';
+//import 'package:geolocator/geolocator.dart';
 
 class GpsPage extends StatelessWidget {
   // GpsPage({@required context});
@@ -91,5 +91,5 @@ class GpsPage extends StatelessWidget {
 }
 
 Future onoffGps(bool onoff) async {
-  await Geolocator.openAppSettings();
+  //await Geolocator.openAppSettings();
 }
