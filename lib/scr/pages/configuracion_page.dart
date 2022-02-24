@@ -188,18 +188,11 @@ class ConfiguracionPage extends StatelessWidget {
               final String asunto = 'Contactando a vitalfon';
               final String contenido =
                   'Gracias por contactarnos. Nos gustaría leer tus comentarios:   ';
-              // final Uri _emailLaunchUri = Uri(
-              //     scheme: 'mailto',
-              //     path: 'vitalfon.app@gmail.com',
-              //     queryParameters: {
-              //       'subject': "Contactando a vitalfon",
-              //       'body':
-              //           "Gracias por contactarnos. Nos gustaría leer tus comentarios:   "
-              //     });
+            
 
               final url = 'mailto:$toEmail?subject=$asunto&body=$contenido';
               await launch(url);
-              // launch(_emailLaunchUri.toString());
+             
             },
           ),
           Divider(

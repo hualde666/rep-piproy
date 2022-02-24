@@ -44,12 +44,12 @@ class ContactosProvider with ChangeNotifier {
     String _whatsapp = "";
     if (contact.phones.isNotEmpty) {
       _telefono = contact.phones.elementAt(0).value;
-      Item item = contact.phones.firstWhere(
-          (element) => element.value.substring(0, 1) == '+',
-          orElse: () => null);
-      if (item != null) {
-        _whatsapp = item.value;
-      }
+      // Item item = contact.phones.firstWhere(
+      //     (element) => element.value.substring(0, 1) == '+',
+      //     orElse: () => null);
+      // if (item != null) {
+      //   _whatsapp = item.value;
+      // }
     }
     final _contacto = new ContactoDatos(
         nombre: _nombre, telefono: _telefono, whatsapptel: _whatsapp);

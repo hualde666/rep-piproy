@@ -28,15 +28,17 @@ import android.net.ConnectivityManager.NetworkCallback
 import 	android.net.NetworkCapabilities
 import 	android.location.LocationManager
 import android.hardware.camera2.CameraManager
-import 	android.net.wifi.WifiNetworkSuggestion
-import android.net.wifi.WifiManager
+//import 	android.net.wifi.WifiNetworkSuggestion
+//import android.net.wifi.WifiManager
 import android.net.Uri
 import 	android.telephony.TelephonyManager
 import 	android.telephony.SmsManager.FinancialSmsCallback
 import android.app.Activity
+import com.google.android.gms.location.*
 class MainActivity: FlutterActivity() {
     
       private val CHANNEL = "app.piproy.channel/hualdemirene@gmail.com"
+    
 
    
       override fun configureFlutterEngine(@NonNull flutterEngine: FlutterEngine) {
@@ -85,6 +87,15 @@ class MainActivity: FlutterActivity() {
                   
     
                 }
+                if (call.method == "geolocalizacion") {
+                    
+                  val res:Boolean = getLocalizacion()
+                  
+                    result.success(res)
+
+                
+  
+              }
                 if (call.method == "onoffwifi") {
                  // val prender: Boolean= (call.argument("prender") as? Boolean) ?: false
                   val resultado = true
@@ -177,7 +188,20 @@ class MainActivity: FlutterActivity() {
         
                 return isCharging
             }
-      
+            private fun getLocalizacion(): Boolean{
+              val locationRequest = LocationRequest.create().apply {
+                interval = 10000
+                fastestInterval = 5000
+                priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+            }
+            lateinit var fusedLocationClient: FusedLocationProviderClient
+//             fusedLocationClient.requestLocationUpdates(
+//     locationRequest,
+   
+// )
+        
+              return true
+            }
             private fun getWifi(): Boolean{
             
      
@@ -279,11 +303,11 @@ class MainActivity: FlutterActivity() {
                   intent.action = Intent.ACTION_SENDTO // Enviar acción SMS
                   intent.data = Uri.parse (phone) // smsto: el destinatario es el destinatario, puede cambiarlo a voluntad
                   intent.putExtra ("sms_body", text)
-                  println(text)
+                 
                  // intent.
                   // El segundo parámetro aquí es el contenido del mensaje de texto
      startActivity(intent)
-     println(phone)
+  
               return true
                   
                  

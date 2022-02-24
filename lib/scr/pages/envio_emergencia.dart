@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 
-import 'package:geolocator/geolocator.dart';
+//import 'package:geolocator/geolocator.dart';
+import 'package:location/location.dart';
 import 'package:piproy/channel/channel_android.dart';
 import 'package:piproy/scr/models/contactos_modelo.dart';
 
 import 'package:piproy/scr/widgets/tres_botones_header.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:telephony/telephony.dart';
 
 class ResumenEnvioPage extends StatelessWidget {
   final List<ContactoDatos> listaE;
@@ -71,39 +73,61 @@ Widget headerResumen(BuildContext context) {
 }
 
 Future _geoLocal() async {
-  bool serviceEnabled;
-  LocationPermission permission;
-  // Position pos;
+  // bool serviceEnabled;
+  // LocationPermission permission;
+  // // Position pos;
 
-  // Test if location services are enabled.
-  serviceEnabled = await Geolocator.isLocationServiceEnabled();
-  if (!serviceEnabled) {
-    // Location services are not enabled don't continue
-    // accessing the position and request users of the
-    // App to enable the location services.
-    return Future.error('Location services are disabled.');
-  }
+  // // Test if location services are enabled.
+  // serviceEnabled = await Geolocator.isLocationServiceEnabled();
+  // if (!serviceEnabled) {
+  //   // Location services are not enabled don't continue
+  //   // accessing the position and request users of the
+  //   // App to enable the location services.
+  //   return Future.error('Location services are disabled.');
+  // }
 
-  permission = await Geolocator.checkPermission();
-  if (permission == LocationPermission.denied) {
-    permission = await Geolocator.requestPermission();
-    if (permission == LocationPermission.denied) {
-      // Permissions are denied, next time you could try
-      // requesting permissions again (this is also where
-      // Android's shouldShowRequestPermissionRationale
-      // returned true. According to Android guidelines
-      // your App should show an explanatory UI now.
-      return Future.error('Location permissions are denied');
+  // permission = await Geolocator.checkPermission();
+  // if (permission == LocationPermission.denied) {
+  //   permission = await Geolocator.requestPermission();
+  //   if (permission == LocationPermission.denied) {
+  //     // Permissions are denied, next time you could try
+  //     // requesting permissions again (this is also where
+  //     // Android's shouldShowRequestPermissionRationale
+  //     // returned true. According to Android guidelines
+  //     // your App should show an explanatory UI now.
+  //     return Future.error('Location permissions are denied');
+  //   }
+  // }
+
+  // if (permission == LocationPermission.deniedForever) {
+  //   // Permissions are denied forever, handle appropriately.
+  //   return Future.error(
+  //       'Location permissions are permanently denied, we cannot request permissions.');
+  // }
+
+  //final pos = await Geolocator.getCurrentPosition();
+  bool _serviceEnabled;
+  PermissionStatus _permissionGranted;
+
+  Location location = new Location();
+  _serviceEnabled = await location.serviceEnabled();
+  if (!_serviceEnabled) {
+    _serviceEnabled = await location.requestService();
+    if (!_serviceEnabled) {
+      return;
     }
   }
 
-  if (permission == LocationPermission.deniedForever) {
-    // Permissions are denied forever, handle appropriately.
-    return Future.error(
-        'Location permissions are permanently denied, we cannot request permissions.');
+  _permissionGranted = await location.hasPermission();
+  if (_permissionGranted == PermissionStatus.denied) {
+    _permissionGranted = await location.requestPermission();
+    if (_permissionGranted != PermissionStatus.granted) {
+      return;
+    }
   }
-  final pos = await Geolocator.getCurrentPosition();
 
+  final pos = await location.getLocation();
+  print(pos);
   return pos;
 }
 
@@ -127,11 +151,13 @@ mandarSMS(List<ContactoDatos> listaE) async {
     final lat = pos.latitude;
     final lng = pos.longitude;
     pos2 = ' https://maps.google.com/?q=$lat,$lng';
+    print(pos2);
   }
 
   for (int i = 0; i < listaE.length; i++) {
     final _phone = listaE[i].telefono;
-
-    await _androidChannel.mandarSms(_phone, mensaje + pos2);
+    final telephony = Telephony.instance;
+    telephony.sendSms(to: _phone, message: mensaje + pos2);
+    //await _androidChannel.mandarSms(_phone, mensaje + pos2);
   }
 }

@@ -29,16 +29,17 @@ dependencies:
   cupertino_icons: ^1.0.2
 
   # envio de correos o acceso paginas web
-  url_launcher: ^6.0.9
-  mailer: ^5.0.0
+  url_launcher: ^6.0.20
+  # mailer: ^5.0.0
   # sendsms: ^1.0.3 
 
   # nivel bateria
-  battery: ^2.0.1
+  # battery: ^2.0.1
   # geo localizacion
-  geocoding: ^2.0.0
-  geolocator: ^7.0.3
-  location:
+  # geocoding: ^2.0.0
+  # geolocator: ^8.2.0
+  location: ^4.2.0
+  #location:
   
   sqflite: ^2.0.0+4
   path_provider: ^2.0.2
@@ -46,13 +47,13 @@ dependencies:
   contacts_service: ^0.6.1
   provider: ^6.0.0
   shared_preferences: ^2.0.6
+  telephony: ^0.1.4
 
-
-  whatsapp_unilink: ^2.0.0
+  #whatsapp_unilink: ^2.0.0
   audioplayers: ^0.20.1
   device_apps: ^2.1.1
  
-  android_intent:
+  #android_intent:
   video_player:
   
   flutter_phone_direct_caller: ^2.1.0

@@ -99,6 +99,8 @@ Widget conteinerIcon(
 funcionIcon(BuildContext context, String tarea, ContactoDatos contacto,
     bool prendida) async {
   final celProvider = Provider.of<EstadoProvider>(context, listen: false);
+  final contactosProvaide =
+      Provider.of<ContactosProvider>(context, listen: false);
 
   bool activoDatos = celProvider.conexionDatos;
 
@@ -116,8 +118,11 @@ funcionIcon(BuildContext context, String tarea, ContactoDatos contacto,
       break;
     case 'llamada':
       if (activoDatos) {
+        final ContactoDatos _contacto =
+            await contactosProvaide.obtenerContacto(contacto.nombre);
+
         /// *** llamada desde el contacto
-        llamar(contacto.telefono);
+        llamar(_contacto.telefono);
       }
       break;
     case 'mensaje':
@@ -126,8 +131,12 @@ funcionIcon(BuildContext context, String tarea, ContactoDatos contacto,
       }
       break;
     case 'mensajeC':
+
+      /// envia mensaje desde el contacto
       if (activoDatos) {
-        mensaje(contacto.telefono);
+        final ContactoDatos _contacto =
+            await contactosProvaide.obtenerContacto(contacto.nombre);
+        mensaje(_contacto.telefono);
       }
       break;
     case 'bateria':
@@ -157,8 +166,10 @@ funcionIcon(BuildContext context, String tarea, ContactoDatos contacto,
 
       break;
     case 'whatsapp':
-      if (contacto.whatsapptel != "") {
-        abrirWhatsapp(contacto.telefono, '');
+      final ContactoDatos _contacto =
+          await contactosProvaide.obtenerContacto(contacto.nombre);
+      if (_contacto.telefono != "") {
+        abrirWhatsapp(_contacto.telefono, '');
       }
 
       break;
