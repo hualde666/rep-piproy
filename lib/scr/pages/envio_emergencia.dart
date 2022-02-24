@@ -131,8 +131,6 @@ Future _geoLocal() async {
   return pos;
 }
 
-placemarkFromCoordinates(latitude, longitude) {}
-
 mandarSMS(List<ContactoDatos> listaE) async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   String mensaje = prefs.getString('mensajeE');
