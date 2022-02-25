@@ -14,6 +14,7 @@ import 'package:piproy/scr/widgets/boton_verde.dart';
 
 import 'package:piproy/scr/widgets/inicio_boton.dart';
 
+import '../ayuda_widget/ayuda_apis_grupos.dart';
 import '../widgets/reloj.dart';
 
 class Ayuda extends StatelessWidget {
@@ -42,6 +43,9 @@ class Ayuda extends StatelessWidget {
         break;
       case 'home':
         ayuda = AyudaHome();
+        break;
+      case 'ApiGrupos':
+        ayuda = AyudaApisGrupos();
         break;
       case 'configurar':
         ayuda = AyudaConfigurarPage();

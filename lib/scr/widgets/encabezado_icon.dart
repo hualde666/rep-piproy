@@ -85,31 +85,25 @@ Widget encabezadoIcon(BuildContext context) {
 }
 
 Widget widgetHorizontal(BuildContext context, IconData icon, String titulo) {
-  return Row(
+  return Column(
+    mainAxisAlignment: MainAxisAlignment.center,
     children: [
-      Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Container(
-            height: 75,
-            child: conteinerIcon(
-                context,
-                Icon(
-                  icon,
-                  size: 40.0,
-                ),
-                titulo,
-                null),
-          ),
-          Text(
+      Container(
+        padding: EdgeInsets.only(left: 5),
+        height: 75,
+        child: conteinerIcon(
+            context,
+            Icon(
+              icon,
+              size: 40.0,
+            ),
             titulo,
-            style: TextStyle(color: Colors.white60),
-          )
-        ],
+            null),
       ),
-      SizedBox(
-        width: 10,
-      ),
+      Text(
+        titulo,
+        style: TextStyle(color: Colors.white60),
+      )
     ],
   );
 }

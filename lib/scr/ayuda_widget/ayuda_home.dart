@@ -331,7 +331,6 @@ class AyudaHome extends StatelessWidget {
           // mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-              margin: EdgeInsets.symmetric(horizontal: 130),
               child: widgetHorizontal(
                 context,
                 Icons.filter_alt,
@@ -369,9 +368,7 @@ class AyudaHome extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           // mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Container(
-                margin: EdgeInsets.symmetric(horizontal: 130),
-                child: widgetHorizontal(context, Icons.call, 'telefono')),
+            Container(child: widgetHorizontal(context, Icons.call, 'telefono')),
             Container(
               width: double.infinity,
               margin: EdgeInsets.only(left: 6, right: 6, top: 3),
@@ -405,7 +402,6 @@ class AyudaHome extends StatelessWidget {
           // mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-              margin: EdgeInsets.symmetric(horizontal: 130),
               child: widgetHorizontal(
                 context,
                 Icons.signal_cellular_alt_rounded,
@@ -444,7 +440,6 @@ class AyudaHome extends StatelessWidget {
           // mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-              margin: EdgeInsets.symmetric(horizontal: 130),
               child: widgetHorizontal(
                 context,
                 Icons.gps_fixed_rounded,
@@ -479,11 +474,10 @@ class AyudaHome extends StatelessWidget {
         // height: 150,
         margin: EdgeInsets.only(left: 5),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
-          // mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-              margin: EdgeInsets.symmetric(horizontal: 130),
               child: widgetHorizontal(
                 context,
                 Icons.chat,
@@ -517,13 +511,11 @@ class AyudaHome extends StatelessWidget {
       Container(
         // height: 150,
 
-        margin: EdgeInsets.only(left: 5),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-              margin: EdgeInsets.symmetric(horizontal: 130),
               //color: Colors.green,
               child: widgetHorizontal(
                 context,
@@ -536,6 +528,228 @@ class AyudaHome extends StatelessWidget {
               margin: EdgeInsets.only(left: 6, right: 6, top: 3),
               child: Text(
                 'Configuración de alarmas: despertador, recordatorios y otras.',
+                textAlign: TextAlign.justify,
+                style: TextStyle(
+                    fontSize: 25, color: Theme.of(context).primaryColor),
+              ),
+            ),
+          ],
+        ),
+      ),
+      SizedBox(
+        height: 10,
+      ),
+      Divider(
+        height: 10,
+        color: Theme.of(context).primaryColor,
+      ),
+      SizedBox(
+        height: 10,
+      ),
+
+      Container(
+        // height: 150,
+
+        margin: EdgeInsets.only(left: 5),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              // height: 90,
+              decoration: BoxDecoration(
+                color: Theme.of(context).scaffoldBackgroundColor,
+
+                // borderRadius: BorderRadius.circular(20.0),
+              ),
+              child: Container(
+                height: 40,
+                margin: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+                child: Container(
+                  height: 40,
+                  margin: EdgeInsets.symmetric(horizontal: 2, vertical: 2),
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(20.0),
+                      border: Border.all(
+                          color:
+                              Colors.white38, // Theme.of(context).primaryColor,
+                          width: 0.5)),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        width: 20,
+                      ),
+                      Container(
+                        child: Center(
+                            child: Image(
+                                image: AssetImage('assets/google.png'),
+                                fit: BoxFit.fill)),
+                        height: 40,
+                        width: 200,
+                        //color: Colors.red),
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Icon(
+                        Icons.search,
+                        color: Colors.blue,
+                        size: 30,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            Container(
+              //width: double.infinity,
+              margin: EdgeInsets.only(left: 6, right: 6, top: 3),
+              child: Text(
+                'Permite realizar busqueda por internet',
+                textAlign: TextAlign.justify,
+                style: TextStyle(
+                    fontSize: 25, color: Theme.of(context).primaryColor),
+              ),
+            ),
+          ],
+        ),
+      ),
+      SizedBox(
+        height: 10,
+      ),
+      Divider(
+        height: 10,
+        color: Theme.of(context).primaryColor,
+      ),
+      SizedBox(
+        height: 10,
+      ),
+
+      Container(
+        // height: 150,
+
+        margin: EdgeInsets.only(left: 5),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              margin: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+              decoration: BoxDecoration(
+                  color: Colors.green,
+                  /** es un contacto o grupo de contacto */
+                  // Theme.of(context).backgroundColor,
+                  borderRadius: BorderRadius.circular(20.0),
+                  border: Border.all(
+                    color: Theme.of(context).primaryColor,
+                  )),
+              child: Center(
+                child: Text(
+                  'Contactos',
+                  style: TextStyle(
+                      fontSize: 30, color: Theme.of(context).backgroundColor),
+                ),
+              ),
+            ),
+            Container(
+              //width: double.infinity,
+              margin: EdgeInsets.only(left: 6, right: 6, top: 3),
+              child: Text(
+                'Permite accesar los contactos telefónicos y crear grupos de ellos. Para cada contacto permite realizar llamadas, ir al Whatsapp y enviar mensajes de texto',
+                textAlign: TextAlign.justify,
+                style: TextStyle(
+                    fontSize: 25, color: Theme.of(context).primaryColor),
+              ),
+            ),
+          ],
+        ),
+      ),
+      SizedBox(
+        height: 10,
+      ),
+      Divider(
+        height: 10,
+        color: Theme.of(context).primaryColor,
+      ),
+      SizedBox(
+        height: 10,
+      ),
+
+      Container(
+        // height: 150,
+
+        margin: EdgeInsets.only(left: 5),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              margin: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+              decoration: BoxDecoration(
+                  color:
+                      /** es un contacto o grupo de contacto */
+                      Theme.of(context).backgroundColor,
+                  borderRadius: BorderRadius.circular(20.0),
+                  border: Border.all(
+                    color: Theme.of(context).primaryColor,
+                  )),
+              child: Center(
+                child: Text(
+                  'Aplicaciones',
+                  style: TextStyle(
+                    fontSize: 30,
+                  ),
+                ),
+              ),
+            ),
+            Container(
+              //width: double.infinity,
+              margin: EdgeInsets.only(left: 6, right: 6, top: 3),
+              child: Text(
+                'Permite accesar las aplicaciones instaladas en el celular y crear grupos de ellas para mejor organización',
+                textAlign: TextAlign.justify,
+                style: TextStyle(
+                    fontSize: 25, color: Theme.of(context).primaryColor),
+              ),
+            ),
+          ],
+        ),
+      ),
+      SizedBox(
+        height: 10,
+      ),
+      Divider(
+        height: 10,
+        color: Theme.of(context).primaryColor,
+      ),
+      SizedBox(
+        height: 10,
+      ),
+
+      Container(
+        // height: 150,
+
+        margin: EdgeInsets.only(left: 5),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              width: 50,
+              height: 50,
+              child: Icon(
+                Icons.close,
+                size: 50,
+                color: Colors.red,
+              ),
+            ),
+            Container(
+              //width: double.infinity,
+              margin: EdgeInsets.only(left: 6, right: 6, top: 3),
+              child: Text(
+                'Este símbolo elimina el elemento del menu principal.  ',
                 textAlign: TextAlign.justify,
                 style: TextStyle(
                     fontSize: 25, color: Theme.of(context).primaryColor),
