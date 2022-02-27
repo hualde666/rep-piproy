@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:piproy/scr/ayuda_widget/ayuda_encabezado.dart';
 
-class AyudaApisGrupos extends StatelessWidget {
+class AyudaContacsGrupos extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return _listaAyudaHome(context);
@@ -19,7 +19,7 @@ class AyudaApisGrupos extends StatelessWidget {
 
   List<Widget> _crearListaAyuda(BuildContext context) {
     List<Widget> lista = [];
-    lista.addAll(ayudaEncabezado(context, 'Grupos de Aplicaciones'));
+    lista.addAll(ayudaEncabezado(context, 'Grupos de Contactos'));
     List<Widget> lista2 = [
       Container(
         // height: 150,
@@ -41,7 +41,7 @@ class AyudaApisGrupos extends StatelessWidget {
                   )),
               child: Center(
                 child: Text(
-                  'Todas',
+                  'Todos',
                   style: TextStyle(
                     fontSize: 30,
                   ),
@@ -52,7 +52,7 @@ class AyudaApisGrupos extends StatelessWidget {
               //width: double.infinity,
               margin: EdgeInsets.only(left: 6, right: 6, top: 3),
               child: Text(
-                'Muestra todas las aplicaciones del celular',
+                'Muestra todas los contactos del celular',
                 textAlign: TextAlign.justify,
                 style: TextStyle(
                     fontSize: 25, color: Theme.of(context).primaryColor),
@@ -101,7 +101,7 @@ class AyudaApisGrupos extends StatelessWidget {
               //width: double.infinity,
               margin: EdgeInsets.only(left: 6, right: 6, top: 3),
               child: Text(
-                'Permite definir un nuevo grupo de aplicaciones. Una vez creado, toque sobre el nombre del grupo. Pasara a otra pantalla que le permitira agregar las aplicaciones al grupo.',
+                'Permite definir un nuevo grupo de contactos. Una vez creado, toque sobre el nombre del grupo. Pasara a otra pantalla que le permitira agregar los contactos del grupo.',
                 textAlign: TextAlign.justify,
                 style: TextStyle(
                     fontSize: 25, color: Theme.of(context).primaryColor),

@@ -34,6 +34,7 @@ class AplicacionesProvider with ChangeNotifier {
   AplicacionesProvider._internal() {
     this.categoryApi['Todas'] = [];
     this.categoryContact['Todos'] = [];
+    this.categoryContact['Emergencia'] = [];
     // cargarCategorias();
   }
 //***********************************Widgets del menu principal */

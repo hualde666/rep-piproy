@@ -1,13 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:piproy/scr/ayuda_widget/ayuda_botonrojo.dart';
-import 'package:piproy/scr/ayuda_widget/ayuda_configurar.dart';
-import 'package:piproy/scr/ayuda_widget/ayuda_editar_contact.dart';
-import 'package:piproy/scr/ayuda_widget/ayuda_emer_contact.dart';
+
 import 'package:piproy/scr/ayuda_widget/ayuda_home.dart';
-import 'package:piproy/scr/ayuda_widget/ayuda_mensaje_emerg.dart';
-import 'package:piproy/scr/ayuda_widget/ayuda_mostrar_contact.dart';
-import 'package:piproy/scr/ayuda_widget/ayuda_selec_contact.dart';
-import 'package:piproy/scr/ayuda_widget/ayuda_pagina_contactos.dart';
+
 import 'package:piproy/scr/widgets/boton_ayuda_dibujo.dart';
 import 'package:piproy/scr/widgets/boton_rojo.dart';
 import 'package:piproy/scr/widgets/boton_verde.dart';
@@ -15,6 +9,7 @@ import 'package:piproy/scr/widgets/boton_verde.dart';
 import 'package:piproy/scr/widgets/inicio_boton.dart';
 
 import '../ayuda_widget/ayuda_apis_grupos.dart';
+import '../ayuda_widget/ayuda_contacs_grupos.dart';
 import '../widgets/reloj.dart';
 
 class Ayuda extends StatelessWidget {
@@ -39,34 +34,13 @@ class Ayuda extends StatelessWidget {
     )));
     switch (pagina) {
       case 'ContactoGrupos':
-        ayuda = AyudaPaginaContactos();
+        ayuda = AyudaContacsGrupos();
         break;
       case 'home':
         ayuda = AyudaHome();
         break;
       case 'ApiGrupos':
         ayuda = AyudaApisGrupos();
-        break;
-      case 'configurar':
-        ayuda = AyudaConfigurarPage();
-        break;
-      case 'emergiContactos':
-        ayuda = AyudaContactosEmergencia();
-        break;
-      case 'ContactoSeleccion':
-        ayuda = AyudaSeleccionContactos();
-        break;
-      case 'mostrarContacto':
-        ayuda = AyudaMostrarContacto();
-        break;
-      case 'editarContacto':
-        ayuda = AyudaEditarContacto();
-        break;
-      case 'EmergenciaMensaje':
-        ayuda = AyudaMensajeEmergencia();
-        break;
-      case 'botonRojo':
-        ayuda = AyudaBotonRojo();
         break;
     }
     return ayuda;

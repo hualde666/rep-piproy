@@ -749,7 +749,7 @@ class AyudaHome extends StatelessWidget {
               //width: double.infinity,
               margin: EdgeInsets.only(left: 6, right: 6, top: 3),
               child: Text(
-                'Este símbolo elimina el elemento del menu principal.  ',
+                'Este símbolo elimina al elemento que lo contiene del menu principal.  ',
                 textAlign: TextAlign.justify,
                 style: TextStyle(
                     fontSize: 25, color: Theme.of(context).primaryColor),

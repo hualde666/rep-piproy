@@ -79,7 +79,10 @@ class _BotonRojoPageState extends State<BotonRojoPage> {
                   child: CircularProgressIndicator(),
                 );
               } else {
-                listaGrupo.addAll(snapshot.data);
+                if (snapshot.hasData) {
+                  listaGrupo.addAll(snapshot.data);
+                }
+
                 if (listaGrupo.isNotEmpty) {
                   // snapshot contiene lista de displayname de los contactos por grupo
                   return conListaEmergenia(context, snapshot.data);
