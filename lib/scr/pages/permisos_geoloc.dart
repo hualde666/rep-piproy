@@ -12,15 +12,15 @@ class GeoPermisos extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-            backgroundColor: Colors.white,
+            backgroundColor: Colors.black,
             body: Container(
               margin: EdgeInsets.symmetric(horizontal: 10),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  // SizedBox(
-                  //   height: 50,
-                  // ),
+                  SizedBox(
+                    height: 20,
+                  ),
                   Column(
                     children: [
                       Container(
@@ -73,6 +73,13 @@ class GeoPermisos extends StatelessWidget {
                   SizedBox(
                     height: 30,
                   ),
+                  Container(
+                    child: Icon(
+                      Icons.gps_fixed_rounded,
+                      size: 80,
+                      color: Color.fromARGB(255, 4, 135, 211),
+                    ),
+                  )
                 ],
               ),
             ),

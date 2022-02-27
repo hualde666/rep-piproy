@@ -148,7 +148,7 @@ class _ContactsPorGrupoPageState extends State<ContactsPorGrupoPage> {
               // SizedBox(
               //   height: 5,
               // ),
-              tresBotonesHeader(context, true, 'ContactosporGrupo'),
+              tresBotonesHeader(context, true, 'ContactosPorGrupo'),
               Text(
                 'Contactos: ' + grupo,
                 style: TextStyle(

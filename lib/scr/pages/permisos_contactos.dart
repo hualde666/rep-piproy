@@ -16,7 +16,7 @@ class InstalacionPage extends StatelessWidget {
                 //mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SizedBox(
-                    height: 50,
+                    height: 20,
                   ),
                   Column(
                     children: [
@@ -83,6 +83,13 @@ class InstalacionPage extends StatelessWidget {
                   SizedBox(
                     height: 30,
                   ),
+                  Container(
+                    child: Icon(
+                      Icons.groups,
+                      size: 80,
+                      color: Color.fromARGB(255, 4, 135, 211),
+                    ),
+                  )
                 ],
               ),
             )),

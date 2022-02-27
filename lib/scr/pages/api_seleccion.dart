@@ -59,7 +59,7 @@ class ApiSeleccionPage extends StatelessWidget {
             ),
             40.0,
             true,
-            'ApiSeleccion'),
+            'ApisSeleccion'),
         resizeToAvoidBottomInset: false,
         body: FutureBuilder(
             future: cargarListaGrupo(),

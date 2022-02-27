@@ -72,6 +72,13 @@ class LLamadasPermisos extends StatelessWidget {
                   SizedBox(
                     height: 30,
                   ),
+                  Container(
+                    child: Icon(
+                      Icons.phone,
+                      size: 80,
+                      color: Color.fromARGB(255, 4, 135, 211),
+                    ),
+                  )
                 ],
               ),
             ),

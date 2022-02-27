@@ -16,7 +16,7 @@ class MensajesPermisos extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SizedBox(
-                    height: 50,
+                    height: 30,
                   ),
                   Column(
                     children: [
@@ -65,6 +65,16 @@ class MensajesPermisos extends StatelessWidget {
                             fontSize: 35,
                             color: Color.fromARGB(255, 4, 135, 211)),
                       ),
+                      SizedBox(
+                        height: 30,
+                      ),
+                      Container(
+                        child: Icon(
+                          Icons.message,
+                          size: 80,
+                          color: Color.fromARGB(255, 4, 135, 211),
+                        ),
+                      )
                     ],
                   ),
                   SizedBox(

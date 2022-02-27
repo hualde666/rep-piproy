@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:piproy/scr/ayuda_widget/ayuda_encabezado.dart';
 
-class AyudaApisGrupos extends StatelessWidget {
+class AyudaApisPorGrupos extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return _listaAyudaHome(context);
@@ -19,55 +19,8 @@ class AyudaApisGrupos extends StatelessWidget {
 
   List<Widget> _crearListaAyuda(BuildContext context) {
     List<Widget> lista = [];
-    lista.addAll(ayudaEncabezado(context, 'Grupos de Aplicaciones'));
+    lista.addAll(ayudaEncabezado(context, 'Aplicaciones en el grupo'));
     List<Widget> lista2 = [
-      Container(
-        // height: 150,
-
-        margin: EdgeInsets.only(left: 5),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              margin: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
-              decoration: BoxDecoration(
-                  color:
-                      /** es un contacto o grupo de contacto */
-                      Theme.of(context).backgroundColor,
-                  borderRadius: BorderRadius.circular(20.0),
-                  border: Border.all(
-                    color: Theme.of(context).primaryColor,
-                  )),
-              child: Center(
-                child: Text(
-                  'Todas',
-                  style: TextStyle(
-                    fontSize: 30,
-                  ),
-                ),
-              ),
-            ),
-            Container(
-              //width: double.infinity,
-              margin: EdgeInsets.only(left: 6, right: 6, top: 3),
-              child: Text(
-                'Muestra todas las aplicaciones del celular',
-                textAlign: TextAlign.justify,
-                style: TextStyle(
-                    fontSize: 25, color: Theme.of(context).primaryColor),
-              ),
-            ),
-          ],
-        ),
-      ),
-      SizedBox(
-        height: 10,
-      ),
-      Divider(
-        height: 10,
-        color: Theme.of(context).primaryColor,
-      ),
       SizedBox(
         height: 10,
       ),
@@ -101,7 +54,7 @@ class AyudaApisGrupos extends StatelessWidget {
               //width: double.infinity,
               margin: EdgeInsets.only(left: 6, right: 6, top: 3),
               child: Text(
-                'Permite definir un nuevo grupo de aplicaciones. Una vez creado, toque sobre el nombre del grupo. Pasara a otra pantalla que le permitira agregar las aplicaciones al grupo.',
+                'Permite agregar aplicaciones al grupo. Muestra todas las aplicaciones instaladas en el celular y usted selecciona las deseadas para el grupo',
                 textAlign: TextAlign.justify,
                 style: TextStyle(
                     fontSize: 25, color: Theme.of(context).primaryColor),
@@ -141,7 +94,7 @@ class AyudaApisGrupos extends StatelessWidget {
               //width: double.infinity,
               margin: EdgeInsets.only(left: 6, right: 6, top: 3),
               child: Text(
-                'Permite copiar el grupo al menu principal, para un acceso mas directo. Solo grupos creados por el usuario. ',
+                'Permite copiar la aplicación al menu principal, para un acceso mas directo.',
                 textAlign: TextAlign.justify,
                 style: TextStyle(
                     fontSize: 25, color: Theme.of(context).primaryColor),
@@ -178,52 +131,7 @@ class AyudaApisGrupos extends StatelessWidget {
               //width: double.infinity,
               margin: EdgeInsets.only(left: 6, right: 6, top: 3),
               child: Text(
-                'Permite eliminar un grupo',
-                textAlign: TextAlign.justify,
-                style: TextStyle(
-                    fontSize: 25, color: Theme.of(context).primaryColor),
-              ),
-            ),
-          ],
-        ),
-      ),
-      SizedBox(
-        height: 10,
-      ),
-      Divider(
-        height: 10,
-        color: Theme.of(context).primaryColor,
-      ),
-      SizedBox(
-        height: 10,
-      ),
-      Container(
-        margin: EdgeInsets.only(left: 5),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              // width: 150,
-              // margin: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
-
-              child: Center(
-                child: Text(
-                  'Cambiar nombre del grupo',
-                  style: TextStyle(
-                    fontSize: 25,
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Container(
-              //width: double.infinity,
-              margin: EdgeInsets.only(left: 6, right: 6, top: 3),
-              child: Text(
-                'Presione por unos instanes sobre el nombre del grupo. Se abrirá una pequeña pantalla que le permitirá editarlo.',
+                'Elimina la aplicación del grupo',
                 textAlign: TextAlign.justify,
                 style: TextStyle(
                     fontSize: 25, color: Theme.of(context).primaryColor),

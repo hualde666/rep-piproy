@@ -8,8 +8,12 @@ import 'package:piproy/scr/widgets/boton_verde.dart';
 
 import 'package:piproy/scr/widgets/inicio_boton.dart';
 
+import '../ayuda_widget/ayuda_api_seleccion.dart';
+import '../ayuda_widget/ayuda_apis_en_gropo.dart';
 import '../ayuda_widget/ayuda_apis_grupos.dart';
+import '../ayuda_widget/ayuda_contac_ne_grupo.dart';
 import '../ayuda_widget/ayuda_contacs_grupos.dart';
+import '../ayuda_widget/ayuda_seleccion_contactos.dart';
 import '../widgets/reloj.dart';
 
 class Ayuda extends StatelessWidget {
@@ -41,6 +45,18 @@ class Ayuda extends StatelessWidget {
         break;
       case 'ApiGrupos':
         ayuda = AyudaApisGrupos();
+        break;
+      case 'ApiPorGrupos':
+        ayuda = AyudaApisPorGrupos();
+        break;
+      case 'ContactosPorGrupo':
+        ayuda = AyudaContactosPorGrupos();
+        break;
+      case 'ContactoSeleccion':
+        ayuda = AyudaContactosSeleccion();
+        break;
+      case 'ApisSeleccion':
+        ayuda = AyudaApisSeleccion();
         break;
     }
     return ayuda;
