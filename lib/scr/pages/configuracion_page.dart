@@ -24,7 +24,7 @@ class ConfiguracionPage extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         appBar: headerApp(
-            context, 'Configuración', Text(''), 0.0, true, 'configurar'),
+            context, 'Configuración', Text(''), 0.0, true, 'Configurar'),
 
         // title: Text('Configuración'),
 
@@ -188,11 +188,9 @@ class ConfiguracionPage extends StatelessWidget {
               final String asunto = 'Contactando a vitalfon';
               final String contenido =
                   'Gracias por contactarnos. Nos gustaría leer tus comentarios:   ';
-            
 
               final url = 'mailto:$toEmail?subject=$asunto&body=$contenido';
               await launch(url);
-             
             },
           ),
           Divider(
