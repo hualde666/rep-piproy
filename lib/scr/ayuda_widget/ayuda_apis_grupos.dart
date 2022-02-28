@@ -223,7 +223,7 @@ class AyudaApisGrupos extends StatelessWidget {
               //width: double.infinity,
               margin: EdgeInsets.only(left: 6, right: 6, top: 3),
               child: Text(
-                'Presione por unos instanes sobre el nombre del grupo. Se abrirá una pequeña pantalla que le permitirá editarlo.',
+                'Presione por unos instantes sobre el nombre del grupo. Se abrirá una pequeña pantalla que le permitirá editarlo.',
                 textAlign: TextAlign.justify,
                 style: TextStyle(
                     fontSize: 25, color: Theme.of(context).primaryColor),

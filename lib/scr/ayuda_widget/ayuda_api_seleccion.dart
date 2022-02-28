@@ -19,7 +19,7 @@ class AyudaApisSeleccion extends StatelessWidget {
 
   List<Widget> _crearListaAyuda(BuildContext context) {
     List<Widget> lista = [];
-    lista.addAll(ayudaEncabezado(context, 'Selección de Contactos'));
+    lista.addAll(ayudaEncabezado(context, 'Selección de Aplicaciones'));
     List<Widget> lista2 = [
       Container(
         margin: EdgeInsets.only(left: 5),
