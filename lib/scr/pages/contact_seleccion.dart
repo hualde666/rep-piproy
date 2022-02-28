@@ -73,55 +73,68 @@ class _SelectContactsPageState extends State<SelectContactsPage> {
       }
     }
 
-    return SafeArea(
-        child: Scaffold(
-            appBar: PreferredSize(
-                preferredSize:
-                    Size.fromHeight(250.0), // here the desired height
-                child: busqueda(context)),
-            resizeToAvoidBottomInset: false,
-            body: FutureBuilder(
-                future: obtenerListaGrupo(),
-                builder: (BuildContext context, AsyncSnapshot snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  } else {
-                    if (snapshot.hasData) {
-                      List<Widget> listaContact = List.generate(
-                          snapshot.data.length,
-                          (i) => Contacto(
-                              contactoSelec: snapshot.data[i],
-                              apiProvider: apiProvider,
-                              grupo: grupo));
-                      return Container(
-                        padding: EdgeInsets.only(bottom: 55),
-                        child: ListView.builder(
-                            padding: EdgeInsets.only(bottom: 220),
-                            itemCount: snapshot.data.length,
-                            itemBuilder: (context, i) {
-                              return listaContact[i];
-                            }),
+    return GestureDetector(
+      onTap: () {
+        FocusScope.of(context).requestFocus(new FocusNode());
+      },
+      child: SafeArea(
+          child: Scaffold(
+              appBar: PreferredSize(
+                  preferredSize:
+                      Size.fromHeight(250.0), // here the desired height
+                  child: busqueda(context)),
+              resizeToAvoidBottomInset: false,
+              body: FutureBuilder(
+                  future: obtenerListaGrupo(),
+                  builder: (BuildContext context, AsyncSnapshot snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return Center(
+                        child: CircularProgressIndicator(),
                       );
                     } else {
-                      return Container();
+                      if (snapshot.hasData) {
+                        List<Widget> listaContact = List.generate(
+                            snapshot.data.length,
+                            (i) => Contacto(
+                                contactoSelec: snapshot.data[i],
+                                apiProvider: apiProvider,
+                                grupo: grupo));
+                        return GestureDetector(
+                          onTap: () {
+                            FocusScope.of(context)
+                                .requestFocus(new FocusNode());
+                          },
+                          child: Container(
+                            padding: EdgeInsets.only(bottom: 55),
+                            child: ListView.builder(
+                                padding: EdgeInsets.only(
+                                  bottom: 220,
+                                ),
+                                itemCount: snapshot.data.length,
+                                itemBuilder: (context, i) {
+                                  return listaContact[i];
+                                }),
+                          ),
+                        );
+                      } else {
+                        return Container();
+                      }
                     }
-                  }
-                }),
-            floatingActionButtonLocation:
-                FloatingActionButtonLocation.centerDocked,
-            floatingActionButton: FloatingActionButton.extended(
-                heroTag: "guardar",
-                icon: Icon(
-                  Icons.save,
-                ),
-                label: Text(
-                  'guardar',
-                ),
-                onPressed: () {
-                  Navigator.pop(context);
-                })));
+                  }),
+              floatingActionButtonLocation:
+                  FloatingActionButtonLocation.centerDocked,
+              floatingActionButton: FloatingActionButton.extended(
+                  heroTag: "guardar",
+                  icon: Icon(
+                    Icons.save,
+                  ),
+                  label: Text(
+                    'guardar',
+                  ),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  }))),
+    );
   }
 
   Widget busqueda(BuildContext context) {
@@ -142,47 +155,52 @@ class _SelectContactsPageState extends State<SelectContactsPage> {
                   'Seleccion de Contactos',
                   style: TextStyle(color: Colors.white, fontSize: 25),
                 ),
-                Container(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 7,
-                  ),
-                  child: TextField(
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        fontSize: 25.0, color: Colors.white54, height: 1.0),
-                    keyboardType: TextInputType.text,
-                    controller: _searchController,
-                    // autofocus: true,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                          //borderSide: BorderSide(color: Colors.amber),
-                          borderRadius:
-                              BorderRadius.all(Radius.circular(25.0))),
-                      labelStyle:
-                          TextStyle(color: Colors.white38, fontSize: 20),
-                      labelText: 'Buscar Contacto :',
-                      suffixIcon: _searchController.text.isNotEmpty
-                          ? IconButton(
-                              onPressed: () {
-                                setState(() {
-                                  _searchController.clear();
-                                  buscar = true;
-                                });
-                              },
-                              icon: Icon(
-                                Icons.clear,
+                GestureDetector(
+                  onTap: () {
+                    FocusScope.of(context).requestFocus(new FocusNode());
+                  },
+                  child: Container(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 7,
+                    ),
+                    child: TextField(
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontSize: 25.0, color: Colors.white54, height: 1.0),
+                      keyboardType: TextInputType.text,
+                      controller: _searchController,
+                      // autofocus: true,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                            //borderSide: BorderSide(color: Colors.amber),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(25.0))),
+                        labelStyle:
+                            TextStyle(color: Colors.white38, fontSize: 20),
+                        labelText: 'Buscar Contacto :',
+                        suffixIcon: _searchController.text.isNotEmpty
+                            ? IconButton(
+                                onPressed: () {
+                                  setState(() {
+                                    _searchController.clear();
+                                    buscar = true;
+                                  });
+                                },
+                                icon: Icon(
+                                  Icons.clear,
+                                  color: Colors.white,
+                                  size: 30,
+                                ))
+                            : Icon(
+                                Icons.search,
                                 color: Colors.white,
                                 size: 30,
-                              ))
-                          : Icon(
-                              Icons.search,
-                              color: Colors.white,
-                              size: 30,
-                            ),
-                      focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.white),
-                          borderRadius:
-                              BorderRadius.all(Radius.circular(25.0))),
+                              ),
+                        focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.white),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(25.0))),
+                      ),
                     ),
                   ),
                 ),

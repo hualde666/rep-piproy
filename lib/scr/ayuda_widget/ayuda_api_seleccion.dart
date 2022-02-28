@@ -51,7 +51,7 @@ class AyudaApisSeleccion extends StatelessWidget {
               //width: double.infinity,
               margin: EdgeInsets.only(left: 6, right: 6, top: 3),
               child: Text(
-                '',
+                'Seleccione (tocando) las aplicaciones de la lista. Una vez hecha la selección presione guardar. Regresará a la pantalla anterior.',
                 textAlign: TextAlign.justify,
                 style: TextStyle(
                     fontSize: 25, color: Theme.of(context).primaryColor),

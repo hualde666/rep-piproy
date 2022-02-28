@@ -91,7 +91,7 @@ class ApiSeleccionPage extends StatelessWidget {
             FloatingActionButton.extended(
           heroTag: "guardar",
           icon: Icon(
-            Icons.save,
+            Icons.check,
           ),
           label: Text(
             'guardar',

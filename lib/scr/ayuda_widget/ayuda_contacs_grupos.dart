@@ -211,8 +211,7 @@ class AyudaContacsGrupos extends StatelessWidget {
                 child: Text(
                   'Cambiar nombre del grupo',
                   style: TextStyle(
-                    fontSize: 25,
-                  ),
+                      fontSize: 25, color: Theme.of(context).primaryColor),
                 ),
               ),
             ),

@@ -37,9 +37,6 @@ class Ayuda extends StatelessWidget {
       style: TextStyle(color: Colors.red),
     )));
     switch (pagina) {
-      case 'ContactoGrupos':
-        ayuda = AyudaContacsGrupos();
-        break;
       case 'home':
         ayuda = AyudaHome();
         break;
@@ -49,10 +46,13 @@ class Ayuda extends StatelessWidget {
       case 'ApiPorGrupos':
         ayuda = AyudaApisPorGrupos();
         break;
+      case 'ContactoGrupos':
+        ayuda = AyudaContacsGrupos();
+        break;
       case 'ContactosPorGrupo':
         ayuda = AyudaContactosPorGrupos();
         break;
-      case 'ContactoSeldeccion':
+      case 'ContactoSeleccion':
         ayuda = AyudaContactosSeleccion();
         break;
       case 'ApisSeleccion':
