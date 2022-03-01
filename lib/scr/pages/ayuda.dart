@@ -11,6 +11,7 @@ import 'package:piproy/scr/widgets/inicio_boton.dart';
 import '../ayuda_widget/ayuda_api_seleccion.dart';
 import '../ayuda_widget/ayuda_apis_en_gropo.dart';
 import '../ayuda_widget/ayuda_apis_grupos.dart';
+import '../ayuda_widget/ayuda_boton_rojo.dart';
 import '../ayuda_widget/ayuda_configurar.dart';
 import '../ayuda_widget/ayuda_contacs_en_grupo.dart';
 import '../ayuda_widget/ayuda_contacs_grupos.dart';
@@ -73,6 +74,9 @@ class Ayuda extends StatelessWidget {
         break;
       case 'Opciones':
         ayuda = AyudaOpcionesPage();
+        break;
+      case 'BotonRojo':
+        ayuda = AyudaBotonRojoPage();
         break;
     }
     return ayuda;

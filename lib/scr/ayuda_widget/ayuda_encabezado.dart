@@ -15,6 +15,7 @@ List<Widget> ayudaEncabezado(BuildContext context, String titulo) {
     Container(
       child: Center(
           child: Text(titulo,
+              textAlign: TextAlign.center,
               style: TextStyle(
                   fontSize: 30, color: Theme.of(context).primaryColor))),
     ),
@@ -134,23 +135,23 @@ List<Widget> ayudaEncabezado(BuildContext context, String titulo) {
             child: Column(
               children: [
                 Text(
-                  'Inicia el proceso de envio de menaje de emergencia (Deberá haber seleccionado sus contactos de emergencia previamente y tener activo el GPS para que funcione el envio de su geolocalización).',
+                  'Inicia el proceso de envio de menaje de emergencia', // (Deberá haber seleccionado sus contactos de emergencia previamente y tener activo el GPS para que funcione el envio de su geolocalización).',
                   textAlign: TextAlign.justify,
                   style: TextStyle(
                       fontSize: 25, color: Theme.of(context).primaryColor),
                 ),
-                Text(
-                  'Se enviará un mensaje genérico a sus contactos advirtiendo que se encuentra en una situación de emergencia y necesita ayuda. También se enviará su geolocalización.',
-                  textAlign: TextAlign.justify,
-                  style: TextStyle(
-                      fontSize: 25, color: Theme.of(context).primaryColor),
-                ),
-                Text(
-                  'El 112 no puede recibir este tipo de mensaje.',
-                  textAlign: TextAlign.justify,
-                  style: TextStyle(
-                      fontSize: 25, color: Theme.of(context).primaryColor),
-                ),
+                // Text(
+                //   'Se enviará un mensaje genérico a sus contactos advirtiendo que se encuentra en una situación de emergencia y necesita ayuda. También se enviará su geolocalización.',
+                //   textAlign: TextAlign.justify,
+                //   style: TextStyle(
+                //       fontSize: 25, color: Theme.of(context).primaryColor),
+                // ),
+                // Text(
+                //   'El 112 no puede recibir este tipo de mensaje.',
+                //   textAlign: TextAlign.justify,
+                //   style: TextStyle(
+                //       fontSize: 25, color: Theme.of(context).primaryColor),
+                // ),
               ],
             ),
           ),
