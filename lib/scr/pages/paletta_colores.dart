@@ -32,7 +32,7 @@ class PaletaPage extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         appBar: headerApp(
-            context, 'Paleta de Colores', Text(''), 0.0, true, 'paleta'),
+            context, 'Paleta de Colores', Text(''), 0.0, true, 'Paleta'),
         //    backgroundColor: Colors.white,
         body: Container(
           padding: EdgeInsets.only(bottom: 40),

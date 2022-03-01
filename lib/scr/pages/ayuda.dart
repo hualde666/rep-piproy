@@ -14,6 +14,9 @@ import '../ayuda_widget/ayuda_apis_grupos.dart';
 import '../ayuda_widget/ayuda_configurar.dart';
 import '../ayuda_widget/ayuda_contacs_en_grupo.dart';
 import '../ayuda_widget/ayuda_contacs_grupos.dart';
+import '../ayuda_widget/ayuda_mensaje_emergencia.dart';
+import '../ayuda_widget/ayuda_opciones.dart';
+import '../ayuda_widget/ayuda_paleta.dart';
 import '../ayuda_widget/ayuda_seleccion_contactos.dart';
 import '../widgets/reloj.dart';
 
@@ -61,6 +64,15 @@ class Ayuda extends StatelessWidget {
         break;
       case 'Configurar':
         ayuda = AyudaConfigurarPage();
+        break;
+      case 'EmergenciaMensaje':
+        ayuda = AyudaMensajeEmergenciaPage();
+        break;
+      case 'Paleta':
+        ayuda = AyudaPaletaPage();
+        break;
+      case 'Opciones':
+        ayuda = AyudaOpcionesPage();
         break;
     }
     return ayuda;

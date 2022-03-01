@@ -235,8 +235,8 @@ class OpcionesPage extends StatelessWidget {
     ];
     return SafeArea(
       child: Scaffold(
-        appBar: headerApp(
-            context, 'Opciones Menu Principal', Text(''), 0.0, true, 'paleta'),
+        appBar: headerApp(context, 'Opciones Menu Principal', Text(''), 0.0,
+            true, 'Opciones'),
         //    backgroundColor: Colors.white,
         body: Container(
           padding: EdgeInsets.only(bottom: 40),
