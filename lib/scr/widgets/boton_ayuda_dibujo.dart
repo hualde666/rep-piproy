@@ -27,8 +27,8 @@ class BotonAyudaDibujo extends StatelessWidget {
       //   margin: EdgeInsets.only(right: 5),
       child: Center(
         child: Icon(
-          Icons.help,
-          size: 50,
+          Icons.help_outline_rounded,
+          size: 40,
           color: Theme.of(context).primaryColor,
         ),
         // Text(
