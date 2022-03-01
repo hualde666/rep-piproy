@@ -376,57 +376,40 @@ class BotonesEncabezado extends StatelessWidget {
     return showDialog(
         context: context,
         builder: (context) => AlertDialog(
-              backgroundColor: Colors.red[900],
+              //backgroundColor: Colors.red[900],
               title: Container(
                 width: 100,
                 height: 100,
                 child: Center(
-                  child: Text('¿ Desea salir de Vitalfon ?',
+                  child: Text('¿ Desea salir de vitalfon ?',
                       textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 28, color: Colors.white)),
+                      style: TextStyle(fontSize: 30, color: Colors.red)),
                 ),
               ),
 
               //shape: CircleBorder(),
               elevation: 14.0,
-              actionsPadding: EdgeInsets.symmetric(horizontal: 15.0),
-              //actionsAlignment: MainAxisAlignment.spaceAround,
+              //actionsPadding: EdgeInsets.symmetric(horizontal: 15.0),
+              actionsAlignment: MainAxisAlignment.spaceAround,
               actions: [
-                TextButton(
-                    onPressed: () {
-                      // se sale con flecha menu inferior
-                      SystemNavigator.pop();
+                ElevatedButton(
+                  onPressed: () {
+                    // se sale con flecha menu inferior
+                    SystemNavigator.pop();
 
-                      // exit(0);
-                      //Navigator.pop(context);
-                    },
-                    child: ClipOval(
-                      child: Container(
-                        height: 80,
-                        width: 80,
-                        color: Colors.black38,
-                        child: Center(
-                          child: Text('Si',
-                              style: TextStyle(
-                                  fontSize: 25.0, color: Colors.white)),
-                        ),
-                      ),
-                    )),
-                TextButton(
+                    // exit(0);
+                    //Navigator.pop(context);
+                  },
+                  child: Text('Si',
+                      style: TextStyle(fontSize: 25.0, color: Colors.white)),
+                ),
+                ElevatedButton(
                     autofocus: true,
                     onPressed: () {
                       Navigator.pop(context);
                     },
-                    child: ClipOval(
-                        child: Container(
-                            height: 80,
-                            width: 80,
-                            color: Colors.black38,
-                            child: Center(
-                                child: Text('No',
-                                    style: TextStyle(
-                                        fontSize: 25.0,
-                                        color: Colors.white))))))
+                    child: Text('No',
+                        style: TextStyle(fontSize: 25.0, color: Colors.white)))
               ],
             ));
   }
