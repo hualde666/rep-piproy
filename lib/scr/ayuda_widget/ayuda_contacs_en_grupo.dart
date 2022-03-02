@@ -150,6 +150,87 @@ class AyudaContactosPorGrupos extends StatelessWidget {
       SizedBox(
         height: 10,
       ),
+      Container(
+        margin: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+        decoration: BoxDecoration(
+            color: Theme.of(context).backgroundColor,
+            /** es un contacto o grupo de contacto */
+            // Theme.of(context).backgroundColor,
+            borderRadius: BorderRadius.circular(20.0),
+            border: Border.all(
+              color: Theme.of(context).primaryColor,
+            )),
+        child: Center(
+          child: Text(
+            'Nombre Contacto',
+            style:
+                TextStyle(fontSize: 30, color: Theme.of(context).primaryColor),
+          ),
+        ),
+      ),
+      Container(
+        //width: double.infinity,
+        margin: EdgeInsets.only(left: 6, right: 6, top: 3),
+        child: Text(
+          'Tocando sobre el nombre del contacto, apareceran cuatro opciones:',
+          textAlign: TextAlign.justify,
+          style: TextStyle(fontSize: 25, color: Theme.of(context).primaryColor),
+        ),
+      ),
+      Container(
+        margin: EdgeInsets.only(left: 10, right: 6, top: 3),
+        child: Text(
+          '   1.- Llamar a  contacto',
+          textAlign: TextAlign.justify,
+          style: TextStyle(fontSize: 25, color: Theme.of(context).primaryColor),
+        ),
+      ),
+      Container(
+        margin: EdgeInsets.only(left: 10, right: 6, top: 3),
+        child: Text(
+          '   2.- Whatsapp del contacto',
+          textAlign: TextAlign.justify,
+          style: TextStyle(fontSize: 25, color: Theme.of(context).primaryColor),
+        ),
+      ),
+      Container(
+        margin: EdgeInsets.only(left: 10, right: 6, top: 3),
+        child: Text(
+          '   3.-  Mensaje a este contacto',
+          textAlign: TextAlign.left,
+          style: TextStyle(fontSize: 25, color: Theme.of(context).primaryColor),
+        ),
+      ),
+      Container(
+        margin: EdgeInsets.only(left: 10, right: 6, top: 3),
+        child: Text(
+          '   4.- Consulta número de teléfono.',
+          textAlign: TextAlign.left,
+          style: TextStyle(fontSize: 25, color: Theme.of(context).primaryColor),
+        ),
+      ),
+      SizedBox(
+        height: 10,
+      ),
+      Container(
+        //width: double.infinity,
+        margin: EdgeInsets.only(left: 6, right: 6, top: 3),
+        child: Text(
+          'IMPORTANTE: incluya el signo "+" y el  código de país al número de teléfono del contacto (+XX) para poder ir directamente al Whatsapp del contacto.',
+          textAlign: TextAlign.justify,
+          style: TextStyle(fontSize: 25, color: Theme.of(context).primaryColor),
+        ),
+      ),
+      SizedBox(
+        height: 10,
+      ),
+      Divider(
+        height: 10,
+        color: Theme.of(context).primaryColor,
+      ),
+      SizedBox(
+        height: 10,
+      ),
     ];
     lista.addAll(lista2);
     return lista;

@@ -95,11 +95,11 @@ ThemeData themaApi(String color) {
         scaffoldBackgroundColor: Colors.black,
         //Color.fromRGBO(           39, 174, 96, 1.0), // Color.fromRGBO(220, 118, 51, 1),
         textTheme: TextTheme(
-            bodyText1: TextStyle(color: Color.fromARGB(255, 8, 194, 240)),
-            bodyText2: TextStyle(color: Color.fromARGB(255, 8, 194, 240))),
+            bodyText1: TextStyle(color: Color.fromARGB( 255, 3, 157, 246)),
+            bodyText2: TextStyle(color: Color.fromARGB( 255, 3, 157, 246))),
 
         iconTheme:
-            IconThemeData(color: Color.fromARGB(255, 8, 194, 240), size: 40),
+            IconThemeData(color: Color.fromARGB( 255, 3, 157, 246), size: 40),
         floatingActionButtonTheme: FloatingActionButtonThemeData(
           extendedTextStyle: TextStyle(
             color: Colors.amber,
@@ -109,7 +109,7 @@ ThemeData themaApi(String color) {
         ),
         elevatedButtonTheme: ElevatedButtonThemeData(
             style: ElevatedButton.styleFrom(
-          primary: Color.fromARGB(255, 8, 108, 240),
+          primary: Color.fromARGB( 255, 3, 157, 246),
           textStyle: TextStyle(fontSize: 25, color: Colors.white),
         )),
       );
