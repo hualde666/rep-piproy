@@ -4,7 +4,7 @@ import 'package:piproy/scr/widgets/tres_botones_header.dart';
 Widget headerApp(BuildContext context, String titulo, Widget otroWidget,
     double alto, bool conrojo, String pagina) {
   return PreferredSize(
-    preferredSize: Size.fromHeight(185.0 + alto),
+    preferredSize: Size.fromHeight(190.0 + alto),
     child: Container(
       width: double.infinity,
       child: Column(

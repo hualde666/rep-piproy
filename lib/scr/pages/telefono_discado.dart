@@ -21,7 +21,7 @@ class _DiscadoState extends State<Discado> {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-      appBar: headerApp(context, 'Teléfono', Text(''), 0.0, true, 'Ayuda'),
+      appBar: headerApp(context, 'Teléfono', Text(''), 0.0, true, 'Discado'),
       // backgroundColor: Colors.white,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,

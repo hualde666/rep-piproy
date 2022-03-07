@@ -15,6 +15,7 @@ import '../ayuda_widget/ayuda_boton_rojo.dart';
 import '../ayuda_widget/ayuda_configurar.dart';
 import '../ayuda_widget/ayuda_contacs_en_grupo.dart';
 import '../ayuda_widget/ayuda_contacs_grupos.dart';
+import '../ayuda_widget/ayuda_discado.dart';
 import '../ayuda_widget/ayuda_mensaje_emergencia.dart';
 import '../ayuda_widget/ayuda_opciones.dart';
 import '../ayuda_widget/ayuda_paleta.dart';
@@ -78,6 +79,9 @@ class Ayuda extends StatelessWidget {
       case 'BotonRojo':
         ayuda = AyudaBotonRojoPage();
         break;
+      case 'Discado':
+        ayuda = AyudaDiscadoPage();
+        break;
     }
     return ayuda;
   }
@@ -85,7 +89,7 @@ class Ayuda extends StatelessWidget {
 
 Widget headerAyuda(BuildContext context, String pagina) {
   return PreferredSize(
-    preferredSize: Size.fromHeight(185.0),
+    preferredSize: Size.fromHeight(190.0),
     child: Container(
       width: double.infinity,
       child: Column(
