@@ -167,7 +167,6 @@ class WidgetApi extends StatefulWidget {
 class _WidgetApiState extends State<WidgetApi> {
   @override
   Widget build(BuildContext context) {
-    print(widget.listaNueva);
     final selecionada = widget.listaNueva.contains(widget.api);
     Color color =
         selecionada ? Theme.of(context).backgroundColor : Colors.grey[700];
@@ -180,7 +179,6 @@ class _WidgetApiState extends State<WidgetApi> {
           //    .modiApiListaPorTipo(api);
 
           if (widget.listaNueva.contains(widget.api)) {
-            // agrego bd
             widget.listaNueva.remove(widget.api);
           } else {
             widget.listaNueva.add(widget.api);

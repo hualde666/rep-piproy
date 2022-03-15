@@ -5,7 +5,7 @@ import 'package:piproy/scr/pages/api_grupos.dart';
 import 'package:piproy/scr/pages/conta_grupos.dart';
 import 'package:piproy/scr/pages/contacts_por_grupo.dart';
 import 'package:piproy/scr/pages/mensaje_emergencia.dart';
-import 'package:piproy/scr/pages/permisos_contactos.dart';
+
 import 'package:piproy/scr/pages/opciones_page.dart';
 import 'package:piproy/scr/pages/paletta_colores.dart';
 import 'package:piproy/scr/pages/presentacion_page.dart';
@@ -223,22 +223,22 @@ class ConfiguracionPage extends StatelessWidget {
             height: 10,
             color: Theme.of(context).primaryColor,
           ),
-          ListTile(
-            leading: Icon(
-              Icons.gavel_rounded,
-              size: 40.0,
-              color: Theme.of(context).primaryColor,
-            ),
-            title: Text('Simulación',
-                style: TextStyle(
-                  fontSize: 25,
-                  color: Theme.of(context).primaryColor,
-                )),
-            onTap: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => InstalacionPage()));
-            },
-          ),
+          // ListTile(
+          //   leading: Icon(
+          //     Icons.gavel_rounded,
+          //     size: 40.0,
+          //     color: Theme.of(context).primaryColor,
+          //   ),
+          //   title: Text('Simulación',
+          //       style: TextStyle(
+          //         fontSize: 25,
+          //         color: Theme.of(context).primaryColor,
+          //       )),
+          //   onTap: () {
+          //     Navigator.push(context,
+          //         MaterialPageRoute(builder: (context) => InstalacionPage()));
+          //   },
+          // ),
         ]),
         // floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
         // floatingActionButton: BotonFlotante(pagina: 'configurar'),

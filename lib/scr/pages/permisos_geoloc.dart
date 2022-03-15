@@ -61,7 +61,7 @@ class GeoPermisos extends StatelessWidget {
                         height: 20,
                       ),
                       Text(
-                        ' Para enviar tu ubicación en caso de emergencia, necesitamos  nos autorices a acceder a tu geolocalización.',
+                        ' Para enviar tu LOCALIZACION  en caso de emergencia, necesitamos  nos autorices a acceder a ella.',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             fontStyle: FontStyle.italic,

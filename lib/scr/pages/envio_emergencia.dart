@@ -127,7 +127,7 @@ Future _geoLocal() async {
   }
 
   final pos = await location.getLocation();
-  print(pos);
+
   return pos;
 }
 
@@ -149,7 +149,6 @@ mandarSMS(List<ContactoDatos> listaE) async {
     final lat = pos.latitude;
     final lng = pos.longitude;
     pos2 = ' https://maps.google.com/?q=$lat,$lng';
-    print(pos2);
   }
 
   for (int i = 0; i < listaE.length; i++) {

@@ -126,8 +126,8 @@ class AndroidChannel {
     try {
       var parametros = {'phone': "smsto: " + phone, 'mensaje': mensaje};
 
-      var enviado = await _methodChannel.invokeMethod("mandarsms", parametros);
-      print(enviado);
+      await _methodChannel.invokeMethod("mandarsms", parametros);
+
       return;
     } catch (e) {
       return e;
