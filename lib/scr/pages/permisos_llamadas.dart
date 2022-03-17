@@ -60,11 +60,11 @@ class LLamadasPermisos extends StatelessWidget {
                         height: 20,
                       ),
                       Text(
-                        ' Para facilitar tus llamadas, vamos a requerir que nos autorices a realizar llamadas.',
+                        ' Para facilitar tus llamadas, vamos a requerir que nos autorices a realizar llamadas. vitalfon solo realizará las llamadas que tu solicites.',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             fontStyle: FontStyle.italic,
-                            fontSize: 35,
+                            fontSize: 30,
                             color: Color.fromARGB(255, 4, 135, 211)),
                       ),
                     ],

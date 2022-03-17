@@ -58,15 +58,15 @@ class MensajesPermisos extends StatelessWidget {
                         height: 10,
                       ),
                       Text(
-                        'Para enviar tu alerta en caso de emergencia, necesitamos nos permitas enviar mensajes de texto (sms)',
+                        'Para enviar tu alerta en caso de emergencia, necesitamos nos permitas enviar mensajes de texto (sms). Solo será enviado cuando vitalfon esté en pantalla y se presione el botón de emergencia.',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             fontStyle: FontStyle.italic,
-                            fontSize: 35,
+                            fontSize: 30,
                             color: Color.fromARGB(255, 4, 135, 211)),
                       ),
                       SizedBox(
-                        height: 30,
+                        height: 10,
                       ),
                       Container(
                         child: Icon(

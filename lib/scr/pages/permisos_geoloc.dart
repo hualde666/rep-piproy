@@ -58,20 +58,20 @@ class GeoPermisos extends StatelessWidget {
                         ),
                       ),
                       SizedBox(
-                        height: 20,
+                        height: 10,
                       ),
                       Text(
-                        ' Para enviar tu LOCALIZACION  en caso de emergencia, necesitamos  nos autorices a acceder a ella.',
+                        ' Para enviar tu LOCALIZACION  en caso de emergencia, necesitamos  nos autorices a acceder a ella. Solamente será usada al momento de tocar el botón de emergencia y por tanto vitalfon está en pantalla. ',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             fontStyle: FontStyle.italic,
-                            fontSize: 35,
+                            fontSize: 30,
                             color: Color.fromARGB(255, 4, 135, 211)),
                       ),
                     ],
                   ),
                   SizedBox(
-                    height: 30,
+                    height: 10,
                   ),
                   Container(
                     child: Icon(
