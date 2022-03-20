@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-
 import 'package:piproy/channel/channel_android.dart';
-import 'package:piproy/scr/pages/permisos_llamadas.dart';
 
-//import 'package:piproy/channel/channel_android.dart';
+import 'package:piproy/scr/pages/permisos_llamadas.dart';
 
 class GeoPermisos extends StatelessWidget {
   // GpsPage({@required context});
@@ -75,29 +73,52 @@ class GeoPermisos extends StatelessWidget {
                   ),
                   Container(
                     child: Icon(
-                      Icons.gps_fixed_rounded,
+                      Icons.location_on,
+                      //Icons.gps_fixed_rounded,
                       size: 80,
                       color: Color.fromARGB(255, 4, 135, 211),
                     ),
-                  )
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  ElevatedButton(
+                      onPressed: () async {
+                        AndroidChannel _androidChannel = new AndroidChannel();
+                        await _androidChannel.permisoGeo();
+
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => LLamadasPermisos()));
+                      },
+                      style: ElevatedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(25)),
+                          // side: BorderSide() ,
+                          primary: Color.fromRGBO(249, 75, 11, 1)),
+                      child: Text(
+                        'siguiente ->',
+                        style: TextStyle(fontSize: 25, color: Colors.white),
+                      )),
                 ],
               ),
-            ),
-            floatingActionButtonLocation:
-                FloatingActionButtonLocation.centerDocked,
-            floatingActionButton: FloatingActionButton.extended(
-                heroTag: "siguiente",
-                label: Text(
-                  'siguiente',
-                ),
-                onPressed: () async {
-                  AndroidChannel _androidChannel = AndroidChannel();
-                  await _androidChannel.permisoGeo();
+            )));
+    // floatingActionButtonLocation:
+    //     FloatingActionButtonLocation.centerDocked,
+    // floatingActionButton: FloatingActionButton.extended(
+    //     heroTag: "siguiente",
+    //     label: Text(
+    //       'siguiente',
+    //     ),
+    //     onPressed: () async {
+    //       AndroidChannel _androidChannel = AndroidChannel();
+    //       await _androidChannel.permisoGeo();
 
-                  Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => LLamadasPermisos()));
-                })));
+    //       Navigator.pushReplacement(
+    //           context,
+    //           MaterialPageRoute(
+    //               builder: (context) => LLamadasPermisos()));
+    //     })));
   }
 }
