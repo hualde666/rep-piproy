@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:piproy/scr/pages/home2_page.dart';
+
 import 'package:provider/provider.dart';
 import 'package:url_launcher/link.dart';
+
+import 'package:piproy/scr/pages/configuracion_page.dart';
 
 import '../providers/usuario_pref.dart';
 
@@ -138,49 +140,52 @@ class _PolitcasPrivacidadState extends State<PolitcasPrivacidad> {
             SizedBox(
               height: 30,
             ),
-            Row(
+            Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                ElevatedButton(
-                    onPressed: () {
-                      if (!aceptar) {
-                        SystemNavigator.pop();
-                      }
-                    },
-                    style: ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(25)),
-                        // side: BorderSide() ,
-                        primary: Color.fromRGBO(249, 75, 11, 1)),
-                    child: Text(
-                      '     salir     ',
-                      style: TextStyle(fontSize: 25, color: Colors.white),
-                    )),
-                SizedBox(
-                  width: 10,
-                ),
-                ElevatedButton(
-                    onPressed: () {
-                      if (aceptar) {
-                        pref.instalado = true;
+                Container(
+                  width: 170,
+                  child: ElevatedButton(
+                      onPressed: () {
+                        if (aceptar) {
+                          pref.instalado = true;
 
-                        Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => Home2Page()));
-                      }
-                    },
-                    style: ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(25)),
-                        // side: BorderSide() ,
-                        primary: aceptar
-                            ? Color.fromRGBO(249, 75, 11, 1)
-                            : Colors.grey),
-                    child: Text(
-                      'comenzar ->',
-                      style: TextStyle(fontSize: 25, color: Colors.white),
-                    )),
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ConfiguracionPage()));
+                        }
+                      },
+                      style: ElevatedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(25)),
+                          // side: BorderSide() ,
+                          primary: aceptar
+                              ? Color.fromRGBO(249, 75, 11, 1)
+                              : Colors.grey),
+                      child: Text(
+                        'comenzar ->',
+                        style: TextStyle(fontSize: 25, color: Colors.white),
+                      )),
+                ),
+                Container(
+                  width: 170,
+                  child: ElevatedButton(
+                      onPressed: () {
+                        if (!aceptar) {
+                          SystemNavigator.pop();
+                        }
+                      },
+                      style: ElevatedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(25)),
+                          // side: BorderSide() ,
+                          primary: Color.fromRGBO(249, 75, 11, 1)),
+                      child: Text(
+                        'salir',
+                        style: TextStyle(fontSize: 25, color: Colors.white),
+                      )),
+                ),
               ],
             ),
           ],

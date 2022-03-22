@@ -150,9 +150,9 @@ class AndroidChannel {
     }
   }
 
-  Future<void> permisoSms() async {
+  Future<bool> permisoSms() async {
     try {
-      await _methodChannel.invokeMethod("permisosms", '');
+      return await _methodChannel.invokeMethod("permisosms", '');
     } catch (e) {
       return e;
     }

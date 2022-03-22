@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
+import 'package:provider/provider.dart';
+
 import 'package:piproy/scr/definicion/thema_colores.dart';
 import 'package:piproy/scr/pages/api_grupos.dart';
 import 'package:piproy/scr/pages/ayuda.dart';
@@ -7,7 +10,7 @@ import 'package:piproy/scr/pages/ayuda.dart';
 import 'package:piproy/scr/pages/conta_grupos.dart';
 
 import 'package:piproy/scr/pages/home2_page.dart';
-import 'package:piproy/scr/pages/permisos_contactos.dart';
+import 'package:piproy/scr/pages/permisos_bienvenida.dart';
 
 import 'package:piproy/scr/providers/aplicaciones_provider.dart';
 
@@ -16,7 +19,6 @@ import 'package:piproy/scr/providers/contactos_provider.dart';
 import 'package:piproy/scr/providers/estado_celular.dart';
 import 'package:piproy/scr/providers/usuario_pref.dart';
 
-import 'package:provider/provider.dart';
 import 'package:piproy/scr/providers/db_provider.dart';
 
 void main() async {
@@ -70,7 +72,7 @@ Map<String, WidgetBuilder> get rutasApp {
     'home': (_) => Home2Page(),
     'contactos': (_) => ContactsGruposPage(),
     'apigrupos': (_) => ApiGruposPage(),
-    'instalar': (_) => InstalacionPage(),
+    'instalar': (_) => BienvenidaPage(),
     'ayuda': (_) => Ayuda(),
   };
 }

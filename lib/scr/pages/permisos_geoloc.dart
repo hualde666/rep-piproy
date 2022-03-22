@@ -3,9 +3,13 @@ import 'package:piproy/channel/channel_android.dart';
 
 import 'package:piproy/scr/pages/permisos_llamadas.dart';
 
-class GeoPermisos extends StatelessWidget {
-  // GpsPage({@required context});
-  //BuildContext context;
+class GeoPermisos extends StatefulWidget {
+  @override
+  State<GeoPermisos> createState() => _GeoPermisosState();
+}
+
+class _GeoPermisosState extends State<GeoPermisos> {
+  bool autorizado = false;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -82,25 +86,54 @@ class GeoPermisos extends StatelessWidget {
                   SizedBox(
                     height: 10,
                   ),
-                  ElevatedButton(
-                      onPressed: () async {
-                        AndroidChannel _androidChannel = new AndroidChannel();
-                        await _androidChannel.permisoGeo();
-
-                        Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => LLamadasPermisos()));
-                      },
-                      style: ElevatedButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(25)),
-                          // side: BorderSide() ,
-                          primary: Color.fromRGBO(249, 75, 11, 1)),
-                      child: Text(
-                        'siguiente ->',
-                        style: TextStyle(fontSize: 25, color: Colors.white),
-                      )),
+                  !autorizado
+                      ? Container(
+                          width: 170,
+                          child: ElevatedButton(
+                              onPressed: () async {
+                                AndroidChannel _androidChannel =
+                                    new AndroidChannel();
+                                await _androidChannel.permisoGeo();
+                                autorizado = true;
+                                setState(() {});
+                              },
+                              style: ElevatedButton.styleFrom(
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(25)),
+                                  // side: BorderSide() ,
+                                  primary: Color.fromRGBO(249, 75, 11, 1)),
+                              child: Text(
+                                'autorizar ->',
+                                style: TextStyle(
+                                    fontSize: 25, color: Colors.white),
+                              )),
+                        )
+                      : Container(),
+                  autorizado
+                      ? Container(
+                          width: 170,
+                          child: ElevatedButton(
+                              onPressed: () {
+                                Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            LLamadasPermisos()));
+                              },
+                              style: ElevatedButton.styleFrom(
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(25)),
+                                  // side: BorderSide() ,
+                                  primary: autorizado
+                                      ? Color.fromRGBO(249, 75, 11, 1)
+                                      : Colors.grey),
+                              child: Text(
+                                'siguiente ->',
+                                style: TextStyle(
+                                    fontSize: 25, color: Colors.white),
+                              )),
+                        )
+                      : Container(),
                 ],
               ),
             )));

@@ -3,7 +3,13 @@ import 'package:permission_handler/permission_handler.dart';
 
 import 'package:piproy/scr/pages/permisos_mensajes.dart';
 
-class InstalacionPage extends StatelessWidget {
+class InstalacionPage extends StatefulWidget {
+  @override
+  State<InstalacionPage> createState() => _InstalacionPageState();
+}
+
+class _InstalacionPageState extends State<InstalacionPage> {
+  bool autorizado = false;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -90,47 +96,56 @@ class InstalacionPage extends StatelessWidget {
                 color: Color.fromARGB(255, 4, 135, 211),
               ),
             ),
-            ElevatedButton(
-                onPressed: () async {
-                  await Permission.contacts.request();
-                  Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => MensajesPermisos()));
+            SizedBox(
+              height: 30,
+            ),
+            !autorizado
+                ? Container(
+                    width: 170,
+                    child: ElevatedButton(
+                        onPressed: () async {
+                          autorizado = true;
+                          await Permission.contacts.request();
+                          setState(() {});
+                        },
+                        style: ElevatedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(25)),
+                            // side: BorderSide() ,
+                            primary: Color.fromRGBO(249, 75, 11, 1)),
+                        child: Text(
+                          'autorizar ->',
+                          style: TextStyle(fontSize: 25, color: Colors.white),
+                        )),
+                  )
+                : Container(),
+            autorizado
+                ? Container(
+                    width: 170,
+                    child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => MensajesPermisos()));
 
-                  // Navigator.pop(context);
-                },
-                style: ElevatedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(25)),
-                    // side: BorderSide() ,
-                    primary: Color.fromRGBO(249, 75, 11, 1)),
-                child: Text(
-                  'siguiente ->',
-                  style: TextStyle(fontSize: 25, color: Colors.white),
-                )),
+                          // Navigator.pop(context);
+                        },
+                        style: ElevatedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(25)),
+                            primary: autorizado
+                                ? Color.fromRGBO(249, 75, 11, 1)
+                                : Colors.grey),
+                        child: Text(
+                          'siguiente ->',
+                          style: TextStyle(fontSize: 25, color: Colors.white),
+                        )),
+                  )
+                : Container(),
           ],
         ),
       )),
-      // floatingActionButtonLocation:
-      //     FloatingActionButtonLocation.centerDocked,
-      // floatingActionButton: FloatingActionButton.extended(
-      //     heroTag: "siguiente",
-      //     // icon: Icon(
-      //     //   Icons.save,
-      //     // ),
-      //     label: Text(
-      //       'siguiente',
-      //     ),
-      //     onPressed: () async {
-      //       await Permission.contacts.request();
-      //       Navigator.pushReplacement(
-      //           context,
-      //           MaterialPageRoute(
-      //               builder: (context) => MensajesPermisos()));
-
-      //       // Navigator.pop(context);
-      //     })
     ));
   }
 }

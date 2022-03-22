@@ -2,11 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:piproy/channel/channel_android.dart';
 import 'package:piproy/scr/pages/permisos_geoloc.dart';
 
-class MensajesPermisos extends StatelessWidget {
+class MensajesPermisos extends StatefulWidget {
+  @override
+  State<MensajesPermisos> createState() => _MensajesPermisosState();
+}
+
+class _MensajesPermisosState extends State<MensajesPermisos> {
+  bool autorizado = false;
   // GpsPage({@required context});
-  //BuildContext context;
   @override
   Widget build(BuildContext context) {
+    AndroidChannel _androidChannel = AndroidChannel();
+
     return SafeArea(
         child: Scaffold(
       backgroundColor: Colors.white,
@@ -79,43 +86,51 @@ class MensajesPermisos extends StatelessWidget {
             SizedBox(
               height: 30,
             ),
-            ElevatedButton(
-                onPressed: () async {
-                  AndroidChannel _androidChannel = AndroidChannel();
-                  await _androidChannel.permisoSms();
-
-                  Navigator.pushReplacement(context,
-                      MaterialPageRoute(builder: (context) => GeoPermisos()));
-                },
-                style: ElevatedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(25)),
-                    // side: BorderSide() ,
-                    primary: Color.fromRGBO(249, 75, 11, 1)),
-                child: Text(
-                  'siguiente ->',
-                  style: TextStyle(fontSize: 25, color: Colors.white),
-                )),
+            !autorizado
+                ? Container(
+                    width: 170,
+                    child: ElevatedButton(
+                        onPressed: () async {
+                          autorizado = await _androidChannel.permisoSms();
+                          setState(() {});
+                        },
+                        style: ElevatedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(25)),
+                            // side: BorderSide() ,
+                            primary: Color.fromRGBO(249, 75, 11, 1)),
+                        child: Text(
+                          'autorizar ->',
+                          style: TextStyle(fontSize: 25, color: Colors.white),
+                        )),
+                  )
+                : Container(),
+            autorizado
+                ? Container(
+                    width: 170,
+                    child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => GeoPermisos()));
+                        },
+                        style: ElevatedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(25)),
+                            // side: BorderSide() ,
+                            primary: autorizado
+                                ? Color.fromRGBO(249, 75, 11, 1)
+                                : Colors.grey),
+                        child: Text(
+                          'siguiente ->',
+                          style: TextStyle(fontSize: 25, color: Colors.white),
+                        )),
+                  )
+                : Container(),
           ],
         ),
       ),
-      // floatingActionButtonLocation:
-      //     FloatingActionButtonLocation.centerDocked,
-      // floatingActionButton: FloatingActionButton.extended(
-      //     heroTag: "siguiente",
-      //     // icon: Icon(
-      //     //   Icons.save,
-      //     // ),
-      //     label: Text(
-      //       'siguiente',
-      //     ),
-      //     onPressed: () async {
-      //       AndroidChannel _androidChannel = AndroidChannel();
-      //       await _androidChannel.permisoSms();
-
-      //       Navigator.pushReplacement(context,
-      //           MaterialPageRoute(builder: (context) => GeoPermisos()));
-      //     })
     ));
   }
 }

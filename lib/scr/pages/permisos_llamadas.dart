@@ -2,7 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:piproy/channel/channel_android.dart';
 import 'package:piproy/scr/pages/permisos_politicas_privasidad_page.dart';
 
-class LLamadasPermisos extends StatelessWidget {
+class LLamadasPermisos extends StatefulWidget {
+  @override
+  State<LLamadasPermisos> createState() => _LLamadasPermisosState();
+}
+
+class _LLamadasPermisosState extends State<LLamadasPermisos> {
+  bool autorizado = false;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -75,42 +81,54 @@ class LLamadasPermisos extends StatelessWidget {
                       color: Color.fromARGB(255, 4, 135, 211),
                     ),
                   ),
-                  ElevatedButton(
-                      onPressed: () async {
-                        AndroidChannel _androidChannel = AndroidChannel();
-                        // await FlutterPhoneDirectCaller.callNumber('');
-                        await _androidChannel.permisoCall();
-                        Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => PolitcasPrivacidad()));
-                      },
-                      style: ElevatedButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(25)),
-                          // side: BorderSide() ,
-                          primary: Color.fromRGBO(249, 75, 11, 1)),
-                      child: Text(
-                        'siguiente ->',
-                        style: TextStyle(fontSize: 25, color: Colors.white),
-                      )),
+                  !autorizado
+                      ? Container(
+                          width: 170,
+                          child: ElevatedButton(
+                              onPressed: () async {
+                                AndroidChannel _androidChannel =
+                                    AndroidChannel();
+                                // await FlutterPhoneDirectCaller.callNumber('');
+                                await _androidChannel.permisoCall();
+                                autorizado = true;
+                                setState(() {});
+                              },
+                              style: ElevatedButton.styleFrom(
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(25)),
+                                  // side: BorderSide() ,
+                                  primary: Color.fromRGBO(249, 75, 11, 1)),
+                              child: Text(
+                                'autorizar ->',
+                                style: TextStyle(
+                                    fontSize: 25, color: Colors.white),
+                              )),
+                        )
+                      : Container(),
+                  autorizado
+                      ? Container(
+                          width: 170,
+                          child: ElevatedButton(
+                              onPressed: () async {
+                                Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            PolitcasPrivacidad()));
+                              },
+                              style: ElevatedButton.styleFrom(
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(25)),
+                                  // side: BorderSide() ,
+                                  primary: Color.fromRGBO(249, 75, 11, 1)),
+                              child: Text(
+                                'siguiente ->',
+                                style: TextStyle(
+                                    fontSize: 25, color: Colors.white),
+                              )))
+                      : Container(),
                 ],
               ),
             )));
-    // floatingActionButtonLocation:
-    //     FloatingActionButtonLocation.centerDocked,
-    // floatingActionButton: FloatingActionButton.extended(
-    //     heroTag: "siguiente",
-    //     label: Text(
-    //       'siguiente',
-    //     ),
-    //     onPressed: () async {
-    //       AndroidChannel _androidChannel = AndroidChannel();
-    //       // await FlutterPhoneDirectCaller.callNumber('');
-    //       await _androidChannel.permisoCall();
-    //       pref.instalado = true;
-    //       Navigator.pushReplacement(context,
-    //           MaterialPageRoute(builder: (context) => Home2Page()));
-    //     })));
   }
 }
