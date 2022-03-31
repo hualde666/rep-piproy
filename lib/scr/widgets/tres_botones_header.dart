@@ -33,7 +33,7 @@ Widget tresBotonesHeader(
             SizedBox(
               height: 10,
             ),
-            botonBackHeader(context)
+            botonBackHeader(context, pagina)
           ],
         )
       ], // Ho

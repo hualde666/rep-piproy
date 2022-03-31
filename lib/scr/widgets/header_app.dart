@@ -3,10 +3,17 @@ import 'package:piproy/scr/widgets/tres_botones_header.dart';
 
 Widget headerApp(BuildContext context, String titulo, Widget otroWidget,
     double alto, bool conrojo, String pagina) {
+  double width = MediaQuery.of(context).size.width;
+  double altoHeader = 200;
+  if (width <= 320) {
+    altoHeader = 170;
+  }
+
   return PreferredSize(
-    preferredSize: Size.fromHeight(190.0 + alto),
+    preferredSize: Size.fromHeight(altoHeader + alto),
     child: Container(
-      width: double.infinity,
+      //width: double.infinity,
+
       child: Column(
         children: [
           tresBotonesHeader(context, conrojo, pagina),

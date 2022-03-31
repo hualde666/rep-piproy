@@ -101,7 +101,7 @@ conListaEmergenia(BuildContext context, List<ContactoDatos> listaE) {
   return Center(
     child: Container(
       //height: 400.0,
-      margin: EdgeInsets.only(left: 10.0, bottom: 50, right: 10),
+      margin: EdgeInsets.only(left: 10.0, bottom: 25, right: 10),
       //   alignment: Alignment.center,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -144,8 +144,8 @@ conListaEmergenia(BuildContext context, List<ContactoDatos> listaE) {
                           )));
             },
             child: Container(
-              height: 180,
-              width: 180,
+              height: MediaQuery.of(context).size.width <= 320 ? 150 : 180,
+              width: MediaQuery.of(context).size.width <= 320 ? 150 : 180,
               decoration: BoxDecoration(
                   color: pref.paleta == '4' ? Colors.black : Colors.white,
                   borderRadius: BorderRadius.circular(100.0),
@@ -188,11 +188,11 @@ sinListaEmergenia(BuildContext context) {
 
   return Center(
       child: Container(
-    height: 400.0,
-    margin: EdgeInsets.only(left: 10.0, bottom: 100, right: 10),
+    height: 420.0,
+    margin: EdgeInsets.only(left: 10.0, bottom: 80, right: 10),
     alignment: Alignment.center,
     child: Column(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
           'ADVERTENCIA',

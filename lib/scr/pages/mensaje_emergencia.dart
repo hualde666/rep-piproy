@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'package:piproy/scr/widgets/header_app.dart';
 
@@ -94,6 +95,9 @@ class _EmergenciaMensajeState extends State<EmergenciaMensaje> {
                         maxLines: null,
                         autofocus: true,
                         keyboardType: TextInputType.text,
+                        inputFormatters: [
+                          FilteringTextInputFormatter.allow(RegExp("[a-zA-Z]")),
+                        ],
                         controller: _textController,
                         decoration: InputDecoration(
                           labelStyle: TextStyle(

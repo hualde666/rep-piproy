@@ -3,6 +3,8 @@ import 'package:piproy/channel/channel_android.dart';
 
 import 'package:piproy/scr/pages/permisos_llamadas.dart';
 
+import '../widgets/logo_header.dart';
+
 class GeoPermisos extends StatefulWidget {
   @override
   State<GeoPermisos> createState() => _GeoPermisosState();
@@ -21,44 +23,11 @@ class _GeoPermisosState extends State<GeoPermisos> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SizedBox(
-                    height: 20,
+                    height: 10,
                   ),
                   Column(
                     children: [
-                      Container(
-                        //  color: Colors.green,
-                        width: double.infinity,
-                        height: 100,
-                        child: Stack(
-                          children: [
-                            Positioned(
-                              left: 40,
-                              // top: 32,
-                              child: Container(
-                                height: 100,
-                                width: 100,
-                                child: Image(
-                                    image: AssetImage(
-                                        'assets/icon_otro_blanco.png'),
-                                    fit: BoxFit.fill),
-                              ),
-                            ),
-                            Positioned(
-                              left: 80,
-                              top: 10,
-                              child: Text(
-                                'vitalfon',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    fontSize: 60,
-                                    color: Color.fromARGB(255, 79, 180, 238),
-                                    fontWeight: FontWeight.bold,
-                                    fontStyle: FontStyle.italic),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
+                      logoHeader(),
                       SizedBox(
                         height: 10,
                       ),
@@ -67,13 +36,13 @@ class _GeoPermisosState extends State<GeoPermisos> {
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             fontStyle: FontStyle.italic,
-                            fontSize: 30,
+                            fontSize: 25,
                             color: Color.fromARGB(255, 4, 135, 211)),
                       ),
                     ],
                   ),
                   SizedBox(
-                    height: 10,
+                    height: 5,
                   ),
                   Container(
                     child: Icon(
@@ -84,7 +53,7 @@ class _GeoPermisosState extends State<GeoPermisos> {
                     ),
                   ),
                   SizedBox(
-                    height: 10,
+                    height: 5,
                   ),
                   !autorizado
                       ? Container(

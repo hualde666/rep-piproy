@@ -53,6 +53,13 @@ class ApiGruposPage extends StatelessWidget {
     BuildContext context,
     String grupo,
   ) {
+    double width = MediaQuery.of(context).size.width;
+    // double height = MediaQuery.of(context).size.height;
+    double ancho = 280;
+
+    if (width <= 400) {
+      ancho = 200;
+    }
     return GestureDetector(
       onLongPress: () {
         if (grupo != 'Todas') {
@@ -102,7 +109,7 @@ class ApiGruposPage extends StatelessWidget {
                           builder: (context) => ApiPorGrupoPage()));
                 },
                 child: Container(
-                  width: 280,
+                  width: ancho,
                   // color: Theme.of(context),
                   child: Center(
                     child: Text(

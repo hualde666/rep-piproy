@@ -135,7 +135,7 @@ Widget tresBotonesHeader(BuildContext context, String pagina) {
               height: 10,
             ),
 
-            botonBackHeader(context)
+            botonBackHeader(context, 'Ayuda')
           ],
         )
       ], // Ho

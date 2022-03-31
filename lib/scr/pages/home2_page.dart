@@ -42,12 +42,21 @@ class _Home2PageState extends State<Home2Page> {
   @override
   Widget build(BuildContext context) {
     final pref = Provider.of<Preferencias>(context);
+    double width = MediaQuery.of(context).size.width;
 
+    double altoConMenuHorizontal = 275;
+    double altoSinMenuHorizontal = 196;
+    if (width <= 320) {
+      altoSinMenuHorizontal = 186;
+      altoConMenuHorizontal = 261;
+    }
     // final lista = apiProvider.listaMenu;
     return SafeArea(
       child: Scaffold(
         appBar: PreferredSize(
-          preferredSize: Size.fromHeight(pref.menuHorizontal ? 275.0 : 196.0),
+          preferredSize: Size.fromHeight(pref.menuHorizontal
+              ? altoConMenuHorizontal
+              : altoSinMenuHorizontal),
           child: encabezadoApp(context),
         ),
         body: FutureBuilder(
@@ -273,6 +282,19 @@ listaContactos(BuildContext context, List<String> listaMenu) async {
 class BotonesEncabezado extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+
+    //double height = MediaQuery.of(context).size.height;
+    double anchoConfig = 50;
+    double iconConfig = 30;
+    double anchoContainer = 110;
+    double altoContainer = 90;
+    if (width <= 320) {
+      anchoConfig = 40;
+      iconConfig = 20;
+      anchoContainer = 80;
+      altoContainer = 70;
+    }
     return Container(
       child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -313,8 +335,8 @@ class BotonesEncabezado extends StatelessWidget {
                               builder: (context) => ConfiguracionPage()));
                     },
                     child: Container(
-                        width: 50,
-                        height: 50,
+                        width: anchoConfig,
+                        height: anchoConfig,
                         decoration: BoxDecoration(
                             color: Colors.black38,
                             boxShadow: [
@@ -333,7 +355,7 @@ class BotonesEncabezado extends StatelessWidget {
                         child: Center(
                           child: Icon(
                             Icons.build,
-                            size: 30,
+                            size: iconConfig,
                             color: Theme.of(context).primaryColor,
                           ),
                           //  Text(
@@ -362,8 +384,8 @@ class BotonesEncabezado extends StatelessWidget {
                     child: BotonAyudaDibujo(),
                   ),
                   Container(
-                    height: 110,
-                    width: 90,
+                    height: altoContainer,
+                    width: anchoContainer,
                   )
                 ],
               ),

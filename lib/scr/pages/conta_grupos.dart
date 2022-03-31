@@ -50,6 +50,13 @@ class ContactsGruposPage extends StatelessWidget {
     BuildContext context,
     String grupo,
   ) {
+    double width = MediaQuery.of(context).size.width;
+    // double height = MediaQuery.of(context).size.height;
+    double ancho = 280;
+
+    if (width <= 400) {
+      ancho = 200;
+    }
     return GestureDetector(
         //   onTap: () {
         //     Provider.of<AplicacionesProvider>(context, listen: false)
@@ -75,7 +82,7 @@ class ContactsGruposPage extends StatelessWidget {
                 borderRadius: BorderRadius.circular(20.0),
                 border: Border.all(color: Theme.of(context).primaryColor)),
             child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   GestureDetector(
                     onTap: () {
@@ -112,7 +119,7 @@ class ContactsGruposPage extends StatelessWidget {
                       );
                     },
                     child: Container(
-                      width: 280,
+                      width: ancho,
                       child: Center(
                         child: Text(
                           grupo,

@@ -150,9 +150,10 @@ class _ContactsPorGrupoPageState extends State<ContactsPorGrupoPage> {
               // ),
               tresBotonesHeader(context, true, 'ContactosPorGrupo'),
               Text(
-                'Contactos: ' + grupo,
+                ' Grupo: ' + grupo,
+                overflow: TextOverflow.ellipsis,
                 style: TextStyle(
-                    color: Theme.of(context).primaryColor, fontSize: 30),
+                    color: Theme.of(context).primaryColor, fontSize: 25),
               ),
               grupo == 'Todos'
                   ? Container(

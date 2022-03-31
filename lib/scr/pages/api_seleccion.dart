@@ -198,11 +198,11 @@ class _WidgetApiState extends State<WidgetApi> {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             SizedBox(
-              width: 5,
+              height: 5,
             ),
             Image.memory(
               (widget.api as ApplicationWithIcon).icon,
-              width: 100,
+              width: 90,
             ),
             SizedBox(
               width: 10,

@@ -59,8 +59,8 @@ class MyApp extends StatelessWidget {
       },
       title: 'vitalfon',
       theme: themaApi(pref.paleta),
-      // home: SplashPage(),
 
+      //initialRoute: 'home',
       initialRoute: pref.instalado ? 'home' : 'instalar',
       routes: rutasApp,
     );

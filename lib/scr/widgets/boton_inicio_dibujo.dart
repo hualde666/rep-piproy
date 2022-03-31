@@ -1,9 +1,17 @@
 import 'package:flutter/material.dart';
 
 Widget inicioBoton(BuildContext context) {
+  double width = MediaQuery.of(context).size.width;
+  // double height = MediaQuery.of(context).size.height;
+  double ancho = 100;
+  double alto = 50;
+  if (width <= 320) {
+    ancho = 80;
+    alto = 40;
+  }
   return Container(
-      width: 100,
-      height: 50,
+      width: ancho,
+      height: alto,
       decoration: BoxDecoration(
           color: Colors.black38,
           boxShadow: [

@@ -44,8 +44,8 @@ android {
        // 4 01 2022 targetSdkVersion 30
         minSdkVersion 21
         targetSdkVersion 30
-        versionCode = 7
-        versionName = "1.0.1"
+        versionCode = 11
+        versionName = "1.0.2"
     }
 signingConfigs {
     release {

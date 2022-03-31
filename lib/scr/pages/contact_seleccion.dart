@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'package:piproy/scr/models/api_tipos.dart';
 import 'package:piproy/scr/models/contactos_modelo.dart';
@@ -167,7 +168,10 @@ class _SelectContactsPageState extends State<SelectContactsPage> {
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           fontSize: 25.0, color: Colors.white54, height: 1.0),
-                      keyboardType: TextInputType.text,
+                      keyboardType: TextInputType.name,
+                      inputFormatters: [
+                        FilteringTextInputFormatter.allow(RegExp("[a-zA-Z]")),
+                      ],
                       controller: _searchController,
                       // autofocus: true,
                       decoration: InputDecoration(

@@ -134,7 +134,7 @@ class OpcionesPage extends StatelessWidget {
                             image: AssetImage('assets/google.png'),
                             fit: BoxFit.fill)),
                     height: 40,
-                    width: 200,
+                    width: 195,
                     //color: Colors.red),
                   ),
                   SizedBox(

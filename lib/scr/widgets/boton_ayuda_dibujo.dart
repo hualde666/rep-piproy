@@ -7,9 +7,21 @@ class BotonAyudaDibujo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+    //double height = MediaQuery.of(context).size.height;
+    double ancho = 100;
+    double alto = 50;
+
+    double icon = 40;
+    if (width <= 320) {
+      ancho = 80;
+      alto = 40;
+
+      icon = 30;
+    }
     return Container(
-      width: 100,
-      height: 50,
+      width: ancho,
+      height: alto,
       decoration: BoxDecoration(
           color: Colors.black38,
           boxShadow: [
@@ -28,7 +40,7 @@ class BotonAyudaDibujo extends StatelessWidget {
       child: Center(
         child: Icon(
           Icons.help_outline_rounded,
-          size: 40,
+          size: icon,
           color: Theme.of(context).primaryColor,
         ),
         // Text(
