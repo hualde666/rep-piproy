@@ -1,7 +1,5 @@
-
 def localProperties = new Properties()
 def localPropertiesFile = rootProject.file('local.properties')
-
 if (localPropertiesFile.exists()) {
     localPropertiesFile.withReader('UTF-8') { reader ->
         localProperties.load(reader)
@@ -27,12 +25,11 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 def keystoreProperties = new Properties()
-//********************************************** para Piedad/
-// def keystorePropertiesFile = rootProject.file('key.properties')
-// if (keystorePropertiesFile.exists()) {
-//     keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
-// }
-//**********************************************/
+def keystorePropertiesFile = rootProject.file('key.properties')
+if (keystorePropertiesFile.exists()) {
+    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+}
+
 android {
     compileSdkVersion 31
 
@@ -47,24 +44,22 @@ android {
        // 4 01 2022 targetSdkVersion 30
         minSdkVersion 21
         targetSdkVersion 30
-        versionCode = 12
+        versionCode = 11
         versionName = "1.0.2"
     }
-    //********************************************** comentar para Piedad/
-// signingConfigs {
-//     release {
-//         keyAlias keystoreProperties['keyAlias']
-//         keyPassword keystoreProperties['keyPassword']
-//         storeFile file(keystoreProperties['storeFile'])
-//         storePassword keystoreProperties['storePassword']
-//     }
-// }
-// buildTypes {
-//     release {
-//        signingConfig signingConfigs.release
-//     }
-// }
-//**********************************************/
+signingConfigs {
+    release {
+        keyAlias keystoreProperties['keyAlias']
+        keyPassword keystoreProperties['keyPassword']
+        storeFile file(keystoreProperties['storeFile'])
+        storePassword keystoreProperties['storePassword']
+    }
+}
+buildTypes {
+    release {
+       signingConfig signingConfigs.release
+    }
+}
 }
 
 flutter {

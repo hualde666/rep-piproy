@@ -169,9 +169,9 @@ class _SelectContactsPageState extends State<SelectContactsPage> {
                       style: TextStyle(
                           fontSize: 25.0, color: Colors.white54, height: 1.0),
                       keyboardType: TextInputType.name,
-                      inputFormatters: [
-                        FilteringTextInputFormatter.allow(RegExp("[a-zA-Z]")),
-                      ],
+                      // inputFormatters: [
+                      //   FilteringTextInputFormatter.allow(RegExp("[a-zA-Z]")),
+                      // ],
                       controller: _searchController,
                       // autofocus: true,
                       decoration: InputDecoration(
