@@ -70,6 +70,7 @@ class ContactosProvider with ChangeNotifier {
 
     if (resp == PermissionStatus.granted) {
       List<Contact> _contactos = (await ContactsService.getContacts()).toList();
+      _listaContactos = [];
       _listaContactos.addAll(_contactos
           .where((contac) => contac.phones.isEmpty == false)
           .toList());

@@ -3,6 +3,7 @@ import 'package:device_apps/device_apps.dart';
 
 import 'package:flutter/material.dart';
 import 'package:piproy/scr/models/contactos_modelo.dart';
+//import 'package:piproy/scr/pages/contact_seleccion.dart';
 import 'package:piproy/scr/providers/contactos_provider.dart';
 
 import 'package:piproy/scr/providers/db_provider.dart';
@@ -279,7 +280,8 @@ class AplicacionesProvider with ChangeNotifier {
       //*** obtengo lista de la BD tosas las apps del grupo */
       if (grupo == 'Todos') {
         List<Contact> lista = await contactosProvaide.getcontactos();
-        categoryContact['Todos'] = [];
+        List<ContactoDatos> lista2 = [];
+        //categoryContact['Todos'] = [];
         for (var i = 0; i < lista.length; i++) {
           String _nombre = lista[i].displayName;
           String _telefono = "";
@@ -295,9 +297,11 @@ class AplicacionesProvider with ChangeNotifier {
           }
           final _contacto = new ContactoDatos(
               nombre: _nombre, telefono: _telefono, whatsapptel: _whatsapp);
-          categoryContact['Todos'].add((_contacto));
+          // categoryContact['Todos'].add((_contacto));
+          lista2.add(_contacto);
         }
-        //categoryContact['Todos'].addAll(lista);
+        categoryContact['Todos'] = [];
+        categoryContact['Todos'].addAll(lista2);
       } else {
         List<ApiTipos> lista =
             await DbTiposAplicaciones.db.obtenerAppsGrupo(grupo);

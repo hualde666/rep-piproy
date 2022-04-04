@@ -57,7 +57,7 @@ class ApiGruposPage extends StatelessWidget {
     // double height = MediaQuery.of(context).size.height;
     double ancho = 280;
 
-    if (width <= 400) {
+    if (width <= 320) {
       ancho = 200;
     }
     return GestureDetector(
@@ -161,67 +161,95 @@ class ApiGruposPage extends StatelessWidget {
   AlertDialog crearGrupoForm(BuildContext context) {
     final apiProvider = Provider.of<AplicacionesProvider>(context);
     final TextEditingController _tipoControle = TextEditingController();
-    return AlertDialog(
-      content: Form(
-        child: Container(
-          height: 100,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text('Crear grupo',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 30,
-                  )),
-              SizedBox(
-                height: 10,
-              ),
-              TextFormField(
-                textCapitalization: TextCapitalization.words,
-                style: TextStyle(
-                  fontSize: 25,
-                ),
-                controller: _tipoControle,
-                validator: (valor) {
-                  // validar que no exite ya
+    double height = (MediaQuery.of(context).size.height);
 
-                  return valor.isNotEmpty ? null : "dato invalido";
-                },
-                decoration: InputDecoration(hintText: "nombre del grupo"),
-              )
-            ],
+    return AlertDialog(
+      content: SingleChildScrollView(
+        child: Form(
+          child: Container(
+            height: height <= 500 ? 70 : 100,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  height: height <= 500 ? 10 : 60,
+                  child: Text('Crear grupo',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: height <= 500 ? 10 : 30,
+                      )),
+                ),
+                SizedBox(
+                  height: height <= 500 ? 2 : 10,
+                ),
+                Container(
+                  height: height <= 500 ? 25 : 30,
+                  child: TextFormField(
+                    textCapitalization: TextCapitalization.words,
+                    style: TextStyle(
+                      fontSize: height <= 500 ? 15 : 25,
+                    ),
+                    controller: _tipoControle,
+                    validator: (valor) {
+                      // validar que no exite ya
+
+                      return valor.isNotEmpty ? null : "dato invalido";
+                    },
+                    decoration: InputDecoration(hintText: "nombre del grupo"),
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),
       actionsAlignment: MainAxisAlignment.spaceAround,
       actions: [
-        ElevatedButton(
-            onPressed: () {
-              if (_tipoControle.value.text != "" &&
-                  !apiProvider.apigrupos.contains(_tipoControle.value.text)) {
-                // agregar a BD
-                String grupo = _tipoControle.value.text[0].toUpperCase();
-                if (_tipoControle.value.text.length > 1) {
+        Container(
+          height: height <= 500 ? 20 : 30,
+          child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  //change width and height on your need width = 200 and height = 50
+                  minimumSize: Size(30, 20),
+                  primary: Color.fromRGBO(249, 75, 11, 1)),
+              onPressed: () {
+                String grupo;
+                if (_tipoControle.value.text.isNotEmpty) {
                   grupo = _tipoControle.value.text[0].toUpperCase() +
                       _tipoControle.value.text.substring(1);
-                }
-                apiProvider.agregarApiGrupo(grupo);
-                final nuevo = new ApiTipos(grupo: grupo, nombre: "", tipo: "1");
-                DbTiposAplicaciones.db.nuevoTipo(nuevo);
-              }
 
-              Navigator.of(context).pop();
-            },
-            child: Text(
-              'Si',
-            )),
-        ElevatedButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            child: Text(
-              'No',
-            )),
+                  if (!apiProvider.apigrupos.contains(grupo)) {
+                    // agregar a BD
+
+                    apiProvider.agregarApiGrupo(grupo);
+                    final nuevo =
+                        new ApiTipos(grupo: grupo, nombre: "", tipo: "1");
+                    DbTiposAplicaciones.db.nuevoTipo(nuevo);
+                  }
+
+                  Navigator.of(context).pop();
+                }
+              },
+              child: Text(
+                'Si',
+                style: TextStyle(fontSize: height <= 500 ? 15 : 25),
+              )),
+        ),
+        Container(
+          height: height <= 500 ? 20 : 30,
+          child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  //change width and height on your need width = 200 and height = 50
+                  minimumSize: Size(30, 20),
+                  primary: Color.fromRGBO(249, 75, 11, 1)),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text(
+                'No',
+                style: TextStyle(fontSize: height <= 500 ? 15 : 25),
+              )),
+        ),
       ],
     );
   }
@@ -260,6 +288,10 @@ class ApiGruposPage extends StatelessWidget {
       actionsAlignment: MainAxisAlignment.spaceAround,
       actions: [
         ElevatedButton(
+            style: ElevatedButton.styleFrom(
+                //change width and height on your need width = 200 and height = 50
+                minimumSize: Size(30, 20),
+                primary: Color.fromRGBO(249, 75, 11, 1)),
             onPressed: () {
               // Eliminar de categoria
 
@@ -283,6 +315,10 @@ class ApiGruposPage extends StatelessWidget {
               'Si',
             )),
         ElevatedButton(
+            style: ElevatedButton.styleFrom(
+                //change width and height on your need width = 200 and height = 50
+                minimumSize: Size(30, 20),
+                primary: Color.fromRGBO(249, 75, 11, 1)),
             onPressed: () {
               Navigator.of(context).pop();
             },
@@ -318,6 +354,10 @@ class ApiGruposPage extends StatelessWidget {
       actionsAlignment: MainAxisAlignment.spaceAround,
       actions: [
         ElevatedButton(
+            style: ElevatedButton.styleFrom(
+                //change width and height on your need width = 200 and height = 50
+                minimumSize: Size(30, 20),
+                primary: Color.fromRGBO(249, 75, 11, 1)),
             onPressed: () {
               final nuevo = new ApiTipos(grupo: 'MPD', nombre: grupo);
               if (!apiProvider.listaMenu.contains('MPD' + grupo)) {
@@ -335,6 +375,10 @@ class ApiGruposPage extends StatelessWidget {
               'Si',
             )),
         ElevatedButton(
+            style: ElevatedButton.styleFrom(
+                //change width and height on your need width = 200 and height = 50
+                minimumSize: Size(30, 20),
+                primary: Color.fromRGBO(249, 75, 11, 1)),
             onPressed: () {
               Navigator.pop(context);
             },
@@ -356,34 +400,42 @@ class ApiGruposPage extends StatelessWidget {
     final apiProvider = Provider.of<AplicacionesProvider>(context);
     final TextEditingController _tipoControle =
         TextEditingController(text: grupo);
+    double height = (MediaQuery.of(context).size.height);
     return AlertDialog(
       content: Form(
         child: Container(
-          height: 170,
+          height: height <= 500 ? 80 : 170,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text('Editar nombre de grupo de Aplicación',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 30,
-                  )),
-              SizedBox(
-                height: 10,
+              Container(
+                height: height <= 500 ? 19 : 60,
+                child: Text('Editar nombre de grupo de Aplicación',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: height <= 500 ? 10 : 25,
+                    )),
               ),
-              TextFormField(
-                // initialValue: grupo,
-                textCapitalization: TextCapitalization.words,
-                style: TextStyle(
-                  fontSize: 25,
-                ),
-                controller: _tipoControle,
-                validator: (valor) {
-                  // validar que no exite ya
+              SizedBox(
+                height: height <= 500 ? 2 : 10,
+              ),
+              Container(
+                height: height <= 500 ? 15 : 50,
+                child: TextFormField(
+                  // initialValue: grupo,
+                  textCapitalization: TextCapitalization.words,
 
-                  return valor.isNotEmpty ? null : "dato invalido";
-                },
-                decoration: InputDecoration(hintText: "nombre del grupo"),
+                  style: TextStyle(
+                    fontSize: height <= 500 ? 15 : 25,
+                  ),
+                  controller: _tipoControle,
+                  validator: (valor) {
+                    // validar que no exite ya
+
+                    return valor.isNotEmpty ? null : "dato invalido";
+                  },
+                  decoration: InputDecoration(hintText: "nombre del grupo"),
+                ),
               )
             ],
           ),
@@ -391,48 +443,59 @@ class ApiGruposPage extends StatelessWidget {
       ),
       actionsAlignment: MainAxisAlignment.spaceAround,
       actions: [
-        ElevatedButton(
-            onPressed: () {
-              // no puede estar en blanco ni ya definido
-              if (_tipoControle.value.text != "" &&
-                  !apiProvider.apigrupos.contains(_tipoControle.value.text)) {
-                // agregar a BD
-                String grupoNuevo = _tipoControle.value.text[0].toUpperCase();
-                if (_tipoControle.value.text.length > 1) {
+        Container(
+          height: height <= 500 ? 20 : 30,
+          child: ElevatedButton(
+              onPressed: () {
+                // no puede estar en blanco ni ya definido
+                String grupoNuevo;
+                if (_tipoControle.value.text.isNotEmpty) {
                   grupoNuevo = _tipoControle.value.text[0].toUpperCase() +
                       _tipoControle.value.text.substring(1);
-                }
-                apiProvider.cambiarGrupoApi(grupo, grupoNuevo);
-                if (apiProvider.listaMenu.contains('MPD' + grupo)) {
-                  Provider.of<AplicacionesProvider>(context, listen: false)
-                      .agregarMenu('MPD' + grupoNuevo);
-                  Provider.of<AplicacionesProvider>(context, listen: false)
-                      .eliminarTipoMP('MPD' + grupo);
 
-                  DbTiposAplicaciones.db
-                      .modificarNombre(grupo, grupoNuevo, 'MPD');
-                }
-                DbTiposAplicaciones.db.modificarGrupo(grupo, grupoNuevo);
-              }
+                  if (!apiProvider.apigrupos.contains(grupoNuevo)) {
+                    // agregar a BD
 
-              Navigator.of(context).pop();
-            },
-            style: ElevatedButton.styleFrom(
-                primary: Color.fromRGBO(249, 75, 11, 1)),
-            child: Text(
-              'Si',
-              style: TextStyle(fontSize: 25, color: Colors.white),
-            )),
-        ElevatedButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            style: ElevatedButton.styleFrom(
-                primary: Color.fromRGBO(249, 75, 11, 1)),
-            child: Text(
-              'No',
-              style: TextStyle(fontSize: 25, color: Colors.white),
-            )),
+                    apiProvider.cambiarGrupoApi(grupo, grupoNuevo);
+                    if (apiProvider.listaMenu.contains('MPD' + grupo)) {
+                      Provider.of<AplicacionesProvider>(context, listen: false)
+                          .agregarMenu('MPD' + grupoNuevo);
+                      Provider.of<AplicacionesProvider>(context, listen: false)
+                          .eliminarTipoMP('MPD' + grupo);
+
+                      DbTiposAplicaciones.db
+                          .modificarNombre(grupo, grupoNuevo, 'MPD');
+                    }
+                    DbTiposAplicaciones.db.modificarGrupo(grupo, grupoNuevo);
+                  }
+
+                  Navigator.of(context).pop();
+                }
+              },
+              style: ElevatedButton.styleFrom(
+                  minimumSize: Size(30, 20),
+                  primary: Color.fromRGBO(249, 75, 11, 1)),
+              child: Text(
+                'Si',
+                style: TextStyle(
+                    fontSize: height <= 500 ? 15 : 25, color: Colors.white),
+              )),
+        ),
+        Container(
+          height: height <= 500 ? 20 : 30,
+          child: ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              style: ElevatedButton.styleFrom(
+                  minimumSize: Size(30, 20),
+                  primary: Color.fromRGBO(249, 75, 11, 1)),
+              child: Text(
+                'No',
+                style: TextStyle(
+                    fontSize: height <= 500 ? 15 : 25, color: Colors.white),
+              )),
+        ),
       ],
     );
   }

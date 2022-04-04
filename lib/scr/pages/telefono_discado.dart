@@ -21,160 +21,166 @@ class _DiscadoState extends State<Discado> {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width / 3;
     double height = (MediaQuery.of(context).size.height - 290) / 6;
+    if (MediaQuery.of(context).size.height <= 480) {
+      height = 50;
+    }
+
     //final altura = (MediaQuery.of(context).size.height - 190) / 5.0;
 
     return SafeArea(
         child: Scaffold(
       appBar: headerApp(context, 'Teléfono', Text(''), 0.0, true, 'Discado'),
       // backgroundColor: Colors.white,
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          GestureDetector(
-            onTap: () {
-              //SystemChannels.textInput.invokeMethod('TextInput.hide');
-            },
-            child: Container(
-              margin: EdgeInsets.symmetric(horizontal: 5),
-              decoration: BoxDecoration(
-                  color: Colors.amber,
-                  borderRadius: BorderRadius.circular(20.0),
-                  border: Border.all(
-                      color: Theme.of(context).primaryColor, width: 1)),
-              // height: 80,
-              child: Center(
-                child: Text(
-                  myController.text,
-                  style: TextStyle(
-                      fontSize:
-                          MediaQuery.of(context).size.width <= 320 ? 35 : 45,
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold),
+      body: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            GestureDetector(
+              onTap: () {
+                //SystemChannels.textInput.invokeMethod('TextInput.hide');
+              },
+              child: Container(
+                margin: EdgeInsets.symmetric(horizontal: 5),
+                decoration: BoxDecoration(
+                    color: Colors.amber,
+                    borderRadius: BorderRadius.circular(20.0),
+                    border: Border.all(
+                        color: Theme.of(context).primaryColor, width: 1)),
+                // height: 80,
+                child: Center(
+                  child: Text(
+                    myController.text,
+                    style: TextStyle(
+                        fontSize:
+                            MediaQuery.of(context).size.width <= 320 ? 35 : 45,
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold),
+                  ),
                 ),
               ),
             ),
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-            tecla(context, '1', myController),
-            tecla(context, '2', myController),
-            tecla(context, '3', myController)
-          ]),
-          SizedBox(
-            height: 8,
-          ),
-          Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-            tecla(context, '4', myController),
-            tecla(context, '5', myController),
-            tecla(context, '6', myController)
-          ]),
-          SizedBox(
-            height: 8,
-          ),
-          Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-            tecla(context, '7', myController),
-            tecla(context, '8', myController),
-            tecla(context, '9', myController)
-          ]),
-          SizedBox(
-            height: 8,
-          ),
-          Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-            tecla(context, '*', myController),
-            tecla(context, '0', myController),
-            tecla(context, '#', myController)
-          ]),
-          SizedBox(
-            height: 20,
-          ),
-          Container(
-            margin: EdgeInsets.symmetric(horizontal: 5),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                GestureDetector(
-                  onTap: (() => {
-                        setState(() {
-                          telefono = '';
-                          myController.clear();
-                        })
-                      }),
-                  child: Container(
-                    height: height,
-                    width: width - 20,
-                    decoration: BoxDecoration(
-                        color: Colors.red,
-                        borderRadius: BorderRadius.circular(25.0),
-                        border: Border.all(color: Colors.white38, width: 1)),
-                    child: Center(
-                      child: Icon(
-                        Icons.clear,
-                        color: Colors.black,
-                        size: 50,
-                      ),
-                    ),
-                  ),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    if (myController.text.length > 8) {
-                      llamar(myController.text);
-                    }
-                  },
-                  child: Container(
-                    height: height,
-                    width: width,
-                    decoration: BoxDecoration(
-                        color: Color.fromARGB(255, 10, 185, 98),
-                        borderRadius: BorderRadius.circular(25.0),
-                        border: Border.all(color: Colors.white38, width: 1)),
-                    child: Center(
-                        child: Text(
-                      'llamar',
-                      style: TextStyle(fontSize: 30, color: Colors.black),
-                    )),
-                  ),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      final String numero = myController.text;
-                      telefono = myController.text;
-                      if (numero.length > 1) {
-                        myController.text =
-                            numero.substring(0, numero.length - 1);
-                        //   final x = formatoNumero(numero);
-                      } else {
-                        myController.text = '';
-                        telefono = '';
-                      }
-                    });
-                  },
-                  child: Container(
-                    height: height,
-                    width: width - 20,
-                    decoration: BoxDecoration(
-                        color: Colors.orange,
-                        borderRadius: BorderRadius.circular(25.0),
-                        border: Border.all(color: Colors.white38, width: 1)),
-                    child: Center(
-                      child: Icon(
-                        Icons.backspace_outlined,
-                        color: Colors.black,
-                        size: 40,
-                      ),
-                    ),
-                  ),
-                )
-              ],
+            SizedBox(
+              height: 20,
             ),
-          ),
-          SizedBox(
-            height: 5,
-          )
-        ],
+            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+              tecla(context, '1', myController),
+              tecla(context, '2', myController),
+              tecla(context, '3', myController)
+            ]),
+            SizedBox(
+              height: 8,
+            ),
+            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+              tecla(context, '4', myController),
+              tecla(context, '5', myController),
+              tecla(context, '6', myController)
+            ]),
+            SizedBox(
+              height: 8,
+            ),
+            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+              tecla(context, '7', myController),
+              tecla(context, '8', myController),
+              tecla(context, '9', myController)
+            ]),
+            SizedBox(
+              height: 8,
+            ),
+            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+              tecla(context, '*', myController),
+              tecla(context, '0', myController),
+              tecla(context, '#', myController)
+            ]),
+            SizedBox(
+              height: 20,
+            ),
+            Container(
+              margin: EdgeInsets.symmetric(horizontal: 5),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  GestureDetector(
+                    onTap: (() => {
+                          setState(() {
+                            telefono = '';
+                            myController.clear();
+                          })
+                        }),
+                    child: Container(
+                      height: height,
+                      width: width - 20,
+                      decoration: BoxDecoration(
+                          color: Colors.red,
+                          borderRadius: BorderRadius.circular(25.0),
+                          border: Border.all(color: Colors.white38, width: 1)),
+                      child: Center(
+                        child: Icon(
+                          Icons.clear,
+                          color: Colors.black,
+                          size: 50,
+                        ),
+                      ),
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      if (myController.text.length > 8) {
+                        llamar(myController.text);
+                      }
+                    },
+                    child: Container(
+                      height: height,
+                      width: width,
+                      decoration: BoxDecoration(
+                          color: Color.fromARGB(255, 10, 185, 98),
+                          borderRadius: BorderRadius.circular(25.0),
+                          border: Border.all(color: Colors.white38, width: 1)),
+                      child: Center(
+                          child: Text(
+                        'llamar',
+                        style: TextStyle(fontSize: 30, color: Colors.black),
+                      )),
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        final String numero = myController.text;
+                        telefono = myController.text;
+                        if (numero.length > 1) {
+                          myController.text =
+                              numero.substring(0, numero.length - 1);
+                          //   final x = formatoNumero(numero);
+                        } else {
+                          myController.text = '';
+                          telefono = '';
+                        }
+                      });
+                    },
+                    child: Container(
+                      height: height,
+                      width: width - 20,
+                      decoration: BoxDecoration(
+                          color: Colors.orange,
+                          borderRadius: BorderRadius.circular(25.0),
+                          border: Border.all(color: Colors.white38, width: 1)),
+                      child: Center(
+                        child: Icon(
+                          Icons.backspace_outlined,
+                          color: Colors.black,
+                          size: 40,
+                        ),
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 5,
+            )
+          ],
+        ),
       ),
     ));
   }
@@ -184,6 +190,9 @@ class _DiscadoState extends State<Discado> {
     //final altura = (MediaQuery.of(context).size.height - 190) / 5.0;
     double width = MediaQuery.of(context).size.width / 3;
     double height = (MediaQuery.of(context).size.height - 290) / 6;
+    if (MediaQuery.of(context).size.height <= 480) {
+      height = 50;
+    }
     double font = 55;
     if (MediaQuery.of(context).size.width <= 320) {
       font = 35;
@@ -199,14 +208,16 @@ class _DiscadoState extends State<Discado> {
         },
         child: Container(
           margin: EdgeInsets.symmetric(horizontal: 5),
-          padding: EdgeInsets.symmetric(vertical: 5),
+          //  padding: EdgeInsets.symmetric(vertical: 5),
           height: height,
           width: width - 10,
-          child: Text(
-            tecla,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: font,
+          child: Center(
+            child: Text(
+              tecla,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: font,
+              ),
             ),
           ),
           decoration: BoxDecoration(

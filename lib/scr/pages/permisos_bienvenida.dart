@@ -89,7 +89,7 @@ class BienvenidaPage extends StatelessWidget {
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(25)),
                       // side: BorderSide() ,
-                      primary: Color.fromRGBO(249, 75, 11, 1)),
+                      primary: Color.fromARGB(255, 4, 135, 211)),
                   child: Text(
                     'siguiente ->',
                     style: TextStyle(fontSize: 25, color: Colors.white),

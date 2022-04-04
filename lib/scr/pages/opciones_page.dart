@@ -18,7 +18,7 @@ class OpcionesPage extends StatelessWidget {
         height: 5,
       ),
       Container(
-        height: 365,
+        height: 340,
         child: GridView.count(
           mainAxisSpacing: 3,
           crossAxisSpacing: 3,
@@ -239,7 +239,7 @@ class OpcionesPage extends StatelessWidget {
             true, 'Opciones'),
         //    backgroundColor: Colors.white,
         body: Container(
-          padding: EdgeInsets.only(bottom: 40),
+          // padding: EdgeInsets.only(bottom: 40),
           child: ListView.builder(
               padding: EdgeInsets.only(bottom: 100),
               itemCount: opciones.length,
