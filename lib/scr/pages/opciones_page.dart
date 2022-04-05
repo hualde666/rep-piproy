@@ -9,6 +9,9 @@ class OpcionesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final pref = Provider.of<Preferencias>(context);
+
+    double ancho = (MediaQuery.of(context).size.width);
+
     List<Widget> opciones = [
       Divider(
         height: 2,
@@ -18,7 +21,8 @@ class OpcionesPage extends StatelessWidget {
         height: 5,
       ),
       Container(
-        height: 340,
+        height: ancho,
+        margin: EdgeInsets.symmetric(horizontal: 5),
         child: GridView.count(
           mainAxisSpacing: 3,
           crossAxisSpacing: 3,
@@ -93,7 +97,7 @@ class OpcionesPage extends StatelessWidget {
       ),
       Divider(
         height: 2,
-        color: Colors.white,
+        color: Theme.of(context).primaryColor,
       ),
       GestureDetector(
         onTap: () {
@@ -153,7 +157,7 @@ class OpcionesPage extends StatelessWidget {
       ),
       Divider(
         height: 2,
-        color: Colors.white,
+        color: Theme.of(context).primaryColor,
       ),
       GestureDetector(
         onTap: () {
@@ -262,7 +266,7 @@ class IconOpcion extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 40,
+      //height: 70,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
         border: Border.all(color: Theme.of(context).primaryColor, width: 2.0),
@@ -287,9 +291,12 @@ class IconOpcion extends StatelessWidget {
               size: 40.0,
             ),
           ),
-          Text(
-            icontext,
-            style: TextStyle(color: Colors.white60),
+          Container(
+            margin: EdgeInsets.symmetric(vertical: 5),
+            child: Text(icontext,
+                style: TextStyle(
+                    color: Theme.of(context).primaryColor) //,Colors.white60),
+                ),
           )
         ],
       ),
